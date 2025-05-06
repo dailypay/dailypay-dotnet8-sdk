@@ -1,0 +1,14 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    xapi:
+        inputs: []
+        registry:
+            location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+targets:
+    csharp-8:
+        target: csharp
+        source: xapi
+        output: sdk
+        codeSamples:
+            output: codeSamples.yaml
