@@ -2,7 +2,8 @@ workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
     xapi:
-        inputs: []
+        inputs:
+            - location: sources/sdks.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
 targets:
@@ -12,3 +13,5 @@ targets:
         output: sdk
         codeSamples:
             output: codeSamples.yaml
+            registry:
+                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-csharp-code-samples
