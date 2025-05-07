@@ -3,14 +3,14 @@ speakeasyVersion: latest
 sources:
     xapi:
         inputs:
-            - location: sources/sdks.openapi.yaml
+            - location: source/sdks.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
 targets:
     csharp-8:
         target: csharp
         source: xapi
-        output: sdk
+        output: generated/sdk
         codeSamples:
             output: codeSamples.yaml
             registry:
