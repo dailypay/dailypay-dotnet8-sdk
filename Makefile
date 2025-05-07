@@ -1,5 +1,5 @@
 OPENAPI_REPO=https://github.com/dailypay/xapi.git
-OPENPI_BRANCH=main
+OPENAPI_BRANCH=main
 OPENAPI_FILE=sdks.openapi.yaml
 OPENAPI_PATH=api/api-docs/out
 GEN_CONFIG=.speakeasy.gen.yaml
