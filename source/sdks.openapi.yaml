@@ -1145,10 +1145,6 @@ tags:
       **Should you have any questions, please contact your Client Manager or Client Support:**
 
       - **Email:** client.support@dailypay.com
-  - name: .Net 8
-    description: Test .Net
-  - name: Test
-    description: Test Test
   - name: Jobs
     description: |
       The _jobs_ endpoint provides access to comprehensive information 
@@ -4165,10 +4161,6 @@ x-tagGroups:
       - Filtering
       - Errors
       - Client Portal
-  - name: SDKs
-    tags:
-      - .Net 8
-      - Test
   - name: Reference
     tags:
       - Authentication

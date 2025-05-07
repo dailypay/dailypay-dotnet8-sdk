@@ -1,6 +1,11 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
+    openapi:
+        inputs:
+            - location: https://raw.githubusercontent.com/dailypay/xapi/devrel-546/api/api-docs/out/sdks.openapi.yaml
+              authHeader: test
+              authSecret: $openapi_doc_auth_token
     xapi:
         inputs:
             - location: source/sdks.openapi.yaml
@@ -9,7 +14,7 @@ sources:
 targets:
     csharp-8:
         target: csharp
-        source: xapi
+        source: openapi
         output: generated/sdk
         codeSamples:
             output: codeSamples.yaml

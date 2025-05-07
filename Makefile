@@ -2,13 +2,14 @@ OPENAPI_REPO=https://github.com/dailypay/xapi.git
 OPENAPI_BRANCH=main
 OPENAPI_FILE=sdks.openapi.yaml
 OPENAPI_PATH=api/api-docs/out
+MARKDOWN_PATH=api/api-docs/markdown
 GEN_CONFIG=.speakeasy.gen.yaml
 
-.PHONY: all get-openapi generate-sdk clean
+.PHONY: all get-repo-info generate-sdk clean
 
-all: get-openapi-spec generate-sdk
+all: get-repo-info generate-sdk
 
-get-openapi-spec:
+get-repo-info:
 	@echo "Cloning Repo for API file"
 	@if [ -d tmp-openapi ]; then \
 		cd tmp-openapi && git pull origin $(OPENAPI_BRANCH); \
@@ -17,7 +18,9 @@ get-openapi-spec:
 	fi
 	@echo "Copying file"
 	mkdir -p source
-	cp tmp-openapi/$(OPENAPI_FILE) source/$(OPENAPI_FILE)
+	mkdir -p documentation
+	cp tmp-openapi/$(OPENAPI_PATH)/$(OPENAPI_FILE) source/$(OPENAPI_FILE)
+	cp -r tmp-openapi/$(MARKDOWN_PATH) documentation
 
 generate-sdk:
 	@echo "Generating .NET 8 SDK"
