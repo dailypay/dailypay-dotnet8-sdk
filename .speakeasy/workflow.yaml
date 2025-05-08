@@ -14,7 +14,7 @@ sources:
 targets:
     csharp-8:
         target: csharp
-        source: openapi
+        source: xapi
         output: generated/sdk
         codeSamples:
             output: codeSamples.yaml

@@ -7,7 +7,7 @@ GEN_CONFIG=.speakeasy.gen.yaml
 
 .PHONY: all get-repo-info generate-sdk clean
 
-all: get-repo-info generate-sdk
+all: get-repo-info generate-sdk clean
 
 get-repo-info:
 	@echo "Cloning Repo for API file"
