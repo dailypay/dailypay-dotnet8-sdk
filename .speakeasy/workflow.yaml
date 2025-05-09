@@ -3,20 +3,15 @@ speakeasyVersion: latest
 sources:
     openapi:
         inputs:
-            - location: https://raw.githubusercontent.com/dailypay/xapi/devrel-546/api/api-docs/out/sdks.openapi.yaml
-              authHeader: test
-              authSecret: $openapi_doc_auth_token
-    xapi:
-        inputs:
-            - location: source/sdks.openapi.yaml
+            - location: https://raw.githubusercontent.com/dailypay/xapi/main/api/api-docs/out/sdks.openapi.yaml
+              authHeader: Authorization
+              authSecret: $OAUTH_TOKEN
         registry:
-            location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+            location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
 targets:
     csharp-8:
         target: csharp
-        source: xapi
+        source: openapi
         output: generated/sdk
         codeSamples:
             output: codeSamples.yaml
-            registry:
-                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-csharp-code-samples
