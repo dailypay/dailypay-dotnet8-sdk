@@ -5,6 +5,6 @@ update-token:
 	export OAUTH_TOKEN="Bearer ${gh auth token}"    
 
 generate-sdk:
-	update-token
+	make update-token
 	@echo "Generating .NET 8 SDK"
 	speakeasy run -t csharp-8
