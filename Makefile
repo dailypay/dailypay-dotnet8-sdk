@@ -18,6 +18,7 @@ update-documentation:
 	@echo "Downloading Zip..."
 	curl -L "$(XAPI_URL)" -H "Authorization: $(OAUTH_TOKEN)" -o xapi.zip
 	unzip xapi.zip -d tmp-xapi
+	rm -rf xapi.zip
 	mkdir -p documentation
 	cp -r tmp-xapi/xapi-main/api/api-docs/markdown/* documentation/
-	rm -rf tmp-xapi xapi.zip
+	rm -rf tmp-xapi 
