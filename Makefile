@@ -23,6 +23,8 @@ generate-sdk-local:
 
 update-documentation:
 	@echo "Updating Documentation"
-	rm -rf documentation
-	mkdir -p documentation
+	rm -rf $(ROOT_DIR)/documentation
+	mkdir -p $(ROOT_DIR)/documentation
 	node $(ROOT_DIR)/helpers/merge-sdk-mds.js;
+	@echo "Moving docs folders to documentation folder"
+	mv $(ROOT_DIR)/sdk/docs $(ROOT_DIR)/documentation

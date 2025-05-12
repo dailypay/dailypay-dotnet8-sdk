@@ -1,0 +1,783 @@
+lockVersion: 2.0.0
+id: 47ffcad6-2766-460e-82f5-4e242d55d9ba
+management:
+  docChecksum: 85e408f6e1a4d3b15de3c7b62842cb40
+  docVersion: 3.0.0-beta01
+  speakeasyVersion: 1.543.8
+  generationVersion: 2.598.22
+  releaseVersion: 0.0.1
+  configChecksum: 1747bc4daa1edf788abcea8428120e18
+features:
+  csharp:
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.0.1
+    core: 3.10.16
+    deprecations: 2.81.2
+    flattening: 2.81.3
+    globalSecurity: 2.83.7
+    globalSecurityCallbacks: 0.1.0
+    globalServerURLs: 2.82.4
+    globals: 2.82.1
+    inputOutputModels: 2.83.0
+    intellisenseMarkdownSupport: 0.1.0
+    methodArguments: 0.2.0
+    methodServerURLs: 2.82.1
+    nameOverrides: 2.81.2
+    nullables: 0.1.1
+    oauth2ClientCredentials: 0.3.2
+    responseFormat: 0.0.4
+    sdkHooks: 0.1.0
+    unions: 0.2.2
+generatedFiles:
+  - .gitattributes
+  - Openapi.sln
+  - USAGE.md
+  - docs/Models/Components/AccountAttributesCardAccountBalances.md
+  - docs/Models/Components/AccountAttributesCardAccountCapabilities.md
+  - docs/Models/Components/AccountAttributesCardSubtype.md
+  - docs/Models/Components/AccountAttributesCardVerificationStatus.md
+  - docs/Models/Components/AccountAttributesDepositoryAccountBalances.md
+  - docs/Models/Components/AccountAttributesDepositoryAccountCapabilities.md
+  - docs/Models/Components/AccountAttributesDepositorySubtype.md
+  - docs/Models/Components/AccountAttributesDepositoryVerificationStatus.md
+  - docs/Models/Components/AccountAttributesEarningsBalanceAccountBalances.md
+  - docs/Models/Components/AccountAttributesEarningsBalanceAccountCapabilities.md
+  - docs/Models/Components/AccountAttributesEarningsBalanceDetails.md
+  - docs/Models/Components/AccountAttributesEarningsBalanceVerificationStatus.md
+  - docs/Models/Components/AccountAttributesInput.md
+  - docs/Models/Components/AccountAttributesOutput.md
+  - docs/Models/Components/AccountDataInput.md
+  - docs/Models/Components/AccountDataOutput.md
+  - docs/Models/Components/AccountDebitCardInput.md
+  - docs/Models/Components/AccountDebitCardOutput.md
+  - docs/Models/Components/AccountGalileoCardInput.md
+  - docs/Models/Components/AccountGalileoCardOutput.md
+  - docs/Models/Components/AccountIdentifier.md
+  - docs/Models/Components/AccountLinks.md
+  - docs/Models/Components/AccountRelationship.md
+  - docs/Models/Components/AccountRelationships.md
+  - docs/Models/Components/AccountResourceInput.md
+  - docs/Models/Components/AccountResourceOutput.md
+  - docs/Models/Components/AccountWiselyCard.md
+  - docs/Models/Components/AccountWiselyCardOutput.md
+  - docs/Models/Components/AccountsData.md
+  - docs/Models/Components/ActivationStatus.md
+  - docs/Models/Components/CardInput.md
+  - docs/Models/Components/CardOutput.md
+  - docs/Models/Components/Data.md
+  - docs/Models/Components/Depository.md
+  - docs/Models/Components/DepositoryAccountDetails.md
+  - docs/Models/Components/DepositoryInput.md
+  - docs/Models/Components/DetailsInput.md
+  - docs/Models/Components/DetailsOutput.md
+  - docs/Models/Components/DirectDepositStatus.md
+  - docs/Models/Components/DisallowReason.md
+  - docs/Models/Components/EarningsBalanceReadOnly.md
+  - docs/Models/Components/EarningsBalanceReadOnlyInput.md
+  - docs/Models/Components/ErrorAccountCreateError.md
+  - docs/Models/Components/ErrorAccountCreateErrorLinks.md
+  - docs/Models/Components/ErrorAccountCreateErrorMeta.md
+  - docs/Models/Components/ErrorAccountCreateErrorSource.md
+  - docs/Models/Components/ErrorBadRequestError.md
+  - docs/Models/Components/ErrorBadRequestErrorLinks.md
+  - docs/Models/Components/ErrorBadRequestErrorMeta.md
+  - docs/Models/Components/ErrorBadRequestErrorSource.md
+  - docs/Models/Components/ErrorForbiddenError.md
+  - docs/Models/Components/ErrorForbiddenErrorCode.md
+  - docs/Models/Components/ErrorForbiddenErrorLinks.md
+  - docs/Models/Components/ErrorForbiddenErrorMeta.md
+  - docs/Models/Components/ErrorForbiddenErrorSource.md
+  - docs/Models/Components/ErrorJobUpdateError.md
+  - docs/Models/Components/ErrorJobUpdateErrorLinks.md
+  - docs/Models/Components/ErrorJobUpdateErrorMeta.md
+  - docs/Models/Components/ErrorJobUpdateErrorSource.md
+  - docs/Models/Components/ErrorNotFoundError.md
+  - docs/Models/Components/ErrorNotFoundErrorCode.md
+  - docs/Models/Components/ErrorNotFoundErrorLinks.md
+  - docs/Models/Components/ErrorNotFoundErrorMeta.md
+  - docs/Models/Components/ErrorNotFoundErrorSource.md
+  - docs/Models/Components/ErrorTransferCreateError.md
+  - docs/Models/Components/ErrorTransferCreateErrorLinks.md
+  - docs/Models/Components/ErrorTransferCreateErrorMeta.md
+  - docs/Models/Components/ErrorTransferCreateErrorSource.md
+  - docs/Models/Components/ErrorUnauthorizedError.md
+  - docs/Models/Components/ErrorUnauthorizedErrorCode.md
+  - docs/Models/Components/ErrorUnauthorizedErrorLinks.md
+  - docs/Models/Components/ErrorUnauthorizedErrorMeta.md
+  - docs/Models/Components/ErrorUnauthorizedErrorSource.md
+  - docs/Models/Components/ErrorUnexpectedError.md
+  - docs/Models/Components/ErrorUnexpectedErrorCode.md
+  - docs/Models/Components/ErrorUnexpectedErrorLinks.md
+  - docs/Models/Components/ErrorUnexpectedErrorMeta.md
+  - docs/Models/Components/ErrorUnexpectedErrorSource.md
+  - docs/Models/Components/FilterAccountType.md
+  - docs/Models/Components/FilterPaycheckStatus.md
+  - docs/Models/Components/Frequency.md
+  - docs/Models/Components/FundingSourceAttributes.md
+  - docs/Models/Components/FundingSourceIdentifier.md
+  - docs/Models/Components/FundingSourceRelationships.md
+  - docs/Models/Components/FundingSourceResource.md
+  - docs/Models/Components/FundingSourcesRelationship.md
+  - docs/Models/Components/HTTPMetadata.md
+  - docs/Models/Components/Health200.md
+  - docs/Models/Components/JobAttributes.md
+  - docs/Models/Components/JobAttributesInput.md
+  - docs/Models/Components/JobData.md
+  - docs/Models/Components/JobIdentifier.md
+  - docs/Models/Components/JobLinks.md
+  - docs/Models/Components/JobRelationship.md
+  - docs/Models/Components/JobRelationships.md
+  - docs/Models/Components/JobRelationshipsInput.md
+  - docs/Models/Components/JobResource.md
+  - docs/Models/Components/JobUpdateData.md
+  - docs/Models/Components/JobsData.md
+  - docs/Models/Components/OrganizationAttributes.md
+  - docs/Models/Components/OrganizationData.md
+  - docs/Models/Components/OrganizationIdentifier.md
+  - docs/Models/Components/OrganizationLinks.md
+  - docs/Models/Components/OrganizationRelationship.md
+  - docs/Models/Components/OrganizationResource.md
+  - docs/Models/Components/OrganizationsData.md
+  - docs/Models/Components/Origin.md
+  - docs/Models/Components/PaycheckAttributes.md
+  - docs/Models/Components/PaycheckAttributesStatus.md
+  - docs/Models/Components/PaycheckData.md
+  - docs/Models/Components/PaycheckIdentifier.md
+  - docs/Models/Components/PaycheckLinks.md
+  - docs/Models/Components/PaycheckRelationship.md
+  - docs/Models/Components/PaycheckRelationships.md
+  - docs/Models/Components/PaycheckResource.md
+  - docs/Models/Components/PaychecksData.md
+  - docs/Models/Components/PersonAttributes.md
+  - docs/Models/Components/PersonAttributesInput.md
+  - docs/Models/Components/PersonData.md
+  - docs/Models/Components/PersonDataInput.md
+  - docs/Models/Components/PersonIdentifier.md
+  - docs/Models/Components/PersonLinks.md
+  - docs/Models/Components/PersonRelationship.md
+  - docs/Models/Components/PersonRelationshipReadOnly.md
+  - docs/Models/Components/PersonResource.md
+  - docs/Models/Components/PersonResourceInput.md
+  - docs/Models/Components/Product.md
+  - docs/Models/Components/SchemeOauthClientCredentialsToken.md
+  - docs/Models/Components/Security.md
+  - docs/Models/Components/TokenData.md
+  - docs/Models/Components/TransferAttributes.md
+  - docs/Models/Components/TransferAttributesInput.md
+  - docs/Models/Components/TransferAttributesSchedule.md
+  - docs/Models/Components/TransferAttributesStatus.md
+  - docs/Models/Components/TransferCreateData.md
+  - docs/Models/Components/TransferCreateRelationships.md
+  - docs/Models/Components/TransferCreateResource.md
+  - docs/Models/Components/TransferData.md
+  - docs/Models/Components/TransferDestinationCapability.md
+  - docs/Models/Components/TransferDestinationCapabilitySchedule.md
+  - docs/Models/Components/TransferIdentifier.md
+  - docs/Models/Components/TransferLinks.md
+  - docs/Models/Components/TransferRelationship.md
+  - docs/Models/Components/TransferRelationships.md
+  - docs/Models/Components/TransferResource.md
+  - docs/Models/Components/TransfersData.md
+  - docs/Models/Components/WageRate.md
+  - docs/Models/Errors/AccountCreateError.md
+  - docs/Models/Errors/BadRequestException.md
+  - docs/Models/Errors/ErrorBadRequest.md
+  - docs/Models/Errors/ErrorCode.md
+  - docs/Models/Errors/ErrorForbidden.md
+  - docs/Models/Errors/ErrorNotFound.md
+  - docs/Models/Errors/ErrorUnauthorized.md
+  - docs/Models/Errors/ErrorUnexpected.md
+  - docs/Models/Errors/JobUpdateError.md
+  - docs/Models/Errors/TransferCreateError.md
+  - docs/Models/Requests/AuthorizationCodeFlow.md
+  - docs/Models/Requests/ClientCredentialsFlow.md
+  - docs/Models/Requests/CreateAccountRequest.md
+  - docs/Models/Requests/CreateAccountResponse.md
+  - docs/Models/Requests/CreateGenericCardTokenRequest.md
+  - docs/Models/Requests/CreateGenericCardTokenResponse.md
+  - docs/Models/Requests/CreateGenericCardTokenResponseBody.md
+  - docs/Models/Requests/CreateTransferRequest.md
+  - docs/Models/Requests/CreateTransferResponse.md
+  - docs/Models/Requests/GetHealthResponse.md
+  - docs/Models/Requests/GrantType.md
+  - docs/Models/Requests/ListAccountsRequest.md
+  - docs/Models/Requests/ListAccountsResponse.md
+  - docs/Models/Requests/ListJobsRequest.md
+  - docs/Models/Requests/ListJobsResponse.md
+  - docs/Models/Requests/ListOrganizationsRequest.md
+  - docs/Models/Requests/ListOrganizationsResponse.md
+  - docs/Models/Requests/ListPaychecksRequest.md
+  - docs/Models/Requests/ListPaychecksResponse.md
+  - docs/Models/Requests/ListTransfersRequest.md
+  - docs/Models/Requests/ListTransfersResponse.md
+  - docs/Models/Requests/ReadAccountRequest.md
+  - docs/Models/Requests/ReadAccountResponse.md
+  - docs/Models/Requests/ReadJobRequest.md
+  - docs/Models/Requests/ReadJobResponse.md
+  - docs/Models/Requests/ReadOrganizationRequest.md
+  - docs/Models/Requests/ReadOrganizationResponse.md
+  - docs/Models/Requests/ReadPaycheckRequest.md
+  - docs/Models/Requests/ReadPaycheckResponse.md
+  - docs/Models/Requests/ReadPersonRequest.md
+  - docs/Models/Requests/ReadPersonResponse.md
+  - docs/Models/Requests/ReadTransferRequest.md
+  - docs/Models/Requests/ReadTransferResponse.md
+  - docs/Models/Requests/RefreshToken.md
+  - docs/Models/Requests/RequestTokenRequest.md
+  - docs/Models/Requests/RequestTokenResponse.md
+  - docs/Models/Requests/UpdateJobRequest.md
+  - docs/Models/Requests/UpdateJobResponse.md
+  - docs/Models/Requests/UpdatePersonRequest.md
+  - docs/Models/Requests/UpdatePersonResponse.md
+  - docs/sdks/accounts/README.md
+  - docs/sdks/authentication/README.md
+  - docs/sdks/cards/README.md
+  - docs/sdks/health/README.md
+  - docs/sdks/jobs/README.md
+  - docs/sdks/organizations/README.md
+  - docs/sdks/paychecks/README.md
+  - docs/sdks/people/README.md
+  - docs/sdks/sdk/README.md
+  - docs/sdks/transfers/README.md
+  - global.json
+  - src/Openapi/Accounts.cs
+  - src/Openapi/Authentication.cs
+  - src/Openapi/Cards.cs
+  - src/Openapi/Health.cs
+  - src/Openapi/Hooks/ClientCredentials/ClientCredentials.cs
+  - src/Openapi/Hooks/HookTypes.cs
+  - src/Openapi/Hooks/SDKHooks.cs
+  - src/Openapi/Jobs.cs
+  - src/Openapi/Models/Components/AccountAttributesCardAccountBalances.cs
+  - src/Openapi/Models/Components/AccountAttributesCardAccountCapabilities.cs
+  - src/Openapi/Models/Components/AccountAttributesCardSubtype.cs
+  - src/Openapi/Models/Components/AccountAttributesCardVerificationStatus.cs
+  - src/Openapi/Models/Components/AccountAttributesDepositoryAccountBalances.cs
+  - src/Openapi/Models/Components/AccountAttributesDepositoryAccountCapabilities.cs
+  - src/Openapi/Models/Components/AccountAttributesDepositorySubtype.cs
+  - src/Openapi/Models/Components/AccountAttributesDepositoryVerificationStatus.cs
+  - src/Openapi/Models/Components/AccountAttributesEarningsBalanceAccountBalances.cs
+  - src/Openapi/Models/Components/AccountAttributesEarningsBalanceAccountCapabilities.cs
+  - src/Openapi/Models/Components/AccountAttributesEarningsBalanceDetails.cs
+  - src/Openapi/Models/Components/AccountAttributesEarningsBalanceVerificationStatus.cs
+  - src/Openapi/Models/Components/AccountAttributesInput.cs
+  - src/Openapi/Models/Components/AccountAttributesOutput.cs
+  - src/Openapi/Models/Components/AccountDataInput.cs
+  - src/Openapi/Models/Components/AccountDataOutput.cs
+  - src/Openapi/Models/Components/AccountDebitCardInput.cs
+  - src/Openapi/Models/Components/AccountDebitCardOutput.cs
+  - src/Openapi/Models/Components/AccountGalileoCardInput.cs
+  - src/Openapi/Models/Components/AccountGalileoCardOutput.cs
+  - src/Openapi/Models/Components/AccountIdentifier.cs
+  - src/Openapi/Models/Components/AccountLinks.cs
+  - src/Openapi/Models/Components/AccountRelationship.cs
+  - src/Openapi/Models/Components/AccountRelationships.cs
+  - src/Openapi/Models/Components/AccountResourceInput.cs
+  - src/Openapi/Models/Components/AccountResourceOutput.cs
+  - src/Openapi/Models/Components/AccountWiselyCard.cs
+  - src/Openapi/Models/Components/AccountWiselyCardOutput.cs
+  - src/Openapi/Models/Components/AccountsData.cs
+  - src/Openapi/Models/Components/ActivationStatus.cs
+  - src/Openapi/Models/Components/CardInput.cs
+  - src/Openapi/Models/Components/CardOutput.cs
+  - src/Openapi/Models/Components/Data.cs
+  - src/Openapi/Models/Components/Depository.cs
+  - src/Openapi/Models/Components/DepositoryAccountDetails.cs
+  - src/Openapi/Models/Components/DepositoryInput.cs
+  - src/Openapi/Models/Components/DetailsInput.cs
+  - src/Openapi/Models/Components/DetailsOutput.cs
+  - src/Openapi/Models/Components/DirectDepositStatus.cs
+  - src/Openapi/Models/Components/DisallowReason.cs
+  - src/Openapi/Models/Components/EarningsBalanceReadOnly.cs
+  - src/Openapi/Models/Components/EarningsBalanceReadOnlyInput.cs
+  - src/Openapi/Models/Components/ErrorAccountCreateError.cs
+  - src/Openapi/Models/Components/ErrorAccountCreateErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorAccountCreateErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorAccountCreateErrorSource.cs
+  - src/Openapi/Models/Components/ErrorBadRequestError.cs
+  - src/Openapi/Models/Components/ErrorBadRequestErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorBadRequestErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorBadRequestErrorSource.cs
+  - src/Openapi/Models/Components/ErrorForbiddenError.cs
+  - src/Openapi/Models/Components/ErrorForbiddenErrorCode.cs
+  - src/Openapi/Models/Components/ErrorForbiddenErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorForbiddenErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorForbiddenErrorSource.cs
+  - src/Openapi/Models/Components/ErrorJobUpdateError.cs
+  - src/Openapi/Models/Components/ErrorJobUpdateErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorJobUpdateErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorJobUpdateErrorSource.cs
+  - src/Openapi/Models/Components/ErrorNotFoundError.cs
+  - src/Openapi/Models/Components/ErrorNotFoundErrorCode.cs
+  - src/Openapi/Models/Components/ErrorNotFoundErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorNotFoundErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorNotFoundErrorSource.cs
+  - src/Openapi/Models/Components/ErrorTransferCreateError.cs
+  - src/Openapi/Models/Components/ErrorTransferCreateErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorTransferCreateErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorTransferCreateErrorSource.cs
+  - src/Openapi/Models/Components/ErrorUnauthorizedError.cs
+  - src/Openapi/Models/Components/ErrorUnauthorizedErrorCode.cs
+  - src/Openapi/Models/Components/ErrorUnauthorizedErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorUnauthorizedErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorUnauthorizedErrorSource.cs
+  - src/Openapi/Models/Components/ErrorUnexpectedError.cs
+  - src/Openapi/Models/Components/ErrorUnexpectedErrorCode.cs
+  - src/Openapi/Models/Components/ErrorUnexpectedErrorLinks.cs
+  - src/Openapi/Models/Components/ErrorUnexpectedErrorMeta.cs
+  - src/Openapi/Models/Components/ErrorUnexpectedErrorSource.cs
+  - src/Openapi/Models/Components/FilterAccountType.cs
+  - src/Openapi/Models/Components/FilterPaycheckStatus.cs
+  - src/Openapi/Models/Components/Frequency.cs
+  - src/Openapi/Models/Components/FundingSourceAttributes.cs
+  - src/Openapi/Models/Components/FundingSourceIdentifier.cs
+  - src/Openapi/Models/Components/FundingSourceRelationships.cs
+  - src/Openapi/Models/Components/FundingSourceResource.cs
+  - src/Openapi/Models/Components/FundingSourcesRelationship.cs
+  - src/Openapi/Models/Components/HTTPMetadata.cs
+  - src/Openapi/Models/Components/Health200.cs
+  - src/Openapi/Models/Components/JobAttributes.cs
+  - src/Openapi/Models/Components/JobAttributesInput.cs
+  - src/Openapi/Models/Components/JobData.cs
+  - src/Openapi/Models/Components/JobIdentifier.cs
+  - src/Openapi/Models/Components/JobLinks.cs
+  - src/Openapi/Models/Components/JobRelationship.cs
+  - src/Openapi/Models/Components/JobRelationships.cs
+  - src/Openapi/Models/Components/JobRelationshipsInput.cs
+  - src/Openapi/Models/Components/JobResource.cs
+  - src/Openapi/Models/Components/JobUpdateData.cs
+  - src/Openapi/Models/Components/JobsData.cs
+  - src/Openapi/Models/Components/OrganizationAttributes.cs
+  - src/Openapi/Models/Components/OrganizationData.cs
+  - src/Openapi/Models/Components/OrganizationIdentifier.cs
+  - src/Openapi/Models/Components/OrganizationLinks.cs
+  - src/Openapi/Models/Components/OrganizationRelationship.cs
+  - src/Openapi/Models/Components/OrganizationResource.cs
+  - src/Openapi/Models/Components/OrganizationsData.cs
+  - src/Openapi/Models/Components/Origin.cs
+  - src/Openapi/Models/Components/PaycheckAttributes.cs
+  - src/Openapi/Models/Components/PaycheckAttributesStatus.cs
+  - src/Openapi/Models/Components/PaycheckData.cs
+  - src/Openapi/Models/Components/PaycheckIdentifier.cs
+  - src/Openapi/Models/Components/PaycheckLinks.cs
+  - src/Openapi/Models/Components/PaycheckRelationship.cs
+  - src/Openapi/Models/Components/PaycheckRelationships.cs
+  - src/Openapi/Models/Components/PaycheckResource.cs
+  - src/Openapi/Models/Components/PaychecksData.cs
+  - src/Openapi/Models/Components/PersonAttributes.cs
+  - src/Openapi/Models/Components/PersonAttributesInput.cs
+  - src/Openapi/Models/Components/PersonData.cs
+  - src/Openapi/Models/Components/PersonDataInput.cs
+  - src/Openapi/Models/Components/PersonIdentifier.cs
+  - src/Openapi/Models/Components/PersonLinks.cs
+  - src/Openapi/Models/Components/PersonRelationship.cs
+  - src/Openapi/Models/Components/PersonRelationshipReadOnly.cs
+  - src/Openapi/Models/Components/PersonResource.cs
+  - src/Openapi/Models/Components/PersonResourceInput.cs
+  - src/Openapi/Models/Components/Product.cs
+  - src/Openapi/Models/Components/SchemeOauthClientCredentialsToken.cs
+  - src/Openapi/Models/Components/Security.cs
+  - src/Openapi/Models/Components/TokenData.cs
+  - src/Openapi/Models/Components/TransferAttributes.cs
+  - src/Openapi/Models/Components/TransferAttributesInput.cs
+  - src/Openapi/Models/Components/TransferAttributesSchedule.cs
+  - src/Openapi/Models/Components/TransferAttributesStatus.cs
+  - src/Openapi/Models/Components/TransferCreateData.cs
+  - src/Openapi/Models/Components/TransferCreateRelationships.cs
+  - src/Openapi/Models/Components/TransferCreateResource.cs
+  - src/Openapi/Models/Components/TransferData.cs
+  - src/Openapi/Models/Components/TransferDestinationCapability.cs
+  - src/Openapi/Models/Components/TransferDestinationCapabilitySchedule.cs
+  - src/Openapi/Models/Components/TransferIdentifier.cs
+  - src/Openapi/Models/Components/TransferLinks.cs
+  - src/Openapi/Models/Components/TransferRelationship.cs
+  - src/Openapi/Models/Components/TransferRelationships.cs
+  - src/Openapi/Models/Components/TransferResource.cs
+  - src/Openapi/Models/Components/TransfersData.cs
+  - src/Openapi/Models/Components/WageRate.cs
+  - src/Openapi/Models/Errors/APIException.cs
+  - src/Openapi/Models/Errors/AccountCreateError.cs
+  - src/Openapi/Models/Errors/BadRequestException.cs
+  - src/Openapi/Models/Errors/ErrorBadRequest.cs
+  - src/Openapi/Models/Errors/ErrorCode.cs
+  - src/Openapi/Models/Errors/ErrorForbidden.cs
+  - src/Openapi/Models/Errors/ErrorNotFound.cs
+  - src/Openapi/Models/Errors/ErrorUnauthorized.cs
+  - src/Openapi/Models/Errors/ErrorUnexpected.cs
+  - src/Openapi/Models/Errors/JobUpdateError.cs
+  - src/Openapi/Models/Errors/TransferCreateError.cs
+  - src/Openapi/Models/Requests/AuthorizationCodeFlow.cs
+  - src/Openapi/Models/Requests/ClientCredentialsFlow.cs
+  - src/Openapi/Models/Requests/CreateAccountRequest.cs
+  - src/Openapi/Models/Requests/CreateAccountResponse.cs
+  - src/Openapi/Models/Requests/CreateGenericCardTokenRequest.cs
+  - src/Openapi/Models/Requests/CreateGenericCardTokenResponse.cs
+  - src/Openapi/Models/Requests/CreateGenericCardTokenResponseBody.cs
+  - src/Openapi/Models/Requests/CreateTransferRequest.cs
+  - src/Openapi/Models/Requests/CreateTransferResponse.cs
+  - src/Openapi/Models/Requests/GetHealthResponse.cs
+  - src/Openapi/Models/Requests/GrantType.cs
+  - src/Openapi/Models/Requests/ListAccountsRequest.cs
+  - src/Openapi/Models/Requests/ListAccountsResponse.cs
+  - src/Openapi/Models/Requests/ListJobsRequest.cs
+  - src/Openapi/Models/Requests/ListJobsResponse.cs
+  - src/Openapi/Models/Requests/ListOrganizationsRequest.cs
+  - src/Openapi/Models/Requests/ListOrganizationsResponse.cs
+  - src/Openapi/Models/Requests/ListPaychecksRequest.cs
+  - src/Openapi/Models/Requests/ListPaychecksResponse.cs
+  - src/Openapi/Models/Requests/ListTransfersRequest.cs
+  - src/Openapi/Models/Requests/ListTransfersResponse.cs
+  - src/Openapi/Models/Requests/ReadAccountRequest.cs
+  - src/Openapi/Models/Requests/ReadAccountResponse.cs
+  - src/Openapi/Models/Requests/ReadJobRequest.cs
+  - src/Openapi/Models/Requests/ReadJobResponse.cs
+  - src/Openapi/Models/Requests/ReadOrganizationRequest.cs
+  - src/Openapi/Models/Requests/ReadOrganizationResponse.cs
+  - src/Openapi/Models/Requests/ReadPaycheckRequest.cs
+  - src/Openapi/Models/Requests/ReadPaycheckResponse.cs
+  - src/Openapi/Models/Requests/ReadPersonRequest.cs
+  - src/Openapi/Models/Requests/ReadPersonResponse.cs
+  - src/Openapi/Models/Requests/ReadTransferRequest.cs
+  - src/Openapi/Models/Requests/ReadTransferResponse.cs
+  - src/Openapi/Models/Requests/RefreshToken.cs
+  - src/Openapi/Models/Requests/RequestTokenRequest.cs
+  - src/Openapi/Models/Requests/RequestTokenResponse.cs
+  - src/Openapi/Models/Requests/UpdateJobRequest.cs
+  - src/Openapi/Models/Requests/UpdateJobResponse.cs
+  - src/Openapi/Models/Requests/UpdatePersonRequest.cs
+  - src/Openapi/Models/Requests/UpdatePersonResponse.cs
+  - src/Openapi/Openapi.csproj
+  - src/Openapi/Organizations.cs
+  - src/Openapi/Paychecks.cs
+  - src/Openapi/People.cs
+  - src/Openapi/SDK.cs
+  - src/Openapi/Transfers.cs
+  - src/Openapi/Utils/AnyDeserializer.cs
+  - src/Openapi/Utils/BigIntStrConverter.cs
+  - src/Openapi/Utils/DecimalStrConverter.cs
+  - src/Openapi/Utils/EnumConverter.cs
+  - src/Openapi/Utils/FlexibleObjectDeserializer.cs
+  - src/Openapi/Utils/HeaderSerializer.cs
+  - src/Openapi/Utils/IsoDateTimeSerializer.cs
+  - src/Openapi/Utils/RequestBodySerializer.cs
+  - src/Openapi/Utils/ResponseBodyDeserializer.cs
+  - src/Openapi/Utils/Retries/BackoffStrategy.cs
+  - src/Openapi/Utils/Retries/Retries.cs
+  - src/Openapi/Utils/Retries/RetryConfig.cs
+  - src/Openapi/Utils/SecurityMetadata.cs
+  - src/Openapi/Utils/SpeakeasyHttpClient.cs
+  - src/Openapi/Utils/SpeakeasyMetadata.cs
+  - src/Openapi/Utils/URLBuilder.cs
+  - src/Openapi/Utils/Utilities.cs
+examples:
+  requestToken:
+    speakeasy-default-request-token:
+      requestBody:
+        application/x-www-form-urlencoded: {"grant_type": "authorization_code", "code": "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw", "redirect_uri": "https://example.com/callback", "state": "Oregon", "client_id": "<id>"}
+      responses:
+        "200":
+          application/json: {"access_token": "dpo_38347Ae178B4a16C7e42F292c6912E7710c8", "refresh_token": "dpo_38347Ae178B4a16C7e42F292c6912E7710c9", "token_type": "bearer", "scope": "user:read_write", "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.4FjJ3eZJYJj7J9Jf", "expires_in": 3600}
+        "400":
+          application/json: {"error_description": "The requested scope is invalid, unknown, or malformed.", "": {}}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  readJob:
+    speakeasy-default-read-job:
+      parameters:
+        path:
+          job_id: "aa860051-c411-4709-9685-c1b716df611b"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "ACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "404":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": []}
+  updateJob:
+    speakeasy-default-update-job:
+      parameters:
+        path:
+          job_id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"
+        header: {}
+      requestBody:
+        application/vnd.api+json: {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"activation_status": "ACTIVATED"}, "relationships": {"direct_deposit_default_depository": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "ACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "404":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  listJobs:
+    speakeasy-default-list-jobs:
+      responses:
+        "200":
+          application/vnd.api+json: {"data": [{"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "ACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}, {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}, {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "ACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": []}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  readAccount:
+    speakeasy-default-read-account:
+      parameters:
+        path:
+          account_id: "2bc7d781-3247-46f6-b60f-4090d214936a"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}, {"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "404":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  listAccounts:
+    speakeasy-default-list-accounts:
+      parameters:
+        query:
+          filter[account_type]: "EARNINGS_BALANCE"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": [{"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}, {"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}]}, "name": "DailyPay Pay Balance", "details": {}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}, {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}, {"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}, {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}, {"schedule": "WITHIN_THIRTY_MINUTES", "fee": 0, "currency": "USD"}]}, "name": "Debit Card", "subtype": "DEBIT", "details": {"first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2025", "last_four": "0003", "issuer": "411600"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": []}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "500":
+          application/vnd.api+json: {"errors": []}
+  createAccount:
+    Depository:
+      requestBody:
+        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Checking Account", "account_type": "DEPOSITORY", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 300, "currency": "USD"}, {"schedule": "NEXT_BUSINESS_DAY", "fee": 0, "currency": "USD"}]}, "name": "DailyPay Pay Balance", "details": {}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "<value>", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "<value>", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": []}
+    Card:
+      requestBody:
+        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US", "token": "abc.efg.123", "issuer": "411600"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 300, "currency": "USD"}, {"schedule": "NEXT_BUSINESS_DAY", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "<value>", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "<value>", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "<value>", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": []}
+  readTransfer:
+    speakeasy-default-read-transfer:
+      parameters:
+        path:
+          transfer_id: "aba332a2-24a2-46de-8257-5040e71ab210"
+        query: {}
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "FAILED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": []}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "404":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": []}
+  listTransfers:
+    speakeasy-default-list-transfers:
+      responses:
+        "200":
+          application/vnd.api+json: {"data": [{"id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "SETTLED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": []}, "final_funding_sources": {"data": []}}}, {"id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "SETTLED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": []}}}, {"id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "PENDING", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": []}}}], "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  createTransfer:
+    speakeasy-default-create-transfer:
+      parameters:
+        header:
+          Idempotency-Key: "621cf021-cd9c-4f54-a033-15211a509a30"
+      requestBody:
+        application/vnd.api+json: {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "schedule": "WITHIN_THIRTY_MINUTES"}, "relationships": {"origin": {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "destination": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "PENDING", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_ORIGIN", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  readPaycheck:
+    speakeasy-default-read-paycheck:
+      parameters:
+        path:
+          paycheck_id: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "attributes": {"status": "DEPOSITED", "pay_period_ends_at": "2023-03-15T04:00:00Z", "pay_period_starts_at": "2023-03-15T04:00:00Z", "deposit_expected_at": "2023-03-15T04:00:00Z", "total_debited": 0, "gross_earnings": 0, "employer_withholdings": 0, "net_earnings": 0, "currency": "USD"}, "links": {"self": "https://api.dailypay.com/rest/paychecks/f4e2fd6c-b567-447c-a003-b7315b8d22d2"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "job": {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}}}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "404":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  listPaychecks:
+    speakeasy-default-list-paychecks:
+      parameters:
+        query:
+          filter[deposit_expected_at__gte]: "2023-03-15T04:00:00Z"
+          filter[deposit_expected_at__lt]: "2023-03-15T04:00:00Z"
+          filter[pay_period_ends_at__gte]: "2023-03-15T04:00:00Z"
+          filter[pay_period_ends_at__lt]: "2023-03-15T04:00:00Z"
+          filter[pay_period_starts_at__gte]: "2023-03-15T04:00:00Z"
+          filter[pay_period_starts_at__lt]: "2023-03-15T04:00:00Z"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": [{"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "attributes": {"status": "IN_TRANSIT", "pay_period_ends_at": "2023-03-15T04:00:00Z", "pay_period_starts_at": "2023-03-15T04:00:00Z", "deposit_expected_at": "2023-03-15T04:00:00Z", "total_debited": 0, "gross_earnings": 0, "employer_withholdings": 0, "net_earnings": 0, "currency": "USD"}, "links": {"self": "https://api.dailypay.com/rest/paychecks/f4e2fd6c-b567-447c-a003-b7315b8d22d2"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "job": {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}}}}, {"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "attributes": {"status": "IN_TRANSIT", "pay_period_ends_at": "2023-03-15T04:00:00Z", "pay_period_starts_at": "2023-03-15T04:00:00Z", "deposit_expected_at": "2023-03-15T04:00:00Z", "total_debited": 0, "gross_earnings": 0, "employer_withholdings": 0, "net_earnings": 0, "currency": "USD"}, "links": {"self": "https://api.dailypay.com/rest/paychecks/f4e2fd6c-b567-447c-a003-b7315b8d22d2"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "job": {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}}}}, {"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "attributes": {"status": "ESTIMATED", "pay_period_ends_at": "2023-03-15T04:00:00Z", "pay_period_starts_at": "2023-03-15T04:00:00Z", "deposit_expected_at": "2023-03-15T04:00:00Z", "total_debited": 0, "gross_earnings": 0, "employer_withholdings": 0, "net_earnings": 0, "currency": "USD"}, "links": {"self": "https://api.dailypay.com/rest/paychecks/f4e2fd6c-b567-447c-a003-b7315b8d22d2"}, "relationships": {"person": {"data": {"id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "job": {"data": {"id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": []}
+        "401":
+          application/vnd.api+json: {"errors": []}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  readOrganization:
+    speakeasy-default-read-organization:
+      parameters:
+        path:
+          organization_id: "123e4567-e89b-12d3-a456-426614174000"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "404":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  listOrganizations:
+    speakeasy-default-list-organizations:
+      responses:
+        "200":
+          application/vnd.api+json: {"data": [{"id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}, {"id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}, {"id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}]}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": []}
+  readPerson:
+    speakeasy-default-read-person:
+      parameters:
+        path:
+          person_id: "aa860051-c411-4709-9685-c1b716df611b"
+        header: {}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "404":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  updatePerson:
+    speakeasy-default-update-person:
+      parameters:
+        path:
+          person_id: "aa860051-c411-4709-9685-c1b716df611b"
+        header: {}
+      requestBody:
+        application/vnd.api+json: {"data": {"id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"state_of_residence": "NY"}}}
+      responses:
+        "200":
+          application/vnd.api+json: {"data": {"id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+        "400":
+          application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
+        "404":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
+        "500":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+  createGenericCardToken:
+    speakeasy-default-create-generic-card-token:
+      requestBody:
+        application/json: {"first_name": "Edith", "last_name": "Clarke", "card_number": "4007589999999912", "expiration_year": "2027", "expiration_month": "02", "cvv": "123", "address_line_one": "123 Kebly Street", "address_line_two": "Unit C", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "07237", "address_country": "US"}
+      responses:
+        "200":
+          application/json: {"token": "eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.ZR3Eq5MAuS_03RopT9QWK1MUiFFIOoZoDgwkiDWzz-7S6Zeda0JdvzwI51lHxuvi6EFdXLi7-1thIpPt49JMiLtzZgcf7UCJrVOZTf88JhIL5X5rvmnpO2NADfR9PVzrSV2AwxLCRy6vRfgCHGJZy1o5AZzwaaMLCRzqb3vdCaXn9gKvGPmvHKg9PkR-Zrfs9XDsRHeCVtfvu8PBzMNO5r_Dfo-fo3l3cyV4pKFtbvjlJXm--Ko5XiJPxffnBofmlYabXHku5yuo6IsVTnd9ETksMu1tnfr4T9AC14fiZew0FJetIayf_-kmiR1t7_aU3Q_A8Uwy7kTmxrFTvu6Cgw.yT7WptQfjKXswG_N.DY77q22ZGV5efeh6LNI6bWRmhZikY0dLAyIDVrK7nite1B7T_4IL9XdM7Luf9BOpXHTscu9y6Zqun-687bclLnzOYB7nNpV_DZM-5stWz2MuQeLiokqTfrF5jfXtpLDaDEiwAY9HHTBrKoD91Wkp5aX1CsB4jFBTfFDES0BQbTrRXqLTMIItZqKFbh5btqFCskfl7JKtozo3UgMNj__HnNiF5GUN-QgiOrYZKn7d2hXPpUABPmYGFkpXSXTnnCRGTVoZHoyh5L-4Apr8yVRUxUX1rrMFjOurr8VqmQPg-9-2Z7zxmwp5joms19JdgV2FhgJnbKilwFY4IQrYbhfLdfuApHgpptvrODLdPB5DJnT6tAfsJM_-LuFC7cg9kg6Xm6G-8jGEuO56sd-Og3cvK-jnhSR6Vu9O6nSGKZ1X3H0O_EHgMhHV-WTtf8KfrUHdVsSBIZvA6J_5gmOAB53KPaCPy8AU8XQBUgPVBt35h9J4HLuWq3HGRKEw5nHNNdSSjgWXfpC9X8OXgric1540nZz5A-zBP3XNOZuD26yPNDg2g7jCzVZs1TfRgX9DXqZHUkugPuyXN82FMT3bxKAZzH5OsmVSnir8f75OAx18hVG-jheEBTYzbx4yh6YwlaWKkekKKwGAAdEnUg5cQxNNmeOpTzQiSyMCnFOtQyn67qSk9I3e5ig9l5ElSoX-MhL9g2liAKbX6_fl4wJ1elvrhy0w6Xuf6V74UrwKP5deKxtGLbWoSVC-v0k5lrweP8SbD1R62DyfdcdgZSPDmiiSgF8YuHO_8fW96xQeOD_fJ59qf4-qvfuToM39X52s5vH7Qj53v5kp-Tg23Ki2C-ENPIqa6hKl0BaTHltIKwZt1ll4l7ho1vMxPdPVq47FmTzPyliB0JuK6VoQIaR4ej4CCSrQmRTXMohXnbIaVubm-kLyK5RebvnJFJr5J2YswT5ZnUuEb5MbkNaeqJ0CUaQ8Z_vRXI-UaZOuGI_BPYsuIDmBKsfihoGUHau6WBNqqCDBRQsHlLRc3pUBfLLWQyO8pdB2JHjco_8wh2SuxLrD9abLNwjt9NNNmQdW8Qzm-E7aG-DnLN0y6z1T1dTr-YiUO4TBw1sPNysVX6v2Pz5jN7xQ6ukZ59rXgJ4Rozci5ip0V28whvs5Aw8oiOY9Uo0qS9UEHjILCDdhPuBgt7v_v6ylsIPEy9ZL8Z0F-Dh_SqqJl9H4TSKVbalk4PJ8f2TGywbB7b2l5t5wHPZexuhkZZ1X_lChvi7nistQQ9952S6quPhT8OZntWqHe2X63THSVweupbe0D21tftdNsiZFP4rptJ6SfkmcEiS4CDA233CjCTy5sMALIYMsATL5dQxG5myUc3hiDQqpT_n7pIMhSuVrMcFi0bfpLSVYtLShmhQno8wqrm1p5aqahY1YQQmMM4VLT-05Fz53cTlJsEqnu6_2tg6v_j4cWYnHnP4IAvtJmw4BRQ.3yAMw37rs8X_gfRMqpYD1w"}
+  getHealth:
+    speakeasy-default-get-health:
+      responses:
+        "200":
+          application/json: {"status": "UP", "version": "3.0.0"}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "500":
+          application/vnd.api+json: {"errors": []}
+examplesVersion: 1.0.1
+generatedTests: {}

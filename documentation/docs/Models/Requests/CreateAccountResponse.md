@@ -1,0 +1,9 @@
+# CreateAccountResponse
+
+
+## Fields
+
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `HttpMeta`                                                        | [HTTPMetadata](../../Models/Components/HTTPMetadata.md)           | :heavy_check_mark:                                                | N/A                                                               |
+| `AccountData`                                                     | [AccountDataOutput](../../Models/Components/AccountDataOutput.md) | :heavy_minus_sign:                                                | Returns the account object.                                       |

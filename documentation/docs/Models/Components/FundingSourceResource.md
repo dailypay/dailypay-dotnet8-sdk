@@ -1,0 +1,13 @@
+# FundingSourceResource
+
+A source describes how transfers with an origin of EARNINGS_BALANCE account are funded.
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         | Example                                                                             |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Id`                                                                                | *string*                                                                            | :heavy_check_mark:                                                                  | N/A                                                                                 | b5393c00b7c113fc2e5ae3e80c785bb2                                                    |
+| `Type`                                                                              | *string*                                                                            | :heavy_check_mark:                                                                  | N/A                                                                                 |                                                                                     |
+| `Attributes`                                                                        | [FundingSourceAttributes](../../Models/Components/FundingSourceAttributes.md)       | :heavy_check_mark:                                                                  | N/A                                                                                 |                                                                                     |
+| `Relationships`                                                                     | [FundingSourceRelationships](../../Models/Components/FundingSourceRelationships.md) | :heavy_check_mark:                                                                  | N/A                                                                                 |                                                                                     |

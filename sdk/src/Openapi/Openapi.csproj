@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>Openapi</PackageId>
+    <Version>0.0.1</Version>
+    <TargetFramework>net8.0</TargetFramework>
+    <Authors>Speakeasy</Authors>
+    <Copyright>Copyright (c) Speakeasy 2025</Copyright>
+    <Description>DailyPay Public Rest API: # Welcome<br/>
+<br/>
+This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.<br/>
+<br/>
+Here are some links to help you get familiar with the DailyPay basics:<br/>
+<br/>
+<a href="/tag/Getting-Started#section/DailyPay&apos;s-API-Versioning">API Versioning</a> — Find out how we version our APIs.  <br/>
+<a href="/tag/Getting-Started#section/Environments">Environments</a> — Get an overview of the different environments in the DailyPay API.  <br/>
+<a href="/tag/Glossary">Glossary</a> — Explore a list of terms used in the DailyPay API.<br/>
+</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\docs\**\*" Pack="true" PackagePath="\docs"  CopyToOutputDirectory="PreserveNewest"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="newtonsoft.json" Version="13.0.3" />
+    <PackageReference Include="nodatime" Version="3.1.9" />
+  </ItemGroup>
+
+</Project>
