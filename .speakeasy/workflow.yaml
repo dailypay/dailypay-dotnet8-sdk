@@ -5,7 +5,7 @@ sources:
         inputs:
             - location: https://raw.githubusercontent.com/dailypay/xapi/main/api/api-docs/out/sdks.openapi.yaml
               authHeader: Authorization
-              authSecret: $OAUTH_TOKEN
+              authSecret: $GITHUB_ACCESS_TOKEN
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
 targets:

@@ -2,12 +2,12 @@ XAPI_URL="https://github.com/dailypay/xapi/archive/refs/heads/main.zip"
 
 .PHONY: generate-sdk update-token update-markdown-documentation
 
-OAUTH_TOKEN := Bearer $(shell gh auth token)
-export OAUTH_TOKEN
+GITHUB_ACCESS_TOKEN := Bearer $(shell gh auth token)
+export GITHUB_ACCESS_TOKEN
 
 update-token:
 	@echo "Updating GH auth token"
-	@echo "Token is: $$OAUTH_TOKEN"
+	@echo "Token is: $$GGITHUB_ACCESS_TOKEN"
 
 generate-sdk:
 	@$(MAKE) update-token
@@ -16,7 +16,7 @@ generate-sdk:
 
 update-documentation:
 	@echo "Downloading Zip..."
-	curl -L "$(XAPI_URL)" -H "Authorization: $(OAUTH_TOKEN)" -o xapi.zip
+	curl -L "$(XAPI_URL)" -H "Authorization: $(GITHUB_ACCESS_TOKEN)" -o xapi.zip
 	unzip xapi.zip -d tmp-xapi
 	rm -rf xapi.zip
 	mkdir -p documentation
