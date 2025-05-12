@@ -1,6 +1,6 @@
 XAPI_URL="https://github.com/dailypay/xapi/archive/refs/heads/main.zip"
 
-.PHONY: generate-sdk update-token update-markdown-documentation
+.PHONY: generate-sdk update-token generate-sdk-local
 
 GITHUB_ACCESS_TOKEN := Bearer $(shell gh auth token)
 export GITHUB_ACCESS_TOKEN
@@ -10,9 +10,16 @@ update-token:
 	@echo "Token is: $$GGITHUB_ACCESS_TOKEN"
 
 generate-sdk:
+	speakeasy update
 	@$(MAKE) update-token
 	@echo "Generating .NET 8 SDK"
 	@speakeasy run -t csharp-8
+
+generate-sdk-local:
+	speakeasy update
+	@$(MAKE) update-token
+	@echo "Generating .NET 8 SDK"
+	@speakeasy run -t csharp-8-local
 
 update-documentation:
 	@echo "Downloading Zip..."
