@@ -14,15 +14,19 @@ sources:
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
 targets:
-    csharp-8:
+    csharp:
         target: csharp
         source: openapi
         output: sdk
         codeSamples:
             output: codeSamples.yaml
-    csharp-8-local:
+            registry:
+                location: registry.speakeasyapi.dev/dailypay/dailypay/openapi-csharp-code-samples
+    local-csharp:
         target: csharp
         source: local
         output: sdk
         codeSamples:
             output: codeSamples.yaml
+            registry:
+                location: registry.speakeasyapi.dev/dailypay/dailypay/openapi-csharp-code-samples

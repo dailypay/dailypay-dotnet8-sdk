@@ -1,4 +1,5 @@
 XAPI_URL="https://github.com/dailypay/xapi/archive/refs/heads/main.zip"
+ROOT_DIR := `git rev-parse --show-toplevel`
 
 .PHONY: generate-sdk update-token generate-sdk-local
 
@@ -7,25 +8,21 @@ export GITHUB_ACCESS_TOKEN
 
 update-token:
 	@echo "Updating GH auth token"
-	@echo "Token is: $$GGITHUB_ACCESS_TOKEN"
+	@echo "Token is: $$GITHUB_ACCESS_TOKEN"
 
 generate-sdk:
-	speakeasy update
 	@$(MAKE) update-token
-	@echo "Generating .NET 8 SDK"
-	@speakeasy run -t csharp-8
+	@echo "Generating .NET 8 SDK using xapi file"
+	@speakeasy run -t csharp
+	@$(MAKE) update-documentation
 
 generate-sdk-local:
-	speakeasy update
-	@$(MAKE) update-token
-	@echo "Generating .NET 8 SDK"
-	@speakeasy run -t csharp-8-local
+	@echo "Generating .NET 8 SDK using Local File"
+	@speakeasy run -t local-csharp
+	@$(MAKE) update-documentation
 
 update-documentation:
-	@echo "Downloading Zip..."
-	curl -L "$(XAPI_URL)" -H "Authorization: $(GITHUB_ACCESS_TOKEN)" -o xapi.zip
-	unzip xapi.zip -d tmp-xapi
-	rm -rf xapi.zip
+	@echo "Updating Documentation"
+	rm -rf documentation
 	mkdir -p documentation
-	cp -r tmp-xapi/xapi-main/api/api-docs/markdown/* documentation/
-	rm -rf tmp-xapi 
+	node $(ROOT_DIR)/helpers/merge-sdk-mds.js;
