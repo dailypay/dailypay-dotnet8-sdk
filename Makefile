@@ -49,5 +49,5 @@ update-documentation:
 	@rm -rf $(ROOT_DIR)/documentation
 	@mkdir -p $(ROOT_DIR)/documentation
 	@node $(ROOT_DIR)/helpers/merge-sdk-mds.js
-	@mv $(ROOT_DIR)/sdk/docs $(ROOT_DIR)/documentation
+	@mv $(ROOT_DIR)/sdk/docs $(ROOT_DIR)/documentation/sdk-docs
 	$(call print_end_banner,"Documentation built")
