@@ -43,7 +43,7 @@ generate-sdk-local:
 	@speakeasy run -t local-csharp
 	@$(MAKE) update-documentation
 
-#The will move the documentation to a better place
+#The will move the documentation to the root folder and create combined .MDs
 update-documentation:
 	$(call print_banner,"Updating Documentation")
 	@rm -rf $(ROOT_DIR)/documentation
