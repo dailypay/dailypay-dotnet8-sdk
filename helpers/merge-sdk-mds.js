@@ -34,7 +34,7 @@ function createCombinedDocumentation(fullPath, outputName) {
   console.log("File written: " + outputFile);
 }
 
-createCombinedDocumentation('sdk/docs/sdks', 'combined/sdk');
-createCombinedDocumentation('sdk/docs/models/components', 'combined/models/components');
-createCombinedDocumentation('sdk/docs/models/errors', 'combined/models/errors');
-createCombinedDocumentation('sdk/docs/models/requests', 'combined/models/requests');
+createCombinedDocumentation('sdk/docs/sdks', 'sdk');
+createCombinedDocumentation('sdk/docs/models/components', 'models/components');
+createCombinedDocumentation('sdk/docs/models/errors', 'models/errors');
+createCombinedDocumentation('sdk/docs/models/requests', 'models/requests');

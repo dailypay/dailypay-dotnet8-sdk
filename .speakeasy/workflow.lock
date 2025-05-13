@@ -1,8 +1,8 @@
-speakeasyVersion: 1.543.8
+speakeasyVersion: 1.544.0
 sources:
     local:
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:cf6635f603a349b00969272d5ba6e79d21be9a7167e978bddadb0b5d2d6d5fca
+        sourceRevisionDigest: sha256:9d0cd5e8a13de9c77ba9556649c45f1002b2c6db1ab5401142dc0bd937c20a6f
         sourceBlobDigest: sha256:141038212a95b5a054c2b959dee6f79dbcbdb5fd58bb2843a8f4de44eea583c9
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     local-csharp:
         source: local
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:cf6635f603a349b00969272d5ba6e79d21be9a7167e978bddadb0b5d2d6d5fca
+        sourceRevisionDigest: sha256:9d0cd5e8a13de9c77ba9556649c45f1002b2c6db1ab5401142dc0bd937c20a6f
         sourceBlobDigest: sha256:141038212a95b5a054c2b959dee6f79dbcbdb5fd58bb2843a8f4de44eea583c9
         codeSamplesNamespace: openapi-csharp-code-samples
-        codeSamplesRevisionDigest: sha256:cf0719153963d32e03990e37b0f5cf3486a2e296e5909218e9dd0005bafa3695
+        codeSamplesRevisionDigest: sha256:a3c7026ceeb9bcefd710e75bf4f52a0f38c0b3fae15e628f14427f29b5a57413
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
