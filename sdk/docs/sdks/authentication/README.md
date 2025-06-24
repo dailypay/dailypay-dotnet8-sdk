@@ -145,7 +145,7 @@ Example Request to the Token Endpoint
 
 <pre><code>curl --request POST \
     --url https://auth.dailypay.com/oauth2/token \
-    --header 'accept: application/json' \
+    --header 'accept: application/vnd.api+json'
     --header 'content-type: application/x-www-form-urlencoded' \
     --data "grant_type=authorization_code" \
     --data "client_id={client_id}" \
@@ -207,7 +207,7 @@ Example Request to the Token Endpoint
 
 <pre><code>curl --request POST \
     --url https://auth.dailypay.com/oauth2/token \
-    --header 'accept: application/json' \
+    --header 'accept: application/vnd.api+json'
     --header 'content-type: application/x-www-form-urlencoded' \
     --data "grant_type=client_credentials" \
     --data "scope={scopes}" \
@@ -251,7 +251,7 @@ RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
         GrantType = GrantType.AuthorizationCode,
         Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
         RedirectUri = "https://example.com/callback",
-        State = "Oregon",
+        State = "Hawaii",
         ClientId = "<id>",
     }
 );

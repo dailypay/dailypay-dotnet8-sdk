@@ -129,8 +129,17 @@ var sdk = new SDK(security: new Security() {
 var res = await sdk.Accounts.CreateAsync(
     accountData: new AccountDataInput() {
         Data = new AccountResourceInput() {
-            Attributes = AccountAttributesInput.CreateEarningsBalanceReadOnlyInput(
-                new EarningsBalanceReadOnlyInput() {}
+            Attributes = AccountAttributesInput.CreateDepositoryInput(
+                new DepositoryInput() {
+                    Name = "Checking Account",
+                    Subtype = AccountAttributesDepositorySubtype.Checking,
+                    DepositoryAccountDetails = new DepositoryAccountDetails() {
+                        FirstName = "Edith",
+                        LastName = "Clarke",
+                        RoutingNumber = "XXXXX2021",
+                        AccountNumber = "XXXXXX4321",
+                    },
+                }
             ),
             Relationships = new AccountRelationships() {
                 Person = new PersonRelationship() {

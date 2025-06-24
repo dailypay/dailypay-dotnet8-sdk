@@ -225,7 +225,7 @@ namespace Openapi
         /// <br/>
         /// &lt;pre&gt;&lt;code&gt;curl --request POST \<br/>
         ///     --url https://auth.dailypay.com/oauth2/token \<br/>
-        ///     --header &apos;accept: application/json&apos; \<br/>
+        ///     --header &apos;accept: application/vnd.api+json&apos;<br/>
         ///     --header &apos;content-type: application/x-www-form-urlencoded&apos; \<br/>
         ///     --data &quot;grant_type=authorization_code&quot; \<br/>
         ///     --data &quot;client_id={client_id}&quot; \<br/>
@@ -287,7 +287,7 @@ namespace Openapi
         /// <br/>
         /// &lt;pre&gt;&lt;code&gt;curl --request POST \<br/>
         ///     --url https://auth.dailypay.com/oauth2/token \<br/>
-        ///     --header &apos;accept: application/json&apos; \<br/>
+        ///     --header &apos;accept: application/vnd.api+json&apos;<br/>
         ///     --header &apos;content-type: application/x-www-form-urlencoded&apos; \<br/>
         ///     --data &quot;grant_type=client_credentials&quot; \<br/>
         ///     --data &quot;scope={scopes}&quot; \<br/>
@@ -531,10 +531,10 @@ namespace Openapi
         public SDKConfig SDKConfiguration { get; private set; }
 
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.0.2";
-        private const string _sdkGenVersion = "2.599.0";
+        private const string _sdkVersion = "0.0.3";
+        private const string _sdkGenVersion = "2.605.0";
         private const string _openapiDocVersion = "3.0.0-beta01";
-        private const string _userAgent = "speakeasy-sdk/csharp 0.0.2 2.599.0 3.0.0-beta01 Openapi";
+        private const string _userAgent = "speakeasy-sdk/csharp 0.0.3 2.605.0 3.0.0-beta01 Openapi";
         private string _serverUrl = "";
         private int _serverIndex = 0;
         private ISpeakeasyHttpClient _client;

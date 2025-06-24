@@ -133,8 +133,17 @@ var sdk = new SDK(security: new Security() {
 var res = await sdk.Accounts.CreateAsync(
     accountData: new AccountDataInput() {
         Data = new AccountResourceInput() {
-            Attributes = AccountAttributesInput.CreateEarningsBalanceReadOnlyInput(
-                new EarningsBalanceReadOnlyInput() {}
+            Attributes = AccountAttributesInput.CreateDepositoryInput(
+                new DepositoryInput() {
+                    Name = "Checking Account",
+                    Subtype = AccountAttributesDepositorySubtype.Checking,
+                    DepositoryAccountDetails = new DepositoryAccountDetails() {
+                        FirstName = "Edith",
+                        LastName = "Clarke",
+                        RoutingNumber = "XXXXX2021",
+                        AccountNumber = "XXXXXX4321",
+                    },
+                }
             ),
             Relationships = new AccountRelationships() {
                 Person = new PersonRelationship() {
@@ -322,7 +331,7 @@ Example Request to the Token Endpoint
 
 <pre><code>curl --request POST \
     --url https://auth.dailypay.com/oauth2/token \
-    --header 'accept: application/json' \
+    --header 'accept: application/vnd.api+json'
     --header 'content-type: application/x-www-form-urlencoded' \
     --data "grant_type=authorization_code" \
     --data "client_id={client_id}" \
@@ -384,7 +393,7 @@ Example Request to the Token Endpoint
 
 <pre><code>curl --request POST \
     --url https://auth.dailypay.com/oauth2/token \
-    --header 'accept: application/json' \
+    --header 'accept: application/vnd.api+json'
     --header 'content-type: application/x-www-form-urlencoded' \
     --data "grant_type=client_credentials" \
     --data "scope={scopes}" \
@@ -428,7 +437,7 @@ RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
         GrantType = GrantType.AuthorizationCode,
         Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
         RedirectUri = "https://example.com/callback",
-        State = "Oregon",
+        State = "Hawaii",
         ClientId = "<id>",
     }
 );
@@ -718,7 +727,7 @@ var res = await sdk.Jobs.UpdateAsync(
                 },
                 DirectDepositDefaultCard = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
                     },
                 },
             },
@@ -1299,7 +1308,7 @@ var sdk = new SDK(security: new Security() {
 });
 
 var res = await sdk.Transfers.CreateAsync(
-    idempotencyKey: "7a621cf0-21cd-49cf-8540-3315211a509a",
+    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
     transferCreateData: new TransferCreateData() {
         Data = new TransferCreateResource() {
             Id = "aba332a2-24a2-46de-8257-5040e71ab210",
@@ -1311,12 +1320,12 @@ var res = await sdk.Transfers.CreateAsync(
             Relationships = new TransferCreateRelationships() {
                 Origin = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
                     },
                 },
                 Destination = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
                 Person = new PersonRelationship() {
