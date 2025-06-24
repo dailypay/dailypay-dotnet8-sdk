@@ -14,6 +14,7 @@ function createCombinedDocumentation(fullPath, outputName) {
       const fullPath = path.join(dir, file);
       const stat = fs.statSync(fullPath);
       if (stat && stat.isDirectory()) {
+        if (file === 'authentication') return;
         results = results.concat(getMarkdownFilesRecursively(fullPath));
       } else if (file.endsWith('.md')) {
         results.push(fullPath);
