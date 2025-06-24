@@ -57,7 +57,7 @@ namespace Openapi.Hooks
         {
             this.afterErrorHooks.Add(hook);
         }
-
+        
         public (string, ISpeakeasyHttpClient) SDKInit(string baseUrl, ISpeakeasyHttpClient client)
         {
             var urlAndClient = (baseUrl, client);
@@ -73,7 +73,7 @@ namespace Openapi.Hooks
             }
             return urlAndClient;
         }
-
+        
         public async Task<HttpRequestMessage> BeforeRequestAsync(BeforeRequestContext hookCtx, HttpRequestMessage request)
         {
             foreach (var hook in this.beforeRequestHooks)

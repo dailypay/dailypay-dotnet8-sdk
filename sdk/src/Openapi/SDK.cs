@@ -474,42 +474,6 @@ namespace Openapi
         public IHealth Health { get; }
     }
 
-    public class SDKConfig
-    {
-        /// <summary>
-        /// List of server URLs available to the SDK.
-        /// </summary>
-        public static readonly string[] ServerList = {
-            "https://api.{environment}.com",
-        };
-
-        public string ServerUrl = "";
-        public int ServerIndex = 0;
-        public List<Dictionary<string, string>> ServerDefaults = new List<Dictionary<string, string>>();
-        public long? Version;
-        public SDKHooks Hooks = new SDKHooks();
-        public RetryConfig? RetryConfig = null;
-
-        public string GetTemplatedServerUrl()
-        {
-            if (!String.IsNullOrEmpty(this.ServerUrl))
-            {
-                return Utilities.TemplateUrl(Utilities.RemoveSuffix(this.ServerUrl, "/"), new Dictionary<string, string>());
-            }
-            return Utilities.TemplateUrl(SDKConfig.ServerList[this.ServerIndex], this.ServerDefaults[this.ServerIndex]);
-        }
-
-        public ISpeakeasyHttpClient InitHooks(ISpeakeasyHttpClient client)
-        {
-            string preHooksUrl = GetTemplatedServerUrl();
-            var (postHooksUrl, postHooksClient) = this.Hooks.SDKInit(preHooksUrl, client);
-            if (preHooksUrl != postHooksUrl)
-            {
-                this.ServerUrl = postHooksUrl;
-            }
-            return postHooksClient;
-        }
-    }
 
     /// <summary>
     /// DailyPay Public Rest API: # Welcome<br/>
@@ -531,14 +495,9 @@ namespace Openapi
         public SDKConfig SDKConfiguration { get; private set; }
 
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.0.3";
-        private const string _sdkGenVersion = "2.605.0";
+        private const string _sdkVersion = "0.1.0";
+        private const string _sdkGenVersion = "2.634.2";
         private const string _openapiDocVersion = "3.0.0-beta01";
-        private const string _userAgent = "speakeasy-sdk/csharp 0.0.3 2.605.0 3.0.0-beta01 Openapi";
-        private string _serverUrl = "";
-        private int _serverIndex = 0;
-        private ISpeakeasyHttpClient _client;
-        private Func<Openapi.Models.Components.Security>? _securitySource;
         public IAuthentication Authentication { get; private set; }
         public IJobs Jobs { get; private set; }
         public IAccounts Accounts { get; private set; }
@@ -549,6 +508,30 @@ namespace Openapi
         public ICards Cards { get; private set; }
         public IHealth Health { get; private set; }
 
+        public SDK(SDKConfig config)
+        {
+            SDKConfiguration = config;
+            InitHooks();
+
+            Authentication = new Authentication(SDKConfiguration);
+
+            Jobs = new Jobs(SDKConfiguration);
+
+            Accounts = new Accounts(SDKConfiguration);
+
+            Transfers = new Transfers(SDKConfiguration);
+
+            Paychecks = new Paychecks(SDKConfiguration);
+
+            Organizations = new Organizations(SDKConfiguration);
+
+            People = new People(SDKConfiguration);
+
+            Cards = new Cards(SDKConfiguration);
+
+            Health = new Health(SDKConfiguration);
+        }
+
         public SDK(Openapi.Models.Components.Security? security = null, Func<Openapi.Models.Components.Security>? securitySource = null, long? version = null, int? serverIndex = null, ServerEnvironment? environment = null, string? serverUrl = null, Dictionary<string, string>? urlParams = null, ISpeakeasyHttpClient? client = null, RetryConfig? retryConfig = null)
         {
             if (serverIndex != null)
@@ -557,7 +540,6 @@ namespace Openapi
                 {
                     throw new Exception($"Invalid server index {serverIndex.Value}");
                 }
-                _serverIndex = serverIndex.Value;
             }
 
             if (serverUrl != null)
@@ -566,17 +548,8 @@ namespace Openapi
                 {
                     serverUrl = Utilities.TemplateUrl(serverUrl, urlParams);
                 }
-                _serverUrl = serverUrl;
             }
-            List<Dictionary<string, string>> serverDefaults = new List<Dictionary<string, string>>()
-            {
-                new Dictionary<string, string>()
-                {
-                    {"environment", environment == null ? "dailypay" : ServerEnvironmentExtension.Value(environment.Value)},
-                },
-            };
-
-            _client = client ?? new SpeakeasyHttpClient();
+            Func<Openapi.Models.Components.Security>? _securitySource = null;
 
             if(securitySource != null)
             {
@@ -587,43 +560,123 @@ namespace Openapi
                 _securitySource = () => security;
             }
 
-            SDKConfiguration = new SDKConfig()
+            SDKConfiguration = new SDKConfig(client)
             {
                 Version = version,
-                ServerDefaults = serverDefaults,
-                ServerIndex = _serverIndex,
-                ServerUrl = _serverUrl,
+                ServerIndex = serverIndex == null ? 0 : serverIndex.Value,
+                ServerUrl = serverUrl == null ? "" : serverUrl,
+                SecuritySource = _securitySource,
                 RetryConfig = retryConfig
             };
 
-            _client = SDKConfiguration.InitHooks(_client);
+            if (environment != null)
+            {
+                SDKConfiguration.SetServerVariable("environment", ServerEnvironmentExtension.Value(environment.Value));
+            }
 
+            InitHooks();
 
-            Authentication = new Authentication(_client, _securitySource, _serverUrl, SDKConfiguration);
+            Authentication = new Authentication(SDKConfiguration);
 
+            Jobs = new Jobs(SDKConfiguration);
 
-            Jobs = new Jobs(_client, _securitySource, _serverUrl, SDKConfiguration);
+            Accounts = new Accounts(SDKConfiguration);
 
+            Transfers = new Transfers(SDKConfiguration);
 
-            Accounts = new Accounts(_client, _securitySource, _serverUrl, SDKConfiguration);
+            Paychecks = new Paychecks(SDKConfiguration);
 
+            Organizations = new Organizations(SDKConfiguration);
 
-            Transfers = new Transfers(_client, _securitySource, _serverUrl, SDKConfiguration);
+            People = new People(SDKConfiguration);
 
+            Cards = new Cards(SDKConfiguration);
 
-            Paychecks = new Paychecks(_client, _securitySource, _serverUrl, SDKConfiguration);
-
-
-            Organizations = new Organizations(_client, _securitySource, _serverUrl, SDKConfiguration);
-
-
-            People = new People(_client, _securitySource, _serverUrl, SDKConfiguration);
-
-
-            Cards = new Cards(_client, _securitySource, _serverUrl, SDKConfiguration);
-
-
-            Health = new Health(_client, _securitySource, _serverUrl, SDKConfiguration);
+            Health = new Health(SDKConfiguration);
         }
+
+        private void InitHooks()
+        {
+            string preHooksUrl = SDKConfiguration.GetTemplatedServerUrl();
+            var (postHooksUrl, postHooksClient) = SDKConfiguration.Hooks.SDKInit(preHooksUrl, SDKConfiguration.Client);
+            var config = SDKConfiguration;
+            if (preHooksUrl != postHooksUrl)
+            {
+                config.ServerUrl = postHooksUrl;
+            }
+            config.Client = postHooksClient;
+            SDKConfiguration = config;
+        }
+
+        public class SDKBuilder
+        {
+            private SDKConfig _sdkConfig = new SDKConfig(client: new SpeakeasyHttpClient());
+
+            public SDKBuilder() { }
+
+            public SDKBuilder WithServerIndex(int serverIndex)
+            {
+                if (serverIndex < 0 || serverIndex >= SDKConfig.ServerList.Length)
+                {
+                    throw new Exception($"Invalid server index {serverIndex}");
+                }
+                _sdkConfig.ServerIndex = serverIndex;
+                return this;
+            }
+
+            public SDKBuilder WithEnvironment(ServerEnvironment environment)
+            {
+                _sdkConfig.SetServerVariable("environment", ServerEnvironmentExtension.Value(environment));
+                return this;
+            }
+
+            public SDKBuilder WithServerUrl(string serverUrl, Dictionary<string, string>? serverVariables = null)
+            {
+                if (serverVariables != null)
+                {
+                    serverUrl = Utilities.TemplateUrl(serverUrl, serverVariables);
+                }
+                _sdkConfig.ServerUrl = serverUrl;
+                return this;
+            }
+
+            public SDKBuilder WithVersion(long version)
+            {
+                _sdkConfig.Version = version;
+                return this;
+            }
+
+            public SDKBuilder WithSecuritySource(Func<Openapi.Models.Components.Security> securitySource)
+            {
+                _sdkConfig.SecuritySource = securitySource;
+                return this;
+            }
+
+            public SDKBuilder WithSecurity(Openapi.Models.Components.Security security)
+            {
+                _sdkConfig.SecuritySource = () => security;
+                return this;
+            }
+
+            public SDKBuilder WithClient(ISpeakeasyHttpClient client)
+            {
+                _sdkConfig.Client = client;
+                return this;
+            }
+
+            public SDKBuilder WithRetryConfig(RetryConfig retryConfig)
+            {
+                _sdkConfig.RetryConfig = retryConfig;
+                return this;
+            }
+
+            public SDK Build()
+            {
+              return new SDK(_sdkConfig);
+            }
+
+        }
+
+        public static SDKBuilder Builder() => new SDKBuilder();
     }
 }

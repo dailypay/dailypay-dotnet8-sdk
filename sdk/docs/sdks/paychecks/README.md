@@ -29,14 +29,14 @@ Returns details about a paycheck object.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Paychecks.ReadAsync(
-    paycheckId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Paychecks.ReadAsync(paycheckId: "3fa85f64-5717-4562-b3fc-2c963f66afa6");
 
 // handle response
 ```
@@ -77,9 +77,12 @@ using Openapi.Models.Components;
 using Openapi.Models.Requests;
 using System;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 ListPaychecksRequest req = new ListPaychecksRequest() {
     FilterDepositExpectedAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),

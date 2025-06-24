@@ -3,15 +3,15 @@ id: fe911be5-6d32-4394-bfae-a00e5a8eccee
 management:
   docChecksum: 7b2e2347da7bcd3987915e585cc4425c
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.548.2
-  generationVersion: 2.605.0
-  releaseVersion: 0.0.3
-  configChecksum: cac12f122f41468c1d77948e2fd76050
+  speakeasyVersion: 1.568.2
+  generationVersion: 2.634.2
+  releaseVersion: 0.1.0
+  configChecksum: 5e651610d0cb3f336df4c766740b60db
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.1
-    core: 3.10.17
+    core: 3.11.1
     deprecations: 2.81.2
     flattening: 2.81.3
     globalSecurity: 2.83.7
@@ -26,7 +26,7 @@ features:
     nullables: 0.1.1
     oauth2ClientCredentials: 0.3.2
     responseFormat: 0.0.4
-    sdkHooks: 0.1.0
+    sdkHooks: 0.2.0
     unions: 0.2.2
 generatedFiles:
   - .gitattributes
@@ -451,6 +451,7 @@ generatedFiles:
   - src/Openapi/Paychecks.cs
   - src/Openapi/People.cs
   - src/Openapi/SDK.cs
+  - src/Openapi/SDKConfig.cs
   - src/Openapi/Transfers.cs
   - src/Openapi/Utils/AnyDeserializer.cs
   - src/Openapi/Utils/BigIntStrConverter.cs
@@ -459,6 +460,7 @@ generatedFiles:
   - src/Openapi/Utils/FlexibleObjectDeserializer.cs
   - src/Openapi/Utils/HeaderSerializer.cs
   - src/Openapi/Utils/IsoDateTimeSerializer.cs
+  - src/Openapi/Utils/OpenEnumConverter.cs
   - src/Openapi/Utils/RequestBodySerializer.cs
   - src/Openapi/Utils/ResponseBodyDeserializer.cs
   - src/Openapi/Utils/Retries/BackoffStrategy.cs
@@ -486,10 +488,11 @@ examples:
       parameters:
         path:
           job_id: "aa860051-c411-4709-9685-c1b716df611b"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -505,12 +508,13 @@ examples:
       parameters:
         path:
           job_id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       requestBody:
-        application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"activation_status": "ACTIVATED"}, "relationships": {"direct_deposit_default_depository": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}}
+        application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"activation_status": "DEACTIVATED"}, "relationships": {"direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "ACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -523,6 +527,9 @@ examples:
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
   listJobs:
     speakeasy-default-list-jobs:
+      parameters:
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": [{"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}, {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}}}]}
@@ -539,7 +546,8 @@ examples:
       parameters:
         path:
           account_id: "2bc7d781-3247-46f6-b60f-4090d214936a"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "type": "accounts", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 300, "currency": "USD"}, {"schedule": "NEXT_BUSINESS_DAY", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "account_type": "DEPOSITORY", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
@@ -558,7 +566,8 @@ examples:
       parameters:
         query:
           filter[account_type]: "EARNINGS_BALANCE"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": []}
@@ -572,6 +581,9 @@ examples:
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
   createAccount:
     Depository:
+      parameters:
+        header:
+          DailyPay-API-Version: 3
       requestBody:
         application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Checking Account", "account_type": "DEPOSITORY", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
@@ -586,6 +598,9 @@ examples:
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
     Card:
+      parameters:
+        header:
+          DailyPay-API-Version: 3
       requestBody:
         application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US", "token": "abc.efg.123", "issuer": "411600"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
@@ -605,10 +620,11 @@ examples:
         path:
           transfer_id: "aba332a2-24a2-46de-8257-5040e71ab210"
         query: {}
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "SETTLED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": [{"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
+          application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "SETTLED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"type": "accounts", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": [{"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}, {"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}, {"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -621,6 +637,9 @@ examples:
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}, {"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
   listTransfers:
     speakeasy-default-list-transfers:
+      parameters:
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": [], "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}, {"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
@@ -637,11 +656,12 @@ examples:
       parameters:
         header:
           Idempotency-Key: "a9f22254-03be-42c3-bb00-eda090ffa656"
+          DailyPay-API-Version: 3
       requestBody:
-        application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "schedule": "WITHIN_THIRTY_MINUTES"}, "relationships": {"origin": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "destination": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "schedule": "WITHIN_THIRTY_MINUTES"}, "relationships": {"origin": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "destination": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "SETTLED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"type": "accounts", "id": "410ae962-51e1-4f44-b0a0-a0fd230a4dc5"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": []}, "final_funding_sources": {"data": []}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
+          application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "SETTLED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"type": "accounts", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "destination": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": []}, "final_funding_sources": {"data": []}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
         "400":
           application/vnd.api+json: {"errors": []}
         "401":
@@ -655,7 +675,8 @@ examples:
       parameters:
         path:
           paycheck_id: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": {"type": "paychecks", "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "attributes": {"status": "PROCESSING", "pay_period_ends_at": "2023-03-15T04:00:00Z", "pay_period_starts_at": "2023-03-15T04:00:00Z", "deposit_expected_at": "2023-03-15T04:00:00Z", "total_debited": 0, "gross_earnings": 0, "employer_withholdings": 0, "net_earnings": 0, "currency": "USD"}, "links": {"self": "https://api.dailypay.com/rest/paychecks/f4e2fd6c-b567-447c-a003-b7315b8d22d2"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "job": {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}}}}}
@@ -679,7 +700,8 @@ examples:
           filter[pay_period_ends_at__lt]: "2023-03-15T04:00:00Z"
           filter[pay_period_starts_at__gte]: "2023-03-15T04:00:00Z"
           filter[pay_period_starts_at__lt]: "2023-03-15T04:00:00Z"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": []}
@@ -696,7 +718,8 @@ examples:
       parameters:
         path:
           organization_id: "123e4567-e89b-12d3-a456-426614174000"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}}
@@ -712,6 +735,9 @@ examples:
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
   listOrganizations:
     speakeasy-default-list-organizations:
+      parameters:
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": [{"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}]}
@@ -728,7 +754,8 @@ examples:
       parameters:
         path:
           person_id: "aa860051-c411-4709-9685-c1b716df611b"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       responses:
         "200":
           application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
@@ -747,7 +774,8 @@ examples:
       parameters:
         path:
           person_id: "aa860051-c411-4709-9685-c1b716df611b"
-        header: {}
+        header:
+          DailyPay-API-Version: 3
       requestBody:
         application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"state_of_residence": "NY"}}}
       responses:

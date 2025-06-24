@@ -70,19 +70,12 @@ namespace Openapi
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.0.3";
-        private const string _sdkGenVersion = "2.605.0";
+        private const string _sdkVersion = "0.1.0";
+        private const string _sdkGenVersion = "2.634.2";
         private const string _openapiDocVersion = "3.0.0-beta01";
-        private const string _userAgent = "speakeasy-sdk/csharp 0.0.3 2.605.0 3.0.0-beta01 Openapi";
-        private string _serverUrl = "";
-        private ISpeakeasyHttpClient _client;
-        private Func<Openapi.Models.Components.Security>? _securitySource;
 
-        public People(ISpeakeasyHttpClient client, Func<Openapi.Models.Components.Security>? securitySource, string serverUrl, SDKConfig config)
+        public People(SDKConfig config)
         {
-            _client = client;
-            _securitySource = securitySource;
-            _serverUrl = serverUrl;
             SDKConfiguration = config;
         }
 
@@ -99,22 +92,22 @@ namespace Openapi
             var urlString = URLBuilder.Build(baseUrl, "/rest/people/{person_id}", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
-            httpRequest.Headers.Add("user-agent", _userAgent);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
             HeaderSerializer.PopulateHeaders(ref httpRequest, request);
 
-            if (_securitySource != null)
+            if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(_securitySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(baseUrl, "readPerson", new List<string> { "client:admin", "client:admin" }, _securitySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readPerson", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await _client.SendAsync(httpRequest);
+                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
@@ -238,7 +231,7 @@ namespace Openapi
             var urlString = URLBuilder.Build(baseUrl, "/rest/people/{person_id}", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Patch, urlString);
-            httpRequest.Headers.Add("user-agent", _userAgent);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
             HeaderSerializer.PopulateHeaders(ref httpRequest, request);
 
             var serializedBody = RequestBodySerializer.Serialize(request, "PersonData", "json", false, false);
@@ -247,19 +240,19 @@ namespace Openapi
                 httpRequest.Content = serializedBody;
             }
 
-            if (_securitySource != null)
+            if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(_securitySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(baseUrl, "updatePerson", new List<string> { "client:admin" }, _securitySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "updatePerson", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await _client.SendAsync(httpRequest);
+                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)

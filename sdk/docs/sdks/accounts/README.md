@@ -32,14 +32,14 @@ Returns details about an account. This object represents a person's bank account
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Accounts.ReadAsync(
-    accountId: "2bc7d781-3247-46f6-b60f-4090d214936a",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Accounts.ReadAsync(accountId: "2bc7d781-3247-46f6-b60f-4090d214936a");
 
 // handle response
 ```
@@ -79,9 +79,12 @@ using Openapi;
 using Openapi.Models.Components;
 using Openapi.Models.Requests;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 ListAccountsRequest req = new ListAccountsRequest() {
     FilterAccountType = FilterAccountType.EarningsBalance,
@@ -122,36 +125,36 @@ Create an account object to store a person's bank or card information as a desti
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
-var res = await sdk.Accounts.CreateAsync(
-    accountData: new AccountDataInput() {
-        Data = new AccountResourceInput() {
-            Attributes = AccountAttributesInput.CreateDepositoryInput(
-                new DepositoryInput() {
-                    Name = "Checking Account",
-                    Subtype = AccountAttributesDepositorySubtype.Checking,
-                    DepositoryAccountDetails = new DepositoryAccountDetails() {
-                        FirstName = "Edith",
-                        LastName = "Clarke",
-                        RoutingNumber = "XXXXX2021",
-                        AccountNumber = "XXXXXX4321",
-                    },
-                }
-            ),
-            Relationships = new AccountRelationships() {
-                Person = new PersonRelationship() {
-                    Data = new PersonIdentifier() {
-                        Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
-                    },
+var res = await sdk.Accounts.CreateAsync(accountData: new AccountDataInput() {
+    Data = new AccountResourceInput() {
+        Attributes = AccountAttributesInput.CreateDepositoryInput(
+            new DepositoryInput() {
+                Name = "Acme Bank Checking Account",
+                Subtype = AccountAttributesDepositorySubtype.Checking,
+                DepositoryAccountDetails = new DepositoryAccountDetails() {
+                    FirstName = "Edith",
+                    LastName = "Clarke",
+                    RoutingNumber = "XXXXX2021",
+                    AccountNumber = "XXXXXX4321",
+                },
+            }
+        ),
+        Relationships = new AccountRelationships() {
+            Person = new PersonRelationship() {
+                Data = new PersonIdentifier() {
+                    Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
                 },
             },
         },
     },
-    version: 3
-);
+});
 
 // handle response
 ```

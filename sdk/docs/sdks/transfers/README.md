@@ -29,15 +29,14 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Transfers.ReadAsync(
-    transferId: "aba332a2-24a2-46de-8257-5040e71ab210",
+var sdk = new SDK(
     version: 3,
-    include: "<value>"
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Transfers.ReadAsync(transferId: "aba332a2-24a2-46de-8257-5040e71ab210");
 
 // handle response
 ```
@@ -77,16 +76,14 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Transfers.ListAsync(
+var sdk = new SDK(
     version: 3,
-    filterPersonId: "<value>",
-    include: "<value>",
-    filterBy: "<value>"
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Transfers.ListAsync();
 
 // handle response
 ```
@@ -126,16 +123,20 @@ personal `DEPOSITORY` or `CARD` account.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 var res = await sdk.Transfers.CreateAsync(
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    idempotencyKey: "a9f22254-03be-42c3-bb00-eda090ffa656",
     transferCreateData: new TransferCreateData() {
         Data = new TransferCreateResource() {
             Id = "aba332a2-24a2-46de-8257-5040e71ab210",
             Attributes = new TransferAttributesInput() {
+                Preview = true,
                 Amount = 2500,
                 Currency = "USD",
                 Schedule = TransferAttributesSchedule.WithinThirtyMinutes,
@@ -143,7 +144,7 @@ var res = await sdk.Transfers.CreateAsync(
             Relationships = new TransferCreateRelationships() {
                 Origin = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
                 Destination = new AccountRelationship() {
@@ -158,9 +159,7 @@ var res = await sdk.Transfers.CreateAsync(
                 },
             },
         },
-    },
-    version: 3,
-    include: "<value>"
+    }
 );
 
 // handle response

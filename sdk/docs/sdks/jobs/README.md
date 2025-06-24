@@ -26,14 +26,14 @@ Returns details about a person's employment.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Jobs.ReadAsync(
-    jobId: "aa860051-c411-4709-9685-c1b716df611b",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -72,9 +72,12 @@ Returns the job object if the update succeeded. Returns an error if update param
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 var res = await sdk.Jobs.UpdateAsync(
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
@@ -82,23 +85,22 @@ var res = await sdk.Jobs.UpdateAsync(
         Data = new Data() {
             Id = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
             Attributes = new JobAttributesInput() {
-                ActivationStatus = ActivationStatus.Activated,
+                ActivationStatus = ActivationStatus.Deactivated,
             },
             Relationships = new JobRelationshipsInput() {
                 DirectDepositDefaultDepository = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
                 DirectDepositDefaultCard = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
             },
         },
-    },
-    version: 3
+    }
 );
 
 // handle response
@@ -140,9 +142,12 @@ using Openapi;
 using Openapi.Models.Components;
 using Openapi.Models.Requests;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 ListJobsRequest req = new ListJobsRequest() {};
 

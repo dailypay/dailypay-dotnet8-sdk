@@ -159,19 +159,12 @@ namespace Openapi
         };
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.0.3";
-        private const string _sdkGenVersion = "2.605.0";
+        private const string _sdkVersion = "0.1.0";
+        private const string _sdkGenVersion = "2.634.2";
         private const string _openapiDocVersion = "3.0.0-beta01";
-        private const string _userAgent = "speakeasy-sdk/csharp 0.0.3 2.605.0 3.0.0-beta01 Openapi";
-        private string _serverUrl = "";
-        private ISpeakeasyHttpClient _client;
-        private Func<Openapi.Models.Components.Security>? _securitySource;
 
-        public Cards(ISpeakeasyHttpClient client, Func<Openapi.Models.Components.Security>? securitySource, string serverUrl, SDKConfig config)
+        public Cards(SDKConfig config)
         {
-            _client = client;
-            _securitySource = securitySource;
-            _serverUrl = serverUrl;
             SDKConfiguration = config;
         }
 
@@ -187,7 +180,7 @@ namespace Openapi
             var urlString = baseUrl + "/cards/generic";
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, urlString);
-            httpRequest.Headers.Add("user-agent", _userAgent);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
 
             var serializedBody = RequestBodySerializer.Serialize(request, "Request", "json", false, false);
             if (serializedBody != null)
@@ -195,14 +188,14 @@ namespace Openapi
                 httpRequest.Content = serializedBody;
             }
 
-            var hookCtx = new HookContext(baseUrl, "createGenericCardToken", new List<string> { "client:admin" }, null);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "createGenericCardToken", new List<string> { "client:admin" }, null);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await _client.SendAsync(httpRequest);
+                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)

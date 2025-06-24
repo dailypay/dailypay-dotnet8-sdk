@@ -68,23 +68,16 @@ namespace Openapi
     /// 
     /// </remarks>
     /// </summary>
-    public class Organizations : IOrganizations
+    public class Organizations: IOrganizations
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.0.3";
-        private const string _sdkGenVersion = "2.605.0";
+        private const string _sdkVersion = "0.1.0";
+        private const string _sdkGenVersion = "2.634.2";
         private const string _openapiDocVersion = "3.0.0-beta01";
-        private const string _userAgent = "speakeasy-sdk/csharp 0.0.3 2.605.0 3.0.0-beta01 Openapi";
-        private string _serverUrl = "";
-        private ISpeakeasyHttpClient _client;
-        private Func<Openapi.Models.Components.Security>? _securitySource;
 
-        public Organizations(ISpeakeasyHttpClient client, Func<Openapi.Models.Components.Security>? securitySource, string serverUrl, SDKConfig config)
+        public Organizations(SDKConfig config)
         {
-            _client = client;
-            _securitySource = securitySource;
-            _serverUrl = serverUrl;
             SDKConfiguration = config;
         }
 
@@ -96,27 +89,27 @@ namespace Openapi
                 Version = version,
             };
             request.Version ??= SDKConfiguration.Version;
-
+            
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/organizations/{organization_id}", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
-            httpRequest.Headers.Add("user-agent", _userAgent);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
             HeaderSerializer.PopulateHeaders(ref httpRequest, request);
 
-            if (_securitySource != null)
+            if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(_securitySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(baseUrl, "readOrganization", new List<string> { "client:admin", "client:admin" }, _securitySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readOrganization", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await _client.SendAsync(httpRequest);
+                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
@@ -145,9 +138,9 @@ namespace Openapi
 
             var contentType = httpResponse.Content.Headers.ContentType?.MediaType;
             int responseStatusCode = (int)httpResponse.StatusCode;
-            if (responseStatusCode == 200)
+            if(responseStatusCode == 200)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<OrganizationData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     var response = new ReadOrganizationResponse()
@@ -164,9 +157,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 400)
+            else if(responseStatusCode == 400)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorBadRequest>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     throw obj!;
@@ -174,9 +167,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 401)
+            else if(responseStatusCode == 401)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorUnauthorized>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     throw obj!;
@@ -184,9 +177,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 403)
+            else if(responseStatusCode == 403)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorForbidden>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     throw obj!;
@@ -194,9 +187,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 404)
+            else if(responseStatusCode == 404)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorNotFound>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     throw obj!;
@@ -204,9 +197,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 500)
+            else if(responseStatusCode == 500)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorUnexpected>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     throw obj!;
@@ -214,11 +207,11 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode >= 400 && responseStatusCode < 500)
+            else if(responseStatusCode >= 400 && responseStatusCode < 500)
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse);
             }
-            else if (responseStatusCode >= 500 && responseStatusCode < 600)
+            else if(responseStatusCode >= 500 && responseStatusCode < 600)
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse);
             }
@@ -234,28 +227,27 @@ namespace Openapi
                 FilterBy = filterBy,
             };
             request.Version ??= SDKConfiguration.Version;
-
+            
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/organizations", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
-            httpRequest.Headers.Add("user-agent", _userAgent);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
             HeaderSerializer.PopulateHeaders(ref httpRequest, request);
 
-
-            if (_securitySource != null)
+            if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(_securitySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(baseUrl, "listOrganizations", new List<string> { "client:admin", "client:admin" }, _securitySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listOrganizations", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await _client.SendAsync(httpRequest);
+                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
@@ -284,9 +276,9 @@ namespace Openapi
 
             var contentType = httpResponse.Content.Headers.ContentType?.MediaType;
             int responseStatusCode = (int)httpResponse.StatusCode;
-            if (responseStatusCode == 200)
+            if(responseStatusCode == 200)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<OrganizationsData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     var response = new ListOrganizationsResponse()
@@ -303,9 +295,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 400)
+            else if(responseStatusCode == 400)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorBadRequest>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
@@ -313,9 +305,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 401)
+            else if(responseStatusCode == 401)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorUnauthorized>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
@@ -323,9 +315,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 403)
+            else if(responseStatusCode == 403)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorForbidden>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
@@ -333,9 +325,9 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode == 500)
+            else if(responseStatusCode == 500)
             {
-                if (Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorUnexpected>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
@@ -343,11 +335,11 @@ namespace Openapi
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
             }
-            else if (responseStatusCode >= 400 && responseStatusCode < 500)
+            else if(responseStatusCode >= 400 && responseStatusCode < 500)
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse);
             }
-            else if (responseStatusCode >= 500 && responseStatusCode < 600)
+            else if(responseStatusCode >= 500 && responseStatusCode < 600)
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse);
             }

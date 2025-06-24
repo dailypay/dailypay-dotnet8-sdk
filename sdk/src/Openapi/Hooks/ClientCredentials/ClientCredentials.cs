@@ -69,14 +69,14 @@ namespace Openapi.Hooks.ClientCredentials
     {
         public Dictionary<string, Session> Sessions { get; private set; } = new Dictionary<string, Session>();
         public ISpeakeasyHttpClient Client = default!;
-
+        
         public (string, ISpeakeasyHttpClient) SDKInit(string baseUrl, ISpeakeasyHttpClient client)
         {
             Client = client;
 
             return (baseUrl, client);
         }
-
+        
         public async Task<HttpRequestMessage> BeforeRequestAsync(BeforeRequestContext hookCtx, HttpRequestMessage request)
         {
             if (hookCtx.Oauth2Scopes == null)

@@ -26,14 +26,14 @@ Lookup organization by ID for a detailed view of single organization.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Organizations.ReadAsync(
-    organizationId: "123e4567-e89b-12d3-a456-426614174000",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Organizations.ReadAsync(organizationId: "123e4567-e89b-12d3-a456-426614174000");
 
 // handle response
 ```
@@ -70,14 +70,14 @@ Get organizations with an optional filter
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Organizations.ListAsync(
+var sdk = new SDK(
     version: 3,
-    filterBy: "<value>"
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Organizations.ListAsync();
 
 // handle response
 ```

@@ -6,23 +6,8 @@ sources:
             - location: source/sdks.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
-    openapi:
-        inputs:
-            - location: https://raw.githubusercontent.com/dailypay/xapi/main/api/api-docs/out/sdks.openapi.yaml
-              authHeader: Authorization
-              authSecret: $GITHUB_ACCESS_TOKEN
-        registry:
-            location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
 targets:
     csharp:
-        target: csharp
-        source: openapi
-        output: sdk
-        codeSamples:
-            output: codeSamples.yaml
-            registry:
-                location: registry.speakeasyapi.dev/dailypay/dailypay/openapi-csharp-code-samples
-    local-csharp:
         target: csharp
         source: local
         output: sdk

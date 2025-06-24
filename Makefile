@@ -30,17 +30,11 @@ endef
 update-token:
 	@echo "$(GREEN)Token is: $$GITHUB_ACCESS_TOKEN$(NC)"
 
-#This will generate the SDK based on XAPI's OpenAPI file
+#This will generate the SDK based on source's sdks.openapi.yaml file
 generate-sdk:
-	$(call print_banner,"Generating .NET 8 SDK using xapi's file")
+	$(call print_banner,"Generating .NET 8 SDK using source file")
 	@$(MAKE) update-token
 	@speakeasy run -t csharp
-	@$(MAKE) update-documentation
-
-#This will generate the SDK based on local's OpenAPI file
-generate-sdk-local:
-	$(call print_banner,"Generating .NET 8 SDK using Local File")
-	@speakeasy run -t local-csharp
 	@$(MAKE) update-documentation
 
 #The will move the documentation to the root folder and create combined .MDs

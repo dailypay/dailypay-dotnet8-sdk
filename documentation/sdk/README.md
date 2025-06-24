@@ -36,14 +36,14 @@ Returns details about an account. This object represents a person's bank account
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Accounts.ReadAsync(
-    accountId: "2bc7d781-3247-46f6-b60f-4090d214936a",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Accounts.ReadAsync(accountId: "2bc7d781-3247-46f6-b60f-4090d214936a");
 
 // handle response
 ```
@@ -83,9 +83,12 @@ using Openapi;
 using Openapi.Models.Components;
 using Openapi.Models.Requests;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 ListAccountsRequest req = new ListAccountsRequest() {
     FilterAccountType = FilterAccountType.EarningsBalance,
@@ -126,36 +129,36 @@ Create an account object to store a person's bank or card information as a desti
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
-var res = await sdk.Accounts.CreateAsync(
-    accountData: new AccountDataInput() {
-        Data = new AccountResourceInput() {
-            Attributes = AccountAttributesInput.CreateDepositoryInput(
-                new DepositoryInput() {
-                    Name = "Checking Account",
-                    Subtype = AccountAttributesDepositorySubtype.Checking,
-                    DepositoryAccountDetails = new DepositoryAccountDetails() {
-                        FirstName = "Edith",
-                        LastName = "Clarke",
-                        RoutingNumber = "XXXXX2021",
-                        AccountNumber = "XXXXXX4321",
-                    },
-                }
-            ),
-            Relationships = new AccountRelationships() {
-                Person = new PersonRelationship() {
-                    Data = new PersonIdentifier() {
-                        Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
-                    },
+var res = await sdk.Accounts.CreateAsync(accountData: new AccountDataInput() {
+    Data = new AccountResourceInput() {
+        Attributes = AccountAttributesInput.CreateDepositoryInput(
+            new DepositoryInput() {
+                Name = "Acme Bank Checking Account",
+                Subtype = AccountAttributesDepositorySubtype.Checking,
+                DepositoryAccountDetails = new DepositoryAccountDetails() {
+                    FirstName = "Edith",
+                    LastName = "Clarke",
+                    RoutingNumber = "XXXXX2021",
+                    AccountNumber = "XXXXXX4321",
+                },
+            }
+        ),
+        Relationships = new AccountRelationships() {
+            Person = new PersonRelationship() {
+                Data = new PersonIdentifier() {
+                    Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
                 },
             },
         },
     },
-    version: 3
-);
+});
 
 // handle response
 ```
@@ -661,14 +664,14 @@ Returns details about a person's employment.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Jobs.ReadAsync(
-    jobId: "aa860051-c411-4709-9685-c1b716df611b",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -707,9 +710,12 @@ Returns the job object if the update succeeded. Returns an error if update param
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 var res = await sdk.Jobs.UpdateAsync(
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
@@ -717,23 +723,22 @@ var res = await sdk.Jobs.UpdateAsync(
         Data = new Data() {
             Id = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
             Attributes = new JobAttributesInput() {
-                ActivationStatus = ActivationStatus.Activated,
+                ActivationStatus = ActivationStatus.Deactivated,
             },
             Relationships = new JobRelationshipsInput() {
                 DirectDepositDefaultDepository = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
                 DirectDepositDefaultCard = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
             },
         },
-    },
-    version: 3
+    }
 );
 
 // handle response
@@ -775,9 +780,12 @@ using Openapi;
 using Openapi.Models.Components;
 using Openapi.Models.Requests;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 ListJobsRequest req = new ListJobsRequest() {};
 
@@ -837,14 +845,14 @@ Lookup organization by ID for a detailed view of single organization.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Organizations.ReadAsync(
-    organizationId: "123e4567-e89b-12d3-a456-426614174000",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Organizations.ReadAsync(organizationId: "123e4567-e89b-12d3-a456-426614174000");
 
 // handle response
 ```
@@ -881,14 +889,14 @@ Get organizations with an optional filter
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Organizations.ListAsync(
+var sdk = new SDK(
     version: 3,
-    filterBy: "<value>"
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Organizations.ListAsync();
 
 // handle response
 ```
@@ -948,14 +956,14 @@ Returns details about a paycheck object.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Paychecks.ReadAsync(
-    paycheckId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Paychecks.ReadAsync(paycheckId: "3fa85f64-5717-4562-b3fc-2c963f66afa6");
 
 // handle response
 ```
@@ -996,9 +1004,12 @@ using Openapi.Models.Components;
 using Openapi.Models.Requests;
 using System;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 ListPaychecksRequest req = new ListPaychecksRequest() {
     FilterDepositExpectedAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
@@ -1064,14 +1075,14 @@ Returns details about a person.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.People.ReadAsync(
-    personId: "aa860051-c411-4709-9685-c1b716df611b",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.People.ReadAsync(personId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -1108,9 +1119,12 @@ Update a person object.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 var res = await sdk.People.UpdateAsync(
     personId: "aa860051-c411-4709-9685-c1b716df611b",
@@ -1121,8 +1135,7 @@ var res = await sdk.People.UpdateAsync(
                 StateOfResidence = "NY",
             },
         },
-    },
-    version: 3
+    }
 );
 
 // handle response
@@ -1206,15 +1219,14 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Transfers.ReadAsync(
-    transferId: "aba332a2-24a2-46de-8257-5040e71ab210",
+var sdk = new SDK(
     version: 3,
-    include: "<value>"
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Transfers.ReadAsync(transferId: "aba332a2-24a2-46de-8257-5040e71ab210");
 
 // handle response
 ```
@@ -1254,16 +1266,14 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.Transfers.ListAsync(
+var sdk = new SDK(
     version: 3,
-    filterPersonId: "<value>",
-    include: "<value>",
-    filterBy: "<value>"
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.Transfers.ListAsync();
 
 // handle response
 ```
@@ -1303,16 +1313,20 @@ personal `DEPOSITORY` or `CARD` account.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 var res = await sdk.Transfers.CreateAsync(
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    idempotencyKey: "a9f22254-03be-42c3-bb00-eda090ffa656",
     transferCreateData: new TransferCreateData() {
         Data = new TransferCreateResource() {
             Id = "aba332a2-24a2-46de-8257-5040e71ab210",
             Attributes = new TransferAttributesInput() {
+                Preview = true,
                 Amount = 2500,
                 Currency = "USD",
                 Schedule = TransferAttributesSchedule.WithinThirtyMinutes,
@@ -1320,7 +1334,7 @@ var res = await sdk.Transfers.CreateAsync(
             Relationships = new TransferCreateRelationships() {
                 Origin = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "410ae962-51e1-4f44-b0a0-a0fd230a4dc5",
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
                     },
                 },
                 Destination = new AccountRelationship() {
@@ -1335,9 +1349,7 @@ var res = await sdk.Transfers.CreateAsync(
                 },
             },
         },
-    },
-    version: 3,
-    include: "<value>"
+    }
 );
 
 // handle response

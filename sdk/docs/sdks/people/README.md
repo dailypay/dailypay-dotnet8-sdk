@@ -25,14 +25,14 @@ Returns details about a person.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-var res = await sdk.People.ReadAsync(
-    personId: "aa860051-c411-4709-9685-c1b716df611b",
-    version: 3
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
 );
+
+var res = await sdk.People.ReadAsync(personId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -69,9 +69,12 @@ Update a person object.
 using Openapi;
 using Openapi.Models.Components;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 var res = await sdk.People.UpdateAsync(
     personId: "aa860051-c411-4709-9685-c1b716df611b",
@@ -82,8 +85,7 @@ var res = await sdk.People.UpdateAsync(
                 StateOfResidence = "NY",
             },
         },
-    },
-    version: 3
+    }
 );
 
 // handle response
