@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>DailyPay</PackageId>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <TargetFramework>net8.0</TargetFramework>
     <Authors>DailyPay, Inc.</Authors>
     <Copyright>Copyright (c) DailyPay, Inc. 2025</Copyright>
