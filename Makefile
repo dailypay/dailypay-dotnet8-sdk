@@ -35,12 +35,3 @@ generate-sdk:
 	$(call print_banner,"Generating .NET 8 SDK using source file")
 	@$(MAKE) update-token
 	@speakeasy run -t csharp
-	@$(MAKE) update-documentation
-
-#The will move the documentation to the root folder and create combined .MDs
-update-documentation:
-	$(call print_banner,"Updating Documentation")
-	@rm -rf $(ROOT_DIR)/documentation
-	@mkdir -p $(ROOT_DIR)/documentation
-	@node $(ROOT_DIR)/helpers/merge-sdk-mds.js
-	$(call print_end_banner,"Documentation built")
