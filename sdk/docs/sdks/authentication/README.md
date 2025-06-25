@@ -241,8 +241,8 @@ Request a Dailypay user access token, as described in the <a href='https://datat
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK();
 
@@ -274,8 +274,8 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| Openapi.Models.Errors.BadRequestException | 400                                       | application/json                          |
-| Openapi.Models.Errors.ErrorUnexpected     | 500                                       | application/vnd.api+json                  |
-| Openapi.Models.Errors.APIException        | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| DailyPay.Models.Errors.BadRequestException | 400                                        | application/json                           |
+| DailyPay.Models.Errors.ErrorUnexpected     | 500                                        | application/vnd.api+json                   |
+| DailyPay.Models.Errors.APIException        | 4XX, 5XX                                   | \*/\*                                      |

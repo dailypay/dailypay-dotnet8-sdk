@@ -49,7 +49,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 
 To add a reference to a local instance of the SDK in a .NET project:
 ```bash
-dotnet add reference src/Openapi/Openapi.csproj
+dotnet add reference src/DailyPay/DailyPay.csproj
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -59,8 +59,8 @@ dotnet add reference src/Openapi/Openapi.csproj
 ### Example
 
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK();
 
@@ -94,9 +94,9 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```csharp
-using Openapi;
-using Openapi.Models.Components;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Components;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK(security: new Security() {
     OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
@@ -178,7 +178,7 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or throw an exception.
 
-By default, an API error will raise a `Openapi.Models.Errors.APIException` exception, which has the following properties:
+By default, an API error will raise a `DailyPay.Models.Errors.APIException` exception, which has the following properties:
 
 | Property      | Type                  | Description           |
 |---------------|-----------------------|-----------------------|
@@ -188,18 +188,18 @@ By default, an API error will raise a `Openapi.Models.Errors.APIException` excep
 
 When custom error responses are specified for an operation, the SDK may also throw their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `RequestTokenAsync` method throws the following exceptions:
 
-| Error Type                                | Status Code | Content Type             |
-| ----------------------------------------- | ----------- | ------------------------ |
-| Openapi.Models.Errors.BadRequestException | 400         | application/json         |
-| Openapi.Models.Errors.ErrorUnexpected     | 500         | application/vnd.api+json |
-| Openapi.Models.Errors.APIException        | 4XX, 5XX    | \*/\*                    |
+| Error Type                                 | Status Code | Content Type             |
+| ------------------------------------------ | ----------- | ------------------------ |
+| DailyPay.Models.Errors.BadRequestException | 400         | application/json         |
+| DailyPay.Models.Errors.ErrorUnexpected     | 500         | application/vnd.api+json |
+| DailyPay.Models.Errors.APIException        | 4XX, 5XX    | \*/\*                    |
 
 ### Example
 
 ```csharp
-using Openapi;
-using Openapi.Models.Errors;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Errors;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK();
 
@@ -231,7 +231,7 @@ catch (Exception ex)
         // Handle exception data
         throw;
     }
-    else if (ex is Openapi.Models.Errors.APIException)
+    else if (ex is DailyPay.Models.Errors.APIException)
     {
         // Handle default exception
         throw;
@@ -247,15 +247,15 @@ catch (Exception ex)
 
 The default server `https://api.{environment}.com` contains variables and is set to `https://api.dailypay.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
 
-| Variable      | Parameter                                       | Supported Values                     | Default      | Description |
-| ------------- | ----------------------------------------------- | ------------------------------------ | ------------ | ----------- |
-| `environment` | `environment: Openapi.Models.ServerEnvironment` | - `"dailypay"`<br/>- `"dailypayuat"` | `"dailypay"` |             |
+| Variable      | Parameter                                        | Supported Values                     | Default      | Description |
+| ------------- | ------------------------------------------------ | ------------------------------------ | ------------ | ----------- |
+| `environment` | `environment: DailyPay.Models.ServerEnvironment` | - `"dailypay"`<br/>- `"dailypayuat"` | `"dailypay"` |             |
 
 #### Example
 
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK(environment: "dailypayuat");
 
@@ -278,8 +278,8 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 The default server can be overridden globally by passing a URL to the `serverUrl: string` optional parameter when initializing the SDK client instance. For example:
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK(serverUrl: "https://api.dailypay.com");
 
@@ -302,8 +302,8 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK();
 

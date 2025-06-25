@@ -9,8 +9,8 @@ actions:
         - lang: csharp
           label: createGenericCardToken
           source: |-
-            using Openapi;
-            using Openapi.Models.Requests;
+            using DailyPay;
+            using DailyPay.Models.Requests;
 
             var sdk = new SDK();
 
@@ -38,8 +38,8 @@ actions:
         - lang: csharp
           label: requestToken
           source: |-
-            using Openapi;
-            using Openapi.Models.Requests;
+            using DailyPay;
+            using DailyPay.Models.Requests;
 
             var sdk = new SDK();
 
@@ -62,9 +62,9 @@ actions:
         - lang: csharp
           label: listAccounts
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
-            using Openapi.Models.Requests;
+            using DailyPay;
+            using DailyPay.Models.Components;
+            using DailyPay.Models.Requests;
 
             var sdk = new SDK(
                 version: 3,
@@ -86,8 +86,8 @@ actions:
         - lang: csharp
           label: createAccount
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -127,8 +127,8 @@ actions:
         - lang: csharp
           label: readAccount
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -146,8 +146,8 @@ actions:
         - lang: csharp
           label: getHealth
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(security: new Security() {
                 OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
@@ -162,9 +162,9 @@ actions:
         - lang: csharp
           label: listJobs
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
-            using Openapi.Models.Requests;
+            using DailyPay;
+            using DailyPay.Models.Components;
+            using DailyPay.Models.Requests;
 
             var sdk = new SDK(
                 version: 3,
@@ -184,8 +184,8 @@ actions:
         - lang: csharp
           label: readJob
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -203,8 +203,8 @@ actions:
         - lang: csharp
           label: updateJob
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -244,8 +244,8 @@ actions:
         - lang: csharp
           label: listOrganizations
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -263,8 +263,8 @@ actions:
         - lang: csharp
           label: readOrganization
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -282,9 +282,9 @@ actions:
         - lang: csharp
           label: listPaychecks
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
-            using Openapi.Models.Requests;
+            using DailyPay;
+            using DailyPay.Models.Components;
+            using DailyPay.Models.Requests;
             using System;
 
             var sdk = new SDK(
@@ -312,8 +312,8 @@ actions:
         - lang: csharp
           label: readPaycheck
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -331,8 +331,8 @@ actions:
         - lang: csharp
           label: readPerson
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -350,8 +350,8 @@ actions:
         - lang: csharp
           label: updatePerson
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -379,8 +379,8 @@ actions:
         - lang: csharp
           label: listTransfers
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -398,8 +398,8 @@ actions:
         - lang: csharp
           label: createTransfer
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,
@@ -447,8 +447,8 @@ actions:
         - lang: csharp
           label: readTransfer
           source: |-
-            using Openapi;
-            using Openapi.Models.Components;
+            using DailyPay;
+            using DailyPay.Models.Components;
 
             var sdk = new SDK(
                 version: 3,

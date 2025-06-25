@@ -26,8 +26,8 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Components;
+using DailyPay;
+using DailyPay.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -55,14 +55,14 @@ var res = await sdk.Transfers.ReadAsync(transferId: "aba332a2-24a2-46de-8257-504
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| Openapi.Models.Errors.ErrorBadRequest   | 400                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnauthorized | 401                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorForbidden    | 403                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorNotFound     | 404                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnexpected   | 500                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.APIException      | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorNotFound     | 404                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
 
 ## List
 
@@ -73,8 +73,8 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Components;
+using DailyPay;
+using DailyPay.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -103,13 +103,13 @@ var res = await sdk.Transfers.ListAsync();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| Openapi.Models.Errors.ErrorBadRequest   | 400                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnauthorized | 401                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorForbidden    | 403                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnexpected   | 500                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.APIException      | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
 
 ## Create
 
@@ -120,8 +120,8 @@ personal `DEPOSITORY` or `CARD` account.
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Components;
+using DailyPay;
+using DailyPay.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -180,10 +180,10 @@ var res = await sdk.Transfers.CreateAsync(
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| Openapi.Models.Errors.TransferCreateError | 400                                       | application/vnd.api+json                  |
-| Openapi.Models.Errors.ErrorUnauthorized   | 401                                       | application/vnd.api+json                  |
-| Openapi.Models.Errors.ErrorForbidden      | 403                                       | application/vnd.api+json                  |
-| Openapi.Models.Errors.ErrorUnexpected     | 500                                       | application/vnd.api+json                  |
-| Openapi.Models.Errors.APIException        | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| DailyPay.Models.Errors.TransferCreateError | 400                                        | application/vnd.api+json                   |
+| DailyPay.Models.Errors.ErrorUnauthorized   | 401                                        | application/vnd.api+json                   |
+| DailyPay.Models.Errors.ErrorForbidden      | 403                                        | application/vnd.api+json                   |
+| DailyPay.Models.Errors.ErrorUnexpected     | 500                                        | application/vnd.api+json                   |
+| DailyPay.Models.Errors.APIException        | 4XX, 5XX                                   | \*/\*                                      |

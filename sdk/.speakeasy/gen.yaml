@@ -21,10 +21,10 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.1.0
+  version: 0.1.1
   additionalDependencies: []
-  author: Speakeasy
-  baseErrorName: SDKError
+  author: DailyPay, Inc.
+  baseErrorName: DailyPayError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIException
   disableNamespacePascalCasingApr2024: true
@@ -45,7 +45,7 @@ csharp:
   maxMethodParams: 4
   methodArguments: infer-optional-args
   outputModelSuffix: output
-  packageName: Openapi
+  packageName: DailyPay
   packageTags: ""
   responseFormat: envelope-http
   sourceDirectory: src

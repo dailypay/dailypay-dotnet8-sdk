@@ -1,7 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK();
 

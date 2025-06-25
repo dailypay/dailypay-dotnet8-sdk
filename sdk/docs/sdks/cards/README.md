@@ -67,8 +67,8 @@ Obtain a PCI DSS Compliant card token. This token must be used in order to add a
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Requests;
+using DailyPay;
+using DailyPay.Models.Requests;
 
 var sdk = new SDK();
 
@@ -105,6 +105,6 @@ var res = await sdk.Cards.CreateAsync(req);
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| Openapi.Models.Errors.APIException | 4XX, 5XX                           | \*/\*                              |
+| Error Type                          | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| DailyPay.Models.Errors.APIException | 4XX, 5XX                            | \*/\*                               |

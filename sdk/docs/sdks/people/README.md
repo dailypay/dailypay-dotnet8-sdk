@@ -22,8 +22,8 @@ Returns details about a person.
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Components;
+using DailyPay;
+using DailyPay.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -50,14 +50,14 @@ var res = await sdk.People.ReadAsync(personId: "aa860051-c411-4709-9685-c1b716df
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| Openapi.Models.Errors.ErrorBadRequest   | 400                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnauthorized | 401                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorForbidden    | 403                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorNotFound     | 404                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnexpected   | 500                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.APIException      | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorNotFound     | 404                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
 
 ## Update
 
@@ -66,8 +66,8 @@ Update a person object.
 ### Example Usage
 
 ```csharp
-using Openapi;
-using Openapi.Models.Components;
+using DailyPay;
+using DailyPay.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -105,11 +105,11 @@ var res = await sdk.People.UpdateAsync(
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| Openapi.Models.Errors.ErrorBadRequest   | 400                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnauthorized | 401                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorForbidden    | 403                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorNotFound     | 404                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.ErrorUnexpected   | 500                                     | application/vnd.api+json                |
-| Openapi.Models.Errors.APIException      | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorNotFound     | 404                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
+| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
