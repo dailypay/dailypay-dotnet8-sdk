@@ -66,7 +66,7 @@ namespace DailyPay.Hooks
     /// </summary>
     public interface ISDKInitHook
     {
-        (string, ISpeakeasyHttpClient) SDKInit(string baseUrl, ISpeakeasyHttpClient client);
+        SDKConfig SDKInit(SDKConfig config);
     }
 
     /// <summary>

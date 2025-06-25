@@ -495,7 +495,7 @@ namespace DailyPay
         public SDKConfig SDKConfiguration { get; private set; }
 
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.1.2";
+        private const string _sdkVersion = "0.1.5";
         private const string _sdkGenVersion = "2.638.0";
         private const string _openapiDocVersion = "3.0.0-beta01";
         public IAuthentication Authentication { get; private set; }
@@ -597,15 +597,7 @@ namespace DailyPay
 
         private void InitHooks()
         {
-            string preHooksUrl = SDKConfiguration.GetTemplatedServerUrl();
-            var (postHooksUrl, postHooksClient) = SDKConfiguration.Hooks.SDKInit(preHooksUrl, SDKConfiguration.Client);
-            var config = SDKConfiguration;
-            if (preHooksUrl != postHooksUrl)
-            {
-                config.ServerUrl = postHooksUrl;
-            }
-            config.Client = postHooksClient;
-            SDKConfiguration = config;
+            SDKConfiguration = SDKConfiguration.Hooks.SDKInit(SDKConfiguration);
         }
 
         public class SDKBuilder

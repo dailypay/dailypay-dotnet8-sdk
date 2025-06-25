@@ -58,20 +58,19 @@ namespace DailyPay.Hooks
             this.afterErrorHooks.Add(hook);
         }
         
-        public (string, ISpeakeasyHttpClient) SDKInit(string baseUrl, ISpeakeasyHttpClient client)
+        public SDKConfig SDKInit(SDKConfig config)
         {
-            var urlAndClient = (baseUrl, client);
             foreach (var hook in this.sdkInitHooks)
             {
                 try
                 {
-                    urlAndClient = hook.SDKInit(urlAndClient.Item1, urlAndClient.Item2);
+                    config = hook.SDKInit(config);
                 } catch (Exception ex)
                 {
                     throw new Exception("An error occurred while calling SDKInit hook.", ex);
                 }
             }
-            return urlAndClient;
+            return config;
         }
         
         public async Task<HttpRequestMessage> BeforeRequestAsync(BeforeRequestContext hookCtx, HttpRequestMessage request)

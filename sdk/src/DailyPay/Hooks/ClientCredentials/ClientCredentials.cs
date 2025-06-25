@@ -70,11 +70,10 @@ namespace DailyPay.Hooks.ClientCredentials
         public Dictionary<string, Session> Sessions { get; private set; } = new Dictionary<string, Session>();
         public ISpeakeasyHttpClient Client = default!;
         
-        public (string, ISpeakeasyHttpClient) SDKInit(string baseUrl, ISpeakeasyHttpClient client)
+        public SDKConfig SDKInit(SDKConfig config)
         {
-            Client = client;
-
-            return (baseUrl, client);
+            Client = config.Client;
+            return config;
         }
         
         public async Task<HttpRequestMessage> BeforeRequestAsync(BeforeRequestContext hookCtx, HttpRequestMessage request)

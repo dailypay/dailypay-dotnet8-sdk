@@ -16,12 +16,13 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
+  sdkHooksConfigAccess: true
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.1.2
+  version: 0.1.5
   additionalDependencies: []
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
