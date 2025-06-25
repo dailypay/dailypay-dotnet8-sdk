@@ -1,8 +1,8 @@
 speakeasyVersion: 1.570.0
 sources:
     local:
-        sourceNamespace: openapi
-        sourceRevisionDigest: sha256:68c4676bed2391f3ecd4f655cfef76b275836be2b77424c39e792687fd49775f
+        sourceNamespace: xapi
+        sourceRevisionDigest: sha256:cbb5b943493da653abfd687235e7a8ab16ca9c193276ee1572d6813eea842b3b
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         tags:
             - latest
@@ -10,11 +10,11 @@ sources:
 targets:
     csharp:
         source: local
-        sourceNamespace: openapi
-        sourceRevisionDigest: sha256:68c4676bed2391f3ecd4f655cfef76b275836be2b77424c39e792687fd49775f
+        sourceNamespace: xapi
+        sourceRevisionDigest: sha256:cbb5b943493da653abfd687235e7a8ab16ca9c193276ee1572d6813eea842b3b
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
-        codeSamplesNamespace: openapi-csharp-code-samples
-        codeSamplesRevisionDigest: sha256:4a53ea4444ba05a5c4f332e631d48ca9759ad0ea872b10d08cbeadcfbfe87a5a
+        codeSamplesNamespace: xapi
+        codeSamplesRevisionDigest: sha256:3b6a4123f53539fffbb189fa61e0d4f5da86eb2aed5f464de746b81ff0edfdf3
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -23,7 +23,7 @@ workflow:
             inputs:
                 - location: source/sdks.openapi.yaml
             registry:
-                location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
+                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
     targets:
         csharp:
             target: csharp
@@ -32,4 +32,4 @@ workflow:
             codeSamples:
                 output: codeSamples.yaml
                 registry:
-                    location: registry.speakeasyapi.dev/dailypay/dailypay/openapi-csharp-code-samples
+                    location: registry.speakeasyapi.dev/dailypay/dailypay/xapi

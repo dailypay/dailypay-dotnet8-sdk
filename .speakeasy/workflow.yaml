@@ -5,7 +5,7 @@ sources:
         inputs:
             - location: source/sdks.openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
+            location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
 targets:
     csharp:
         target: csharp
@@ -14,4 +14,4 @@ targets:
         codeSamples:
             output: codeSamples.yaml
             registry:
-                location: registry.speakeasyapi.dev/dailypay/dailypay/openapi-csharp-code-samples
+                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
