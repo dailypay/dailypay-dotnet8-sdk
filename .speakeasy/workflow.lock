@@ -2,7 +2,7 @@ speakeasyVersion: 1.570.2
 sources:
     local:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:96b5104728cc3f9bc7cc8db7f0a20a2e39239dcd8e57c3dfa35ecd3789e8ed36
+        sourceRevisionDigest: sha256:f4d251b9c3facefddfc7bb81862cd9d253af96a88665179635d76ea7c791a649
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     csharp:
         source: local
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:96b5104728cc3f9bc7cc8db7f0a20a2e39239dcd8e57c3dfa35ecd3789e8ed36
+        sourceRevisionDigest: sha256:f4d251b9c3facefddfc7bb81862cd9d253af96a88665179635d76ea7c791a649
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:a4ef55e36164453252617b0157d9b1e0709e9531c5025a10906a4f7bf80c01cd
+        codeSamplesRevisionDigest: sha256:f18ac843875816e575d02d9c1a8abdf8f01f6da4c5e61cd2d50b3657bddf6f44
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
