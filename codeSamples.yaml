@@ -1,0 +1,462 @@
+overlay: 1.0.0
+info:
+  title: CodeSamples overlay for csharp target
+  version: 0.0.0
+actions:
+  - target: $["paths"]["/cards/generic"]["post"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: createGenericCardToken
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Requests;
+
+            var sdk = new SDK();
+
+            CreateGenericCardTokenRequest req = new CreateGenericCardTokenRequest() {
+                FirstName = "Edith",
+                LastName = "Clarke",
+                CardNumber = "4007589999999912",
+                ExpirationYear = "2027",
+                ExpirationMonth = "02",
+                Cvv = "123",
+                AddressLineOne = "123 Kebly Street",
+                AddressLineTwo = "Unit C",
+                AddressCity = "Fort Lee",
+                AddressState = "NJ",
+                AddressZipCode = "07237",
+                AddressCountry = "US",
+            };
+
+            var res = await sdk.Cards.CreateAsync(req);
+
+            // handle response
+  - target: $["paths"]["/oauth2/token"]["post"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: requestToken
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Requests;
+
+            var sdk = new SDK();
+
+            RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
+                new AuthorizationCodeFlow() {
+                    GrantType = GrantType.AuthorizationCode,
+                    Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
+                    RedirectUri = "https://example.com/callback",
+                    State = "Hawaii",
+                    ClientId = "<id>",
+                }
+            );
+
+            var res = await sdk.Authentication.RequestTokenAsync(req);
+
+            // handle response
+  - target: $["paths"]["/rest/accounts"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: listAccounts
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+            using DailyPay.Models.Requests;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            ListAccountsRequest req = new ListAccountsRequest() {
+                FilterAccountType = FilterAccountType.EarningsBalance,
+            };
+
+            var res = await sdk.Accounts.ListAsync(req);
+
+            // handle response
+  - target: $["paths"]["/rest/accounts"]["post"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: createAccount
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Accounts.CreateAsync(accountData: new AccountDataInput() {
+                Data = new AccountResourceInput() {
+                    Attributes = AccountAttributesInput.CreateDepositoryInput(
+                        new DepositoryInput() {
+                            Name = "Acme Bank Checking Account",
+                            Subtype = AccountAttributesDepositorySubtype.Checking,
+                            DepositoryAccountDetails = new DepositoryAccountDetails() {
+                                FirstName = "Edith",
+                                LastName = "Clarke",
+                                RoutingNumber = "XXXXX2021",
+                                AccountNumber = "XXXXXX4321",
+                            },
+                        }
+                    ),
+                    Relationships = new AccountRelationships() {
+                        Person = new PersonRelationship() {
+                            Data = new PersonIdentifier() {
+                                Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+                            },
+                        },
+                    },
+                },
+            });
+
+            // handle response
+  - target: $["paths"]["/rest/accounts/{account_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: readAccount
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Accounts.ReadAsync(accountId: "2bc7d781-3247-46f6-b60f-4090d214936a");
+
+            // handle response
+  - target: $["paths"]["/rest/health"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: getHealth
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(security: new Security() {
+                OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+            });
+
+            var res = await sdk.Health.GetHealthAsync();
+
+            // handle response
+  - target: $["paths"]["/rest/jobs"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: listJobs
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+            using DailyPay.Models.Requests;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            ListJobsRequest req = new ListJobsRequest() {};
+
+            var res = await sdk.Jobs.ListAsync(req);
+
+            // handle response
+  - target: $["paths"]["/rest/jobs/{job_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: readJob
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
+
+            // handle response
+  - target: $["paths"]["/rest/jobs/{job_id}"]["patch"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: updateJob
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Jobs.UpdateAsync(
+                jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+                jobUpdateData: new JobUpdateData() {
+                    Data = new Data() {
+                        Id = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+                        Attributes = new JobAttributesInput() {
+                            ActivationStatus = ActivationStatus.Deactivated,
+                        },
+                        Relationships = new JobRelationshipsInput() {
+                            DirectDepositDefaultDepository = new AccountRelationship() {
+                                Data = new AccountIdentifier() {
+                                    Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                                },
+                            },
+                            DirectDepositDefaultCard = new AccountRelationship() {
+                                Data = new AccountIdentifier() {
+                                    Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                                },
+                            },
+                        },
+                    },
+                }
+            );
+
+            // handle response
+  - target: $["paths"]["/rest/organizations"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: listOrganizations
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Organizations.ListAsync();
+
+            // handle response
+  - target: $["paths"]["/rest/organizations/{organization_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: readOrganization
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Organizations.ReadAsync(organizationId: "123e4567-e89b-12d3-a456-426614174000");
+
+            // handle response
+  - target: $["paths"]["/rest/paychecks"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: listPaychecks
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+            using DailyPay.Models.Requests;
+            using System;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            ListPaychecksRequest req = new ListPaychecksRequest() {
+                FilterDepositExpectedAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+                FilterDepositExpectedAtLt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+                FilterPayPeriodEndsAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+                FilterPayPeriodEndsAtLt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+                FilterPayPeriodStartsAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+                FilterPayPeriodStartsAtLt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+            };
+
+            var res = await sdk.Paychecks.ListAsync(req);
+
+            // handle response
+  - target: $["paths"]["/rest/paychecks/{paycheck_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: readPaycheck
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Paychecks.ReadAsync(paycheckId: "3fa85f64-5717-4562-b3fc-2c963f66afa6");
+
+            // handle response
+  - target: $["paths"]["/rest/people/{person_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: readPerson
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.People.ReadAsync(personId: "aa860051-c411-4709-9685-c1b716df611b");
+
+            // handle response
+  - target: $["paths"]["/rest/people/{person_id}"]["patch"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: updatePerson
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.People.UpdateAsync(
+                personId: "aa860051-c411-4709-9685-c1b716df611b",
+                personData: new PersonDataInput() {
+                    Data = new PersonResourceInput() {
+                        Id = "aa860051-c411-4709-9685-c1b716df611b",
+                        Attributes = new PersonAttributesInput() {
+                            StateOfResidence = "NY",
+                        },
+                    },
+                }
+            );
+
+            // handle response
+  - target: $["paths"]["/rest/transfers"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: listTransfers
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Transfers.ListAsync();
+
+            // handle response
+  - target: $["paths"]["/rest/transfers"]["post"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: createTransfer
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Transfers.CreateAsync(
+                idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+                transferCreateData: new TransferCreateData() {
+                    Data = new TransferCreateResource() {
+                        Id = "aba332a2-24a2-46de-8257-5040e71ab210",
+                        Attributes = new TransferAttributesInput() {
+                            Preview = true,
+                            Amount = 2500,
+                            Currency = "USD",
+                            Schedule = TransferAttributesSchedule.WithinThirtyMinutes,
+                        },
+                        Relationships = new TransferCreateRelationships() {
+                            Origin = new AccountRelationship() {
+                                Data = new AccountIdentifier() {
+                                    Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                                },
+                            },
+                            Destination = new AccountRelationship() {
+                                Data = new AccountIdentifier() {
+                                    Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                                },
+                            },
+                            Person = new PersonRelationship() {
+                                Data = new PersonIdentifier() {
+                                    Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+                                },
+                            },
+                        },
+                    },
+                }
+            );
+
+            // handle response
+  - target: $["paths"]["/rest/transfers/{transfer_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: csharp
+          label: readTransfer
+          source: |-
+            using DailyPay;
+            using DailyPay.Models.Components;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            var res = await sdk.Transfers.ReadAsync(transferId: "aba332a2-24a2-46de-8257-5040e71ab210");
+
+            // handle response

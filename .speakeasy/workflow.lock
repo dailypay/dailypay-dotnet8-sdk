@@ -1,0 +1,34 @@
+speakeasyVersion: 1.570.2
+sources:
+    local:
+        sourceNamespace: xapi
+        sourceRevisionDigest: sha256:f4d251b9c3facefddfc7bb81862cd9d253af96a88665179635d76ea7c791a649
+        sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
+        tags:
+            - latest
+            - 3.0.0-beta01
+targets:
+    csharp:
+        source: local
+        sourceNamespace: xapi
+        sourceRevisionDigest: sha256:f4d251b9c3facefddfc7bb81862cd9d253af96a88665179635d76ea7c791a649
+        sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
+        codeSamplesNamespace: xapi
+        codeSamplesRevisionDigest: sha256:f18ac843875816e575d02d9c1a8abdf8f01f6da4c5e61cd2d50b3657bddf6f44
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        local:
+            inputs:
+                - location: source/sdks.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+    targets:
+        csharp:
+            target: csharp
+            source: local
+            codeSamples:
+                output: codeSamples.yaml
+                registry:
+                    location: registry.speakeasyapi.dev/dailypay/dailypay/xapi

@@ -1,0 +1,9 @@
+# Security
+
+
+## Fields
+
+| Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `OauthUserToken`                                                                                  | *string*                                                                                          | :heavy_minus_sign:                                                                                | N/A                                                                                               |
+| `OauthClientCredentialsToken`                                                                     | [SchemeOauthClientCredentialsToken](../../Models/Components/SchemeOauthClientCredentialsToken.md) | :heavy_minus_sign:                                                                                | N/A                                                                                               |

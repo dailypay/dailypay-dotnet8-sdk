@@ -1,0 +1,4178 @@
+openapi: 3.1.0
+info:
+  version: 3.0.0-beta01
+  title: DailyPay Public Rest API
+  x-logo:
+    url: https://s3.amazonaws.com/dp-devportal-images/svgs/dp_text.svg
+  contact:
+    name: '@xapi'
+  description: |
+    # Welcome
+
+    This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.
+
+    Here are some links to help you get familiar with the DailyPay basics:
+
+    [API Versioning](/tag/Getting-Started#section/DailyPay's-API-Versioning) — Find out how we version our APIs.  
+    [Environments](/tag/Getting-Started#section/Environments) — Get an overview of the different environments in the DailyPay API.  
+    [Glossary](/tag/Glossary) — Explore a list of terms used in the DailyPay API.
+servers:
+  - url: https://api.{environment}.com
+    variables:
+      environment:
+        default: dailypay
+        enum:
+          - dailypay
+          - dailypayuat
+security:
+  - oauth_user_token:
+      - user:read
+  - oauth_client_credentials_token:
+      - client:admin
+tags:
+  - name: Getting Started
+    description: |
+      This API reference is your guide to understanding the DailyPay Public REST API and how to embed DailyPay functionality and Earned Wage Access into your application.
+
+      For an overview of the DailyPay Public REST API functionality, see the [DailyPay Public REST API Introduction](/tag/REST-API-Introduction).
+
+      ## Standards
+
+      - The DailyPay Public REST API is a [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer), and HTTPS is required for all requests. All request and response bodies are represented with JSON.
+      - OAuth 2.0 is used for authentication and authorization with the DailyPay Public REST API. See the [OAuth 2.0 RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749) reference for more information.
+      - The DailyPay APIs adhere to OpenAPI 3.1.0 standards. See the [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0) for more information.
+
+      ## Understanding Authentication
+
+      The DailyPay Public REST API uses OAuth 2.0 for authentication. The [DailyPay Public REST API OAuth Overview](/tag/Authentication) provides a detailed explanation of the OAuth 2.0 Authorization Code Grant and Client Credentials Flow.
+
+      ## Try It
+
+      Code Samples are provided for each endpoint in the DailyPay Public REST API Reference. The **_Try It_** feature allows you to test the API endpoints directly from the developer portal and is only available in the UAT environment.
+
+      - When using the **_Try It_** feature on an endpoint:
+        - Make sure you have proper UAT Credentials.
+        - Scrub any data that contains real employee phone, email, or other PII.
+        - Use non-production data.
+
+      ## DailyPay Public REST API Changelogs
+
+      Check back soon for DailyPay Public REST API Changelogs for a list of changes, features, and updates to the DailyPay Public REST API.
+
+      ## API Status
+
+      Make sure you subscribe to or keep an eye on the [DailyPay Status Page](https://status.dailypay.com/) for the current status of the DailyPay Public REST API.
+
+      # Environments
+
+      In general, DailyPay APIs have two environments per API and follow the naming structure of `api.dailypay.com` for the Production environment and `api.dailypayuat.com` for the UAT environment.
+
+      ## Table of DailyPay APIs and their respective environments
+
+      | API Name                 | Production URL                      | UAT URL                                |
+      | ------------------------ | ----------------------------------- | -------------------------------------- |
+      | DailyPay Public REST API | `https://api.dailypay.com`          | `https://api.dailypayuat.com`          |
+      | Data Exchange API        | `https://api.dailypay.com`          | `https://api.dailypayuat.com`          |
+      | Payments API             | `https://payments-api.dailypay.com` | `https://payments-api.dailypayuat.com` |
+
+      ## Key differences between the Production and UAT environments:
+
+      | Environment | Purpose                                                                       | Access                                                  | Data                                                    |
+      | ----------- | ----------------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+      | Production  | Live environment for processing production API Traffic                        | Restricted access for authorized clients and users only | Real production data exchanges including money movement |
+      | UAT         | Staging environment for developers to test new features, updates, and changes | Less restricted access for both developers and testers  | Test data and exchanges without money movement          |
+
+      ## Function
+
+      | Function                                            | UAT | Production |
+      | --------------------------------------------------- | --- | ---------- |
+      | Testing user data without PII                       | ✓   |            |
+      | Ability to mock transfer of funds                   | ✓   |            |
+      | Ability to integrate with custom code               | ✓   | ✓          |
+      | Access to real-world transactions like ACH Deposits |     | ✓          |
+      | Live customer data                                  |     | ✓          |
+      | Live transactions moving real funds                 |     | ✓          |
+
+      # DailyPay's API Versioning
+
+      - Each API at DailyPay adheres to [semver standards](https://semver.org/) for versioning, represented as `MAJOR.MINOR.PATCH`:
+
+        - The `MAJOR` version is incremented for breaking changes.
+        - The `MINOR` version is incremented for backwards compatible changes.
+        - The `PATCH` version is incremented for backwards compatible bug fixes.
+
+      - DailyPay will issue a new major API version when a breaking change occurs.
+
+      - To avoid breaking your code, developers are responsible for updating their API calls to interact with new versions of the DailyPay APIs.
+
+      - Communication about API changes will be in the changelogs for the APIs or available from your DailyPay representatives.
+
+      ## DailyPay views the following items as backwards compatible non-breaking changes:
+
+      - New resources
+      - New optional query parameters
+      - New optional body properties on PATCH, POST, PUT
+      - New properties on existing API responses
+      - Property order changes on existing API responses
+      - Changes to the content, length, or format of error messages and other human-readable strings
+
+      ## Selecting the API Version
+
+      Your API version controls the API behavior, properties in responses, available parameters in requests, and so on.
+
+      If you want to use API version `v3` of the DailyPay Public REST API, specify the URL `https://api.dailypay.com/rest` or `https://api.dailypayuat.com/rest`.
+  - name: Concepts
+    description: |
+      # Payment Flows
+
+      ## Continuous Pay Access?
+
+      Continuous Pay Access (formerly called Rolling Balance) allows a user to access earnings for a pay period that has already ended but has not yet been paid.
+
+      **Consider the following definitions:**
+
+      - `current pay period` - a pay period that has started but not yet ended
+      - `unsettled pay period` - a pay period that has ended but has not yet had a payday
+      - `settled pay period` - a pay period whose payday is today or prior
+
+      While a pay period is unsettled, the employee has a percentage of their paycheck available for transfer ahead of payday. Once settled, any pay that was not transferred ahead of payday is deposited into an employee’s bank account and no longer available as Earned Wages.
+
+      Earned Wage Access (EWA) is designed to maximize the available balance for each employee. The employee must have access to earnings from both the current and the unsettled pay period as both represent wages the employee has already earned.
+
+      This is where the concept of continuous pay access comes into play. If continuous pay access is not enabled at a client, a user will not be able to access their earned wages between pay period end date and payday.
+
+      ---
+
+      ## Continuous Pay Access Example
+
+      In this example, we have overlapping pay periods in July (7):
+
+      - Continuous Pay Access Starts on 7/14 as `Pay Period 1` Ends and `Pay Period 2` Begins.
+      - Continuous Pay Access Ends on 7/20 as `Pay Period 1` has settled, and only `Pay Period 2` funds are now available for transfer.
+
+      ![Continuous Pay Access Example](https://s3.amazonaws.com/dp-devportal-images/pngs/ContinuousPayAccess/ContinuousPayAccessExample.png)
+
+      ### Transfer Logic
+
+      Transfers follow the "First In, First Out" logic. As such, transfers will be tied to Pay Period 1 until the earnings from Pay Period 1 have been exhausted.
+
+      If earnings from Pay Period 1 are exhausted, transfers will be tied to Pay Period 2. This is determined by taking each pay period’s payday and sorting them in an ascending order.
+
+      - With continuous pay access enabled, it is possible within Pay Period 2 to make a transfer that exclusively draws upon earnings from the unsettled Pay Period 1.
+
+      - Continuous pay access also enables transfers spanning two pay periods. If a requested transfer amount exceeds what is available from Pay Period 1, the earnings to satisfy the transfer will span both pay periods. In effect, the user will be accessing earnings from both pay periods simultaneously with one transfer.
+
+      ### DailyPay Public REST API Transfer Example
+
+      The image below is an example transfer accessing earnings from both pay periods simultaneously with one transfer.
+
+      - A user has two paychecks, `Paycheck 1` and `Paycheck 2` throughout two pay periods.
+      - The user's first paycheck represents $100.00 of earnings, and the second paycheck represents $120.00 of earnings.
+      - During the Continuous Pay Access Window, the user will have a total of $222.00 earned wages across two paychecks.
+      - Assuming a 50% transfer rate, the user will have an Available Balance of $110.00 during the continuous pay access window.
+
+      ![Transfer during continuous pay access window](https://s3.amazonaws.com/dp-devportal-images/pngs/ContinuousPayAccess/TransferDuringCPA.png)
+  - name: Filtering
+    description: |
+      Efficiently retrieve DailyPay REST API resources with filtering queries by specifying query parameters in the request URL. This guide outlines how to build your queries.
+
+      > The request URL for a filtered query is structured as follows:
+      >
+      > ```
+      > https://dailypay.com/{endpoint}?filter={field}{operator}{value}
+      > ```
+
+      ## Terminology
+
+      As mentioned above, filter queries are structured with _clauses_ - a _field_ coupled with an _operator_ and a _value_.
+      Combine these clauses using _keywords_ for advanced filtering.
+
+      - The `{endpoint}` is the resource you want to filter, such as [organizations](/tag/Organizations), [transfers](/tag/Transfers), or [paychecks](/tag/Paychecks).
+      - A `{field}` is the attribute of a resource you want to filter by, such as a person's _name_ or a transfer's _status_.
+      - An `{operator}` describes how filters should look up values, such as `:` for exact match or `~` for partial match.
+      - A `{value}` is any value that could be a valid payload for the attribute, such as **"DailyPay"** for an organization name, or **"PROCESSING"** for a transfer status.
+
+      ---
+
+      ## Practical Examples
+
+      ### Exact Match & Partial Match
+
+      Filter for an organization with the exact name "DailyPay" (using the `:` operator) or any organization with "Daily" in the name (using the `~` operator).
+
+      ```
+      GET https://dailypay.com/organizations?filter=name:"DailyPay"
+      GET https://dailypay.com/organizations?filter=name~"Daily"
+      ```
+
+      Exact matches can also include multiple comma-separated values (no whitespace), which will return matches for any of the values.
+
+      ```
+      GET https://dailypay.com/paychecks?filter=status:"IN_TRANSIT","PROCESSING","DEPOSITED"
+      ```
+
+      ### Escaping Characters
+
+      `\` is used to escape quotes within strings.
+
+      ```
+      GET https://dailypay.com/organizations?filter=name:"The \"Daily Pay\" Company"
+      ```
+
+      ### AND & OR Clauses
+
+      Together, `{field}{operator}{value}` form a clause. Clauses can be joined with `AND` or `OR` to form more complex filters.
+
+      > Note that these keywords can be upper or lower case and `&` is also supported
+      >
+      > - `AND`, `and` or `&` are equivalent
+      > - `OR`, `or` are equivalent
+
+      ```
+      GET https://dailypay.com/paychecks?filter=job_id:"12345" AND status:"PROCESSING"
+      GET https://dailypay.com/paychecks?filter=job_id:"67890" OR status:"DEPOSITED"
+      ```
+
+      ---
+
+      ### Parenthesis
+
+      Parentheses are used to group expressions together and control the order of evaluation. By using parentheses, you can create complex filter conditions that combine multiple criteria clearly and unambiguously. Parentheses are useful for two main purposes:
+
+      **1. Controlling Evaluation Order**
+
+      Without parentheses, the filter conditions are evaluated from left to right. Using parentheses allows you to specify the evaluation order explicitly.
+
+      ```
+      GET https://dailypay.com/paychecks?filter=job_id:"aa860051-c411-4709-9685-c1b716df611b" AND (status:"DEPOSITED" OR status:"IN_TRANSIT")
+      ```
+
+      In this example, the API will retrieve paychecks whose status is "DEPOSITED" OR "IN_TRANSIT" belonging to the job of specified job_id. The parentheses ensure that the OR condition is evaluated first, and then the AND condition is applied to the result.
+
+      **2. Nested Parenthesis**
+
+      You can also use nested parentheses to create more complex filter conditions. By nesting parentheses, you can create intricate combinations of filtering criteria.
+
+      ```
+      GET https://dailypay.com/paychecks?filter=((status:"IN_TRANSIT" OR status:"PROCESSING") AND (job_id:"aa860051-c411-4709-9685-c1b716df611b" OR job_id:"ta123051-c611-4710-9687-c1b716jld32"))
+      ```
+
+      In this example, the API will retrieve all paychecks with either an IN_TRANSIT or PROCESSING status and belonging to either of the two specified job_ids.
+
+      See a complete list of fields and operators for each endpoint below.
+
+      ---
+
+      ## Supported Endpoint Filters
+
+      ### accounts
+
+      The filter is required when requests are made using `oauth_client_credentials_token` but optional when using `oauth_user_token`.
+
+      - Match Type: **Exact Only**
+      - Filterable Parameter: `person_id`
+
+      | Field     | Usage                                            | Type   | Allowed Operators |
+      | --------- | ------------------------------------------------ | ------ | ----------------- |
+      | person_id | person_id:"aa860051-c411-4709-9685-c1b716df611b" | string | `:`               |
+
+      ```
+      GET https://dailypay.com/accounts?filter=person_id:"aa860051-c411-4709-9685-c1b716df611b"
+      ```
+
+      ---
+
+      ### organizations
+
+      - Match Type: **Exact** or **Partial**
+      - Filterable Parameter: `name`
+
+      | Field | Usage           | Type   | Allowed Operators |
+      | ----- | --------------- | ------ | ----------------- |
+      | name  | name:"DailyPay" | string | `:` `~`           |
+
+      ```
+      GET https://dailypay.com/organizations?filter=name:"DailyPay"
+      GET https://dailypay.com/organizations?filter=name~"Daily"
+      ```
+
+      ---
+
+      ### transfers
+
+      - Match Type: **Exact Only**
+      - Filterable Parameter: `person_id`
+
+      | Field     | Usage                                            | Type   | Allowed Operators |
+      | --------- | ------------------------------------------------ | ------ | ----------------- |
+      | person_id | person_id:"aa860051-c411-4709-9685-c1b716df611b" | string | `:`               |
+
+      ```
+      GET https://dailypay.com/transfers?filter=person_id:"aa860051-c411-4709-9685-c1b716df611b"
+      ```
+
+      ---
+
+      ### paychecks
+
+      - Match Type: **Exact Only**
+      - Filterable Parameters: `job_id`, `status`
+
+      | Field  | Usage                                         | Type   | Allowed Operators |
+      | ------ | --------------------------------------------- | ------ | ----------------- |
+      | job_id | job_id:"aa860051-c411-4709-9685-c1b716df611b" | string | `:`               |
+      | status | status:"DEPOSITED"                            | string | `:`               |
+
+      ```
+      GET https://dailypay.com/paychecks?filter=job_id:"aa860051-c411-4709-9685-c1b716df611b" AND status:"DEPOSITED"
+      ```
+
+      ---
+
+      ### jobs
+
+      - Match Type: **Exact Only**
+      - Filterable Parameters: `person_id`, `first_name`, `last_name`, `external_identifiers`
+
+      | Field                            | Usage                                            | Type   | Allowed Operators |
+      | -------------------------------- | ------------------------------------------------ | ------ | ----------------- |
+      | person_id                        | person_id:"aa860051-c411-4709-9685-c1b716df611b" | string | `:`               |
+      | first_name                       | first_name:"Edith"                               | string | `:`               |
+      | last_name                        | last_name:"Clarke"                               | string | `:`               |
+      | external_identifiers[<subfield>] | external_identifiers[employee_id]:"0123456789"   | string | `:`               |
+  - name: Errors
+    description: |
+      # 400 Bad Request
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/BadRequest"}/>
+
+      # 400 Unprocessable Account
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/UnprocessableAccount"} />
+
+      # 400 Unprocessable Transfer
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/UnprocessableTransfer"} />
+
+      # 401 Unauthorized
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/Unauthorized"} />
+
+      # 403 Forbidden
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/Forbidden"} />
+
+      # 404 Not Found
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/NotFound"} />
+
+      # 500 Unexpected Error
+
+      ---
+
+      <RedocResponse pointer={"#/components/responses/Unexpected"} />
+  - name: Troubleshooting
+    description: |
+      ## API Troubleshooting Guide
+
+      If you are experiencing issues or encountering errors while using the API endpoints for on-demand pay functionality, refer to the following troubleshooting steps:
+
+      1. **Verify API Endpoint Access:**
+
+         - Ensure that you are using the correct Base URL for accessing the API endpoints. Double-check the appropriate base URL and endpoint paths:
+           - Production: `https://api.dailypay.com/rest`
+           - UAT: `https://api.dailypayuat.com/rest`
+
+         For API calls made from the developer portal to the DailyPay UAT environment:
+
+         - Ensure you have a UAT API key.
+         - Scrub any data containing employee phone, email, and direct deposit information.
+         - Use non-production data.
+
+      2. **Check Authentication and Authorization:**
+
+         - Confirm that you are providing the correct authentication credentials to access protected API resources.
+         - Verify that the access token is valid and has the necessary permissions for the desired actions.
+
+         Refer to the [Authentication Overview](Authentication) guide for assistance in confirming these details.
+
+      3. **Review Endpoint Parameters:**
+
+         See the [endpoint references](Getting-Started) with examples listed under relevant categories, e.g., _Users_ or _Organizations_.
+
+      4. **Handle Response Codes and Error Messages:**
+
+         - Pay attention to the response codes returned by the API. HTTP status codes in the 2xx range generally indicate success, while codes in the 4xx or 5xx range indicate errors.
+         - Refer to the API documentation for a comprehensive list of error codes and their meanings. Error messages returned by the API can provide valuable insights into the cause of the issue.
+
+         Error codes and their meanings are included under each endpoint description.
+
+      5. **Test in the Sandbox Environment:**
+
+         - Test your integration in the sandbox environment to troubleshoot and debug without affecting live production data. Refer to the [environments setup guide](tag/Getting-Started#section/Environments) for assistance.
+
+      6. **Logging and Error Tracking:**
+
+         - Implement logging mechanisms in your application to capture relevant information, such as request and response details, error messages, and stack traces.
+         - Use proper error tracking tools or services to centralize and monitor error occurrences. This can help identify patterns and provide insights for resolution.
+
+      7. **Reach Out to Developer Support:**
+         - If you have exhausted the troubleshooting steps and are still unable to resolve the issue, reach out to the developer support team for assistance.
+         - Provide detailed information about the problem, including the API endpoints, request parameters, and any error messages received.
+
+      Remember, troubleshooting steps may vary depending on the specific API endpoints and implementation details. Consult the [DailyPay Public REST API documentation](REST-API-Introduction), error code references, and support resources provided by the API provider for further guidance and assistance in resolving any issues you encounter.
+  - name: FAQs
+    description: |
+      Welcome to our Frequently Asked Questions (FAQ) page dedicated to the integration of the DailyPay Public REST API. Here, we have compiled a list of common queries along with their respective answers to assist developers in seamlessly understanding and implementing the REST API.
+
+      We cover various topics, including _user management_, _pay cycles_, _authentication_, and more. If you can't find the answer to your specific question, please don't hesitate to contact our dedicated developer support team for personalized assistance.
+
+      # User-related Questions:
+
+      <div>
+        <div class="accordion__item">
+          <input type="checkbox" id="user-1">
+          <label class="label" for="user-1">
+            What is a user, and what can a user do?
+           <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+          </label>
+          <div class="content">
+            An individual who interacts with the workforce management system integrated with the API. Users are typically employees or workers within an organization. The RESP API empowers clients to create new user accounts and retrieve or update user information. These actions may include enrolling for on-demand pay, accessing and managing payroll-related information and initiating transfers of funds. It is important to note that the specific functionalities and capabilities available to users can vary depending on the particular implementation.
+          </div>
+
+        </div>
+        <div class="accordion__item">
+          <input type="checkbox" id="user-2">
+          <label class="label" for="user-2">
+            How many employers can a user have?
+            <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+          </label>
+          <div class="content">
+            Currently, while users can have multiple employers, only one can be associated with their on-demand pay options and integrated with our REST API.
+          </div>
+        </div>
+        </div>
+
+      # Employer-related Questions:
+
+        <div>
+        <div class="accordion__item">
+            <input type="checkbox" id="employer-1">
+            <label class="label" for="employer-1">
+              What is an employer, and what can employers do?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              An employer represents an organization that uses the integrated workforce management system. Employers can often manage employee profiles, approve on-demand pay requests, generate payroll reports, monitor workforce analytics, and configure pay cycles and schedules. The REST API empowers employers to streamline workforce management tasks and efficiently handle employee compensation and administration.
+            </div>
+          </div>
+        </div>
+
+      # Pay Cycle and Scheduling Questions:
+
+        <div>
+        <div class="accordion__item">
+            <input type="checkbox" id="pay-1">
+            <label class="label" for="pay-1">
+              What does a typical pay cycle look like for clients?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              <ul>
+              <li>The specific details of a pay cycle can vary among clients and organizations. However, a typical pay cycle for clients often follows a regular schedule, such as weekly, bi-weekly (every two weeks), semi-monthly (twice a month), or monthly.</li>
+              <li>During a pay cycle, employees' working hours, wages, and other factors relevant to compensation are recorded and processed by their employer. For on-demand pay to work, payroll calculations are performed on a shift-by-shift basis, and employees have visibility and access to their current earned income at that point in the given pay period.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="pay-2">
+            <label class="label" for="pay-2">
+              What are the types of pay schedules our clients might have?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+            Clients utilizing the REST API may have various types of pay schedules based on their specific needs and requirements. Some common types of pay schedules include:
+              <ol>
+                <li>Weekly: Employees are paid weekly, typically every seven days.</li>
+                <li>Bi-weekly: Payroll is processed every two weeks, resulting in 26 pay periods per year.</li>
+                <li>Semi-monthly: Employees receive paychecks twice a month, often on specific dates such as the 15th and the last day of the month.</li>
+                <li>Monthly: Payroll is processed once a month, usually on a fixed date.</li>
+                <li>Customized: Clients may have unique pay schedules tailored to their business needs. These schedules can include irregular intervals or specific dates based on the company's pay policies.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+      # API Functionality and Integration Questions:
+
+        <div>
+        <div class="accordion__item">
+            <input type="checkbox" id="func-1">
+            <label class="label" for="func-1">
+              How do I get started with the integration process?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              To get started, please refer to the API documentation available on our <a href='Getting-Started'>Getting Started page</a>. It provides step-by-step instructions, code examples, and guidelines for implementing the API endpoints.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-2">
+            <label class="label" for="func-2">
+              What authentication method does the API use?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+                The API leverages OAuth 2.0 for authentication. To interact with user-based operations that require an individual's consent, you'll need to obtain access tokens using the authorization grant flow. For non-user-specific operations that involve accessing endpoints such as 'organization search', you will utilize client credentials for authentication.
+                <br></br>
+                <a href='OAuth'>Read this guide to learn more about getting access tokens and the authorization grant flow.</a>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-3">
+            <label class="label" for="func-3">
+              How can I search for users within my application?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+                You can use the <a href='Users#operation/readUserDetails'>user details endpoint</a> provided by the API. It allows you to search for users based on various criteria, such as name, email, or employee ID.
+                <br></br><a href="Users#operation/readUserDetails](tag/Users#operation/readUserDetails"><img src="https://img.shields.io/badge/GET-/v1/users/{user_id}-brightgreen" alt="GET" /></a>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-4">
+            <label class="label" for="func-4">
+              Can I retrieve payroll-related information for users?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+                Yes, you can retrieve payroll-related information using the <a href="Users#operation/readPaycheck">paychecks endpoint</a>. It allows you to fetch user paychecks based on specified parameters, such as user ID and date range.
+                <br></br><a href="tag/Users#operation/readPaycheck"><img src="https://img.shields.io/badge/GET-/v1/users/{user_id}/paychecks/{paycheck_id}-brightgreen" alt="GET" /></a>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-5">
+            <label class="label" for="func-5">
+              How can I initiate funds transfers using the API?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+            You can use the <a href="Users#operation/makeTransfer">transfers endpoint</a> to initiate funds transfers between accounts. Provide the necessary parameters, such as the destination account and the transfer amount.
+                <br><br/>
+                <a href="Users#operation/makeTransfer"><img src="https://img.shields.io/badge/POST-/v1/users/{user_id}/transfers-blue" alt="POST" /></a>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-6">
+            <label class="label" for="func-6">
+              Can I manage debit and bank cards using the API?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              Yes, you can manage debit and bank cards using the card management endpoint. It enables you to add, update, or remove debit and bank cards for users. However, to add or update Debit Cards from within your application, you must be PCI-E compliant and communicate this with your DailyPay representative.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-7">
+            <label class="label" for="func-7">
+              Is the card management feature PCI-E compliant?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              Yes, the card management functionality provided by the API adheres to PCI-E (PCIE) compliance standards. It ensures the secure handling of card information during tokenization and storage processes.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-8">
+            <label class="label" for="func-8">
+              Can I customize the UI to display available balance and other related information to end users?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              Yes, the API allows you to customize the user interface (UI) of your application to display available balance and other relevant information to end users. However, DailyPay has some rules for displaying and explaining available balance. You can leverage the API data to design a user-friendly and visually appealing UI.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-9">
+            <label class="label" for="func-9">
+              Are there any sandbox or testing environments available for API integration?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              Yes, we provide testing environments to facilitate API integration and testing. These environments have full API functionality but simulate transfers, which allows you to test an integration without affecting production data.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-10">
+            <label class="label" for="func-10">
+              Are there any compliance or regulatory considerations when integrating with this API?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              Yes, compliance and regulatory considerations might apply, such as data privacy, security, and financial regulations. Ensure that your integration follows relevant compliance standards and guidelines to protect user data and comply with applicable regulations.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-11">
+            <label class="label" for="func-11">
+             How can I stay updated on API changes, updates, and new features?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              We provide notifications, release notes, and changelogs on our developer portal to keep you informed about API changes, updates, and new features. Regularly check the portal for announcements or subscribe to our developer newsletter for updates.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-12">
+            <label class="label" for="func-12">
+             Can a person have multiple accounts for remainder pay?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              Yes, people can have one depository and one card account designated for remainder pay, set when updating a job's paycheck settings. DailyPay will always attempt to send remainder pay to the depository account first.
+            </div>
+          </div>
+          <div class="accordion__item">
+            <input type="checkbox" id="func-13">
+            <label class="label" for="func-13">
+             How is the remainder of the paycheck determined?
+               <span class="toggle-icon">
+            <img src="https://s3.amazonaws.com/dp-devportal-images/svgs/chevron.svg" alt="ChevronIcon">
+          </span>
+            </label>
+            <div class="content">
+              The remainder is the amount left after deductions for the other specified accounts. Generally speaking, remainder pay is the net_earnings minus total_debited on each paycheck.
+            </div>
+          </div>
+        </div>
+
+        <!-- According Styles -->
+        <style>
+        .accordion {
+          max-width: 600px;
+          margin: 50px auto;
+        }
+
+        .accordion__item {
+          margin-bottom: 10px;
+          border: 1px solid #FEDBCC;
+          border-radius: 5px;
+          overflow: hidden;
+        }
+
+        input[type="checkbox"] {
+          display: none;
+        }
+
+        .label {
+          background-color: white;
+          color: black;
+          padding: 10px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          transition: background-color 0.3s ease-in-out;
+          font-weight: semi-bold;
+          font-size: 18px;
+        }
+
+        .content {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.5s ease-out, margin 0.5s ease-out;
+          margin: 0px 10px 0px 10px;
+        }
+
+        input:checked + label {
+          background-color: #FFF4F0;
+        }
+
+        input:checked + label + .content {
+          max-height: 1000px; /* Adjust the value to fit your content */
+          margin: 15px;
+        }
+
+        /* Add styles for the chevron icon */
+        .toggle-icon img {
+          width: 14px; /* Adjust the width as needed */
+          height: 14px; /* Adjust the height as needed */
+          transition: transform 0.3s ease-out;
+        }
+
+        /* Rotate the chevron icon when the accordion item is open */
+        input:checked + label .toggle-icon img {
+          transform: rotate(180deg);
+        }
+      </style>
+  - name: Glossary
+    description: |
+      Welcome to the glossary of key terms and concepts. This page provides definitions of commonly used terms in the payroll industry as well as some DailyPay concepts. This resource covers everything from basic terminology and acronymns to advanced concepts and will continue to improve as we add more public documentation.
+
+      | Term                             | Description                                                                                                                                                                                                                                                                                                     |
+      | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+      | **Available Balance (AB)**       | Balance made available for the Client to transfer from.                                                                                                                                                                                                                                                         |
+      | **Advance Rate (AR)**            | Percentage applied to the client’s Gross Earnings to calculate the Available Balance.                                                                                                                                                                                                                           |
+      | **DailyPay Account (DPA)**       | Each active enrolled employee receives a unique DailyPay Account, or “DPA.” Their DPA is linked to their primary bank account, and their DPA is also input into their company's payroll system. DailyPay can receive their paychecks from the employer and also send reminders to the employee through the DPA. |
+      | **DailyPay User (User)**         | Any person who has registered (agreed to Terms & Conditions) for a DailyPay Consumer Service and has not yet been forgotten. (“Forgotten” refers to the privacy practice or “right to be forgotten.”)                                                                                                           |
+      | **On Demand Pay**                | On-demand pay gives employees access to their earned pay before the traditional, scheduled payday. [Learn More](https://www.dailypay.com/earned-wage-access/)                                                                                                                                                   |
+      | **Employee/Worker**              | Any person submitted to DailyPay from an employer/partner as a payroll participant for that organization.                                                                                                                                                                                                       |
+      | **Gross Earnings/Pay**           | The earnings employees would receive before taxes and deductions are taken out. Generally, it’s the employee’s hourly wage multiplied by hours worked.                                                                                                                                                          |
+      | **Net Earnings/Pay**             | The employee’s take-home pay, after all taxes and deductions (the actual amount of the check the employee receives). Commonly referred to as a payroll journal or payroll register.                                                                                                                             |
+      | **Time Management System (TMS)** | The system where employees record their hours worked.                                                                                                                                                                                                                                                           |
+      | **Transfer**                     | The movement of money from a User's Available Balance to his/her bank account.                                                                                                                                                                                                                                  |
+      | **Vault Check**                  | When the DailyPay system checks the last 4 digits of an account number to confirm that the bank account on record in your payroll system is the DailyPay account (and not the employee's personal bank account).                                                                                                |
+  - name: Authentication
+    description: |
+      # DailyPay API Access
+
+      ---
+
+      DailyPay adheres to the [OAuth 2.0 RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749) and [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html) specifications. This document will walk you through the steps to get an _access token_ your application can use to make requests to the DailyPay Public REST API.
+
+      We support the following methods:
+
+      - [Authorization Code Flow](https://www.rfc-editor.org/rfc/rfc6749#section-4.1): This method is suitable when access to resources requires user consent, such as bank account information or the ability to initiate transfers on behalf of the user.
+
+        > It allows your application to get `access` and `refresh` tokens, facilitating user consent and enabling your application to perform actions on their behalf.
+
+      - [Client Credential Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4): This method is suitable for server-to-server operations, where additional levels of user consent may not be required.
+        > The client credentials grant facilitates the acquisition of an access token independent of a user's protected resources. For instance, you can utilize [the _Organizations_ endpoint](/tag/v3/Organizations#operation/readOrganization).
+
+      # Authorization Code Flow
+
+      The purpose of following the OAuth2 flow is to help you retrieve an authorization <strong><code>code</code></strong>
+      and exchange it for an <strong><code>access_token</code></strong> via the <a href="/tag/Authentication#operation/requestOauthAccessToken">request access token</a> endpoint.
+
+      ## 1. Register your Application
+
+      Your DailyPay contact will ask you to provide
+
+      - a callback url that can receive the <strong><code>code</code></strong> result of the OAuth 2.0 authorization code flow
+      - links to your privacy policy and terms of service
+      - optionally, a logo for use on the OAuth consent screen
+
+      <details>
+      <summary>OpenID Connect (OIDC)</summary>
+
+      - For additional security, you may be asked to provide DailyPay with a JSON Web Key Set (JWKS) or url for retrieving your JWKS to utilize signed <a href="https://openid.net/specs/openid-connect-core-1_0.html#JWTRequests">OIDC requests</a>.</p>
+      </details>
+
+      ## 2. Configure
+
+      <p>DailyPay will provide configuration values for your application:</p>
+      <ul>
+          <li><code>client_id</code></li>
+          <li><code>client_secret</code>, if applicable</li>
+          <li><code>scope</code>a list of scopes your application can request, which may include "offline_access" and "openid"</li>
+          <li><code>redirect_uri</code> the registered callback url you provided</li>
+      </ul>
+
+      You may wish to use a client library (https://oauth.net/code/) to perform the next steps, using the configuration values above.
+
+      ## 3. Initiate an OAuth2 request
+
+      Construct the request url using the template below, replacing the <strong><code>{scope}</code></strong>, <strong><code>{client_id}</code></strong>, and <strong><code>{redirect_uri}</code></strong> parameters with the configuration values accordingly.
+
+      Additionally, generate a <strong><code>state</code></strong> parameter for the specific request, and a code challenge and verifier (used in a later step) for <a href="https://oauth.net/2/pkce/">Proof Key Code Exchange</a>.
+
+        <pre><code>https://auth.dailypay.com/oauth2/auth
+          ?response_type=code
+          &scope={scope}
+          &client_id={client_id}
+          &redirect_uri={redirect_uri}
+          &state={state}
+          &code_challenge={code_challenge}
+          &code_challenge_method=S256
+        </code></pre>
+
+        <details>
+        <summary>Example</summary>
+        
+        <pre><code>https://auth.dailypay.com/oauth2/auth
+          ?response_type=code
+          &scope=user%3aread_write%20openid
+          &client_id=your-client-id
+          &redirect_uri=https%3A%2F%2Fexample.com%2Fcallback
+          &state=9876543fghijklm
+          &code_challenge=hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_xkGf7U4
+          &code_challenge_method=S256
+        </code></pre>
+        
+        Make sure to url-encode each parameter e.g. <code>user:read_write</code> becomes <code>user%3aread_write</code>
+        </details>
+        <br>
+
+      ## 4. Open a browser window, tab, or secure mobile view to the constructed URL.
+
+      The user will be prompted to log in or create a new DailyPay account and will be prompted to allow your application to act on their behalf.
+
+      <img src="https://s3.amazonaws.com/dp-devportal-images/pngs/OAuthAllowFlow.png">
+
+      ## 5. Handle the code
+
+      Users will be redirected in the open tab to your callback url with a `code` query parameter,
+      or an `error` and `error_description` if the user did not consent to your application's request or otherwise encountered an error.
+      You will also be returned the `state` parameter.
+
+      ## 6. Exchange the code for an Access Token
+
+      As also specified in our [token endpoint documentation](Authentication#operation/requestToken),
+      send the following parameters www-form-encoded in the request body to https://auth.dailypay.com/oauth2/token.
+
+      <table>
+      <thead>
+      <tr>
+      <th>Parameter</th>
+      <th>Required</th>
+      <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>grant_type</td>
+      <td>Yes</td>
+      <td>Must be set to <code>authorization_code</code>.</td>
+      </tr>
+      <tr>
+      <td>client_id</td>
+      <td>Yes</td>
+      <td>Your client id provided by DailyPay.</td>
+      </tr>
+      <tr>
+      <td>code</td>
+      <td>Yes</td>
+      <td>The authorization code received from the authorization server.</td>
+      </tr>
+      <tr>
+      <td>redirect_uri</td>
+      <td>Yes</td>
+      <td>MUST be the redirection URI used in the initial authorization request.</td>
+      </tr>
+      <tr>
+      <td>client_secret</td>
+      <td>Varies</td>
+      <td>Your client secret, if provided by DailyPay.</td>
+      </tr>
+      <tr>
+      <td>code_verifier</td>
+      <td>Varies</td>
+      <td>The PKCE verifier matching the code_challenge generated earlier.</td>
+      </tr>
+      </tbody>
+      </table>
+
+      Example Request to the Token Endpoint
+
+      <pre><code>curl --request POST \
+          --url https://auth.dailypay.com/oauth2/token \
+          --header 'accept: application/vnd.api+json'
+          --header 'content-type: application/x-www-form-urlencoded' \
+          --data "grant_type=authorization_code" \
+          --data "client_id={client_id}" \
+          --data "code={code}" \
+          --data "redirect_uri={redirect_uri}" \
+          --data "code_verifier={verifier}"
+      </code></pre>
+
+      The resulting access token can be used to make requests to the DailyPay Public REST API:
+
+      <pre><code>{
+          "access_token": "dpo_38347Ae178B4a16C7e42F292c6912E7710c8",
+          "token_type": "bearer",
+          "expires_in": 3600,
+          "created_at": 1669741580
+      }
+      </code></pre>
+
+      > The authorization code, access token, and refresh tokens can vary in size but will typically remain under 4096 btyes.
+
+      # Client Credentials Flow
+
+      As also specified in our [token endpoint documentation](Authentication#operation/requestToken),
+      send the following parameters www-form-encoded in the request body to https://auth.dailypay.com/oauth2/token.
+
+      <table>
+      <thead>
+      <tr>
+      <th>Parameter</th>
+      <th>Required</th>
+      <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>grant_type</td>
+      <td>Yes</td>
+      <td>Must be set to <code>client_credentials</code>.</td>
+      </tr>
+      <tr>
+      <td>scope</td>
+      <td>Yes</td>
+      <td>The space-delimited list of requested scopes</td>
+      </tr>
+      <tr>
+      <td>client_id</td>
+      <td>Yes</td>
+      <td>Your client id provided by DailyPay.</td>
+      </tr>
+      <tr>
+      <td>client_secret</td>
+      <td>Yes</td>
+      <td>Your client secret provided by DailyPay.</td>
+      </tr>
+      </tbody>
+      </table>
+
+      Example Request to the Token Endpoint
+
+      <pre><code>curl --request POST \
+          --url https://auth.dailypay.com/oauth2/token \
+          --header 'accept: application/vnd.api+json'
+          --header 'content-type: application/x-www-form-urlencoded' \
+          --data "grant_type=client_credentials" \
+          --data "scope={scopes}" \
+          --data "client_id={client_id}" \
+          --data "client_secret={client_secret}"
+      </code></pre>
+
+      The resulting access token can be used to make requests to the DailyPay Public REST API:
+
+      <pre><code>{
+          "access_token": "dpo_38347Ae178B4a16C7e42F292c6912E7710c8",
+          "token_type": "bearer",
+          "expires_in": 3600,
+          "created_at": 1669741580
+      }
+      </code></pre>
+
+      > The authorization code, access token, and refresh tokens can vary in size but will typically remain under 4096 btyes.
+
+      ---
+  - name: Client Portal
+    description: |
+      The client portal is a tool that enables you to effectively manage users as you build and test your DailyPay API integration. The portal provides access to upload, download, and track data exchanges for files like user rosters, gross and net earnings, and allows for admin management.
+
+      ![ProviderPortalOverview](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_overview.png)
+
+      This page will provide an overview of the following high-level metrics:
+
+      - **Dollars Transferred** from DailyPay to employees in the past 7 days
+      - **Gross Earnings** Reported for all users in the past 24 hours
+      - **Enrollment** of eligible Users (% of employees enrolled in the DailyPay Program)
+      - **Adoption** % of eligible users (% of eligible employees that have made 2 or more transfers with DailyPay)
+
+      It also calls attention to important action items related to the Data Exchange (for example, if updates to employee direct deposit information are needed). You will have quick access to the following manual tasks:
+
+      - Download Direct Deposit Updates
+      - Upload the most recent Gross Earnings, Net Earnings (Payroll Journal), and User Roster Files
+
+      > The Search Bar at the top of the screen allows you to locate employee accounts by name or User ID #.
+
+      ---
+
+      # User Tab
+
+      ![ProviderPortalUserTab](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_user_tab.png)
+      Here you can see how many employees are enrolled, how many have yet to enroll, and how many
+      have a canceled status. By using the top search bar, you can also locate employee accounts by name or User ID #, or you can filter the employees based on status or pay group. Below are the different user statuses:
+
+      - **Active**: An employee who has enrolled in DailyPay, but may or may not have made a transfer yet.
+      - **Canceled**: Users who have opted out of DailyPay or a user who has been terminated.
+      - **Pending**: DailyPay has created accounts for these users, but they have not yet completed the enrollment.
+      - **Review**: User who signed up for the DailyPay Program but may require actions before moving to the Active status.
+
+      Below are some _Review_ examples:
+
+      - The user enters an invalid bank account, and the DailyPay support team will work directly with the employee to resolve the issue. (Most Common)
+      - The user changed their details like first and last name, email or phone number, and the support team needs to review and reconfirm updates with the user.
+      - Unusual user activity, such as fraud or frequent cancelation/reactivation.
+      - Client-reported accounting or timekeeping issues.
+
+      ## Users Tab: What information can be seen for each employee
+
+      ![WhatEachEmployeeSees](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_whatEmployeeSees.png)
+
+      When selecting a user, you’ll have visibility into the following data:
+
+      - **General Information** such as Contact information and User ID.
+      - **Banking**:
+        - You can see which DailyPay account is on file in your payroll system.
+        - You can see which Bank account is on file in the user’s DailyPay Account
+          Settings as their primary account (where they would like to receive their
+          paycheck on payday).
+
+      > You will also have the ability to report an employee termination and/or disable their DailyPay account.
+
+      - To report an employee termination, click _Report Termination_ and then indicate how the employee will receive the final paycheck.
+
+      ![ReportTermination](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_report_termination.png)
+
+      - **No Change** (final pay only through direct deposit to DailyPay account):
+        - If an employee will be paid via direct deposit, choose this option, regardless if the final paycheck is sent off-cycle or on payday.
+      - **Paper Check** (deductions allowed with invoice request from DailyPay):
+        - If the employee is in a state that allows “wage discounting” and will be paid via paper check, choose this option.
+        - You’ll be prompted to enter the termed employee’s final net pay amount (according to their payroll system), and the portal will return the outstanding DailyPay transfers (amount owed), and the dollar amount that should be given on the final paper check.
+        - You then have the option of the remittance to DailyPay, either an invoice or through the DailyPay Account via direct deposit.
+      - **Paper Check** (no deductions allowed):
+        - If an employee must receive full pay immediately via paper check only, choose this option. DailyPay will work with the user to recoup the outstanding balance.
+      - If you’d like to disable a user, please click **Disable Account**.
+
+      ## User Statements
+
+      Within the User’s Account, you will also have the option to view the employee’s _Statements_
+
+      ![UserAccountStatements](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_user_account_statements.png)
+
+      You can select the current or previous pay periods, and you’ll see the following
+      payment information:
+
+      - The employee's full paycheck, and which amount was transferred before payday
+        and received on payday.
+      - All DailyPay transfers the user took within the pay period when they occurred, what
+        type of transfer it was (instant vs. next-day ACH), fees, and which account the
+        payment was transferred to.
+      - All payments the user received from the client.
+
+      ---
+
+      # Reporting Tab
+
+      ![ReportingTab](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_reporting_tab.png)
+
+      Under the Reporting tab, you will have visibility to the following information:
+
+      - **Enrollment** shows trends of users who have enrolled and adopted the DailyPay benefit.
+      - **Usage** shows the details regarding usage data, such as transfer reason and payment type:
+        - ACH transfers
+        - Next Business Day Transfers
+        - Instant Transfer - Real-Time Payments (or “RTP” for short), is a form of instant transfer that can be sent directly to bank accounts.
+      - **Compliance** shows with full transparency a User’s consent and what is being transferred to the employee.
+      - **Payday Exclusions** shows a list of all users whose remainder payment was not pre-funded for the selected pay date before payday.
+      - Within the **Other** section of the Reporting tab, you can export the following reports which will be sent to the email address associated with the
+        account login:
+        - **User Report**: Shows the user information, status, pay period earnings, available balance, payments, and the associated DPA (DailyPay Account), if applicable.
+        - **Balance Report**: This shows the details of the employee’s DailyPay balance information.
+
+      ---
+
+      # Data Exchange
+
+      ![DateExchangeDirectDepositUpdate](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_data_exchange_dd.png)
+
+      Within the _Data Exchange_ Tab, you have visibility into seeing the file transmissions with the option to manually upload or download a file for the following:
+
+      - User Roster
+      - Gross Earnings
+      - Net Earnings (Payroll Journal)
+      - Direct Deposit Updated (DDU)
+
+      ---
+
+      # Admin Access
+
+      ![AdminManagement](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_admin_management.png)
+
+      This tab allows you to add or deactivate other admins to the Client Portal.
+
+      ## Adding a new DailyPay Admin
+
+      To create a new DailyPay admin, click **Create Admin** beside the Admin Management header and input their first name, last name, email address
+      associated with their account, and phone number.
+
+      - You can also create a user and assign them to one or more pay groups, to ensure they can only view the user information for the employees in their designated pay group.
+      - To disable an existing admin, click the **Deactivate User** button.
+
+      ---
+
+      # Settings
+
+      ![Settings](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_settings.png)
+      By navigating to the _Settings_ section of your account, you have the option to subscribe to receive email alerts if any file is needed.
+
+      ![Notifications](https://s3.amazonaws.com/dp-devportal-images/pngs/provider_portal_guide/provider_portal_notifications.png)
+
+      # Support
+
+      **Should you have any questions, please contact your Client Manager or Client Support:**
+
+      - **Email:** client.support@dailypay.com
+  - name: Jobs
+    description: |
+      The _jobs_ endpoint provides access to comprehensive information 
+      about a person's employment. It enables you to retrieve details about
+      individual jobs, including information about the organization
+      they work for, status, wage rate, job title, location,
+      paycheck settings, and related links to associated accounts.
+  - name: Accounts
+    description: |
+      The _accounts_ endpoint provides comprehensive information about money
+      accounts. You can retrieve account details, including the
+      account's unique ID, a link to the account holder, type, subtype,
+      verification status, balance details, transfer capabilities, and
+      user-specific information such as names, routing numbers, and partial
+      account numbers.
+
+
+      **Functionality:** Access detailed user account information, verify
+      account balances, view transfer capabilities, and access user-specific
+      details associated with each account.
+  - name: Transfers
+    description: |
+      The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer's unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.
+
+      **Functionality** Retrieve transfer information, monitor transfer statuses, view transfer schedules, and access relevant links for the source, destination, and origin of the transfer.
+
+      **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll
+  - name: Organizations
+    description: |
+      The _organizations_ endpoint provides details about a business entity, 
+      such as an employer, or a group of people, such as a division.
+
+      The response includes the organization name and ID which can be used to
+      make subsequent endpoint calls related to the organization and its
+      employees.
+  - name: Paychecks
+    description: |
+      The _paychecks_ endpoint provides detailed information about paychecks. 
+      You can retrieve individual paycheck details, including the
+      person and job associated with the paycheck, its status, pay period,
+      expected deposit date, total debited amount, withholdings, earnings, and
+      currency.
+
+      **Functionality:** Retrieve specific paycheck details, including payee and
+      job information, and monitor the status and financial details of each
+      paycheck.
+  - name: People
+    description: |
+      The _people_ endpoint allows you to see information related to who owns 
+      resources such as jobs and accounts.
+
+      **Functionality:** Retrieve limited details about a person, including
+      their name, global status, and state of residence.
+  - name: Cards
+    description: |
+      ## What is the Payments API?
+
+      The Payments API is a PCI compliant endpoint and allows for secure debit card token creation. These tokens are used within DailyPay's APIs. When a tokenized debit card is added to a user’s account they can begin to take instant transfers.
+
+      **How does this work?** A user's debit card data is sent via POST request to the Payments API. The debit card data is encrypted and tokenized before being returned. This tokenized card data is used for instant transfers via the Extend API.
+
+      ### What is PCI compliance?
+
+      It’s how we keep card data secure. DailyPay has a responsibility and legal requirement to protect debit card data therefore the Payments API endpoint complies with the Payment Card Industry Data Security Standards [PCI DSS](https://www.pcisecuritystandards.org/).
+
+      > 📘 **Info**
+      > DailyPay only handles card data during encryption and tokenization
+      > **The Payments server is DailyPay’s only PCI compliant API.**
+
+      ## Create a Debit Card Token
+
+      Steps to create a tokenized debit card for use within DailyPay's APIs.
+
+      ### 1. POST debit card data to the Payments API
+
+      After you have securely collected the debit card data for a user, create a POST to the PCI compliant payments endpoint [`POST Generic Card`](/v2/tag/Card-Creation) with the following required parameters in this example.
+
+      ```json
+      {
+        "first_name": "Edith",
+        "last_name": "Clarke",
+        "card_number": "4007589999999912",
+        "expiration_year": "2027",
+        "expiration_month": "02",
+        "cvv": "123",
+        "address_line_one": "1234 Street",
+        "address_city": "Fort Lee",
+        "address_state": "NJ",
+        "address_zip_code": "07237",
+        "address_country": "US"
+      }
+      ```
+
+      ### 2. Receive and handle the tokenized card data
+
+      The [payments endpoint](https://developer.dailypay.com/v2/reference/post_cards-generic) returns an opaque string representing the card details. This token is encrypted and complies with PCI DSS. You will need the token for step 3, after which it can be discarded. The token is a long string and will look similar to below:
+
+      ```json
+      {"token":"eyJhbGciOiJSU0Et.....T0FFU”}
+      ```
+
+      ### 3. POST the token to the Extend API
+
+      > 📘 **Important** > [Proper authorization](/v2/tag/Authorization) is required to create a transfer account.
+
+      Send the encrypted token in a POST request to the [transfer accounts endpoint](/v2/tag/Users#operation/createTransferAccount) as the value for the `generic_token` field. This will create a transfer account and allow a user to start taking transfers.
+  - name: Health
+    description: |
+      The _health_ endpoint provides a simple health check for the API. 
+
+      **Functionality:** Check the status of the API to ensure it is functioning
+      correctly.
+paths:
+  /oauth2/token:
+    servers:
+      - url: https://auth.dailypay.com
+        description: Production environment
+      - url: https://auth.uat.dailypay.com
+        description: Development environment
+    post:
+      tags:
+        - Authentication
+      summary: Request access token
+      security: []
+      description: Request a Dailypay user access token, as described in the <a href='https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.3'>OAuth2 spec</a>. When grant_type is authorization_code, the code and redirect_uri parameters are required. When grant_type is refresh_token, the refresh_token parameter is required.
+      operationId: requestToken
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              oneOf:
+                - type: object
+                  title: Authorization code flow
+                  required:
+                    - grant_type
+                    - code
+                    - redirect_uri
+                    - client_id
+                    - state
+                  properties:
+                    grant_type:
+                      type: string
+                      description: The OAuth2 grant type
+                      example: authorization_code
+                      enum:
+                        - authorization_code
+                    code:
+                      type: string
+                      description: An authorization code received through user authorization flow
+                      example: 50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw
+                    redirect_uri:
+                      type: string
+                      description: The url redirected to after the authorization flow was completed by current user.
+                      example: https://example.com/callback
+                    state:
+                      type: string
+                      description: A value used by the client to maintain state between the request and callback. This is used to prevent CSRF attacks.  See https://www.rfc-editor.org/rfc/rfc6749#section-10.12 for more detail.
+                    code_verifier:
+                      type: string
+                      description: A PKCE verifier matching the challenge submitted during the authorization code request.
+                    client_id:
+                      description: The client id of the application requesting the token.
+                      type: string
+                    client_secret:
+                      type: string
+                      description: The client secret of the application requesting the token, if available.
+                - type: object
+                  title: Client credentials flow
+                  required:
+                    - grant_type
+                    - scope
+                    - client_id
+                    - client_secret
+                  properties:
+                    grant_type:
+                      type: string
+                      description: The OAuth2 grant type
+                      example: client_credentials
+                    scope:
+                      type: string
+                      description: A space-separated list of scopes to request
+                      example: client:lookup health:read
+                    client_id:
+                      description: The client id of the application requesting the token.
+                      type: string
+                    client_secret:
+                      type: string
+                      description: The client secret of the application requesting the token.
+                - type: object
+                  title: Refresh token
+                  required:
+                    - grant_type
+                    - refresh_token
+                    - client_id
+                  properties:
+                    grant_type:
+                      type: string
+                      description: The OAuth2 grant type
+                      example: refresh_token
+                    refresh_token:
+                      type: string
+                      description: A refresh token received from a previous token request
+                      example: rt.ML_PsNjfQA4M7iupH_3jw
+                    client_id:
+                      description: The client id of the application requesting the token.
+                      type: string
+                    client_secret:
+                      type: string
+                      description: The client secret of the application requesting the token, if available.
+      responses:
+        '200':
+          description: DailyPay user access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenData'
+        '400':
+          description: 'Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                    description: Error code indicating what went wrong with the oauth token exchange. See the OAuth2 RFC for further context https://datatracker.ietf.org/doc/html/rfc6749#section-5.2
+                    enum:
+                      - invalid_request
+                      - invalid_client
+                      - invalid_grant
+                      - unauthorized_client
+                      - unsupported_grant_type
+                  error_description:
+                    type: string
+                    description: A description of exactly went wrong with the oauth token exchange. This is meant to improve developer experience, and is subject to change, so this should not be relied upon programatically.
+                    example: The requested scope is invalid, unknown, or malformed.
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/jobs/{job_id}:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+    get:
+      tags:
+        - Jobs
+      summary: Get a job object
+      description: Returns details about a person's employment.
+      operationId: readJob
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+            - client:lookup
+      parameters:
+        - $ref: '#/components/parameters/job_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/Job200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+    patch:
+      tags:
+        - Jobs
+      summary: Update paycheck settings or deactivate a job
+      description: |
+        Update this job to set where pay should be deposited for paychecks related to this job,  or deactivate on-demand pay for this job. 
+        Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
+      operationId: updateJob
+      security:
+        - oauth_user_token:
+            - user:read_write
+      parameters:
+        - name: job_id
+          description: Unique ID of the job
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: e9d84b0d-92ba-43c9-93bf-7c993313fa6f
+      requestBody:
+        $ref: '#/components/requestBodies/JobUpdate'
+      responses:
+        '200':
+          description: Returns the updated Job object
+          $ref: '#/components/responses/Job200'
+        '400':
+          $ref: '#/components/responses/JobUpdate400'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/jobs:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/filter.external_identifiers.primary_identifier'
+      - $ref: '#/components/parameters/filter.external_identifiers.employee_id'
+      - $ref: '#/components/parameters/filter.external_identifiers.group'
+      - $ref: '#/components/parameters/filter.person.id'
+      - $ref: '#/components/parameters/filter.organization.id'
+      - $ref: '#/components/parameters/filter'
+    get:
+      tags:
+        - Jobs
+      summary: Get a list of job objects
+      description: |
+        Returns a collection of job objects. This object represents a person's employment details.
+        See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
+      operationId: listJobs
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+            - client:lookup
+      responses:
+        '200':
+          $ref: '#/components/responses/Jobs200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/accounts/{account_id}:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/account_id'
+    get:
+      tags:
+        - Accounts
+      summary: Get an Account object
+      description: Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+      operationId: readAccount
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+            - client:lookup
+      responses:
+        '200':
+          $ref: '#/components/responses/Account200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/accounts:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+    get:
+      tags:
+        - Accounts
+      summary: Get a list of Account objects
+      description: |
+        Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+            - client:lookup
+      operationId: listAccounts
+      parameters:
+        - $ref: '#/components/parameters/filter.person.id'
+        - $ref: '#/components/parameters/filter.account_type'
+        - $ref: '#/components/parameters/filter.account_subtype'
+        - $ref: '#/components/parameters/filter'
+      responses:
+        '200':
+          $ref: '#/components/responses/Accounts200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+    post:
+      tags:
+        - Accounts
+      summary: Create an Account object
+      description: Create an account object to store a person's bank or card information as a destination for funds.
+      operationId: createAccount
+      security:
+        - oauth_user_token:
+            - user:read_write
+      requestBody:
+        $ref: '#/components/requestBodies/AccountCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Account200'
+        '400':
+          $ref: '#/components/responses/AccountCreate400'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/transfers/{transfer_id}:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/include'
+        examples:
+          fundingSources:
+            summary: Include related funding sources in the response
+            value: estimated_funding_sources,final_funding_sources
+    get:
+      tags:
+        - Transfers
+      summary: Get a transfer object
+      description: |
+        Returns details about a transfer of money from one account to another. 
+
+        Created when a person takes an advance against a future paycheck, or on a daily basis when available balance is updated based on current employment.
+      operationId: readTransfer
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+      parameters:
+        - $ref: '#/components/parameters/transfer_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/Transfer200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/transfers:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/include'
+        examples:
+          fundingSources:
+            summary: Include related funding sources in the response
+            value: estimated_funding_sources,final_funding_sources
+    get:
+      tags:
+        - Transfers
+      summary: Get a list of transfers
+      description: |
+        Returns a list of transfer objects.
+        See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
+      operationId: listTransfers
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+      parameters:
+        - $ref: '#/components/parameters/filter.person.id'
+        - $ref: '#/components/parameters/include'
+          examples:
+            fundingSources:
+              summary: Include related funding sources in the response
+              value: estimated_funding_sources,final_funding_sources
+        - $ref: '#/components/parameters/filter'
+      responses:
+        '200':
+          $ref: '#/components/responses/Transfers200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+    post:
+      tags:
+        - Transfers
+      summary: Request a transfer
+      description: |
+        Request transfer of funds from an `EARNINGS_BALANCE` account to a
+        personal `DEPOSITORY` or `CARD` account.
+      operationId: createTransfer
+      security:
+        - oauth_user_token:
+            - user:read_write
+      parameters:
+        - $ref: '#/components/parameters/idempotency_key'
+        - $ref: '#/components/parameters/include'
+          examples:
+            fundingSources:
+              summary: Include related funding sources in the response
+              value: estimated_funding_sources,final_funding_sources
+      requestBody:
+        $ref: '#/components/requestBodies/TransferCreate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Transfer200'
+        '400':
+          $ref: '#/components/responses/TransferCreate400'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/paychecks/{paycheck_id}:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/paycheck_id'
+    get:
+      tags:
+        - Paychecks
+      summary: Get a Paycheck object
+      description: Returns details about a paycheck object.
+      operationId: readPaycheck
+      security:
+        - oauth_user_token:
+            - user:read
+      responses:
+        '200':
+          $ref: '#/components/responses/Paycheck200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/paychecks:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+    get:
+      tags:
+        - Paychecks
+      summary: Get a list of paycheck objects
+      description: |
+        Returns a collection of paycheck objects. This object details a person's pay and pay period.
+        See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
+      operationId: listPaychecks
+      security:
+        - oauth_user_token:
+            - user:read
+      parameters:
+        - $ref: '#/components/parameters/filter.job.id'
+        - $ref: '#/components/parameters/filter.paycheck_status'
+        - $ref: '#/components/parameters/filter.deposit_expected_at__gte'
+        - $ref: '#/components/parameters/filter.deposit_expected_at__lt'
+        - $ref: '#/components/parameters/filter.pay_period_ends_at__gte'
+        - $ref: '#/components/parameters/filter.pay_period_ends_at__lt'
+        - $ref: '#/components/parameters/filter.pay_period_starts_at__gte'
+        - $ref: '#/components/parameters/filter.pay_period_starts_at__lt'
+        - $ref: '#/components/parameters/filter'
+          examples:
+            job:
+              value: job_id:"aa860051-c411-4709-9685-c1b716df611b"
+              summary: Limit the collection to objects matching a specific job
+            status:
+              value: status:"DEPOSITED"
+              summary: Limit the collection to objects with a specific status
+      responses:
+        '200':
+          $ref: '#/components/responses/Paychecks200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/organizations/{organization_id}:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/organization_id'
+    get:
+      summary: Get an organization
+      description: Lookup organization by ID for a detailed view of single organization.
+      operationId: readOrganization
+      security:
+        - oauth_client_credentials_token:
+            - client:admin
+      tags:
+        - Organizations
+      responses:
+        '200':
+          $ref: '#/components/responses/Organization200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/organizations:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/filter'
+        examples:
+          exactName:
+            value: name:"DailyPay"
+            summary: Limit the collection to objects matching a name exactly
+          partialName:
+            value: name~"Daily"
+            summary: Limit the collection to objects with a name containing a substring
+    get:
+      summary: List organizations
+      description: Get organizations with an optional filter
+      operationId: listOrganizations
+      security:
+        - oauth_client_credentials_token:
+            - client:admin
+      tags:
+        - Organizations
+      responses:
+        '200':
+          $ref: '#/components/responses/Organizations200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /rest/people/{person_id}:
+    parameters:
+      - $ref: '#/components/parameters/apiversion'
+      - $ref: '#/components/parameters/accept'
+      - $ref: '#/components/parameters/person_id'
+    get:
+      tags:
+        - People
+      summary: Get a person object
+      description: Returns details about a person.
+      operationId: readPerson
+      security:
+        - oauth_user_token:
+            - user:read
+        - oauth_client_credentials_token:
+            - client:admin
+      responses:
+        '200':
+          $ref: '#/components/responses/Person200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+    patch:
+      tags:
+        - People
+      summary: Update a person
+      description: Update a person object.
+      operationId: updatePerson
+      security:
+        - oauth_user_token:
+            - user:read_write
+      requestBody:
+        $ref: '#/components/requestBodies/PersonUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/Person200'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+  /cards/generic:
+    post:
+      summary: Obtain a card token
+      servers:
+        - url: https://payments.dailypay.com/v2
+      description: Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
+      operationId: createGenericCardToken
+      security: []
+      tags:
+        - Cards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - last_name
+                - card_number
+                - expiration_year
+                - expiration_month
+                - address_line_one
+                - address_city
+                - address_state
+                - address_zip_code
+                - address_country
+              properties:
+                first_name:
+                  type: string
+                  description: The first name or given name of the cardholder.
+                  example: Edith
+                last_name:
+                  type: string
+                  description: The last name or surname of the cardholder.
+                  example: Clarke
+                card_number:
+                  type: string
+                  description: The full card number without spaces or hyphenation.
+                  example: '4007589999999912'
+                expiration_year:
+                  type: string
+                  description: The four-digit year of expiration for the card.
+                  example: '2027'
+                expiration_month:
+                  type: string
+                  description: The two-digit month of the expiration date for the card.
+                  example: '02'
+                cvv:
+                  type:
+                    - string
+                    - 'null'
+                  description: The CVV card code.
+                  example: '123'
+                address_line_one:
+                  type: string
+                  description: The first line of the address associated with the card.
+                  example: 123 Kebly Street
+                address_line_two:
+                  type:
+                    - string
+                    - 'null'
+                  description: The second line of the address associated with the card.
+                  example: Unit C
+                address_city:
+                  type: string
+                  description: The city component of the address associated with the card.
+                  example: Fort Lee
+                address_state:
+                  type: string
+                  description: The two-letter state component of the address associated with the card.
+                  example: NJ
+                address_zip_code:
+                  type: string
+                  description: The 5 digit zip-code component of the address associated with the card.
+                  example: '07237'
+                address_country:
+                  type: string
+                  description: The two-letter ISO 3166 country code component of the address associated with the card.
+                  example: US
+      responses:
+        '200':
+          description: |
+            Returns an opaque string representing the card details.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - token
+                properties:
+                  token:
+                    type: string
+                    description: |
+                      This token should be supplied in the `generic_token` field when creating a TransferAccount with 
+                      `transfer_account_type` of DebitCard using the Extend API "Create a transfer account" endpoint.
+                    example: eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00ifQ.ZR3Eq5MAuS_03RopT9QWK1MUiFFIOoZoDgwkiDWzz-7S6Zeda0JdvzwI51lHxuvi6EFdXLi7-1thIpPt49JMiLtzZgcf7UCJrVOZTf88JhIL5X5rvmnpO2NADfR9PVzrSV2AwxLCRy6vRfgCHGJZy1o5AZzwaaMLCRzqb3vdCaXn9gKvGPmvHKg9PkR-Zrfs9XDsRHeCVtfvu8PBzMNO5r_Dfo-fo3l3cyV4pKFtbvjlJXm--Ko5XiJPxffnBofmlYabXHku5yuo6IsVTnd9ETksMu1tnfr4T9AC14fiZew0FJetIayf_-kmiR1t7_aU3Q_A8Uwy7kTmxrFTvu6Cgw.yT7WptQfjKXswG_N.DY77q22ZGV5efeh6LNI6bWRmhZikY0dLAyIDVrK7nite1B7T_4IL9XdM7Luf9BOpXHTscu9y6Zqun-687bclLnzOYB7nNpV_DZM-5stWz2MuQeLiokqTfrF5jfXtpLDaDEiwAY9HHTBrKoD91Wkp5aX1CsB4jFBTfFDES0BQbTrRXqLTMIItZqKFbh5btqFCskfl7JKtozo3UgMNj__HnNiF5GUN-QgiOrYZKn7d2hXPpUABPmYGFkpXSXTnnCRGTVoZHoyh5L-4Apr8yVRUxUX1rrMFjOurr8VqmQPg-9-2Z7zxmwp5joms19JdgV2FhgJnbKilwFY4IQrYbhfLdfuApHgpptvrODLdPB5DJnT6tAfsJM_-LuFC7cg9kg6Xm6G-8jGEuO56sd-Og3cvK-jnhSR6Vu9O6nSGKZ1X3H0O_EHgMhHV-WTtf8KfrUHdVsSBIZvA6J_5gmOAB53KPaCPy8AU8XQBUgPVBt35h9J4HLuWq3HGRKEw5nHNNdSSjgWXfpC9X8OXgric1540nZz5A-zBP3XNOZuD26yPNDg2g7jCzVZs1TfRgX9DXqZHUkugPuyXN82FMT3bxKAZzH5OsmVSnir8f75OAx18hVG-jheEBTYzbx4yh6YwlaWKkekKKwGAAdEnUg5cQxNNmeOpTzQiSyMCnFOtQyn67qSk9I3e5ig9l5ElSoX-MhL9g2liAKbX6_fl4wJ1elvrhy0w6Xuf6V74UrwKP5deKxtGLbWoSVC-v0k5lrweP8SbD1R62DyfdcdgZSPDmiiSgF8YuHO_8fW96xQeOD_fJ59qf4-qvfuToM39X52s5vH7Qj53v5kp-Tg23Ki2C-ENPIqa6hKl0BaTHltIKwZt1ll4l7ho1vMxPdPVq47FmTzPyliB0JuK6VoQIaR4ej4CCSrQmRTXMohXnbIaVubm-kLyK5RebvnJFJr5J2YswT5ZnUuEb5MbkNaeqJ0CUaQ8Z_vRXI-UaZOuGI_BPYsuIDmBKsfihoGUHau6WBNqqCDBRQsHlLRc3pUBfLLWQyO8pdB2JHjco_8wh2SuxLrD9abLNwjt9NNNmQdW8Qzm-E7aG-DnLN0y6z1T1dTr-YiUO4TBw1sPNysVX6v2Pz5jN7xQ6ukZ59rXgJ4Rozci5ip0V28whvs5Aw8oiOY9Uo0qS9UEHjILCDdhPuBgt7v_v6ylsIPEy9ZL8Z0F-Dh_SqqJl9H4TSKVbalk4PJ8f2TGywbB7b2l5t5wHPZexuhkZZ1X_lChvi7nistQQ9952S6quPhT8OZntWqHe2X63THSVweupbe0D21tftdNsiZFP4rptJ6SfkmcEiS4CDA233CjCTy5sMALIYMsATL5dQxG5myUc3hiDQqpT_n7pIMhSuVrMcFi0bfpLSVYtLShmhQno8wqrm1p5aqahY1YQQmMM4VLT-05Fz53cTlJsEqnu6_2tg6v_j4cWYnHnP4IAvtJmw4BRQ.3yAMw37rs8X_gfRMqpYD1w
+        '500':
+          description: A server error has occurred.
+  /rest/health:
+    get:
+      tags:
+        - Health
+      summary: Verify the status of the API
+      description: |
+        Returns a 200 status code if the API is up and running.
+      security:
+        - oauth_client_credentials_token:
+            - health:read
+      operationId: getHealth
+      responses:
+        '200':
+          $ref: '#/components/responses/Health200'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/Unexpected'
+components:
+  securitySchemes:
+    clientBasicAuth:
+      type: http
+      scheme: basic
+    oauth_client_credentials_token:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.dailypay.com/oauth/token
+          scopes:
+            client:admin: Read access to all relevant objects for a server application client,  including accounts, jobs, people, transfers, and organizations.
+            client:lookup: Read access to resources necessary to identify a person by their
+    oauth_user_token:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.dailypay.com/oauth/authorize
+          tokenUrl: https://api.dailypay.com/oauth/token
+          scopes:
+            user:read: Read access to all relevant objects for a non-application user,  including accounts, jobs, people, transfers, and paychecks.
+            user:read_write: Read and write access to all relevant objects for a non-application user, including accounts, jobs, people, transfers, and paychecks. job.
+  schemas:
+    TokenData:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: dpo_38347Ae178B4a16C7e42F292c6912E7710c8
+        refresh_token:
+          type: string
+          example: dpo_38347Ae178B4a16C7e42F292c6912E7710c9
+        token_type:
+          type: string
+          example: bearer
+        scope:
+          type: string
+          example: user:read_write
+        id_token:
+          type: string
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.4FjJ3eZJYJj7J9Jf
+        expires_in:
+          type: integer
+          example: 3600
+    Error:
+      type: object
+      required:
+        - status
+        - detail
+        - meta
+        - links
+      properties:
+        status:
+          description: The HTTP status code for the error.
+          example: '400'
+          type: string
+        detail:
+          description: A message that explains the meaning of the error code. Developers are advised not to make programmatic use of this value, as it may change
+          example: The request failed because it was not in the correct format or did not contain valid data.
+          type: string
+        links:
+          description: A list of links to resources that may be helpful in resolving the error.
+          type: object
+          x-go-type-name: ErrorLinks
+          properties:
+            about:
+              type: string
+              format: uri
+              example: https://developer.dailypay.com/tag/Errors
+        source:
+          description: Location in the request that may have caused the error.
+          type: object
+          x-go-type-name: ErrorSource
+          properties:
+            parameter:
+              description: The name of the parameter that caused the error.
+              example: filter[first_name]
+              type: string
+            pointer:
+              description: A JSON Pointer to the location in the request that caused the error.
+              example: /data/attributes/first_name
+              type: string
+            header:
+              description: The name of the header that caused the error.
+              example: Accept
+              type: string
+        meta:
+          x-go-type-name: ErrorMeta
+          description: Additional information about the error.
+          type: object
+          properties:
+            request_id:
+              description: A UUID for the originating request.
+              example: 3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe
+              type: string
+            trace_id:
+              description: An ID used for tracing purposes.
+              example: '4016616108459136584'
+              type: string
+    ErrorUnexpectedError:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong.
+              example: UNEXPECTED_ERROR
+              type: string
+              enum:
+                - UNEXPECTED_ERROR
+              x-enumDescriptions:
+                UNEXPECTED_ERROR: This one is on us. Something unexpected went wrong
+    ErrorUnexpected:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorUnexpectedError'
+    Amount:
+      type: integer
+      minimum: 0
+      example: 2500
+      description: 'A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: ''USD'' }` resolves to $72.50.'
+    Currency:
+      type: string
+      example: USD
+      description: A three-letter ISO 4217 currency code. For example, `USD` for US Dollars, `EUR` for Euros, or `JPY` for Japanese Yen.
+    JobAttributes:
+      type: object
+      required:
+        - wage_rate
+        - direct_deposit_status
+      properties:
+        external_identifiers:
+          readOnly: true
+          type: object
+          description: Holds unique identifiers for the employee or job defined by external organizations.
+          additionalProperties:
+            type: string
+          examples:
+            - primary_identifier: '0123456789'
+        first_name:
+          readOnly: true
+          description: The first name of the person as it is listed in their employee profile.
+          example: Edith
+          type: string
+        last_name:
+          readOnly: true
+          description: The last name of the person as it is listed in their employee profile.
+          example: Clarke
+          type: string
+        activation_status:
+          type: string
+          enum:
+            - DEACTIVATED
+            - DEACTIVATION_PENDING
+            - ACTIVATION_REQUIRED
+            - ACTIVATION_UNDER_REVIEW
+            - ACTIVATED
+          examples:
+            - DEACTIVATED
+            - ACTIVATED
+          x-enumDescriptions:
+            DEACTIVATED: Job is no longer activated for DailyPay.
+            DEACTIVATION_PENDING: Job is no longer activated for DailyPay, and deactivation is pending.
+            ACTIVATION_REQUIRED: Job data is available but a person has not activated this Job for a DailyPay account.
+            ACTIVATION_UNDER_REVIEW: Job data is available but a manual review step is underway.
+            ACTIVATED: Job data is available and ready for use with DailyPay. A remainder pay account may still need to be configured by setting `default_paycheck_destinations`.
+          description: |
+            Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.
+
+            To deactivate a job, update activation_status to `DEACTIVATED`.
+        wage_rate:
+          type: object
+          x-go-type-name: WageRate
+          readOnly: true
+          required:
+            - amount
+            - currency
+            - frequency
+          properties:
+            amount:
+              $ref: '#/components/schemas/Amount'
+            currency:
+              $ref: '#/components/schemas/Currency'
+            frequency:
+              type: string
+              enum:
+                - HOURLY
+                - WEEKLY
+                - BIWEEKLY
+                - TWICE_MONTHLY
+                - MONTHLY
+                - ANNUALLY
+              example: HOURLY
+        title:
+          type:
+            - string
+            - 'null'
+          readOnly: true
+          example: Computer
+        department:
+          type:
+            - string
+            - 'null'
+          readOnly: true
+          example: null
+        location:
+          readOnly: true
+          type: string
+          example: New York, New York
+        direct_deposit_status:
+          readOnly: true
+          type: string
+          enum:
+            - SETUP_REQUIRED
+            - SETUP_PENDING
+            - SETUP_COMPLETE
+          example: SETUP_COMPLETE
+          description: |
+            - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource's relationships to set up direct deposit.
+            - `SETUP_PENDING` A system action is still pending.
+            - `SETUP_COMPLETE` Direct deposit is set up for this Job.
+    JobLink:
+      type: string
+      format: uri
+      example: https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f
+      readOnly: true
+    JobLinks:
+      readOnly: true
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '#/components/schemas/JobLink'
+    PersonIdentifier:
+      type: object
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          const: people
+        id:
+          type: string
+          format: uuid
+          example: 3fa8f641-5717-4562-b3fc-2c963f66afa6
+    PersonRelationshipReadOnly:
+      type: object
+      readOnly: true
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PersonIdentifier'
+    OrganizationIdentifier:
+      type: object
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          const: organizations
+        id:
+          type: string
+          format: uuid
+          example: f0b30634-108c-439c-a8c1-c6a91197f022
+    OrganizationRelationship:
+      type: object
+      readOnly: true
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/OrganizationIdentifier'
+    AccountIdentifier:
+      type: object
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          const: accounts
+        id:
+          type: string
+          format: uuid
+          examples:
+            - 2bc7d781-3247-46f6-b60f-4090d214936a
+            - 410ae962-51e1-4f44-b0a0-a0fd230a4dc5
+    AccountRelationship:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/AccountIdentifier'
+    JobRelationships:
+      type: object
+      description: The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
+      required:
+        - person
+        - organization
+      properties:
+        person:
+          $ref: '#/components/schemas/PersonRelationshipReadOnly'
+        organization:
+          $ref: '#/components/schemas/OrganizationRelationship'
+        direct_deposit_default_depository:
+          description: The `DEPOSITORY` account to which paychecks from this job will attempt to be deposited.
+          $ref: '#/components/schemas/AccountRelationship'
+        direct_deposit_default_card:
+          description: The `CARD` account to which paychecks from this job will attempt to be deposited, if the `DEPOSITORY` account fails.
+          $ref: '#/components/schemas/AccountRelationship'
+    JobResource:
+      type: object
+      description: A job describes the financial relationship between a person and an organization.
+      required:
+        - type
+        - id
+        - attributes
+        - links
+        - attributes
+        - relationships
+      properties:
+        type:
+          type: string
+          const: jobs
+        id:
+          type: string
+          format: uuid
+          example: e9d84b0d-92ba-43c9-93bf-7c993313fa6f
+        attributes:
+          $ref: '#/components/schemas/JobAttributes'
+        links:
+          $ref: '#/components/schemas/JobLinks'
+        relationships:
+          $ref: '#/components/schemas/JobRelationships'
+    JobData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/JobResource'
+    BadRequestCodes:
+      type: object
+      required:
+        - code
+      properties:
+        code:
+          description: A code that indicates what went wrong. Please consider this an open enum, where new codes may be added over time.
+          example: INVALID_PARAMETERS
+          type: string
+          x-go-type: string
+          x-enumDescriptions:
+            INVALID_USER_INPUT: The server was unable to understand the request. Check for syntax or structural errors.
+            INVALID_PARAMETERS: Missing or invalid request parameters provided. See the `details` field for specifics.
+            INVALID_IDEMPOTENCY_KEY: Idempotency key is missing or was used for a dissimilar request.
+            INVALID_RESOURCE_LINK: The target resource URI is missing or invalid.
+            INVALID_VERSION_HEADER: Request contained an API version header that is not supported
+            INVALID_FILTER_QUERY: The filter query is malformed.
+            INVALID_FILTER_FIELD: Filter query is valid, but contains a field that is unsupported for this resource
+            INVALID_FILTER_VALUE: Filter query is valid, but contains a value in a format that is unsupported for the associated field
+            INVALID_FIELD_OPERATION: Indicates an filter operation that is not supported for the field
+    ErrorBadRequestError:
+      allOf:
+        - $ref: '#/components/schemas/BadRequestCodes'
+        - $ref: '#/components/schemas/Error'
+    ErrorBadRequest:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorBadRequestError'
+    ErrorUnauthorizedError:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong.
+              example: INVALID_TOKEN
+              type: string
+              enum:
+                - INVALID_TOKEN
+                - UNAUTHORIZED
+              x-enumDescriptions:
+                INVALID_TOKEN: Provided token is missing, expired, revoked, or otherwise invalid.
+                UNAUTHORIZED: Authentication has not been provided or is invalid.
+    ErrorUnauthorized:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorUnauthorizedError'
+    ErrorForbiddenError:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong.
+              example: FORBIDDEN
+              type: string
+              enum:
+                - FORBIDDEN
+              x-enumDescriptions:
+                FORBIDDEN: Requester is not allowed to access this resource or endpoint
+    ErrorForbidden:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorForbiddenError'
+    ErrorNotFoundError:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong.
+              example: RECORD_NOT_FOUND
+              type: string
+              enum:
+                - RECORD_NOT_FOUND
+                - NOT_FOUND
+              x-enumDescriptions:
+                RECORD_NOT_FOUND: Could not find a record with the provided ID
+                NOT_FOUND: Could not find resources matching the query parameters
+    ErrorNotFound:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorNotFoundError'
+    JobUpdateData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          x-go-type-name: JobUpdateResource
+          description: A job describes the financial relationship between a person and an organization.
+          required:
+            - type
+            - id
+          properties:
+            type:
+              type: string
+              const: jobs
+            id:
+              type: string
+              format: uuid
+              example: e9d84b0d-92ba-43c9-93bf-7c993313fa6f
+            attributes:
+              $ref: '#/components/schemas/JobAttributes'
+            relationships:
+              $ref: '#/components/schemas/JobRelationships'
+    ErrorJobUpdateError:
+      allOf:
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong. Please consider this an open enum, where new codes may be added over time.
+              example: INVALID_PARAMETERS
+              type: string
+              x-go-type: string
+              x-enumDescriptions:
+                ACTIVE_JOB_REQUIRED: This job must have status ACTIVATED before setting a default bank or debit
+                INVALID_USER_INPUT: The server was unable to understand the request. Check for syntax or structural errors.
+                INVALID_PARAMETERS: Missing or invalid request parameters provided. See the `details` field for specifics.
+                INVALID_RESOURCE_LINK: The target resource URI is missing or invalid.
+                INVALID_VERSION_HEADER: Request contained an API version header that is not supported
+        - $ref: '#/components/schemas/Error'
+    JobUpdateError:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorJobUpdateError'
+    JobsData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobResource'
+    TransferDestinationCapability:
+      type: object
+      required:
+        - schedule
+        - fee
+        - currency
+      properties:
+        schedule:
+          type: string
+          description: The expected time for the transfer to be completed.
+          enum:
+            - WITHIN_THIRTY_MINUTES
+            - NEXT_BUSINESS_DAY
+          example: WITHIN_THIRTY_MINUTES
+        fee:
+          type: integer
+          description: |
+            A monetary quantity expressed in units of the lowest denomination in
+            the associated currency. For example, `{ amount: 299, currency: 'USD'
+            }` resolves to $2.99.
+
+            If a transfer incurs a fee, the fee will be deducted from the amount of
+            the transfer.
+          example: 0
+        currency:
+          $ref: '#/components/schemas/Currency'
+    AccountAttributes__Common:
+      type: object
+      required:
+        - balances
+        - verification_status
+        - capabilities
+      properties:
+        verification_status:
+          readOnly: true
+          description: A code that indicates the status of an account that is a destination for funds.
+          example: VERIFIED
+          type: string
+          enum:
+            - VERIFICATION_PENDING
+            - VERIFICATION_FAILED
+            - VERIFIED
+        balances:
+          type: object
+          x-go-type-name: AccountBalances
+          x-speakeasy-name-override: accountBalances
+          readOnly: true
+          required:
+            - available
+            - current
+            - currency
+          properties:
+            available:
+              readOnly: true
+              type:
+                - integer
+                - 'null'
+              minimum: 0
+              description: |
+                The amount of funds available to be withdrawn from the account. 
+
+                For earnings_balance-type accounts, the available balance typically
+                equals the current balance less any pending outflows, plus any pending inflows,
+
+
+                This value is in units of the lowest denomination in the associated
+                currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to
+                $72.50.
+              example: 12000
+            current:
+              readOnly: true
+              type:
+                - integer
+                - 'null'
+              minimum: 0
+              description: |
+                The total amount of funds settled in the account. 
+
+                This value is in units of the lowest denomination in the associated
+                currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to
+                $72.50.
+
+
+                **Special note for earnings_balance-type accounts:**
+                During a typical pay period, if a user transfers no money from an earnings_balance-type account to a personal account, 
+                the `current` balance will generally be 0, because transfers from earnings to this account will be 
+                PENDING until the paycheck related to those earnings is processed. 
+                Pending inflows are included in the `available` balance, not the `current` balance.
+                 
+                If a user transfers money from an earnings_balance-type account to a personal account, 
+                the `current` balance will be negative as those transfers settle. When a paycheck is processed, 
+                DailyPay will automatically attempt to zero out the balance, 
+                transferring any remaining funds to the `default_paycheck_destination` set for the associated Job.
+
+                If DailyPay is unable to zero out the balance during paycheck processing, the `current` balance will remain negative, 
+                which may impact a user's ability to transfer additional funds from their earnings balance. 
+                In those cases, the available balance will be 0.
+              example: 50000
+            currency:
+              readOnly: true
+              type: string
+              example: USD
+              description: A three-letter ISO 4217 currency code. For example, `USD` for US Dollars, `EUR` for Euros, or `JPY` for Japanese Yen.
+        capabilities:
+          readOnly: true
+          type: object
+          x-go-type-name: AccountCapabilities
+          x-speakeasy-name-override: accountCapabilities
+          required:
+            - transfer_destination
+          properties:
+            transfer_destination:
+              description: |
+                List of the timing and associate fees available when crediting this account as a
+                transfer destination.
+
+                Actual fees may differ at the time of transfer; please refer to 
+                the transfer preview attribute for the most accurate fee information 
+                for any given transfer. 
+              type: array
+              items:
+                $ref: '#/components/schemas/TransferDestinationCapability'
+              minItems: 0
+              example:
+                - schedule: WITHIN_THIRTY_MINUTES
+                  fee: 300
+                  currency: USD
+                - schedule: NEXT_BUSINESS_DAY
+                  fee: 0
+                  currency: USD
+    Card__CommonProps:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - expiration_month
+        - expiration_year
+        - address_line_one
+        - address_city
+        - address_state
+        - address_zip_code
+        - address_country
+      properties:
+        first_name:
+          description: The first name of the account holder.
+          example: Edith
+          type: string
+        last_name:
+          description: The last name of the account holder.
+          example: Clarke
+          type: string
+        expiration_month:
+          description: The month of the expiration date for the card.
+          type: string
+          example: '02'
+        expiration_year:
+          description: The year of the expiration date for the card.
+          type: string
+          example: '2025'
+        address_line_one:
+          writeOnly: true
+          type: string
+          description: The first line of the address for the card.
+          example: 123 Kebly Street
+        address_line_two:
+          writeOnly: true
+          type: string
+          description: The second line of the address for the card.
+          example: 'Apt #12'
+        address_city:
+          writeOnly: true
+          type: string
+          description: The city of the address for the card.
+          example: Fort Lee
+        address_state:
+          writeOnly: true
+          type: string
+          description: The two-letter abbreviation of the state in the address for the card.
+          example: NJ
+        address_zip_code:
+          writeOnly: true
+          type: string
+          description: The zip code of the address for the card.
+          example: '72374'
+        address_country:
+          writeOnly: true
+          type: string
+          description: The country code of the address for the card.
+          example: US
+    Account_DebitCard:
+      allOf:
+        - $ref: '#/components/schemas/Card__CommonProps'
+        - type: object
+          title: 'subtype: DEBIT'
+          required:
+            - token
+            - last_four
+            - issuer
+          properties:
+            token:
+              writeOnly: true
+              description: A tokenized string replacement for the card data.
+              type: string
+              example: HX46TY794RG
+            last_four:
+              description: Last four digits of the card number.
+              example: '0003'
+              type: string
+              readOnly: true
+            issuer:
+              description: The issuer of the card.
+              example: '411600'
+              type: string
+    Account_GalileoCard:
+      type: object
+      title: 'subtype: GALILEO'
+      description: An account of type CARD with subtype GALILEO.
+      required:
+        - galileo_card_id
+        - galileo_pmt_ref_no
+        - first_name
+        - last_name
+        - last_four
+        - issuer
+        - expiration_month
+        - expiration_year
+      properties:
+        galileo_card_id:
+          description: The card ID provided by Galileo.
+          example: '40769'
+          type: string
+        galileo_pmt_ref_no:
+          writeOnly: true
+          description: The payment reference number provided by Galileo.
+          example: '777101360999'
+          type: string
+        first_name:
+          description: The first name of the account holder.
+          example: Edith
+          type: string
+          readOnly: true
+        last_name:
+          description: The last name of the account holder.
+          example: Clarke
+          type: string
+          readOnly: true
+        last_four:
+          description: Last four digits of the card number.
+          example: '0003'
+          type: string
+          readOnly: true
+        issuer:
+          description: The issuer of the card.
+          example: '411600'
+          type: string
+          readOnly: true
+        expiration_month:
+          description: The month of the expiration date for the card.
+          type: string
+          example: '02'
+          readOnly: true
+        expiration_year:
+          description: The year of the expiration date for the card.
+          type: string
+          example: '2025'
+          readOnly: true
+    Account_WiselyCard:
+      allOf:
+        - $ref: '#/components/schemas/Card__CommonProps'
+        - type: object
+          required:
+            - wisely_token
+            - last_four
+            - issuer
+          title: 'subtype: WISELY'
+          properties:
+            wisely_token:
+              description: Wisely unique identifier associated to card.
+              example: 53bf829e-6e3f-4c17-a7de-6e91003a5dd3
+              type: string
+            last_four:
+              description: Last four digits of the card number.
+              example: '0003'
+              type: string
+            issuer:
+              description: The issuer of the card.
+              example: '411600'
+              type: string
+    AccountAttributes_Card:
+      allOf:
+        - $ref: '#/components/schemas/AccountAttributes__Common'
+        - type: object
+          title: Card
+          description: An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+          required:
+            - account_type
+            - subtype
+            - details
+            - name
+          properties:
+            name:
+              type: string
+              description: Display name for this account.
+              example: Debit Card
+            account_type:
+              type: string
+              description: The type of account. It differentiates between depository accounts (e.g. bank account), cards (e.g. debit) and earnings balance type of accounts (e.g. on demand pay).
+              const: CARD
+            subtype:
+              type: string
+              description: The subtype of the account.
+              enum:
+                - DEBIT
+                - GALILEO
+                - WISELY
+              example: DEBIT
+            details:
+              description: The banking details of the account and account holder.
+              oneOf:
+                - $ref: '#/components/schemas/Account_DebitCard'
+                - $ref: '#/components/schemas/Account_GalileoCard'
+                - $ref: '#/components/schemas/Account_WiselyCard'
+    AccountAttributes_EarningsBalance:
+      allOf:
+        - $ref: '#/components/schemas/AccountAttributes__Common'
+        - type: object
+          title: Earnings Balance (read only)
+          description: An account with type `EARNINGS_BALANCE` and subtype `ODP`.
+          required:
+            - account_type
+            - subtype
+            - details
+            - name
+          properties:
+            name:
+              type: string
+              description: Display name for this account.
+              example: DailyPay Pay Balance
+              readOnly: true
+            account_type:
+              readOnly: true
+              type: string
+              description: The type of account. It differentiates between depository accounts (e.g. bank account), cards (e.g. debit) and earnings balance type of accounts (e.g. on demand pay).
+              const: EARNINGS_BALANCE
+            subtype:
+              readOnly: true
+              type: string
+              description: The subtype of the account.
+              const: ODP
+            details:
+              type: object
+              description: An empty object for earnings balance accounts.
+              readOnly: true
+              minProperties: 0
+              maxProperties: 0
+    AccountAttributes_Depository:
+      allOf:
+        - $ref: '#/components/schemas/AccountAttributes__Common'
+        - type: object
+          title: Depository
+          description: An account with type `DEPOSITORY` and subtype `SAVINGS` or `CHECKING`.
+          required:
+            - account_type
+            - subtype
+            - details
+            - name
+          properties:
+            name:
+              type: string
+              description: Display name for this account.
+              example: Checking Account
+            account_type:
+              type: string
+              description: The type of account. It differentiates between depository accounts (e.g. bank account), cards (e.g. debit) and earnings balance type of accounts (e.g. on demand pay).
+              const: DEPOSITORY
+            subtype:
+              type: string
+              description: The subtype of the account.
+              enum:
+                - SAVINGS
+                - CHECKING
+              example: CHECKING
+            details:
+              type: object
+              x-go-type-name: DepositoryAccountDetails
+              x-speakeasy-name-override: DepositoryAccountDetails
+              description: The banking details of the account and account holder.
+              required:
+                - routing_number
+                - account_number
+                - first_name
+                - last_name
+              properties:
+                first_name:
+                  description: The first name of the account holder.
+                  example: Edith
+                  type: string
+                last_name:
+                  description: The last name of the account holder.
+                  example: Clarke
+                  type: string
+                routing_number:
+                  description: The routing number of the bank that holds this account. Responses from this API that return this number are masked to the last four digits.
+                  example: XXXXX2021
+                  type: string
+                account_number:
+                  description: The account number. Responses from this API that return this number are masked to the last four digits.
+                  example: XXXXXX4321
+                  type: string
+    AccountAttributes:
+      type: object
+      description: The details of the account.
+      oneOf:
+        - $ref: '#/components/schemas/AccountAttributes_Card'
+        - $ref: '#/components/schemas/AccountAttributes_EarningsBalance'
+        - $ref: '#/components/schemas/AccountAttributes_Depository'
+    AccountLink:
+      type: string
+      format: uri
+      readOnly: true
+      description: The URI for the account
+      example: https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a
+    AccountLinks:
+      readOnly: true
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '#/components/schemas/AccountLink'
+    PersonRelationship:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PersonIdentifier'
+    AccountRelationships:
+      type: object
+      required:
+        - person
+      properties:
+        person:
+          $ref: '#/components/schemas/PersonRelationship'
+    AccountResource:
+      type: object
+      required:
+        - type
+        - id
+        - attributes
+        - links
+        - relationships
+      properties:
+        id:
+          readOnly: true
+          type: string
+          format: uuid
+          description: The unique identifier of the Account.
+          example: 2bc7d781-3247-46f6-b60f-4090d214936a
+        type:
+          type: string
+          const: accounts
+          example: accounts
+          description: The type of the resource. Always `accounts`.
+        attributes:
+          $ref: '#/components/schemas/AccountAttributes'
+        links:
+          $ref: '#/components/schemas/AccountLinks'
+        relationships:
+          $ref: '#/components/schemas/AccountRelationships'
+    AccountData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/AccountResource'
+    AccountsData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountResource'
+    ErrorAccountCreateError:
+      allOf:
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong. Please consider this an open enum, where new codes may be added over time.
+              type: string
+              x-go-type: string
+              x-enumDescriptions:
+                ACCOUNT_TYPE_INVALID: Provided account type is not one of DEPOSITORY or CARD
+                ACCOUNT_SUBTYPE_INVALID: Provided subtype is not one of CHECKING SAVINGS DEBIT GALILEO WISELY
+                ACCOUNT_TYPE_SUBTYPE_MISMATCH: The provided account subtype is not supported on the provided account type
+                DEBIT_CARD_CREATION_BLOCKED: Debit card creation blocked for this bin number
+                BANK_ACCOUNT_CREATION_BLOCKED: Bank account creation blocked for accounts with this routing number and first four digits of account number
+                DUPLICATE_ACCOUNT: Provided input matches an already existing account
+                INVALID_GALILEO_TOKEN_DATA: Provided Galileo token is invalid
+                INVALID_DEBIT_CARD: Provided debit card is invalid
+                INVALID_CARD_TOKEN: Provided card token is invalid
+                MISSING_REQUIRED_FIELD: Required field was not provided
+                INVALID_USER_INPUT: The server was unable to understand the request. Check for syntax or structural errors.
+                INVALID_PARAMETERS: Missing or invalid request parameters provided. See the `details` field for specifics.
+                INVALID_RESOURCE_LINK: The target resource URI is missing or invalid.
+                INVALID_VERSION_HEADER: Request contained an API version header that is not supported
+        - $ref: '#/components/schemas/Error'
+    AccountCreateError:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorAccountCreateError'
+    TransferAttributes:
+      type: object
+      required:
+        - fee
+        - status
+        - submitted_at
+        - resolved_at
+        - amount
+        - schedule
+        - currency
+      description: |
+        An object representing a transfer of money from one account to another. 
+        Created when a person takes an advance against a future paycheck, or on a daily basis 
+        when we update estimated earnings based on current employment.
+      properties:
+        preview:
+          type: boolean
+          default: false
+          example: true
+          description: |
+            Include this field to preview a transfer without sending it, to see, for example, the fee that would be charged. This will return the same response as a typical transfer request.
+            When the preview field is true in the response to creating a transfer, that indicates no transfer was created.
+        amount:
+          description: |
+            The amount of funds requested to move from the origin account to the destination account. Any fees will be subtracted from this amount prior to landing in the destination account.
+
+            A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
+          $ref: '#/components/schemas/Amount'
+        currency:
+          $ref: '#/components/schemas/Currency'
+        status:
+          readOnly: true
+          type: string
+          enum:
+            - PENDING
+            - SETTLED
+            - FAILED
+          description: The status of the transfer.
+          x-enumDescriptions:
+            PENDING: The transfer is in process, or funds have been scheduled but a final status is not yet known.
+            SETTLED: Funds have been successfully transferred.
+            FAILED: The transfer has failed.
+        schedule:
+          type: string
+          enum:
+            - WITHIN_THIRTY_MINUTES
+            - NEXT_BUSINESS_DAY
+          example: WITHIN_THIRTY_MINUTES
+          description: |
+            Set the schedule for the transfer. If not set, the transfer will be processed immediately. 
+            A preview transfer will never send.
+        submitted_at:
+          description: An ISO 8601 timestamp denoting the receipt for the request.
+          type: string
+          example: '2021-04-21T21:30:58.051Z'
+          format: date-time
+          readOnly: true
+        resolved_at:
+          type:
+            - string
+            - 'null'
+          description: An ISO 8601 date denoting a successful or unsuccessful resolution for the request.
+          example: '2021-04-21T21:30:58.051Z'
+          format: date-time
+          readOnly: true
+        fee:
+          readOnly: true
+          description: |-
+            A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
+            If a transfer incurs a fee, the fee will be deducted from the amount of the transfer.
+          type: integer
+          minimum: 0
+          example: 0
+    TransferLink:
+      type: string
+      format: uri
+      readOnly: true
+      example: https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210
+    TransferLinks:
+      type: object
+      readOnly: true
+      required:
+        - self
+      properties:
+        self:
+          $ref: '#/components/schemas/TransferLink'
+    PaycheckIdentifier:
+      type: object
+      readOnly: true
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          const: paychecks
+          readOnly: true
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          example: 3fa8f641-5717-4562-b3fc-2c963f66afa6
+    PaycheckRelationship:
+      type: object
+      readOnly: true
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PaycheckIdentifier'
+    FundingSourceIdentifier:
+      type: object
+      readOnly: true
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          readOnly: true
+          const: funding_sources
+        id:
+          type: string
+          readOnly: true
+          example: b5393c00b7c113fc2e5ae3e80c785bb2
+    FundingSourcesRelationship:
+      type: object
+      readOnly: true
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundingSourceIdentifier'
+          minItems: 0
+    TransferRelationships_Common:
+      type: object
+      description: |
+        The relationships between the transfer and other resources, including the destination account, the origination account, and the person who initiated the transfer.
+      required:
+        - destination
+        - origin
+        - person
+        - estimated_funding_sources
+        - final_funding_sources
+      properties:
+        destination:
+          description: |
+            The account to which funds are transferred. 
+
+            User-created transfers should have a destination Account with `account_type` `DEPOSITORY` or `CARD`.
+          $ref: '#/components/schemas/AccountRelationship'
+        person:
+          $ref: '#/components/schemas/PersonRelationship'
+        estimated_funding_sources:
+          description: |
+            On user-created transfers, details the paychecks that are likely to be used to reimburse this transfer. 
+
+            The paychecks impacted, and final amount allocated from each paycheck is subject to change. 
+            See `final_funding_sources` for the final allocations.
+          $ref: '#/components/schemas/FundingSourcesRelationship'
+        final_funding_sources:
+          description: |
+            On user-created transfers, details the paychecks that were used to reimburse this transfer and the amount allocated from each paycheck.
+
+            If this relationship has members, its members and their values are immutable.
+          $ref: '#/components/schemas/FundingSourcesRelationship'
+    TransferRelationships:
+      allOf:
+        - type: object
+          required:
+            - origin
+          properties:
+            origin:
+              description: |
+                Origin may be a reference to either a Paycheck or an Account.
+
+                User-created transfers always originate from an Account with `account_type` `EARNINGS_BALANCE`.
+
+                A transfer that originates from a Paycheck is a  
+                system-created record that describes a credit of earnings to an account with `account_type` `EARNINGS_BALANCE`.
+              oneOf:
+                - $ref: '#/components/schemas/AccountRelationship'
+                - $ref: '#/components/schemas/PaycheckRelationship'
+        - $ref: '#/components/schemas/TransferRelationships_Common'
+    TransferResource:
+      type: object
+      required:
+        - type
+        - id
+        - attributes
+        - links
+        - relationships
+      properties:
+        type:
+          type: string
+          const: transfers
+        id:
+          type: string
+          format: uuid
+          example: aba332a2-24a2-46de-8257-5040e71ab210
+        attributes:
+          $ref: '#/components/schemas/TransferAttributes'
+        links:
+          $ref: '#/components/schemas/TransferLinks'
+        relationships:
+          $ref: '#/components/schemas/TransferRelationships'
+    FundingSourceAttributes:
+      type: object
+      readOnly: true
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          description: |
+            The amount of money from the related paycheck allocated towards funding the related transfer.
+
+            A monetary quantity expressed in units of the lowest denomination in the
+            associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
+          $ref: '#/components/schemas/Amount'
+        currency:
+          $ref: '#/components/schemas/Currency'
+    TransferIdentifier:
+      type: object
+      readOnly: true
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          readOnly: true
+          const: transfers
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          example: aba332a2-24a2-46de-8257-5040e71ab210
+    TransferRelationship:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/TransferIdentifier'
+    FundingSourceRelationships:
+      type: object
+      readOnly: true
+      required:
+        - source
+        - transfer
+      properties:
+        source:
+          description: Identifies a resource, usually a paycheck, used as a source of funds for a transfer.
+          $ref: '#/components/schemas/PaycheckRelationship'
+        transfer:
+          $ref: '#/components/schemas/TransferRelationship'
+    FundingSourceResource:
+      type: object
+      readOnly: true
+      required:
+        - id
+        - type
+        - attributes
+        - relationships
+      description: A source describes how transfers with an origin of EARNINGS_BALANCE account are funded.
+      properties:
+        id:
+          type: string
+          example: b5393c00b7c113fc2e5ae3e80c785bb2
+        type:
+          type: string
+          const: funding_sources
+        attributes:
+          $ref: '#/components/schemas/FundingSourceAttributes'
+        relationships:
+          $ref: '#/components/schemas/FundingSourceRelationships'
+    TransferData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/TransferResource'
+        included:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/FundingSourceResource'
+    TransfersData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransferResource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/FundingSourceResource'
+    TransferCreateRelationships:
+      allOf:
+        - type: object
+          required:
+            - origin
+          properties:
+            origin:
+              description: |
+                User-created transfers must originate from an Account with `account_type` `EARNINGS_BALANCE`.
+              $ref: '#/components/schemas/AccountRelationship'
+        - $ref: '#/components/schemas/TransferRelationships_Common'
+    TransferCreateResource:
+      type: object
+      required:
+        - type
+        - attributes
+        - relationships
+      properties:
+        type:
+          type: string
+          const: transfers
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the transfer. Any UUID version is valid, lower-cased.
+          example: aba332a2-24a2-46de-8257-5040e71ab210
+        attributes:
+          $ref: '#/components/schemas/TransferAttributes'
+        relationships:
+          $ref: '#/components/schemas/TransferCreateRelationships'
+    TransferCreateData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/TransferCreateResource'
+    ErrorTransferCreateError:
+      allOf:
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong. Please consider this an open enum, where new codes may be added over time.
+              example: INVALID_ORIGIN
+              type: string
+              x-go-type: string
+              x-enumDescriptions:
+                MISSING_DEFAULT_DEPOSITORY_ACCOUNT: A default bank account must be set for a user before that user has the ability to make transfers
+                INVALID_ORIGIN: The provided origin must reference an earning balance account
+                INVALID_DESINATION_LINK: The provided destination link must reference an existing transfer account
+                INVALID_TRANSFER_SCHEDULE: The provided schedule for requested transfer is invalid for destination account
+                INVALID_CURRENCY: Provided currency value was formatted incorrectly
+                MINIMUM_AMOUNT_SUBCEEDED: The requested transfer amount was less than the minimum amount set for this provider. Generaly $5
+                EARNINGS_BALANCE_EXCEEDED: The requested transfer amount was greater than the user's current earnings balance
+                TRANSFER_LIMIT_EXCEEDED: The number of transfers requested within the last 24 hours exceeded the daily transfer limit for associated user
+                TRANSFER_AMOUNT_LIMIT_EXCEEDED: The amount requested within the last 24 hours exceeded the daily limit for associated user
+                INVALID_RESOURCE_STATE: Unable to process transfer due to the resource is in an invalid state.
+                INELIGIBLE_ORIGIN: The origin specified is not eligible for transfers at this time.
+                INVALID_TRANSFER_ID: Provided transfer id is not a valid uuid
+                DUPLICATE_TRANSFER_ID: Provided transfer_id is not unique and matches an existing transfer
+                INVALID_USER_INPUT: The server was unable to understand the request. Check for syntax or structural errors.
+                INVALID_PARAMETERS: Missing or invalid request parameters provided. See the `details` field for specifics.
+                INVALID_IDEMPOTENCY_KEY: Idempotency key is missing or was used for a dissimilar request.
+                INVALID_RESOURCE_LINK: The target resource URI is missing or invalid.
+                INVALID_VERSION_HEADER: Request contained an API version header that is not supported
+        - $ref: '#/components/schemas/Error'
+    TransferCreateError:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorTransferCreateError'
+    PaycheckAttributes:
+      type: object
+      required:
+        - status
+        - pay_period_ends_at
+        - pay_period_starts_at
+        - deposit_expected_at
+        - total_debited
+        - gross_earnings
+        - employer_withholdings
+        - net_earnings
+        - currency
+      properties:
+        status:
+          type: string
+          enum:
+            - ESTIMATED
+            - PROCESSING
+            - IN_TRANSIT
+            - DEPOSITED
+          description: A paycheck expected for an open pay period will have the status ESTIMATED. At the end of the pay period, the paycheck will begin PROCESSING. When it is sent, it will become IN_TRANSIT. Finally, once deposited in an account it will have the status DEPOSITED.
+        pay_period_ends_at:
+          description: An ISO 8601 timestamp denoting the ending day of a paycheck's pay period. For example, a pay period that ends during the day of March 15 will have a value of 2023-03-15T04:00:00Z.
+          type: string
+          example: '2023-03-15T04:00:00Z'
+          format: date-time
+        pay_period_starts_at:
+          description: An ISO 8601 timestamp denoting the first day of a paycheck's pay period. For example, a pay period that starts during the day of March 15 will have a value of 2023-03-15T04:00:00Z.
+          type: string
+          example: '2023-03-15T04:00:00Z'
+          format: date-time
+        deposit_expected_at:
+          description: An ISO 8601 timestamp denoting the day the paycheck is scheduled to be delivered.
+          type: string
+          example: '2023-03-15T04:00:00Z'
+          format: date-time
+        total_debited:
+          description: 'The amount debited and settled from this paycheck prior to the end of the pay period. Debits are settled during a pay period in order to cover withdrawals from an earnings balance account. This amount is given as a monetary quantity expressed in units of the lowest denomination in the associated currency. For example, { total_debited: 7050 } with currency USD resolves to $70.50.'
+          type:
+            - integer
+            - 'null'
+          minimum: 0
+          example: 0
+        gross_earnings:
+          description: 'The total earnings for this paycheck before any deductions are applied. This amount is given as a monetary quantity expressed in units of the lowest denomination in the associated currency. For example, { gross_earnings: 55370 } with currency USD resolves to $553.70'
+          type: integer
+          example: 0
+        employer_withholdings:
+          description: 'The amount withheld from this paycheck by the employer, usually for taxes. This amount is given as a monetary quantity expressed in units of the lowest denomination in the associated currency. For example, { withholdings: 5000 } with currency USD resolves to $50.00.'
+          type:
+            - integer
+            - 'null'
+          example: 0
+        net_earnings:
+          description: 'The net earnings for the paycheck once settled given in a monetary quantity expressed in units of the lowest denomination in the associated currency. For example, { earnings: 50370 } with currency USD resolves to $503.70.'
+          type:
+            - integer
+            - 'null'
+          example: 0
+        currency:
+          $ref: '#/components/schemas/Currency'
+    PaycheckLink:
+      type: string
+      format: uri
+      readOnly: true
+      example: https://api.dailypay.com/rest/paychecks/f4e2fd6c-b567-447c-a003-b7315b8d22d2
+    PaycheckLinks:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '#/components/schemas/PaycheckLink'
+    JobIdentifier:
+      type: object
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          readOnly: true
+          const: jobs
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          example: e9d84b0d-92ba-43c9-93bf-7c993313fa6f
+    JobRelationship:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/JobIdentifier'
+    PaycheckRelationships:
+      type: object
+      required:
+        - person
+        - job
+      properties:
+        person:
+          $ref: '#/components/schemas/PersonRelationship'
+        job:
+          $ref: '#/components/schemas/JobRelationship'
+    PaycheckResource:
+      type: object
+      required:
+        - type
+        - id
+        - attributes
+        - links
+        - relationships
+      properties:
+        type:
+          type: string
+          const: paychecks
+        id:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        attributes:
+          $ref: '#/components/schemas/PaycheckAttributes'
+        links:
+          $ref: '#/components/schemas/PaycheckLinks'
+        relationships:
+          $ref: '#/components/schemas/PaycheckRelationships'
+    PaycheckData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PaycheckResource'
+    PaychecksData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaycheckResource'
+    OrganizationID:
+      description: String identifier that is unique to this organization. You can safely assume the identifier to never exceed 64 characters.
+      example: f0b30634-108c-439c-a8c1-c6a91197f022
+      readOnly: true
+      type: string
+      format: uuid
+    OrganizationAttributes:
+      type: object
+      properties:
+        name:
+          description: Organization's name
+          example: DailyPay
+          readOnly: true
+          type: string
+        products:
+          readOnly: true
+          description: List of the names of products available for this organization.
+          example:
+            - ODP
+            - FRIDAY
+          type: array
+          items:
+            type: string
+            enum:
+              - ODP
+              - FRIDAY
+              - WISELY_EWA
+            x-enumDescriptions:
+              ODP: On-Demand Pay (ODP) is a DailyPay product that allows employees to access their earned wages before payday. An organization with this product enabled will have on-demand pay available to its members; an account with type `EARNINGS_BALANCE` will automatically be created for each job associated with this organization.
+              FRIDAY: An organization with this product enabled will have the Friday by DailyPay Visa®️ Prepaid Card program available to its members.
+              WISELY_EWA: An organization with this product enabled will have the Wisely® by ADP® card program available to its members.
+    OrganizationLink:
+      type: string
+      format: uri
+      readOnly: true
+      example: https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022
+    OrganizationLinks:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '#/components/schemas/OrganizationLink'
+    OrganizationResource:
+      type: object
+      required:
+        - type
+        - id
+        - attributes
+        - links
+      properties:
+        type:
+          type: string
+          readOnly: true
+          const: organizations
+        id:
+          $ref: '#/components/schemas/OrganizationID'
+        attributes:
+          $ref: '#/components/schemas/OrganizationAttributes'
+        links:
+          $ref: '#/components/schemas/OrganizationLinks'
+    OrganizationData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/OrganizationResource'
+    OrganizationsData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationResource'
+    PersonAttributes:
+      type: object
+      required:
+        - disallow_reason
+      description: A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
+      properties:
+        disallow_reason:
+          readOnly: true
+          type:
+            - string
+            - 'null'
+          enum:
+            - INACTIVE
+            - DELINQUENT
+            - BANNED
+            - null
+          example: null
+          description: |
+            The statuses and required actions are:
+            - `null` The person has not been disallowed, and is free to use DailyPay.
+            - `INACTIVE` The person has not completed registration or account verification.
+            - `DELINQUENT` The person has an outstanding, unrecoverable balance with DailyPay, and should contact support.
+            - `BANNED` Access has been revoked.
+        state_of_residence:
+          type: string
+          description: |
+            The two-letter abbreviation for the state in which the person resides, if located in the United States.  This is used for regulatory compliance purposes.
+          maxLength: 2
+          example: NY
+    PersonLink:
+      type: string
+      format: uri
+      readOnly: true
+      description: The URI for the user
+      example: https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b
+    PersonLinks:
+      type: object
+      readOnly: true
+      required:
+        - self
+      properties:
+        self:
+          $ref: '#/components/schemas/PersonLink'
+    PersonResource:
+      type: object
+      required:
+        - type
+        - id
+        - attributes
+        - links
+      properties:
+        type:
+          type: string
+          const: people
+        id:
+          type: string
+          format: uuid
+          example: aa860051-c411-4709-9685-c1b716df611b
+        attributes:
+          $ref: '#/components/schemas/PersonAttributes'
+        links:
+          $ref: '#/components/schemas/PersonLinks'
+    PersonData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PersonResource'
+  responses:
+    Unexpected:
+      description: Unexpected error occured
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorUnexpected'
+    Job200:
+      description: Returns the job object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JobData'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorBadRequest'
+    Unauthorized:
+      description: Invalid authentication credentials
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorUnauthorized'
+    Forbidden:
+      description: Not authorized to perform this operation
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorForbidden'
+    NotFound:
+      description: Resource was not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorNotFound'
+    JobUpdate400:
+      description: Bad Request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JobUpdateError'
+    Jobs200:
+      description: Returns a list of job objects.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JobsData'
+    Account200:
+      description: Returns the account object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/AccountData'
+    Accounts200:
+      description: Returns the account object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/AccountsData'
+    AccountCreate400:
+      description: The request contained an error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/AccountCreateError'
+    Transfer200:
+      description: Returns the newly created transfer object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/TransferData'
+    Transfers200:
+      description: A list of transfer objects.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/TransfersData'
+    TransferCreate400:
+      description: The request contained an error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/TransferCreateError'
+    Paycheck200:
+      description: Returns the paycheck object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/PaycheckData'
+    Paychecks200:
+      description: Returns the paycheck object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/PaychecksData'
+    Organization200:
+      description: Returns details about an organization.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/OrganizationData'
+    Organizations200:
+      description: Returns a list of organization objects that match the filter. If no organizations match the filter, the resulting collection will be empty. If no filter is provider, the resulting collection will include all accessible organizations.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/OrganizationsData'
+    Person200:
+      description: Returns the person object.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/PersonData'
+    Health200:
+      description: Returns a healthcheck document
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - status
+              - version
+            properties:
+              status:
+                type: string
+                description: The status of the API
+                example: UP
+              version:
+                type: string
+                description: The version of the API
+                example: 3.0.0
+  parameters:
+    apiversion:
+      name: DailyPay-API-Version
+      in: header
+      schema:
+        type: integer
+        default: 3
+      required: false
+      x-speakeasy-globals-hidden: true
+      x-speakeasy-name-override: version
+      description: |
+        The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
+    accept:
+      name: Accept
+      in: header
+      schema:
+        type: string
+        default: application/vnd.api+json
+        enum:
+          - application/vnd.api+json
+          - '*/*'
+      x-speakeasy-globals-hidden: true
+      description: |
+        The media type of the requested payload. This should be set to `application/vnd.api+json` to signify your client can receive responses in the JSON:API format.  For more details, see https://jsonapi.org.
+    job_id:
+      name: job_id
+      description: Unique ID of the job
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: aa860051-c411-4709-9685-c1b716df611b
+    filter.external_identifiers.primary_identifier:
+      name: filter[external_identifiers.primary_identifier]
+      in: query
+      description: Limit the results to documents with an external identifier matching exactly at the specified key.
+      required: false
+      schema:
+        type: string
+    filter.external_identifiers.employee_id:
+      name: filter[external_identifiers.employee_id]
+      in: query
+      description: Limit the results to documents with an external identifier matching exactly at the specified key.
+      required: false
+      schema:
+        type: string
+    filter.external_identifiers.group:
+      name: filter[external_identifiers.group]
+      in: query
+      description: Limit the results to documents with an external identifier matching exactly at the specified key.
+      required: false
+      schema:
+        type: string
+    filter.person.id:
+      name: filter[person.id]
+      in: query
+      description: Limit the results to documents related to a specific person
+      required: false
+      schema:
+        type: string
+    filter.organization.id:
+      name: filter[organization.id]
+      in: query
+      description: _Not yet supported_ Limit the results to documents related to a specific organization
+      required: false
+      schema:
+        type: string
+    filter:
+      name: filter
+      x-speakeasy-name-override: filter-by
+      in: query
+      required: false
+      deprecated: true
+      schema:
+        type: string
+    account_id:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 2bc7d781-3247-46f6-b60f-4090d214936a
+      description: Unique UUID of the Account.
+    filter.account_type:
+      name: filter[account_type]
+      in: query
+      description: Limit the results to documents matching the specified account type.
+      required: false
+      schema:
+        type: string
+        example: EARNINGS_BALANCE
+        enum:
+          - EARNINGS_BALANCE
+          - DEPOSITORY
+          - CARD
+    filter.account_subtype:
+      name: filter[subtype]
+      in: query
+      description: Limit the results to documents matching the specified account subtype.
+      required: false
+      schema:
+        type: string
+    include:
+      name: include
+      in: query
+      description: |
+        Add related resources to the response. 
+
+        The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
+      required: false
+      schema:
+        type: string
+    transfer_id:
+      name: transfer_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: aba332a2-24a2-46de-8257-5040e71ab210
+      description: Unique ID of the transfer
+    idempotency_key:
+      name: Idempotency-Key
+      in: header
+      schema:
+        type: string
+        format: uuid
+      required: true
+      description: |
+        An idempotency key is a unique string that you provide to ensure a request is only processed once.
+        Any number of requests with the same idempotency key and payload will return an identical response.
+    paycheck_id:
+      name: paycheck_id
+      description: Unique ID of the paycheck
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    filter.job.id:
+      name: filter[job.id]
+      in: query
+      description: Limit the results to documents related to a specific job
+      required: false
+      schema:
+        type: string
+    filter.paycheck_status:
+      name: filter[status]
+      in: query
+      description: Limit the results to paychecks with the specified status
+      required: false
+      schema:
+        type: string
+        enum:
+          - ESTIMATED
+          - PROCESSING
+          - IN_TRANSIT
+          - DEPOSITED
+    filter.deposit_expected_at__gte:
+      name: filter[deposit_expected_at__gte]
+      in: query
+      description: Limit the results to paychecks with deposit_expected_at greater than or equal to the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.deposit_expected_at__lt:
+      name: filter[deposit_expected_at__lt]
+      in: query
+      description: Limit the results to paychecks with deposit_expected_at less than the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_ends_at__gte:
+      name: filter[pay_period_ends_at__gte]
+      in: query
+      description: Limit the results to paychecks with pay_period_ends_at greater than or equal to the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_ends_at__lt:
+      name: filter[pay_period_ends_at__lt]
+      in: query
+      description: Limit the results to paychecks with pay_period_ends_at less than the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_starts_at__gte:
+      name: filter[pay_period_starts_at__gte]
+      in: query
+      description: Limit the results to paychecks with pay_period_starts_at greater than or equal to the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_starts_at__lt:
+      name: filter[pay_period_starts_at__lt]
+      in: query
+      description: Limit the results to paychecks with pay_period_starts_at less than the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    organization_id:
+      name: organization_id
+      in: path
+      required: true
+      description: Unique ID of the organization
+      schema:
+        description: String identifier that is unique across this resource. You can safely assume the identifier to never exceed 64 characters.
+        example: 123e4567-e89b-12d3-a456-426614174000
+        readOnly: true
+        type: string
+    person_id:
+      name: person_id
+      description: Unique ID of the person
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: aa860051-c411-4709-9685-c1b716df611b
+  requestBodies:
+    JobUpdate:
+      required: true
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JobUpdateData'
+    AccountCreate:
+      required: true
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/AccountData'
+          examples:
+            Depository:
+              value:
+                data:
+                  type: accounts
+                  id: 2bc7d781-3247-46f6-b60f-4090d214936a
+                  attributes:
+                    name: Acme Bank Checking Account
+                    account_type: DEPOSITORY
+                    subtype: CHECKING
+                    details:
+                      first_name: Edith
+                      last_name: Clarke
+                      routing_number: XXXXX2021
+                      account_number: XXXXXX4321
+                  relationships:
+                    person:
+                      data:
+                        type: people
+                        id: 3fa8f641-5717-4562-b3fc-2c963f66afa6
+            Card:
+              value:
+                data:
+                  type: accounts
+                  id: 410ae962-51e1-4f44-b0a0-a0fd230a4dc5
+                  attributes:
+                    name: Acme Bank Debit Card
+                    account_type: CARD
+                    subtype: DEBIT
+                    details:
+                      token: abc.efg.123
+                      issuer: '411600'
+                      first_name: Edith
+                      last_name: Clarke
+                      expiration_month: '02'
+                      expiration_year: '2027'
+                      address_line_one: 123 Kebly Street
+                      address_city: Fort Lee
+                      address_state: NJ
+                      address_zip_code: '72374'
+                      address_country: US
+                  relationships:
+                    person:
+                      data:
+                        type: people
+                        id: 3fa8f641-5717-4562-b3fc-2c963f66afa6
+    TransferCreate:
+      required: true
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/TransferCreateData'
+    PersonUpdate:
+      required: true
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/PersonData'
+x-speakeasy-name-override:
+  - operationId: ^read*
+    methodNameOverride: read
+  - operationId: ^list*
+    methodNameOverride: list
+  - operationId: ^create*
+    methodNameOverride: create
+  - operationId: ^update*
+    methodNameOverride: update
+x-speakeasy-globals:
+  parameters:
+    - $ref: '#/components/parameters/apiversion'
+x-tagGroups:
+  - name: Documentation
+    tags:
+      - REST API Introduction
+      - Getting Started
+      - Concepts
+      - Filtering
+      - Errors
+      - Client Portal
+  - name: Reference
+    tags:
+      - Authentication
+      - Jobs
+      - Accounts
+      - Transfers
+      - Organizations
+      - Paychecks
+      - People
+      - Cards
+  - name: Resources
+    tags:
+      - Troubleshooting
+      - FAQs
+      - Glossary
