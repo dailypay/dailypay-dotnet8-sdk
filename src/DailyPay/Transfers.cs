@@ -23,83 +23,90 @@ namespace DailyPay
     using System.Threading.Tasks;
 
     /// <summary>
-    /// The _paychecks_ endpoint provides detailed information about paychecks. <br/>
+    /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer&apos;s unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
     /// 
     /// <remarks>
-    /// You can retrieve individual paycheck details, including the<br/>
-    /// person and job associated with the paycheck, its status, pay period,<br/>
-    /// expected deposit date, total debited amount, withholdings, earnings, and<br/>
-    /// currency.<br/>
     /// <br/>
-    /// **Functionality:** Retrieve specific paycheck details, including payee and<br/>
-    /// job information, and monitor the status and financial details of each<br/>
-    /// paycheck.<br/>
+    /// **Functionality** Retrieve transfer information, monitor transfer statuses, view transfer schedules, and access relevant links for the source, destination, and origin of the transfer.<br/>
+    /// <br/>
+    /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll<br/>
     /// 
     /// </remarks>
     /// </summary>
-    public interface IPaychecks
+    public interface ITransfers
     {
 
         /// <summary>
-        /// Get a Paycheck object
+        /// Get a transfer object
         /// 
         /// <remarks>
-        /// Returns details about a paycheck object.
+        /// Returns details about a transfer of money from one account to another. <br/>
+        /// <br/>
+        /// Created when a person takes an advance against a future paycheck, or on a daily basis when available balance is updated based on current employment.<br/>
+        /// 
         /// </remarks>
         /// </summary>
-        Task<ReadPaycheckResponse> ReadAsync(string paycheckId, long? version = 3);
+        Task<ReadTransferResponse> ReadAsync(string transferId, long? version = 3, string? include = null);
 
         /// <summary>
-        /// Get a list of paycheck objects
+        /// Get a list of transfers
         /// 
         /// <remarks>
-        /// Returns a collection of paycheck objects. This object details a person&apos;s pay and pay period.<br/>
-        /// See <a href="https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters">Filtering Paychecks</a> for a description of filterable fields.<br/>
+        /// Returns a list of transfer objects.<br/>
+        /// See <a href="https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters">Filtering Transfers</a> for a description of filterable fields.<br/>
         /// 
         /// </remarks>
         /// </summary>
-        Task<ListPaychecksResponse> ListAsync(ListPaychecksRequest? request = null);
+        Task<ListTransfersResponse> ListAsync(long? version = 3, string? filterPersonId = null, string? include = null, string? filterBy = null);
+
+        /// <summary>
+        /// Request a transfer
+        /// 
+        /// <remarks>
+        /// Request transfer of funds from an `EARNINGS_BALANCE` account to a<br/>
+        /// personal `DEPOSITORY` or `CARD` account.<br/>
+        /// 
+        /// </remarks>
+        /// </summary>
+        Task<CreateTransferResponse> CreateAsync(string idempotencyKey, TransferCreateData transferCreateData, long? version = 3, string? include = null);
     }
 
     /// <summary>
-    /// The _paychecks_ endpoint provides detailed information about paychecks. <br/>
+    /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer&apos;s unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
     /// 
     /// <remarks>
-    /// You can retrieve individual paycheck details, including the<br/>
-    /// person and job associated with the paycheck, its status, pay period,<br/>
-    /// expected deposit date, total debited amount, withholdings, earnings, and<br/>
-    /// currency.<br/>
     /// <br/>
-    /// **Functionality:** Retrieve specific paycheck details, including payee and<br/>
-    /// job information, and monitor the status and financial details of each<br/>
-    /// paycheck.<br/>
+    /// **Functionality** Retrieve transfer information, monitor transfer statuses, view transfer schedules, and access relevant links for the source, destination, and origin of the transfer.<br/>
+    /// <br/>
+    /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll<br/>
     /// 
     /// </remarks>
     /// </summary>
-    public class Paychecks: IPaychecks
+    public class Transfers: ITransfers
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.1.8";
-        private const string _sdkGenVersion = "2.638.0";
+        private const string _sdkVersion = "0.1.9";
+        private const string _sdkGenVersion = "2.638.5";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
-        public Paychecks(SDKConfig config)
+        public Transfers(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<ReadPaycheckResponse> ReadAsync(string paycheckId, long? version = 3)
+        public async Task<ReadTransferResponse> ReadAsync(string transferId, long? version = 3, string? include = null)
         {
-            var request = new ReadPaycheckRequest()
+            var request = new ReadTransferRequest()
             {
-                PaycheckId = paycheckId,
+                TransferId = transferId,
                 Version = version,
+                Include = include,
             };
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
-            var urlString = URLBuilder.Build(baseUrl, "/rest/paychecks/{paycheck_id}", request);
+            var urlString = URLBuilder.Build(baseUrl, "/rest/transfers/{transfer_id}", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
             httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
@@ -110,7 +117,7 @@ namespace DailyPay
                 httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readPaycheck", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readTransfer", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
@@ -150,8 +157,8 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<PaycheckData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
-                    var response = new ReadPaycheckResponse()
+                    var obj = ResponseBodyDeserializer.Deserialize<TransferData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var response = new ReadTransferResponse()
                     {
                         HttpMeta = new Models.Components.HTTPMetadata()
                         {
@@ -159,7 +166,7 @@ namespace DailyPay
                             Request = httpRequest
                         }
                     };
-                    response.PaycheckData = obj;
+                    response.TransferData = obj;
                     return response;
                 }
 
@@ -227,12 +234,19 @@ namespace DailyPay
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<ListPaychecksResponse> ListAsync(ListPaychecksRequest? request = null)
+        public async Task<ListTransfersResponse> ListAsync(long? version = 3, string? filterPersonId = null, string? include = null, string? filterBy = null)
         {
+            var request = new ListTransfersRequest()
+            {
+                Version = version,
+                FilterPersonId = filterPersonId,
+                Include = include,
+                FilterBy = filterBy,
+            };
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
-            var urlString = URLBuilder.Build(baseUrl, "/rest/paychecks", request);
+            var urlString = URLBuilder.Build(baseUrl, "/rest/transfers", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
             httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
@@ -243,7 +257,7 @@ namespace DailyPay
                 httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listPaychecks", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listTransfers", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
@@ -283,8 +297,8 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<PaychecksData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
-                    var response = new ListPaychecksResponse()
+                    var obj = ResponseBodyDeserializer.Deserialize<TransfersData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
+                    var response = new ListTransfersResponse()
                     {
                         HttpMeta = new Models.Components.HTTPMetadata()
                         {
@@ -292,7 +306,7 @@ namespace DailyPay
                             Request = httpRequest
                         }
                     };
-                    response.PaychecksData = obj;
+                    response.TransfersData = obj;
                     return response;
                 }
 
@@ -333,6 +347,142 @@ namespace DailyPay
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var obj = ResponseBodyDeserializer.Deserialize<ErrorUnexpected>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
+                    throw obj!;
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
+            }
+            else if(responseStatusCode >= 400 && responseStatusCode < 500)
+            {
+                throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse);
+            }
+            else if(responseStatusCode >= 500 && responseStatusCode < 600)
+            {
+                throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse);
+            }
+
+            throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
+        }
+
+        public async Task<CreateTransferResponse> CreateAsync(string idempotencyKey, TransferCreateData transferCreateData, long? version = 3, string? include = null)
+        {
+            var request = new CreateTransferRequest()
+            {
+                IdempotencyKey = idempotencyKey,
+                TransferCreateData = transferCreateData,
+                Version = version,
+                Include = include,
+            };
+            request.Version ??= SDKConfiguration.Version;
+            
+            string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
+            var urlString = URLBuilder.Build(baseUrl, "/rest/transfers", request);
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, urlString);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
+            HeaderSerializer.PopulateHeaders(ref httpRequest, request);
+
+            var serializedBody = RequestBodySerializer.Serialize(request, "TransferCreateData", "json", false, false);
+            if (serializedBody != null)
+            {
+                httpRequest.Content = serializedBody;
+            }
+
+            if (SDKConfiguration.SecuritySource != null)
+            {
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+            }
+
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "createTransfer", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
+
+            httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+
+            HttpResponseMessage httpResponse;
+            try
+            {
+                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                int _statusCode = (int)httpResponse.StatusCode;
+
+                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                {
+                    var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
+                    if (_httpResponse != null)
+                    {
+                        httpResponse = _httpResponse;
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), null, error);
+                if (_httpResponse != null)
+                {
+                    httpResponse = _httpResponse;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            httpResponse = await this.SDKConfiguration.Hooks.AfterSuccessAsync(new AfterSuccessContext(hookCtx), httpResponse);
+
+            var contentType = httpResponse.Content.Headers.ContentType?.MediaType;
+            int responseStatusCode = (int)httpResponse.StatusCode;
+            if(responseStatusCode == 200)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var obj = ResponseBodyDeserializer.Deserialize<TransferData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var response = new CreateTransferResponse()
+                    {
+                        HttpMeta = new Models.Components.HTTPMetadata()
+                        {
+                            Response = httpResponse,
+                            Request = httpRequest
+                        }
+                    };
+                    response.TransferData = obj;
+                    return response;
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
+            }
+            else if(responseStatusCode == 400)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var obj = ResponseBodyDeserializer.Deserialize<TransferCreateError>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    throw obj!;
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
+            }
+            else if(responseStatusCode == 401)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorUnauthorized>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    throw obj!;
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
+            }
+            else if(responseStatusCode == 403)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorForbidden>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    throw obj!;
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
+            }
+            else if(responseStatusCode == 500)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorUnexpected>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
                     throw obj!;
                 }
 

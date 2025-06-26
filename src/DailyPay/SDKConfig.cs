@@ -52,7 +52,7 @@ namespace DailyPay
                 },
             };
             Version = null;
-            UserAgent = "speakeasy-sdk/csharp 0.1.8 2.638.0 3.0.0-beta01 DailyPay";
+            UserAgent = "speakeasy-sdk/csharp 0.1.9 2.638.5 3.0.0-beta01 DailyPay";
             SecuritySource = null;
             Hooks = new SDKHooks();
             RetryConfig = null;

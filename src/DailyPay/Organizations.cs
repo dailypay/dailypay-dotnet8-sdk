@@ -23,73 +23,75 @@ namespace DailyPay
     using System.Threading.Tasks;
 
     /// <summary>
-    /// The _people_ endpoint allows you to see information related to who owns <br/>
+    /// The _organizations_ endpoint provides details about a business entity, <br/>
     /// 
     /// <remarks>
-    /// resources such as jobs and accounts.<br/>
+    /// such as an employer, or a group of people, such as a division.<br/>
     /// <br/>
-    /// **Functionality:** Retrieve limited details about a person, including<br/>
-    /// their name, global status, and state of residence.<br/>
+    /// The response includes the organization name and ID which can be used to<br/>
+    /// make subsequent endpoint calls related to the organization and its<br/>
+    /// employees.<br/>
     /// 
     /// </remarks>
     /// </summary>
-    public interface IPeople
+    public interface IOrganizations
     {
 
         /// <summary>
-        /// Get a person object
+        /// Get an organization
         /// 
         /// <remarks>
-        /// Returns details about a person.
+        /// Lookup organization by ID for a detailed view of single organization.
         /// </remarks>
         /// </summary>
-        Task<ReadPersonResponse> ReadAsync(string personId, long? version = 3);
+        Task<ReadOrganizationResponse> ReadAsync(string organizationId, long? version = 3);
 
         /// <summary>
-        /// Update a person
+        /// List organizations
         /// 
         /// <remarks>
-        /// Update a person object.
+        /// Get organizations with an optional filter
         /// </remarks>
         /// </summary>
-        Task<UpdatePersonResponse> UpdateAsync(string personId, PersonDataInput personData, long? version = 3);
+        Task<ListOrganizationsResponse> ListAsync(long? version = 3, string? filterBy = null);
     }
 
     /// <summary>
-    /// The _people_ endpoint allows you to see information related to who owns <br/>
+    /// The _organizations_ endpoint provides details about a business entity, <br/>
     /// 
     /// <remarks>
-    /// resources such as jobs and accounts.<br/>
+    /// such as an employer, or a group of people, such as a division.<br/>
     /// <br/>
-    /// **Functionality:** Retrieve limited details about a person, including<br/>
-    /// their name, global status, and state of residence.<br/>
+    /// The response includes the organization name and ID which can be used to<br/>
+    /// make subsequent endpoint calls related to the organization and its<br/>
+    /// employees.<br/>
     /// 
     /// </remarks>
     /// </summary>
-    public class People: IPeople
+    public class Organizations: IOrganizations
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.1.8";
-        private const string _sdkGenVersion = "2.638.0";
+        private const string _sdkVersion = "0.1.9";
+        private const string _sdkGenVersion = "2.638.5";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
-        public People(SDKConfig config)
+        public Organizations(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<ReadPersonResponse> ReadAsync(string personId, long? version = 3)
+        public async Task<ReadOrganizationResponse> ReadAsync(string organizationId, long? version = 3)
         {
-            var request = new ReadPersonRequest()
+            var request = new ReadOrganizationRequest()
             {
-                PersonId = personId,
+                OrganizationId = organizationId,
                 Version = version,
             };
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
-            var urlString = URLBuilder.Build(baseUrl, "/rest/people/{person_id}", request);
+            var urlString = URLBuilder.Build(baseUrl, "/rest/organizations/{organization_id}", request);
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
             httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
@@ -100,7 +102,7 @@ namespace DailyPay
                 httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readPerson", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readOrganization", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
@@ -140,8 +142,8 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<PersonData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
-                    var response = new ReadPersonResponse()
+                    var obj = ResponseBodyDeserializer.Deserialize<OrganizationData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var response = new ReadOrganizationResponse()
                     {
                         HttpMeta = new Models.Components.HTTPMetadata()
                         {
@@ -149,7 +151,7 @@ namespace DailyPay
                             Request = httpRequest
                         }
                     };
-                    response.PersonData = obj;
+                    response.OrganizationData = obj;
                     return response;
                 }
 
@@ -217,35 +219,28 @@ namespace DailyPay
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<UpdatePersonResponse> UpdateAsync(string personId, PersonDataInput personData, long? version = 3)
+        public async Task<ListOrganizationsResponse> ListAsync(long? version = 3, string? filterBy = null)
         {
-            var request = new UpdatePersonRequest()
+            var request = new ListOrganizationsRequest()
             {
-                PersonId = personId,
-                PersonData = personData,
                 Version = version,
+                FilterBy = filterBy,
             };
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
-            var urlString = URLBuilder.Build(baseUrl, "/rest/people/{person_id}", request);
+            var urlString = URLBuilder.Build(baseUrl, "/rest/organizations", request);
 
-            var httpRequest = new HttpRequestMessage(HttpMethod.Patch, urlString);
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
             httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
             HeaderSerializer.PopulateHeaders(ref httpRequest, request);
-
-            var serializedBody = RequestBodySerializer.Serialize(request, "PersonData", "json", false, false);
-            if (serializedBody != null)
-            {
-                httpRequest.Content = serializedBody;
-            }
 
             if (SDKConfiguration.SecuritySource != null)
             {
                 httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
             }
 
-            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "updatePerson", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listOrganizations", new List<string> { "client:admin", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
@@ -255,7 +250,7 @@ namespace DailyPay
                 httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -285,8 +280,8 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<PersonData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
-                    var response = new UpdatePersonResponse()
+                    var obj = ResponseBodyDeserializer.Deserialize<OrganizationsData>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
+                    var response = new ListOrganizationsResponse()
                     {
                         HttpMeta = new Models.Components.HTTPMetadata()
                         {
@@ -294,7 +289,7 @@ namespace DailyPay
                             Request = httpRequest
                         }
                     };
-                    response.PersonData = obj;
+                    response.OrganizationsData = obj;
                     return response;
                 }
 
@@ -304,7 +299,7 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<ErrorBadRequest>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorBadRequest>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
                 }
 
@@ -314,7 +309,7 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<ErrorUnauthorized>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorUnauthorized>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
                 }
 
@@ -324,17 +319,7 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<ErrorForbidden>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
-                    throw obj!;
-                }
-
-                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse);
-            }
-            else if(responseStatusCode == 404)
-            {
-                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
-                {
-                    var obj = ResponseBodyDeserializer.Deserialize<ErrorNotFound>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorForbidden>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
                 }
 
@@ -344,7 +329,7 @@ namespace DailyPay
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
-                    var obj = ResponseBodyDeserializer.Deserialize<ErrorUnexpected>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Ignore);
+                    var obj = ResponseBodyDeserializer.Deserialize<ErrorUnexpected>(await httpResponse.Content.ReadAsStringAsync(), NullValueHandling.Include);
                     throw obj!;
                 }
 

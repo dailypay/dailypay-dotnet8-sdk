@@ -1,8 +1,8 @@
-speakeasyVersion: 1.570.0
+speakeasyVersion: 1.570.2
 sources:
     local:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:cbb5b943493da653abfd687235e7a8ab16ca9c193276ee1572d6813eea842b3b
+        sourceRevisionDigest: sha256:96b5104728cc3f9bc7cc8db7f0a20a2e39239dcd8e57c3dfa35ecd3789e8ed36
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     csharp:
         source: local
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:cbb5b943493da653abfd687235e7a8ab16ca9c193276ee1572d6813eea842b3b
+        sourceRevisionDigest: sha256:96b5104728cc3f9bc7cc8db7f0a20a2e39239dcd8e57c3dfa35ecd3789e8ed36
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:3b6a4123f53539fffbb189fa61e0d4f5da86eb2aed5f464de746b81ff0edfdf3
+        codeSamplesRevisionDigest: sha256:a4ef55e36164453252617b0157d9b1e0709e9531c5025a10906a4f7bf80c01cd
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -28,7 +28,6 @@ workflow:
         csharp:
             target: csharp
             source: local
-            output: sdk
             codeSamples:
                 output: codeSamples.yaml
                 registry:
