@@ -1,30 +1,31 @@
-name: Generate
-permissions:
-  checks: write
-  contents: write
-  pull-requests: write
-  statuses: write
-  id-token: write
-"on":
+name: 'Generate .NET SDK'
+on:
   workflow_dispatch:
-    inputs:
-      force:
-        description: Force generation of SDKs
-        type: boolean
-        default: false
-      set_version:
-        description: optionally set a specific SDK version
-        type: string
   schedule:
-    - cron: 0 0 * * *
+    - cron: '0 0 * * *'  
+permissions:
+  id-token: write
+  contents: write
 jobs:
-  generate:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15
-    with:
-      force: ${{ github.event.inputs.force }}
-      mode: pr
-      set_version: ${{ github.event.inputs.set_version }}
-      target: csharp
-    secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+  generate-dotnet-sdk:
+    runs-on: ubuntu-latest
+    env:
+      SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make
+      - name: Install Speakeasy CLI
+        run: |
+          curl -sSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | bash
+          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+      - name: Generate SDK using Make
+        run: make generate-sdk
+      - name: Auto Commit SDK
+        uses: stefanzweifel/git-auto-commit-action
