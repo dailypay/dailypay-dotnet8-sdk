@@ -28,4 +28,8 @@ jobs:
       - name: Generate SDK using Make
         run: make generate-sdk
       - name: Auto Commit SDK
-        uses: stefanzweifel/git-auto-commit-action
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: regenerate .NET SDK"
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: actions@github.com
