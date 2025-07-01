@@ -1,8 +1,7 @@
 name: 'Publish .NET 8 SDK'
 on:
-  push:
-    branches:
-      - DEVREL-540
+  release:
+    types: [published]
 permissions:
   contents: read
   packages: write
