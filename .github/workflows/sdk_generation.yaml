@@ -1,4 +1,4 @@
-name: 'Generate .NET SDK'
+name: 'Generate .NET 8 SDK'
 on:
   push:
     branches:
