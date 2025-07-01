@@ -1,4 +1,4 @@
-name: Publish .NET SDK
+name: 'Publish .NET 8 SDK'
 on:
   workflow_dispatch
 permissions:
