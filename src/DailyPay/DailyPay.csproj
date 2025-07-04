@@ -3,10 +3,12 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>DailyPay</PackageId>
-    <Version>0.1.10</Version>
+    <Version>0.1.11</Version>
     <TargetFramework>net8.0</TargetFramework>
     <Authors>DailyPay, Inc.</Authors>
     <Copyright>Copyright (c) DailyPay, Inc. 2025</Copyright>
+    <RepositoryUrl>https://github.com/dailypay/dailypay-dotnet8-sdk.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <Description>DailyPay Public Rest API: # Welcome<br/>
 <br/>
 This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.<br/>
