@@ -7,6 +7,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  pull-requests: write
 jobs:
   generate-dotnet-sdk:
     runs-on: ubuntu-latest
@@ -16,21 +17,41 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
+      - name: Check last commit message
+        id: check_commit
+        run: |
+          LAST_COMMIT=$(git log -1 --pretty=%s)
+          echo "Last commit: $LAST_COMMIT"
+          if [[ "$LAST_COMMIT" == chore:\ regenerate\ .NET\ 8\ SDK* ]]; then
+            echo "SKIP=true" >> $GITHUB_ENV
+          else
+            echo "SKIP=false" >> $GITHUB_ENV
+          fi
+      - name: Stop if last commit was auto-generated
+        if: env.SKIP == 'true'
+        run: |
+          echo "Last commit was an auto-generated SDK commit. Skipping..."
+          exit 0
       - name: Install dependencies
+        if: env.SKIP == 'false'
         run: |
           sudo apt-get update
-          sudo apt-get install -y make
+          sudo apt-get install -y make git
       - name: Install Speakeasy CLI
+        if: env.SKIP == 'false'
         run: |
           curl -sSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | bash
           echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
-      - name: Generate SDK using Make
+      - name: Generate SDK
+        if: env.SKIP == 'false'
         run: make generate-sdk
-      - name: Auto Commit SDK
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Create Pull Request
+        if: env.SKIP == 'false'
+        uses: peter-evans/create-pull-request@v5
         with:
-          commit_message: "chore: regenerate .NET SDK"
-          commit_user_name: GitHub Actions Bot
-          commit_user_email: actions@github.com
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: sdk-auto-gen-dotnet8-${{ github.run_id }}
+          base: DEVREL-635
+          commit-message: "chore: regenerate .NET 8 SDK"
+          title: "chore: regenerate .NET 8 SDK"
+          body: "This PR was auto-generated to include regenerated .NET 8 SDK files."
