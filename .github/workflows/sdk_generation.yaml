@@ -51,7 +51,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: sdk-auto-gen-dotnet8-${{ github.run_id }}
-          base: DEVREL-635
+          base: main
           commit-message: "chore: regenerate .NET 8 SDK"
           title: "chore: regenerate .NET 8 SDK"
           body: "This PR was auto-generated to include regenerated .NET 8 SDK files."
