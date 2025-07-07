@@ -5,53 +5,20 @@ on:
       - main
   workflow_dispatch:
 permissions:
-  id-token: write
   contents: write
   pull-requests: write
+  id-token: write
 jobs:
-  generate-dotnet-sdk:
-    runs-on: ubuntu-latest
-    env:
-      SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Check last commit message
-        id: check_commit
-        run: |
-          LAST_COMMIT=$(git log -1 --pretty=%s)
-          echo "Last commit: $LAST_COMMIT"
-          if [[ "$LAST_COMMIT" == chore:\ regenerate\ .NET\ 8\ SDK* ]]; then
-            echo "SKIP=true" >> $GITHUB_ENV
-          else
-            echo "SKIP=false" >> $GITHUB_ENV
-          fi
-      - name: Stop if last commit was auto-generated
-        if: env.SKIP == 'true'
-        run: |
-          echo "Last commit was an auto-generated SDK commit. Skipping..."
-          exit 0
-      - name: Install dependencies
-        if: env.SKIP == 'false'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y make git
-      - name: Install Speakeasy CLI
-        if: env.SKIP == 'false'
-        run: |
-          curl -sSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | bash
-          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
-      - name: Generate SDK
-        if: env.SKIP == 'false'
-        run: make generate-sdk
-      - name: Create Pull Request
-        if: env.SKIP == 'false'
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: sdk-auto-gen-dotnet8-${{ github.run_id }}
-          base: main
-          commit-message: "chore: regenerate .NET 8 SDK"
-          title: "chore: regenerate .NET 8 SDK"
-          body: "This PR was auto-generated to include regenerated .NET 8 SDK files."
+  generate-sdk:
+    if: |
+      !startsWith(github.ref_name, 'speakeasy-sdk-regen-') &&
+      github.event.head_commit.message != 'chore: regenerate .NET SDK'
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15
+    with:
+      mode: pr
+      target: csharp
+      force: false
+      set_version: false
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
