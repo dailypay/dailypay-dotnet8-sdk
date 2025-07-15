@@ -29,8 +29,8 @@ Returns details about an account. This object represents a person's bank account
 ### Example Usage
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Components;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -57,14 +57,14 @@ var res = await sdk.Accounts.ReadAsync(accountId: "2bc7d781-3247-46f6-b60f-4090d
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorNotFound     | 404                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorNotFound     | 404                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX                                             | \*/\*                                                |
 
 ## List
 
@@ -75,9 +75,9 @@ See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Su
 ### Example Usage
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Components;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -107,13 +107,13 @@ var res = await sdk.Accounts.ListAsync(req);
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX                                             | \*/\*                                                |
 
 ## Create
 
@@ -122,8 +122,8 @@ Create an account object to store a person's bank or card information as a desti
 ### Example Usage
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Components;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -172,10 +172,10 @@ var res = await sdk.Accounts.CreateAsync(accountData: new AccountDataInput() {
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| DailyPay.Models.Errors.AccountCreateError | 400                                       | application/vnd.api+json                  |
-| DailyPay.Models.Errors.ErrorUnauthorized  | 401                                       | application/vnd.api+json                  |
-| DailyPay.Models.Errors.ErrorForbidden     | 403                                       | application/vnd.api+json                  |
-| DailyPay.Models.Errors.ErrorUnexpected    | 500                                       | application/vnd.api+json                  |
-| DailyPay.Models.Errors.APIException       | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                                            | Status Code                                           | Content Type                                          |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| DailyPay.SDK.DotNet8.Models.Errors.AccountCreateError | 400                                                   | application/vnd.api+json                              |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized  | 401                                                   | application/vnd.api+json                              |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden     | 403                                                   | application/vnd.api+json                              |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected    | 500                                                   | application/vnd.api+json                              |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException       | 4XX, 5XX                                              | \*/\*                                                 |

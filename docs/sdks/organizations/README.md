@@ -23,8 +23,8 @@ Lookup organization by ID for a detailed view of single organization.
 ### Example Usage
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Components;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -51,14 +51,14 @@ var res = await sdk.Organizations.ReadAsync(organizationId: "123e4567-e89b-12d3-
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorNotFound     | 404                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorNotFound     | 404                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX                                             | \*/\*                                                |
 
 ## List
 
@@ -67,8 +67,8 @@ Get organizations with an optional filter
 ### Example Usage
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Components;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
 
 var sdk = new SDK(
     version: 3,
@@ -95,10 +95,10 @@ var res = await sdk.Organizations.ListAsync();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| DailyPay.Models.Errors.ErrorBadRequest   | 400                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnauthorized | 401                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorForbidden    | 403                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.ErrorUnexpected   | 500                                      | application/vnd.api+json                 |
-| DailyPay.Models.Errors.APIException      | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX                                             | \*/\*                                                |
