@@ -1,0 +1,29 @@
+name: 'Publish .NET 8 SDK'
+on:
+  release:
+    types: [published]
+permissions:
+  contents: read
+  packages: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore dependencies
+        run: dotnet restore ./src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
+      - name: Build SDK
+        run: dotnet build ./src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj --configuration Release --no-restore
+      - name: Pack SDK
+        run: dotnet pack ./src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj --configuration Release --no-build --output ./nupkg
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget add source "https://nuget.pkg.github.com/dailypay/index.json" --name github --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+          dotnet nuget push ./nupkg/*.nupkg --source github --skip-duplicate
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

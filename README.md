@@ -1,9 +1,9 @@
-# DailyPay
+# DailyPay.SDK.DotNet8
 
-Developer-friendly & type-safe Csharp SDK specifically catered to leverage *DailyPay* API.
+Developer-friendly & type-safe Csharp SDK specifically catered to leverage *DailyPay.SDK.DotNet8* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=daily-pay&utm_campaign=csharp"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=daily-pay-sdk-dot-net8&utm_campaign=csharp"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -31,7 +31,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [DailyPay](#dailypay)
+* [DailyPay.SDK.DotNet8](#dailypaysdkdotnet8)
   * [SDK Installation](#sdk-installation)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
@@ -49,7 +49,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 
 To add a reference to a local instance of the SDK in a .NET project:
 ```bash
-dotnet add reference src/DailyPay/DailyPay.csproj
+dotnet add reference src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -59,8 +59,8 @@ dotnet add reference src/DailyPay/DailyPay.csproj
 ### Example
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK();
 
@@ -94,9 +94,9 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```csharp
-using DailyPay;
-using DailyPay.Models.Components;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(security: new Security() {
     OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
@@ -178,7 +178,7 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or throw an exception.
 
-By default, an API error will raise a `DailyPay.Models.Errors.APIException` exception, which has the following properties:
+By default, an API error will raise a `DailyPay.SDK.DotNet8.Models.Errors.APIException` exception, which has the following properties:
 
 | Property      | Type                  | Description           |
 |---------------|-----------------------|-----------------------|
@@ -188,18 +188,18 @@ By default, an API error will raise a `DailyPay.Models.Errors.APIException` exce
 
 When custom error responses are specified for an operation, the SDK may also throw their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `RequestTokenAsync` method throws the following exceptions:
 
-| Error Type                                 | Status Code | Content Type             |
-| ------------------------------------------ | ----------- | ------------------------ |
-| DailyPay.Models.Errors.BadRequestException | 400         | application/json         |
-| DailyPay.Models.Errors.ErrorUnexpected     | 500         | application/vnd.api+json |
-| DailyPay.Models.Errors.APIException        | 4XX, 5XX    | \*/\*                    |
+| Error Type                                             | Status Code | Content Type             |
+| ------------------------------------------------------ | ----------- | ------------------------ |
+| DailyPay.SDK.DotNet8.Models.Errors.BadRequestException | 400         | application/json         |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected     | 500         | application/vnd.api+json |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException        | 4XX, 5XX    | \*/\*                    |
 
 ### Example
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Errors;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Errors;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK();
 
@@ -231,7 +231,7 @@ catch (Exception ex)
         // Handle exception data
         throw;
     }
-    else if (ex is DailyPay.Models.Errors.APIException)
+    else if (ex is DailyPay.SDK.DotNet8.Models.Errors.APIException)
     {
         // Handle default exception
         throw;
@@ -247,15 +247,15 @@ catch (Exception ex)
 
 The default server `https://api.{environment}.com` contains variables and is set to `https://api.dailypay.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
 
-| Variable      | Parameter                                        | Supported Values                     | Default      | Description |
-| ------------- | ------------------------------------------------ | ------------------------------------ | ------------ | ----------- |
-| `environment` | `environment: DailyPay.Models.ServerEnvironment` | - `"dailypay"`<br/>- `"dailypayuat"` | `"dailypay"` |             |
+| Variable      | Parameter                                                    | Supported Values                     | Default      | Description |
+| ------------- | ------------------------------------------------------------ | ------------------------------------ | ------------ | ----------- |
+| `environment` | `environment: DailyPay.SDK.DotNet8.Models.ServerEnvironment` | - `"dailypay"`<br/>- `"dailypayuat"` | `"dailypay"` |             |
 
 #### Example
 
 ```csharp
-using DailyPay;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(environment: "dailypayuat");
 
@@ -278,8 +278,8 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 The default server can be overridden globally by passing a URL to the `serverUrl: string` optional parameter when initializing the SDK client instance. For example:
 ```csharp
-using DailyPay;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(serverUrl: "https://api.dailypay.com");
 
@@ -302,8 +302,8 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```csharp
-using DailyPay;
-using DailyPay.Models.Requests;
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK();
 
@@ -341,4 +341,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=daily-pay&utm_campaign=csharp)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=daily-pay-sdk-dot-net8&utm_campaign=csharp)
