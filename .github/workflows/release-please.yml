@@ -13,7 +13,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Release Please
-        uses: google-github-actions/release-please-action@v4
+        uses: googleapis/release-please-action@v4
         with:
-          release-type: dotnet
+          release-type: generic
           manifest-file: ./src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
