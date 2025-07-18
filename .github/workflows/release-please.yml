@@ -1,0 +1,19 @@
+name: Release Please
+on:
+  push:
+    branches:
+      - main
+      - DEVREL-642
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v4
+        with:
+          release-type: dotnet
+          manifest-file: ./src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
