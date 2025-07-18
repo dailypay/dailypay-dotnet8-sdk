@@ -5,12 +5,14 @@ on:
       - main
       - DEVREL-642
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
       - name: Release Please
         uses: googleapis/release-please-action@v4
