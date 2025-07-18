@@ -15,5 +15,5 @@ jobs:
       - name: Release Please
         uses: googleapis/release-please-action@v4
         with:
-          release-type: generic
+          release-type: simple
           manifest-file: ./src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
