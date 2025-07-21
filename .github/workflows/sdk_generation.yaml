@@ -9,7 +9,7 @@ on:
         default: false
   push:
     branches:
-      - DEVREL-642
+      - main
 permissions:
   contents: write
   pull-requests: write

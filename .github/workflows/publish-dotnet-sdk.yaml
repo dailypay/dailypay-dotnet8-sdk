@@ -2,7 +2,7 @@ name: 'Publish .NET 8 SDK'
 on:
   push:
     branches:
-      - DEVREL-642
+      - main
   workflow_dispatch:
 permissions:
   contents: read
