@@ -23,6 +23,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Reset working directory
+        run: |
+          git reset --hard
+          git clean -fdx
+
       - name: Generate SDK with Speakeasy
         uses: speakeasy-api/sdk-generation-action@v15
         with:
