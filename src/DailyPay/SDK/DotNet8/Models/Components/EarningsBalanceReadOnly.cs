@@ -53,6 +53,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// An empty object for earnings balance accounts.
         /// </summary>
         [JsonProperty("details")]
-        public AccountAttributesEarningsBalanceDetails Details { get; set; } = default!;
+        public Details Details { get; set; } = default!;
     }
 }

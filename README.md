@@ -15,7 +15,6 @@ Developer-friendly & type-safe Csharp SDK specifically catered to leverage *Dail
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [DailyPay.SDK.DotNet8](#dailypaysdkdotnet8)
-  * [SDK Installation](#sdk-installation)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
@@ -32,25 +31,77 @@ Developer-friendly & type-safe Csharp SDK specifically catered to leverage *Dail
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example
+### Look up accounts
+
+Fetch a list of accounts, including earnings balance accounts.
 
 ```csharp
 using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
 using DailyPay.SDK.DotNet8.Models.Requests;
 
-var sdk = new SDK();
-
-RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-    new AuthorizationCodeFlow() {
-        GrantType = GrantType.AuthorizationCode,
-        Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-        RedirectUri = "https://example.com/callback",
-        State = "Hawaii",
-        ClientId = "<id>",
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 
-var res = await sdk.Authentication.RequestTokenAsync(req);
+ListAccountsRequest req = new ListAccountsRequest() {
+    FilterAccountType = FilterAccountType.EarningsBalance,
+};
+
+var res = await sdk.Accounts.ListAsync(req);
+
+// handle response
+```
+
+### Request a transfer
+
+Initiate a transfer of funds from an earnings balance account to a personal depository or card account.
+
+```csharp
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
+
+var res = await sdk.Transfers.CreateAsync(
+    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    transferCreateData: new TransferCreateData() {
+        Data = new TransferCreateResource() {
+            Id = "aba332a2-24a2-46de-8257-5040e71ab210",
+            Attributes = new TransferAttributesInput() {
+                Preview = true,
+                Amount = 2500,
+                Currency = "USD",
+                Schedule = TransferAttributesSchedule.WithinThirtyMinutes,
+            },
+            Relationships = new TransferCreateRelationships() {
+                Origin = new AccountRelationship() {
+                    Data = new AccountIdentifier() {
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                    },
+                },
+                Destination = new AccountRelationship() {
+                    Data = new AccountIdentifier() {
+                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                    },
+                },
+                Person = new PersonRelationship() {
+                    Data = new PersonIdentifier() {
+                        Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+                    },
+                },
+            },
+        },
+    }
+);
 
 // handle response
 ```
@@ -72,23 +123,15 @@ You can set the security parameters through the `security` optional parameter wh
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
-using DailyPay.SDK.DotNet8.Models.Requests;
 
-var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
-});
-
-RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-    new AuthorizationCodeFlow() {
-        GrantType = GrantType.AuthorizationCode,
-        Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-        RedirectUri = "https://example.com/callback",
-        State = "Hawaii",
-        ClientId = "<id>",
-    }
+var sdk = new SDK(
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    },
+    version: 3
 );
 
-var res = await sdk.Authentication.RequestTokenAsync(req);
+var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -105,10 +148,6 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 * [Read](docs/sdks/accounts/README.md#read) - Get an Account object
 * [List](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [Create](docs/sdks/accounts/README.md#create) - Create an Account object
-
-### [Authentication](docs/sdks/authentication/README.md)
-
-* [RequestToken](docs/sdks/authentication/README.md#requesttoken) - Request access token
 
 ### [Cards](docs/sdks/cards/README.md)
 
@@ -162,42 +201,55 @@ By default, an API error will raise a `DailyPay.SDK.DotNet8.Models.Errors.APIExc
 | `Request`     | *HttpRequestMessage*  | The HTTP request      |
 | `Response`    | *HttpResponseMessage* | The HTTP response     |
 
-When custom error responses are specified for an operation, the SDK may also throw their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `RequestTokenAsync` method throws the following exceptions:
+When custom error responses are specified for an operation, the SDK may also throw their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `ReadAsync` method throws the following exceptions:
 
-| Error Type                                             | Status Code | Content Type             |
-| ------------------------------------------------------ | ----------- | ------------------------ |
-| DailyPay.SDK.DotNet8.Models.Errors.BadRequestException | 400         | application/json         |
-| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected     | 500         | application/vnd.api+json |
-| DailyPay.SDK.DotNet8.Models.Errors.APIException        | 4XX, 5XX    | \*/\*                    |
+| Error Type                                           | Status Code | Content Type             |
+| ---------------------------------------------------- | ----------- | ------------------------ |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400         | application/vnd.api+json |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401         | application/vnd.api+json |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403         | application/vnd.api+json |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorNotFound     | 404         | application/vnd.api+json |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500         | application/vnd.api+json |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX    | \*/\*                    |
 
 ### Example
 
 ```csharp
 using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
 using DailyPay.SDK.DotNet8.Models.Errors;
-using DailyPay.SDK.DotNet8.Models.Requests;
 
-var sdk = new SDK();
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
 
 try
 {
-    RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-        new AuthorizationCodeFlow() {
-            GrantType = GrantType.AuthorizationCode,
-            Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-            RedirectUri = "https://example.com/callback",
-            State = "Hawaii",
-            ClientId = "<id>",
-        }
-    );
-
-    var res = await sdk.Authentication.RequestTokenAsync(req);
+    var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
 
     // handle response
 }
 catch (Exception ex)
 {
-    if (ex is BadRequestException)
+    if (ex is ErrorBadRequest)
+    {
+        // Handle exception data
+        throw;
+    }
+    else if (ex is ErrorUnauthorized)
+    {
+        // Handle exception data
+        throw;
+    }
+    else if (ex is ErrorForbidden)
+    {
+        // Handle exception data
+        throw;
+    }
+    else if (ex is ErrorNotFound)
     {
         // Handle exception data
         throw;
@@ -231,21 +283,17 @@ The default server `https://api.{environment}.com` contains variables and is set
 
 ```csharp
 using DailyPay.SDK.DotNet8;
-using DailyPay.SDK.DotNet8.Models.Requests;
+using DailyPay.SDK.DotNet8.Models.Components;
 
-var sdk = new SDK(environment: "dailypayuat");
-
-RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-    new AuthorizationCodeFlow() {
-        GrantType = GrantType.AuthorizationCode,
-        Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-        RedirectUri = "https://example.com/callback",
-        State = "Hawaii",
-        ClientId = "<id>",
+var sdk = new SDK(
+    environment: "dailypayuat",
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 
-var res = await sdk.Authentication.RequestTokenAsync(req);
+var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -255,21 +303,17 @@ var res = await sdk.Authentication.RequestTokenAsync(req);
 The default server can be overridden globally by passing a URL to the `serverUrl: string` optional parameter when initializing the SDK client instance. For example:
 ```csharp
 using DailyPay.SDK.DotNet8;
-using DailyPay.SDK.DotNet8.Models.Requests;
+using DailyPay.SDK.DotNet8.Models.Components;
 
-var sdk = new SDK(serverUrl: "https://api.dailypay.com");
-
-RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-    new AuthorizationCodeFlow() {
-        GrantType = GrantType.AuthorizationCode,
-        Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-        RedirectUri = "https://example.com/callback",
-        State = "Hawaii",
-        ClientId = "<id>",
+var sdk = new SDK(
+    serverUrl: "https://api.dailypay.com",
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 
-var res = await sdk.Authentication.RequestTokenAsync(req);
+var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
 
 // handle response
 ```
@@ -283,19 +327,24 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK();
 
-RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-    new AuthorizationCodeFlow() {
-        GrantType = GrantType.AuthorizationCode,
-        Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-        RedirectUri = "https://example.com/callback",
-        State = "Hawaii",
-        ClientId = "<id>",
-    }
-);
+CreateGenericCardTokenRequest req = new CreateGenericCardTokenRequest() {
+    FirstName = "Edith",
+    LastName = "Clarke",
+    CardNumber = "4007589999999912",
+    ExpirationYear = "2027",
+    ExpirationMonth = "02",
+    Cvv = "123",
+    AddressLineOne = "123 Kebly Street",
+    AddressLineTwo = "Unit C",
+    AddressCity = "Fort Lee",
+    AddressState = "NJ",
+    AddressZipCode = "07237",
+    AddressCountry = "US",
+};
 
-var res = await sdk.Authentication.RequestTokenAsync(
+var res = await sdk.Cards.CreateAsync(
     request: req,
-    serverUrl: "https://auth.uat.dailypay.com"
+    serverUrl: "https://payments.dailypay.com/v2"
 );
 
 // handle response

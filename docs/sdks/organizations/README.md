@@ -22,6 +22,7 @@ Lookup organization by ID for a detailed view of single organization.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="readOrganization" method="get" path="/rest/organizations/{organization_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -66,6 +67,7 @@ Get organizations with an optional filter
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="listOrganizations" method="get" path="/rest/organizations" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;

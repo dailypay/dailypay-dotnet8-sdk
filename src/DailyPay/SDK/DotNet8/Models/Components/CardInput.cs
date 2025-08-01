@@ -14,7 +14,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using Newtonsoft.Json;
     
     /// <summary>
-    /// An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+    /// An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
     /// </summary>
     public class CardInput
     {
@@ -32,7 +32,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string AccountType { get; } = "CARD";
 
         /// <summary>
-        /// The subtype of the account.
+        /// The subtype of the account. Additional subtypes may be added over time
         /// </summary>
         [JsonProperty("subtype")]
         public AccountAttributesCardSubtype Subtype { get; set; } = default!;
@@ -41,6 +41,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// The banking details of the account and account holder.
         /// </summary>
         [JsonProperty("details")]
-        public DetailsInput Details { get; set; } = default!;
+        public CardAccountDetailsInput CardAccountDetails { get; set; } = default!;
     }
 }

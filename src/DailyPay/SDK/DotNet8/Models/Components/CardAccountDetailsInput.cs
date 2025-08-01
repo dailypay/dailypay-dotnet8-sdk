@@ -12,8 +12,23 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     
-    public class AccountDebitCardInput
+    /// <summary>
+    /// The banking details of the account and account holder.
+    /// </summary>
+    public class CardAccountDetailsInput
     {
+
+        /// <summary>
+        /// A tokenized string replacement for the card data.
+        /// </summary>
+        [JsonProperty("token")]
+        public string Token { get; set; } = default!;
+
+        /// <summary>
+        /// The issuer of the card.
+        /// </summary>
+        [JsonProperty("issuer")]
+        public string Issuer { get; set; } = default!;
 
         /// <summary>
         /// The first name of the account holder.
@@ -74,17 +89,5 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </summary>
         [JsonProperty("address_country")]
         public string AddressCountry { get; set; } = default!;
-
-        /// <summary>
-        /// A tokenized string replacement for the card data.
-        /// </summary>
-        [JsonProperty("token")]
-        public string Token { get; set; } = default!;
-
-        /// <summary>
-        /// The issuer of the card.
-        /// </summary>
-        [JsonProperty("issuer")]
-        public string Issuer { get; set; } = default!;
     }
 }

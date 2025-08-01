@@ -22,7 +22,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.1.15
+  version: 0.2.0
   additionalDependencies: []
   author: DailyPay, Inc.
   baseErrorName: DailyPayError

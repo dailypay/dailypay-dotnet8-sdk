@@ -25,6 +25,7 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="readTransfer" method="get" path="/rest/transfers/{transfer_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -72,6 +73,7 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="listTransfers" method="get" path="/rest/transfers" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -119,6 +121,7 @@ personal `DEPOSITORY` or `CARD` account.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="createTransfer" method="post" path="/rest/transfers" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;

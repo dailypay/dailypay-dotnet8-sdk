@@ -22,6 +22,7 @@ Returns details about a person's employment.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="readJob" method="get" path="/rest/jobs/{job_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -68,6 +69,7 @@ Returns the job object if the update succeeded. Returns an error if update param
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -137,6 +139,7 @@ See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Suppor
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="listJobs" method="get" path="/rest/jobs" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;

@@ -28,6 +28,7 @@ Returns details about an account. This object represents a person's bank account
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="readAccount" method="get" path="/rest/accounts/{account_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -74,6 +75,7 @@ See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Su
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="listAccounts" method="get" path="/rest/accounts" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -121,6 +123,7 @@ Create an account object to store a person's bank or card information as a desti
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="createAccount" method="post" path="/rest/accounts" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;

@@ -3,8 +3,8 @@
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `Odp`       | ODP         |
-| `Friday`    | FRIDAY      |
-| `WiselyEwa` | WISELY_EWA  |
+| Name           | Value          |
+| -------------- | -------------- |
+| `Odp`          | ODP            |
+| `DailypayCard` | DAILYPAY_CARD  |
+| `Friday`       | FRIDAY         |

@@ -25,6 +25,7 @@ Returns details about a paycheck object.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="readPaycheck" method="get" path="/rest/paychecks/{paycheck_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -71,6 +72,7 @@ See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/S
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="listPaychecks" method="get" path="/rest/paychecks" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;

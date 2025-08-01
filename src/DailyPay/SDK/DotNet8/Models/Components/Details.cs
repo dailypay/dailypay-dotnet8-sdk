@@ -10,24 +10,11 @@
 namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
-    using Newtonsoft.Json;
     
     /// <summary>
-    /// An account of type CARD with subtype GALILEO.
+    /// An empty object for earnings balance accounts.
     /// </summary>
-    public class AccountGalileoCardInput
+    public class Details
     {
-
-        /// <summary>
-        /// The card ID provided by Galileo.
-        /// </summary>
-        [JsonProperty("galileo_card_id")]
-        public string GalileoCardId { get; set; } = default!;
-
-        /// <summary>
-        /// The payment reference number provided by Galileo.
-        /// </summary>
-        [JsonProperty("galileo_pmt_ref_no")]
-        public string GalileoPmtRefNo { get; set; } = default!;
     }
 }
