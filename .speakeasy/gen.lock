@@ -1,19 +1,20 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: 7b2e2347da7bcd3987915e585cc4425c
+  docChecksum: e98ec2843f59af8ed4d7565f52cd7f26
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.584.0
-  generationVersion: 2.660.0
-  releaseVersion: 0.1.15
-  configChecksum: e17cc2c2a8e8e79c1d062c9d3d606e01
+  speakeasyVersion: 1.596.0
+  generationVersion: 2.672.0
+  releaseVersion: 0.2.0
+  configChecksum: afd81c5a4dc9ebcd5164d191a8633944
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.1
-    core: 3.11.1
+    core: 3.11.2
     deprecations: 2.81.2
+    examples: 2.81.6
     flattening: 2.81.3
     globalSecurity: 2.83.7
     globalSecurityCallbacks: 0.1.0
@@ -43,34 +44,28 @@ generatedFiles:
   - docs/Models/Components/AccountAttributesDepositoryVerificationStatus.md
   - docs/Models/Components/AccountAttributesEarningsBalanceAccountBalances.md
   - docs/Models/Components/AccountAttributesEarningsBalanceAccountCapabilities.md
-  - docs/Models/Components/AccountAttributesEarningsBalanceDetails.md
   - docs/Models/Components/AccountAttributesEarningsBalanceVerificationStatus.md
   - docs/Models/Components/AccountAttributesInput.md
   - docs/Models/Components/AccountAttributesOutput.md
   - docs/Models/Components/AccountDataInput.md
   - docs/Models/Components/AccountDataOutput.md
-  - docs/Models/Components/AccountDebitCardInput.md
-  - docs/Models/Components/AccountDebitCardOutput.md
-  - docs/Models/Components/AccountGalileoCardInput.md
-  - docs/Models/Components/AccountGalileoCardOutput.md
   - docs/Models/Components/AccountIdentifier.md
   - docs/Models/Components/AccountLinks.md
   - docs/Models/Components/AccountRelationship.md
   - docs/Models/Components/AccountRelationships.md
   - docs/Models/Components/AccountResourceInput.md
   - docs/Models/Components/AccountResourceOutput.md
-  - docs/Models/Components/AccountWiselyCard.md
-  - docs/Models/Components/AccountWiselyCardOutput.md
   - docs/Models/Components/AccountsData.md
   - docs/Models/Components/ActivationStatus.md
+  - docs/Models/Components/CardAccountDetailsInput.md
+  - docs/Models/Components/CardAccountDetailsOutput.md
   - docs/Models/Components/CardInput.md
   - docs/Models/Components/CardOutput.md
   - docs/Models/Components/Data.md
   - docs/Models/Components/Depository.md
   - docs/Models/Components/DepositoryAccountDetails.md
   - docs/Models/Components/DepositoryInput.md
-  - docs/Models/Components/DetailsInput.md
-  - docs/Models/Components/DetailsOutput.md
+  - docs/Models/Components/Details.md
   - docs/Models/Components/DirectDepositStatus.md
   - docs/Models/Components/DisallowReason.md
   - docs/Models/Components/EarningsBalanceReadOnly.md
@@ -162,7 +157,6 @@ generatedFiles:
   - docs/Models/Components/Product.md
   - docs/Models/Components/SchemeOauthClientCredentialsToken.md
   - docs/Models/Components/Security.md
-  - docs/Models/Components/TokenData.md
   - docs/Models/Components/TransferAttributes.md
   - docs/Models/Components/TransferAttributesInput.md
   - docs/Models/Components/TransferAttributesSchedule.md
@@ -181,17 +175,13 @@ generatedFiles:
   - docs/Models/Components/TransfersData.md
   - docs/Models/Components/WageRate.md
   - docs/Models/Errors/AccountCreateError.md
-  - docs/Models/Errors/BadRequestException.md
   - docs/Models/Errors/ErrorBadRequest.md
-  - docs/Models/Errors/ErrorCode.md
   - docs/Models/Errors/ErrorForbidden.md
   - docs/Models/Errors/ErrorNotFound.md
   - docs/Models/Errors/ErrorUnauthorized.md
   - docs/Models/Errors/ErrorUnexpected.md
   - docs/Models/Errors/JobUpdateError.md
   - docs/Models/Errors/TransferCreateError.md
-  - docs/Models/Requests/AuthorizationCodeFlow.md
-  - docs/Models/Requests/ClientCredentialsFlow.md
   - docs/Models/Requests/CreateAccountRequest.md
   - docs/Models/Requests/CreateAccountResponse.md
   - docs/Models/Requests/CreateGenericCardTokenRequest.md
@@ -200,7 +190,6 @@ generatedFiles:
   - docs/Models/Requests/CreateTransferRequest.md
   - docs/Models/Requests/CreateTransferResponse.md
   - docs/Models/Requests/GetHealthResponse.md
-  - docs/Models/Requests/GrantType.md
   - docs/Models/Requests/ListAccountsRequest.md
   - docs/Models/Requests/ListAccountsResponse.md
   - docs/Models/Requests/ListJobsRequest.md
@@ -223,15 +212,11 @@ generatedFiles:
   - docs/Models/Requests/ReadPersonResponse.md
   - docs/Models/Requests/ReadTransferRequest.md
   - docs/Models/Requests/ReadTransferResponse.md
-  - docs/Models/Requests/RefreshToken.md
-  - docs/Models/Requests/RequestTokenRequest.md
-  - docs/Models/Requests/RequestTokenResponse.md
   - docs/Models/Requests/UpdateJobRequest.md
   - docs/Models/Requests/UpdateJobResponse.md
   - docs/Models/Requests/UpdatePersonRequest.md
   - docs/Models/Requests/UpdatePersonResponse.md
   - docs/sdks/accounts/README.md
-  - docs/sdks/authentication/README.md
   - docs/sdks/cards/README.md
   - docs/sdks/health/README.md
   - docs/sdks/jobs/README.md
@@ -242,7 +227,6 @@ generatedFiles:
   - docs/sdks/transfers/README.md
   - global.json
   - src/DailyPay/SDK/DotNet8/Accounts.cs
-  - src/DailyPay/SDK/DotNet8/Authentication.cs
   - src/DailyPay/SDK/DotNet8/Cards.cs
   - src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
   - src/DailyPay/SDK/DotNet8/Health.cs
@@ -260,34 +244,28 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesDepositoryVerificationStatus.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesEarningsBalanceAccountBalances.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesEarningsBalanceAccountCapabilities.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesEarningsBalanceDetails.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesEarningsBalanceVerificationStatus.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesInput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesOutput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountDataInput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountDataOutput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountDebitCardInput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountDebitCardOutput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountGalileoCardInput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountGalileoCardOutput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountIdentifier.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountLinks.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountRelationship.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountRelationships.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountResourceInput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountResourceOutput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountWiselyCard.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/AccountWiselyCardOutput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountsData.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/ActivationStatus.cs
+  - src/DailyPay/SDK/DotNet8/Models/Components/CardAccountDetailsInput.cs
+  - src/DailyPay/SDK/DotNet8/Models/Components/CardAccountDetailsOutput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/CardInput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/CardOutput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Data.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Depository.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/DepositoryAccountDetails.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/DepositoryInput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/DetailsInput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/DetailsOutput.cs
+  - src/DailyPay/SDK/DotNet8/Models/Components/Details.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/DirectDepositStatus.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/DisallowReason.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/EarningsBalanceReadOnly.cs
@@ -379,7 +357,6 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/Product.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/SchemeOauthClientCredentialsToken.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Security.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/TokenData.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/TransferAttributes.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/TransferAttributesInput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/TransferAttributesSchedule.cs
@@ -399,17 +376,13 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/WageRate.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/APIException.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/AccountCreateError.cs
-  - src/DailyPay/SDK/DotNet8/Models/Errors/BadRequestException.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorBadRequest.cs
-  - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorCode.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorForbidden.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorNotFound.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnauthorized.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnexpected.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/JobUpdateError.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/TransferCreateError.cs
-  - src/DailyPay/SDK/DotNet8/Models/Requests/AuthorizationCodeFlow.cs
-  - src/DailyPay/SDK/DotNet8/Models/Requests/ClientCredentialsFlow.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateAccountRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateAccountResponse.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateGenericCardTokenRequest.cs
@@ -418,7 +391,6 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateTransferRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateTransferResponse.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/GetHealthResponse.cs
-  - src/DailyPay/SDK/DotNet8/Models/Requests/GrantType.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/ListAccountsRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/ListAccountsResponse.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/ListJobsRequest.cs
@@ -441,9 +413,6 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Requests/ReadPersonResponse.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/ReadTransferRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/ReadTransferResponse.cs
-  - src/DailyPay/SDK/DotNet8/Models/Requests/RefreshToken.cs
-  - src/DailyPay/SDK/DotNet8/Models/Requests/RequestTokenRequest.cs
-  - src/DailyPay/SDK/DotNet8/Models/Requests/RequestTokenResponse.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/UpdateJobRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/UpdateJobResponse.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/UpdatePersonRequest.cs
@@ -493,7 +462,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Finance", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": []}
         "401":
@@ -515,7 +484,7 @@ examples:
         application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"activation_status": "DEACTIVATED"}, "relationships": {"direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Finance", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -603,7 +572,7 @@ examples:
         header:
           DailyPay-API-Version: 3
       requestBody:
-        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US", "token": "abc.efg.123", "issuer": "411600"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"token": "abc.efg.123", "issuer": "411600", "first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
         "200":
           application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "type": "accounts", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 300, "currency": "USD"}, {"schedule": "NEXT_BUSINESS_DAY", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "account_type": "DEPOSITORY", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
@@ -722,7 +691,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}}
+          application/vnd.api+json: {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "DAILYPAY_CARD"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}}
         "400":
           application/vnd.api+json: {"errors": []}
         "401":

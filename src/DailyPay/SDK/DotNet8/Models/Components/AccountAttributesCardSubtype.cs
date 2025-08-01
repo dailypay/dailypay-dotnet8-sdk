@@ -14,16 +14,14 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using System;
     
     /// <summary>
-    /// The subtype of the account.
+    /// The subtype of the account. Additional subtypes may be added over time
     /// </summary>
     public enum AccountAttributesCardSubtype
     {
         [JsonProperty("DEBIT")]
         Debit,
-        [JsonProperty("GALILEO")]
-        Galileo,
-        [JsonProperty("WISELY")]
-        Wisely,
+        [JsonProperty("DAILYPAY")]
+        Dailypay,
     }
 
     public static class AccountAttributesCardSubtypeExtension

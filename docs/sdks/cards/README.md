@@ -66,6 +66,7 @@ Obtain a PCI DSS Compliant card token. This token must be used in order to add a
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="createGenericCardToken" method="post" path="/cards/generic" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Requests;

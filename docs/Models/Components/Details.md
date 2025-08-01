@@ -1,4 +1,4 @@
-# AccountAttributesEarningsBalanceDetails
+# Details
 
 An empty object for earnings balance accounts.
 

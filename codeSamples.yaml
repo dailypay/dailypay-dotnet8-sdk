@@ -32,30 +32,6 @@ actions:
             var res = await sdk.Cards.CreateAsync(req);
 
             // handle response
-  - target: $["paths"]["/oauth2/token"]["post"]
-    update:
-      x-codeSamples:
-        - lang: csharp
-          label: requestToken
-          source: |-
-            using DailyPay.SDK.DotNet8;
-            using DailyPay.SDK.DotNet8.Models.Requests;
-
-            var sdk = new SDK();
-
-            RequestTokenRequest req = RequestTokenRequest.CreateAuthorizationCodeFlow(
-                new AuthorizationCodeFlow() {
-                    GrantType = GrantType.AuthorizationCode,
-                    Code = "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-                    RedirectUri = "https://example.com/callback",
-                    State = "Hawaii",
-                    ClientId = "<id>",
-                }
-            );
-
-            var res = await sdk.Authentication.RequestTokenAsync(req);
-
-            // handle response
   - target: $["paths"]["/rest/accounts"]["get"]
     update:
       x-codeSamples:

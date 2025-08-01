@@ -17,10 +17,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     {
         [JsonProperty("ODP")]
         Odp,
+        [JsonProperty("DAILYPAY_CARD")]
+        DailypayCard,
         [JsonProperty("FRIDAY")]
         Friday,
-        [JsonProperty("WISELY_EWA")]
-        WiselyEwa,
     }
 
     public static class ProductExtension

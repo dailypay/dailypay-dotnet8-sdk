@@ -12,8 +12,23 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     
-    public class AccountWiselyCardOutput
+    /// <summary>
+    /// The banking details of the account and account holder.
+    /// </summary>
+    public class CardAccountDetailsOutput
     {
+
+        /// <summary>
+        /// Last four digits of the card number.
+        /// </summary>
+        [JsonProperty("last_four")]
+        public string LastFour { get; set; } = default!;
+
+        /// <summary>
+        /// The issuer of the card.
+        /// </summary>
+        [JsonProperty("issuer")]
+        public string Issuer { get; set; } = default!;
 
         /// <summary>
         /// The first name of the account holder.
@@ -38,23 +53,5 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </summary>
         [JsonProperty("expiration_year")]
         public string ExpirationYear { get; set; } = default!;
-
-        /// <summary>
-        /// Wisely unique identifier associated to card.
-        /// </summary>
-        [JsonProperty("wisely_token")]
-        public string WiselyToken { get; set; } = default!;
-
-        /// <summary>
-        /// Last four digits of the card number.
-        /// </summary>
-        [JsonProperty("last_four")]
-        public string LastFour { get; set; } = default!;
-
-        /// <summary>
-        /// The issuer of the card.
-        /// </summary>
-        [JsonProperty("issuer")]
-        public string Issuer { get; set; } = default!;
     }
 }

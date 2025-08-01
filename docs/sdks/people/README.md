@@ -21,6 +21,7 @@ Returns details about a person.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="readPerson" method="get" path="/rest/people/{person_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
@@ -65,6 +66,7 @@ Update a person object.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="updatePerson" method="patch" path="/rest/people/{person_id}" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
