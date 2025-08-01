@@ -9,24 +9,7 @@ Developer-friendly & type-safe Csharp SDK specifically catered to leverage *Dail
     </a>
 </div>
 
-
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/dailypay/dailypay). Delete this section before > publishing to a package manager.
-
-<!-- Start Summary [summary] -->
-## Summary
-
-DailyPay Public Rest API: # Welcome
-
-This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.
-
-Here are some links to help you get familiar with the DailyPay basics:
-
-[API Versioning](/tag/Getting-Started#section/DailyPay's-API-Versioning) — Find out how we version our APIs.  
-[Environments](/tag/Getting-Started#section/Environments) — Get an overview of the different environments in the DailyPay API.  
-[Glossary](/tag/Glossary) — Explore a list of terms used in the DailyPay API.
-<!-- End Summary [summary] -->
+<!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -44,14 +27,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 
 <!-- End Table of Contents [toc] -->
 
-<!-- Start SDK Installation [installation] -->
-## SDK Installation
-
-To add a reference to a local instance of the SDK in a .NET project:
-```bash
-dotnet add reference src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj
-```
-<!-- End SDK Installation [installation] -->
+<!-- No SDK Installation [installation] -->
 
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
