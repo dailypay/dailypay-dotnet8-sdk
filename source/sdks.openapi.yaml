@@ -96,7 +96,6 @@ tags:
       # DailyPay's API Versioning
 
       - Each API at DailyPay adheres to [semver standards](https://semver.org/) for versioning, represented as `MAJOR.MINOR.PATCH`:
-
         - The `MAJOR` version is incremented for breaking changes.
         - The `MINOR` version is incremented for backwards compatible changes.
         - The `PATCH` version is incremented for backwards compatible bug fixes.
@@ -390,19 +389,16 @@ tags:
       If you are experiencing issues or encountering errors while using the API endpoints for on-demand pay functionality, refer to the following troubleshooting steps:
 
       1. **Verify API Endpoint Access:**
-
          - Ensure that you are using the correct Base URL for accessing the API endpoints. Double-check the appropriate base URL and endpoint paths:
            - Production: `https://api.dailypay.com/rest`
            - UAT: `https://api.dailypayuat.com/rest`
 
          For API calls made from the developer portal to the DailyPay UAT environment:
-
          - Ensure you have a UAT API key.
          - Scrub any data containing employee phone, email, and direct deposit information.
          - Use non-production data.
 
       2. **Check Authentication and Authorization:**
-
          - Confirm that you are providing the correct authentication credentials to access protected API resources.
          - Verify that the access token is valid and has the necessary permissions for the desired actions.
 
@@ -413,18 +409,15 @@ tags:
          See the [endpoint references](Getting-Started) with examples listed under relevant categories, e.g., _Users_ or _Organizations_.
 
       4. **Handle Response Codes and Error Messages:**
-
          - Pay attention to the response codes returned by the API. HTTP status codes in the 2xx range generally indicate success, while codes in the 4xx or 5xx range indicate errors.
          - Refer to the API documentation for a comprehensive list of error codes and their meanings. Error messages returned by the API can provide valuable insights into the cause of the issue.
 
          Error codes and their meanings are included under each endpoint description.
 
       5. **Test in the Sandbox Environment:**
-
          - Test your integration in the sandbox environment to troubleshoot and debug without affecting live production data. Refer to the [environments setup guide](tag/Getting-Started#section/Environments) for assistance.
 
       6. **Logging and Error Tracking:**
-
          - Implement logging mechanisms in your application to capture relevant information, such as request and response details, error messages, and stack traces.
          - Use proper error tracking tools or services to centralize and monitor error occurrences. This can help identify patterns and provide insights for resolution.
 
@@ -914,7 +907,7 @@ tags:
 
       <pre><code>curl --request POST \
           --url https://auth.dailypay.com/oauth2/token \
-          --header 'accept: application/vnd.api+json'
+          --header 'accept: application/json' \
           --header 'content-type: application/x-www-form-urlencoded' \
           --data "grant_type=authorization_code" \
           --data "client_id={client_id}" \
@@ -976,7 +969,7 @@ tags:
 
       <pre><code>curl --request POST \
           --url https://auth.dailypay.com/oauth2/token \
-          --header 'accept: application/vnd.api+json'
+          --header 'accept: application/json' \
           --header 'content-type: application/x-www-form-urlencoded' \
           --data "grant_type=client_credentials" \
           --data "scope={scopes}" \
@@ -1264,126 +1257,6 @@ paths:
         description: Production environment
       - url: https://auth.uat.dailypay.com
         description: Development environment
-    post:
-      tags:
-        - Authentication
-      summary: Request access token
-      security: []
-      description: Request a Dailypay user access token, as described in the <a href='https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.3'>OAuth2 spec</a>. When grant_type is authorization_code, the code and redirect_uri parameters are required. When grant_type is refresh_token, the refresh_token parameter is required.
-      operationId: requestToken
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              oneOf:
-                - type: object
-                  title: Authorization code flow
-                  required:
-                    - grant_type
-                    - code
-                    - redirect_uri
-                    - client_id
-                    - state
-                  properties:
-                    grant_type:
-                      type: string
-                      description: The OAuth2 grant type
-                      example: authorization_code
-                      enum:
-                        - authorization_code
-                    code:
-                      type: string
-                      description: An authorization code received through user authorization flow
-                      example: 50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw
-                    redirect_uri:
-                      type: string
-                      description: The url redirected to after the authorization flow was completed by current user.
-                      example: https://example.com/callback
-                    state:
-                      type: string
-                      description: A value used by the client to maintain state between the request and callback. This is used to prevent CSRF attacks.  See https://www.rfc-editor.org/rfc/rfc6749#section-10.12 for more detail.
-                    code_verifier:
-                      type: string
-                      description: A PKCE verifier matching the challenge submitted during the authorization code request.
-                    client_id:
-                      description: The client id of the application requesting the token.
-                      type: string
-                    client_secret:
-                      type: string
-                      description: The client secret of the application requesting the token, if available.
-                - type: object
-                  title: Client credentials flow
-                  required:
-                    - grant_type
-                    - scope
-                    - client_id
-                    - client_secret
-                  properties:
-                    grant_type:
-                      type: string
-                      description: The OAuth2 grant type
-                      example: client_credentials
-                    scope:
-                      type: string
-                      description: A space-separated list of scopes to request
-                      example: client:lookup health:read
-                    client_id:
-                      description: The client id of the application requesting the token.
-                      type: string
-                    client_secret:
-                      type: string
-                      description: The client secret of the application requesting the token.
-                - type: object
-                  title: Refresh token
-                  required:
-                    - grant_type
-                    - refresh_token
-                    - client_id
-                  properties:
-                    grant_type:
-                      type: string
-                      description: The OAuth2 grant type
-                      example: refresh_token
-                    refresh_token:
-                      type: string
-                      description: A refresh token received from a previous token request
-                      example: rt.ML_PsNjfQA4M7iupH_3jw
-                    client_id:
-                      description: The client id of the application requesting the token.
-                      type: string
-                    client_secret:
-                      type: string
-                      description: The client secret of the application requesting the token, if available.
-      responses:
-        '200':
-          description: DailyPay user access token
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenData'
-        '400':
-          description: 'Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error_code:
-                    type: string
-                    description: Error code indicating what went wrong with the oauth token exchange. See the OAuth2 RFC for further context https://datatracker.ietf.org/doc/html/rfc6749#section-5.2
-                    enum:
-                      - invalid_request
-                      - invalid_client
-                      - invalid_grant
-                      - unauthorized_client
-                      - unsupported_grant_type
-                  error_description:
-                    type: string
-                    description: A description of exactly went wrong with the oauth token exchange. This is meant to improve developer experience, and is subject to change, so this should not be relied upon programatically.
-                    example: The requested scope is invalid, unknown, or malformed.
-        '500':
-          $ref: '#/components/responses/Unexpected'
   /rest/jobs/{job_id}:
     parameters:
       - $ref: '#/components/parameters/apiversion'
@@ -1533,6 +1406,10 @@ paths:
         - oauth_client_credentials_token:
             - client:admin
             - client:lookup
+      x-speakeasy-usage-example:
+        title: Look up accounts
+        description: Fetch a list of accounts, including earnings balance accounts.
+        position: 1
       operationId: listAccounts
       parameters:
         - $ref: '#/components/parameters/filter.person.id'
@@ -1662,6 +1539,10 @@ paths:
       security:
         - oauth_user_token:
             - user:read_write
+      x-speakeasy-usage-example:
+        title: Request a transfer
+        description: Initiate a transfer of funds from an earnings balance account to a personal depository or card account.
+        position: 2
       parameters:
         - $ref: '#/components/parameters/idempotency_key'
         - $ref: '#/components/parameters/include'
@@ -2003,108 +1884,241 @@ components:
           scopes:
             user:read: Read access to all relevant objects for a non-application user,  including accounts, jobs, people, transfers, and paychecks.
             user:read_write: Read and write access to all relevant objects for a non-application user, including accounts, jobs, people, transfers, and paychecks. job.
+  parameters:
+    apiversion:
+      name: DailyPay-API-Version
+      in: header
+      schema:
+        type: integer
+        default: 3
+      required: false
+      x-speakeasy-globals-hidden: true
+      x-speakeasy-name-override: version
+      description: |
+        The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
+    accept:
+      name: Accept
+      in: header
+      schema:
+        type: string
+        default: application/vnd.api+json
+        enum:
+          - application/vnd.api+json
+          - '*/*'
+      x-speakeasy-globals-hidden: true
+      description: |
+        The media type of the requested payload. This should be set to `application/vnd.api+json` to signify your client can receive responses in the JSON:API format.  For more details, see https://jsonapi.org.
+    job_id:
+      name: job_id
+      description: Unique ID of the job
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: aa860051-c411-4709-9685-c1b716df611b
+    filter.external_identifiers.primary_identifier:
+      name: filter[external_identifiers.primary_identifier]
+      in: query
+      description: Limit the results to documents with an external identifier matching exactly at the specified key.
+      required: false
+      schema:
+        type: string
+    filter.external_identifiers.employee_id:
+      name: filter[external_identifiers.employee_id]
+      in: query
+      description: Limit the results to documents with an external identifier matching exactly at the specified key.
+      required: false
+      schema:
+        type: string
+    filter.external_identifiers.group:
+      name: filter[external_identifiers.group]
+      in: query
+      description: Limit the results to documents with an external identifier matching exactly at the specified key.
+      required: false
+      schema:
+        type: string
+    filter.person.id:
+      name: filter[person.id]
+      in: query
+      description: Limit the results to documents related to a specific person
+      required: false
+      schema:
+        type: string
+    filter.organization.id:
+      name: filter[organization.id]
+      in: query
+      description: _Not yet supported_ Limit the results to documents related to a specific organization
+      required: false
+      schema:
+        type: string
+    filter:
+      name: filter
+      x-speakeasy-name-override: filter-by
+      in: query
+      required: false
+      deprecated: true
+      schema:
+        type: string
+    account_id:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 2bc7d781-3247-46f6-b60f-4090d214936a
+      description: Unique UUID of the Account.
+    filter.account_type:
+      name: filter[account_type]
+      in: query
+      description: Limit the results to documents matching the specified account type.
+      required: false
+      schema:
+        type: string
+        example: EARNINGS_BALANCE
+        enum:
+          - EARNINGS_BALANCE
+          - DEPOSITORY
+          - CARD
+    filter.account_subtype:
+      name: filter[subtype]
+      in: query
+      description: Limit the results to documents matching the specified account subtype.
+      required: false
+      schema:
+        type: string
+    include:
+      name: include
+      in: query
+      description: |
+        Add related resources to the response. 
+
+        The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
+      required: false
+      schema:
+        type: string
+    transfer_id:
+      name: transfer_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: aba332a2-24a2-46de-8257-5040e71ab210
+      description: Unique ID of the transfer
+    idempotency_key:
+      name: Idempotency-Key
+      in: header
+      schema:
+        type: string
+        format: uuid
+      required: true
+      description: |
+        An idempotency key is a unique string that you provide to ensure a request is only processed once.
+        Any number of requests with the same idempotency key and payload will return an identical response.
+    paycheck_id:
+      name: paycheck_id
+      description: Unique ID of the paycheck
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    filter.job.id:
+      name: filter[job.id]
+      in: query
+      description: Limit the results to documents related to a specific job
+      required: false
+      schema:
+        type: string
+    filter.paycheck_status:
+      name: filter[status]
+      in: query
+      description: Limit the results to paychecks with the specified status
+      required: false
+      schema:
+        type: string
+        enum:
+          - ESTIMATED
+          - PROCESSING
+          - IN_TRANSIT
+          - DEPOSITED
+    filter.deposit_expected_at__gte:
+      name: filter[deposit_expected_at__gte]
+      in: query
+      description: Limit the results to paychecks with deposit_expected_at greater than or equal to the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.deposit_expected_at__lt:
+      name: filter[deposit_expected_at__lt]
+      in: query
+      description: Limit the results to paychecks with deposit_expected_at less than the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_ends_at__gte:
+      name: filter[pay_period_ends_at__gte]
+      in: query
+      description: Limit the results to paychecks with pay_period_ends_at greater than or equal to the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_ends_at__lt:
+      name: filter[pay_period_ends_at__lt]
+      in: query
+      description: Limit the results to paychecks with pay_period_ends_at less than the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_starts_at__gte:
+      name: filter[pay_period_starts_at__gte]
+      in: query
+      description: Limit the results to paychecks with pay_period_starts_at greater than or equal to the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    filter.pay_period_starts_at__lt:
+      name: filter[pay_period_starts_at__lt]
+      in: query
+      description: Limit the results to paychecks with pay_period_starts_at less than the specified date
+      required: false
+      schema:
+        type: string
+        example: '2023-03-15T04:00:00Z'
+        format: date-time
+    organization_id:
+      name: organization_id
+      in: path
+      required: true
+      description: Unique ID of the organization
+      schema:
+        description: String identifier that is unique across this resource. You can safely assume the identifier to never exceed 64 characters.
+        example: 123e4567-e89b-12d3-a456-426614174000
+        readOnly: true
+        type: string
+    person_id:
+      name: person_id
+      description: Unique ID of the person
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: aa860051-c411-4709-9685-c1b716df611b
   schemas:
-    TokenData:
-      type: object
-      properties:
-        access_token:
-          type: string
-          example: dpo_38347Ae178B4a16C7e42F292c6912E7710c8
-        refresh_token:
-          type: string
-          example: dpo_38347Ae178B4a16C7e42F292c6912E7710c9
-        token_type:
-          type: string
-          example: bearer
-        scope:
-          type: string
-          example: user:read_write
-        id_token:
-          type: string
-          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.4FjJ3eZJYJj7J9Jf
-        expires_in:
-          type: integer
-          example: 3600
-    Error:
-      type: object
-      required:
-        - status
-        - detail
-        - meta
-        - links
-      properties:
-        status:
-          description: The HTTP status code for the error.
-          example: '400'
-          type: string
-        detail:
-          description: A message that explains the meaning of the error code. Developers are advised not to make programmatic use of this value, as it may change
-          example: The request failed because it was not in the correct format or did not contain valid data.
-          type: string
-        links:
-          description: A list of links to resources that may be helpful in resolving the error.
-          type: object
-          x-go-type-name: ErrorLinks
-          properties:
-            about:
-              type: string
-              format: uri
-              example: https://developer.dailypay.com/tag/Errors
-        source:
-          description: Location in the request that may have caused the error.
-          type: object
-          x-go-type-name: ErrorSource
-          properties:
-            parameter:
-              description: The name of the parameter that caused the error.
-              example: filter[first_name]
-              type: string
-            pointer:
-              description: A JSON Pointer to the location in the request that caused the error.
-              example: /data/attributes/first_name
-              type: string
-            header:
-              description: The name of the header that caused the error.
-              example: Accept
-              type: string
-        meta:
-          x-go-type-name: ErrorMeta
-          description: Additional information about the error.
-          type: object
-          properties:
-            request_id:
-              description: A UUID for the originating request.
-              example: 3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe
-              type: string
-            trace_id:
-              description: An ID used for tracing purposes.
-              example: '4016616108459136584'
-              type: string
-    ErrorUnexpectedError:
-      allOf:
-        - $ref: '#/components/schemas/Error'
-        - type: object
-          required:
-            - code
-          properties:
-            code:
-              description: A code that indicates what went wrong.
-              example: UNEXPECTED_ERROR
-              type: string
-              enum:
-                - UNEXPECTED_ERROR
-              x-enumDescriptions:
-                UNEXPECTED_ERROR: This one is on us. Something unexpected went wrong
-    ErrorUnexpected:
-      type: object
-      required:
-        - errors
-      properties:
-        errors:
-          description: A list of errors that occurred.
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorUnexpectedError'
     Amount:
       type: integer
       minimum: 0
@@ -2193,7 +2207,7 @@ components:
             - string
             - 'null'
           readOnly: true
-          example: null
+          example: Finance
         location:
           readOnly: true
           type: string
@@ -2355,6 +2369,61 @@ components:
             INVALID_FILTER_FIELD: Filter query is valid, but contains a field that is unsupported for this resource
             INVALID_FILTER_VALUE: Filter query is valid, but contains a value in a format that is unsupported for the associated field
             INVALID_FIELD_OPERATION: Indicates an filter operation that is not supported for the field
+    Error:
+      type: object
+      required:
+        - status
+        - detail
+        - meta
+        - links
+      properties:
+        status:
+          description: The HTTP status code for the error.
+          example: '400'
+          type: string
+        detail:
+          description: A message that explains the meaning of the error code. Developers are advised not to make programmatic use of this value, as it may change
+          example: The request failed because it was not in the correct format or did not contain valid data.
+          type: string
+        links:
+          description: A list of links to resources that may be helpful in resolving the error.
+          type: object
+          x-go-type-name: ErrorLinks
+          properties:
+            about:
+              type: string
+              format: uri
+              example: https://developer.dailypay.com/tag/Errors
+        source:
+          description: Location in the request that may have caused the error.
+          type: object
+          x-go-type-name: ErrorSource
+          properties:
+            parameter:
+              description: The name of the parameter that caused the error.
+              example: filter[first_name]
+              type: string
+            pointer:
+              description: A JSON Pointer to the location in the request that caused the error.
+              example: /data/attributes/first_name
+              type: string
+            header:
+              description: The name of the header that caused the error.
+              example: Accept
+              type: string
+        meta:
+          x-go-type-name: ErrorMeta
+          description: Additional information about the error.
+          type: object
+          properties:
+            request_id:
+              description: A UUID for the originating request.
+              example: 3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe
+              type: string
+            trace_id:
+              description: An ID used for tracing purposes.
+              example: '4016616108459136584'
+              type: string
     ErrorBadRequestError:
       allOf:
         - $ref: '#/components/schemas/BadRequestCodes'
@@ -2448,6 +2517,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorNotFoundError'
+    ErrorUnexpectedError:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          required:
+            - code
+          properties:
+            code:
+              description: A code that indicates what went wrong.
+              example: UNEXPECTED_ERROR
+              type: string
+              enum:
+                - UNEXPECTED_ERROR
+              x-enumDescriptions:
+                UNEXPECTED_ERROR: This one is on us. Something unexpected went wrong
+    ErrorUnexpected:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          description: A list of errors that occurred.
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorUnexpectedError'
     JobUpdateData:
       type: object
       required:
@@ -2639,170 +2733,12 @@ components:
                 - schedule: NEXT_BUSINESS_DAY
                   fee: 0
                   currency: USD
-    Card__CommonProps:
-      type: object
-      required:
-        - first_name
-        - last_name
-        - expiration_month
-        - expiration_year
-        - address_line_one
-        - address_city
-        - address_state
-        - address_zip_code
-        - address_country
-      properties:
-        first_name:
-          description: The first name of the account holder.
-          example: Edith
-          type: string
-        last_name:
-          description: The last name of the account holder.
-          example: Clarke
-          type: string
-        expiration_month:
-          description: The month of the expiration date for the card.
-          type: string
-          example: '02'
-        expiration_year:
-          description: The year of the expiration date for the card.
-          type: string
-          example: '2025'
-        address_line_one:
-          writeOnly: true
-          type: string
-          description: The first line of the address for the card.
-          example: 123 Kebly Street
-        address_line_two:
-          writeOnly: true
-          type: string
-          description: The second line of the address for the card.
-          example: 'Apt #12'
-        address_city:
-          writeOnly: true
-          type: string
-          description: The city of the address for the card.
-          example: Fort Lee
-        address_state:
-          writeOnly: true
-          type: string
-          description: The two-letter abbreviation of the state in the address for the card.
-          example: NJ
-        address_zip_code:
-          writeOnly: true
-          type: string
-          description: The zip code of the address for the card.
-          example: '72374'
-        address_country:
-          writeOnly: true
-          type: string
-          description: The country code of the address for the card.
-          example: US
-    Account_DebitCard:
-      allOf:
-        - $ref: '#/components/schemas/Card__CommonProps'
-        - type: object
-          title: 'subtype: DEBIT'
-          required:
-            - token
-            - last_four
-            - issuer
-          properties:
-            token:
-              writeOnly: true
-              description: A tokenized string replacement for the card data.
-              type: string
-              example: HX46TY794RG
-            last_four:
-              description: Last four digits of the card number.
-              example: '0003'
-              type: string
-              readOnly: true
-            issuer:
-              description: The issuer of the card.
-              example: '411600'
-              type: string
-    Account_GalileoCard:
-      type: object
-      title: 'subtype: GALILEO'
-      description: An account of type CARD with subtype GALILEO.
-      required:
-        - galileo_card_id
-        - galileo_pmt_ref_no
-        - first_name
-        - last_name
-        - last_four
-        - issuer
-        - expiration_month
-        - expiration_year
-      properties:
-        galileo_card_id:
-          description: The card ID provided by Galileo.
-          example: '40769'
-          type: string
-        galileo_pmt_ref_no:
-          writeOnly: true
-          description: The payment reference number provided by Galileo.
-          example: '777101360999'
-          type: string
-        first_name:
-          description: The first name of the account holder.
-          example: Edith
-          type: string
-          readOnly: true
-        last_name:
-          description: The last name of the account holder.
-          example: Clarke
-          type: string
-          readOnly: true
-        last_four:
-          description: Last four digits of the card number.
-          example: '0003'
-          type: string
-          readOnly: true
-        issuer:
-          description: The issuer of the card.
-          example: '411600'
-          type: string
-          readOnly: true
-        expiration_month:
-          description: The month of the expiration date for the card.
-          type: string
-          example: '02'
-          readOnly: true
-        expiration_year:
-          description: The year of the expiration date for the card.
-          type: string
-          example: '2025'
-          readOnly: true
-    Account_WiselyCard:
-      allOf:
-        - $ref: '#/components/schemas/Card__CommonProps'
-        - type: object
-          required:
-            - wisely_token
-            - last_four
-            - issuer
-          title: 'subtype: WISELY'
-          properties:
-            wisely_token:
-              description: Wisely unique identifier associated to card.
-              example: 53bf829e-6e3f-4c17-a7de-6e91003a5dd3
-              type: string
-            last_four:
-              description: Last four digits of the card number.
-              example: '0003'
-              type: string
-            issuer:
-              description: The issuer of the card.
-              example: '411600'
-              type: string
     AccountAttributes_Card:
       allOf:
         - $ref: '#/components/schemas/AccountAttributes__Common'
         - type: object
           title: Card
-          description: An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+          description: An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
           required:
             - account_type
             - subtype
@@ -2819,18 +2755,90 @@ components:
               const: CARD
             subtype:
               type: string
-              description: The subtype of the account.
+              description: The subtype of the account. Additional subtypes may be added over time
               enum:
                 - DEBIT
-                - GALILEO
-                - WISELY
+                - DAILYPAY
               example: DEBIT
             details:
               description: The banking details of the account and account holder.
-              oneOf:
-                - $ref: '#/components/schemas/Account_DebitCard'
-                - $ref: '#/components/schemas/Account_GalileoCard'
-                - $ref: '#/components/schemas/Account_WiselyCard'
+              type: object
+              x-go-type-name: CardAccountDetails
+              x-speakeasy-name-override: CardAccountDetails
+              required:
+                - token
+                - last_four
+                - issuer
+                - first_name
+                - last_name
+                - expiration_month
+                - expiration_year
+                - address_line_one
+                - address_city
+                - address_state
+                - address_zip_code
+                - address_country
+              properties:
+                token:
+                  writeOnly: true
+                  description: A tokenized string replacement for the card data.
+                  type: string
+                  example: HX46TY794RG
+                last_four:
+                  description: Last four digits of the card number.
+                  example: '0003'
+                  type: string
+                  readOnly: true
+                issuer:
+                  description: The issuer of the card.
+                  example: '411600'
+                  type: string
+                first_name:
+                  description: The first name of the account holder.
+                  example: Edith
+                  type: string
+                last_name:
+                  description: The last name of the account holder.
+                  example: Clarke
+                  type: string
+                expiration_month:
+                  description: The month of the expiration date for the card.
+                  type: string
+                  example: '02'
+                expiration_year:
+                  description: The year of the expiration date for the card.
+                  type: string
+                  example: '2025'
+                address_line_one:
+                  writeOnly: true
+                  type: string
+                  description: The first line of the address for the card.
+                  example: 123 Kebly Street
+                address_line_two:
+                  writeOnly: true
+                  type: string
+                  description: The second line of the address for the card.
+                  example: 'Apt #12'
+                address_city:
+                  writeOnly: true
+                  type: string
+                  description: The city of the address for the card.
+                  example: Fort Lee
+                address_state:
+                  writeOnly: true
+                  type: string
+                  description: The two-letter abbreviation of the state in the address for the card.
+                  example: NJ
+                address_zip_code:
+                  writeOnly: true
+                  type: string
+                  description: The zip code of the address for the card.
+                  example: '72374'
+                address_country:
+                  writeOnly: true
+                  type: string
+                  description: The country code of the address for the card.
+                  example: US
     AccountAttributes_EarningsBalance:
       allOf:
         - $ref: '#/components/schemas/AccountAttributes__Common'
@@ -3007,12 +3015,11 @@ components:
               x-go-type: string
               x-enumDescriptions:
                 ACCOUNT_TYPE_INVALID: Provided account type is not one of DEPOSITORY or CARD
-                ACCOUNT_SUBTYPE_INVALID: Provided subtype is not one of CHECKING SAVINGS DEBIT GALILEO WISELY
+                ACCOUNT_SUBTYPE_INVALID: Provided subtype is not one of CHECKING SAVINGS DEBIT
                 ACCOUNT_TYPE_SUBTYPE_MISMATCH: The provided account subtype is not supported on the provided account type
                 DEBIT_CARD_CREATION_BLOCKED: Debit card creation blocked for this bin number
                 BANK_ACCOUNT_CREATION_BLOCKED: Bank account creation blocked for accounts with this routing number and first four digits of account number
                 DUPLICATE_ACCOUNT: Provided input matches an already existing account
-                INVALID_GALILEO_TOKEN_DATA: Provided Galileo token is invalid
                 INVALID_DEBIT_CARD: Provided debit card is invalid
                 INVALID_CARD_TOKEN: Provided card token is invalid
                 MISSING_REQUIRED_FIELD: Required field was not provided
@@ -3575,18 +3582,18 @@ components:
           description: List of the names of products available for this organization.
           example:
             - ODP
-            - FRIDAY
+            - DAILYPAY_CARD
           type: array
           items:
             type: string
             enum:
               - ODP
+              - DAILYPAY_CARD
               - FRIDAY
-              - WISELY_EWA
             x-enumDescriptions:
               ODP: On-Demand Pay (ODP) is a DailyPay product that allows employees to access their earned wages before payday. An organization with this product enabled will have on-demand pay available to its members; an account with type `EARNINGS_BALANCE` will automatically be created for each job associated with this organization.
-              FRIDAY: An organization with this product enabled will have the Friday by DailyPay Visa®️ Prepaid Card program available to its members.
-              WISELY_EWA: An organization with this product enabled will have the Wisely® by ADP® card program available to its members.
+              DAILYPAY_CARD: An organization with this product enabled will have the DailyPay Visa®️ Prepaid Card program available to its members.
+              FRIDAY: _deprecated_. An organization with this product enabled will have the DailyPay Visa®️ Prepaid Card program available to its members.
     OrganizationLink:
       type: string
       format: uri
@@ -3703,12 +3710,6 @@ components:
         data:
           $ref: '#/components/schemas/PersonResource'
   responses:
-    Unexpected:
-      description: Unexpected error occured
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorUnexpected'
     Job200:
       description: Returns the job object.
       content:
@@ -3739,6 +3740,12 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/ErrorNotFound'
+    Unexpected:
+      description: Unexpected error occured
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorUnexpected'
     JobUpdate400:
       description: Bad Request
       content:
@@ -3835,240 +3842,6 @@ components:
                 type: string
                 description: The version of the API
                 example: 3.0.0
-  parameters:
-    apiversion:
-      name: DailyPay-API-Version
-      in: header
-      schema:
-        type: integer
-        default: 3
-      required: false
-      x-speakeasy-globals-hidden: true
-      x-speakeasy-name-override: version
-      description: |
-        The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
-    accept:
-      name: Accept
-      in: header
-      schema:
-        type: string
-        default: application/vnd.api+json
-        enum:
-          - application/vnd.api+json
-          - '*/*'
-      x-speakeasy-globals-hidden: true
-      description: |
-        The media type of the requested payload. This should be set to `application/vnd.api+json` to signify your client can receive responses in the JSON:API format.  For more details, see https://jsonapi.org.
-    job_id:
-      name: job_id
-      description: Unique ID of the job
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: aa860051-c411-4709-9685-c1b716df611b
-    filter.external_identifiers.primary_identifier:
-      name: filter[external_identifiers.primary_identifier]
-      in: query
-      description: Limit the results to documents with an external identifier matching exactly at the specified key.
-      required: false
-      schema:
-        type: string
-    filter.external_identifiers.employee_id:
-      name: filter[external_identifiers.employee_id]
-      in: query
-      description: Limit the results to documents with an external identifier matching exactly at the specified key.
-      required: false
-      schema:
-        type: string
-    filter.external_identifiers.group:
-      name: filter[external_identifiers.group]
-      in: query
-      description: Limit the results to documents with an external identifier matching exactly at the specified key.
-      required: false
-      schema:
-        type: string
-    filter.person.id:
-      name: filter[person.id]
-      in: query
-      description: Limit the results to documents related to a specific person
-      required: false
-      schema:
-        type: string
-    filter.organization.id:
-      name: filter[organization.id]
-      in: query
-      description: _Not yet supported_ Limit the results to documents related to a specific organization
-      required: false
-      schema:
-        type: string
-    filter:
-      name: filter
-      x-speakeasy-name-override: filter-by
-      in: query
-      required: false
-      deprecated: true
-      schema:
-        type: string
-    account_id:
-      name: account_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 2bc7d781-3247-46f6-b60f-4090d214936a
-      description: Unique UUID of the Account.
-    filter.account_type:
-      name: filter[account_type]
-      in: query
-      description: Limit the results to documents matching the specified account type.
-      required: false
-      schema:
-        type: string
-        example: EARNINGS_BALANCE
-        enum:
-          - EARNINGS_BALANCE
-          - DEPOSITORY
-          - CARD
-    filter.account_subtype:
-      name: filter[subtype]
-      in: query
-      description: Limit the results to documents matching the specified account subtype.
-      required: false
-      schema:
-        type: string
-    include:
-      name: include
-      in: query
-      description: |
-        Add related resources to the response. 
-
-        The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
-      required: false
-      schema:
-        type: string
-    transfer_id:
-      name: transfer_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: aba332a2-24a2-46de-8257-5040e71ab210
-      description: Unique ID of the transfer
-    idempotency_key:
-      name: Idempotency-Key
-      in: header
-      schema:
-        type: string
-        format: uuid
-      required: true
-      description: |
-        An idempotency key is a unique string that you provide to ensure a request is only processed once.
-        Any number of requests with the same idempotency key and payload will return an identical response.
-    paycheck_id:
-      name: paycheck_id
-      description: Unique ID of the paycheck
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-    filter.job.id:
-      name: filter[job.id]
-      in: query
-      description: Limit the results to documents related to a specific job
-      required: false
-      schema:
-        type: string
-    filter.paycheck_status:
-      name: filter[status]
-      in: query
-      description: Limit the results to paychecks with the specified status
-      required: false
-      schema:
-        type: string
-        enum:
-          - ESTIMATED
-          - PROCESSING
-          - IN_TRANSIT
-          - DEPOSITED
-    filter.deposit_expected_at__gte:
-      name: filter[deposit_expected_at__gte]
-      in: query
-      description: Limit the results to paychecks with deposit_expected_at greater than or equal to the specified date
-      required: false
-      schema:
-        type: string
-        example: '2023-03-15T04:00:00Z'
-        format: date-time
-    filter.deposit_expected_at__lt:
-      name: filter[deposit_expected_at__lt]
-      in: query
-      description: Limit the results to paychecks with deposit_expected_at less than the specified date
-      required: false
-      schema:
-        type: string
-        example: '2023-03-15T04:00:00Z'
-        format: date-time
-    filter.pay_period_ends_at__gte:
-      name: filter[pay_period_ends_at__gte]
-      in: query
-      description: Limit the results to paychecks with pay_period_ends_at greater than or equal to the specified date
-      required: false
-      schema:
-        type: string
-        example: '2023-03-15T04:00:00Z'
-        format: date-time
-    filter.pay_period_ends_at__lt:
-      name: filter[pay_period_ends_at__lt]
-      in: query
-      description: Limit the results to paychecks with pay_period_ends_at less than the specified date
-      required: false
-      schema:
-        type: string
-        example: '2023-03-15T04:00:00Z'
-        format: date-time
-    filter.pay_period_starts_at__gte:
-      name: filter[pay_period_starts_at__gte]
-      in: query
-      description: Limit the results to paychecks with pay_period_starts_at greater than or equal to the specified date
-      required: false
-      schema:
-        type: string
-        example: '2023-03-15T04:00:00Z'
-        format: date-time
-    filter.pay_period_starts_at__lt:
-      name: filter[pay_period_starts_at__lt]
-      in: query
-      description: Limit the results to paychecks with pay_period_starts_at less than the specified date
-      required: false
-      schema:
-        type: string
-        example: '2023-03-15T04:00:00Z'
-        format: date-time
-    organization_id:
-      name: organization_id
-      in: path
-      required: true
-      description: Unique ID of the organization
-      schema:
-        description: String identifier that is unique across this resource. You can safely assume the identifier to never exceed 64 characters.
-        example: 123e4567-e89b-12d3-a456-426614174000
-        readOnly: true
-        type: string
-    person_id:
-      name: person_id
-      description: Unique ID of the person
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: aa860051-c411-4709-9685-c1b716df611b
   requestBodies:
     JobUpdate:
       required: true
@@ -4161,16 +3934,6 @@ x-tagGroups:
       - Filtering
       - Errors
       - Client Portal
-  - name: Reference
-    tags:
-      - Authentication
-      - Jobs
-      - Accounts
-      - Transfers
-      - Organizations
-      - Paychecks
-      - People
-      - Cards
   - name: Resources
     tags:
       - Troubleshooting
