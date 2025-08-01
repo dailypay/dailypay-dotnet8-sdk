@@ -20,6 +20,7 @@ Returns a 200 status code if the API is up and running.
 
 ### Example Usage
 
+<!-- UsageSnippet language="csharp" operationID="getHealth" method="get" path="/rest/health" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
