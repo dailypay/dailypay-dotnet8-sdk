@@ -47,7 +47,7 @@ namespace DailyPay.SDK.DotNet8
         /// Returns details about a paycheck object.
         /// </remarks>
         /// </summary>
-        Task<ReadPaycheckResponse> ReadAsync(string paycheckId, long? version = 3);
+        Task<ReadPaycheckResponse> ReadAsync(ReadPaycheckRequest request);
 
         /// <summary>
         /// Get a list of paycheck objects
@@ -80,8 +80,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.2.0";
-        private const string _sdkGenVersion = "2.672.0";
+        private const string _sdkVersion = "0.3.0";
+        private const string _sdkGenVersion = "2.674.3";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Paychecks(SDKConfig config)
@@ -89,13 +89,12 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadPaycheckResponse> ReadAsync(string paycheckId, long? version = 3)
+        public async Task<ReadPaycheckResponse> ReadAsync(ReadPaycheckRequest request)
         {
-            var request = new ReadPaycheckRequest()
+            if (request == null)
             {
-                PaycheckId = paycheckId,
-                Version = version,
-            };
+                request = new ReadPaycheckRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

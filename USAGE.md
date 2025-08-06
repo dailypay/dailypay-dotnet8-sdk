@@ -31,6 +31,7 @@ Initiate a transfer of funds from an earnings balance account to a personal depo
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -39,9 +40,9 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Transfers.CreateAsync(
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
-    transferCreateData: new TransferCreateData() {
+CreateTransferRequest req = new CreateTransferRequest() {
+    IdempotencyKey = "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    TransferCreateData = new TransferCreateData() {
         Data = new TransferCreateResource() {
             Id = "aba332a2-24a2-46de-8257-5040e71ab210",
             Attributes = new TransferAttributesInput() {
@@ -68,8 +69,10 @@ var res = await sdk.Transfers.CreateAsync(
                 },
             },
         },
-    }
-);
+    },
+};
+
+var res = await sdk.Transfers.CreateAsync(req);
 
 // handle response
 ```

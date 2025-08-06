@@ -32,6 +32,7 @@ Returns details about an account. This object represents a person's bank account
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -40,17 +41,20 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Accounts.ReadAsync(accountId: "2bc7d781-3247-46f6-b60f-4090d214936a");
+ReadAccountRequest req = new ReadAccountRequest() {
+    AccountId = "2bc7d781-3247-46f6-b60f-4090d214936a",
+};
+
+var res = await sdk.Accounts.ReadAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `AccountId`                                                                                                            | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique UUID of the Account.                                                                                            | 2bc7d781-3247-46f6-b60f-4090d214936a                                                                                   |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                         | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `request`                                                         | [ReadAccountRequest](../../Models/Requests/ReadAccountRequest.md) | :heavy_check_mark:                                                | The request object to use for the request.                        |
 
 ### Response
 
@@ -127,6 +131,7 @@ Create an account object to store a person's bank or card information as a desti
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -135,39 +140,42 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Accounts.CreateAsync(accountData: new AccountDataInput() {
-    Data = new AccountResourceInput() {
-        Attributes = AccountAttributesInput.CreateDepositoryInput(
-            new DepositoryInput() {
-                Name = "Acme Bank Checking Account",
-                Subtype = AccountAttributesDepositorySubtype.Checking,
-                DepositoryAccountDetails = new DepositoryAccountDetails() {
-                    FirstName = "Edith",
-                    LastName = "Clarke",
-                    RoutingNumber = "XXXXX2021",
-                    AccountNumber = "XXXXXX4321",
-                },
-            }
-        ),
-        Relationships = new AccountRelationships() {
-            Person = new PersonRelationship() {
-                Data = new PersonIdentifier() {
-                    Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+CreateAccountRequest req = new CreateAccountRequest() {
+    AccountData = new AccountDataInput() {
+        Data = new AccountResourceInput() {
+            Attributes = AccountAttributesInput.CreateDepositoryInput(
+                new DepositoryInput() {
+                    Name = "Acme Bank Checking Account",
+                    Subtype = AccountAttributesDepositorySubtype.Checking,
+                    DepositoryAccountDetails = new DepositoryAccountDetails() {
+                        FirstName = "Edith",
+                        LastName = "Clarke",
+                        RoutingNumber = "XXXXX2021",
+                        AccountNumber = "XXXXXX4321",
+                    },
+                }
+            ),
+            Relationships = new AccountRelationships() {
+                Person = new PersonRelationship() {
+                    Data = new PersonIdentifier() {
+                        Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+                    },
                 },
             },
         },
     },
-});
+};
+
+var res = await sdk.Accounts.CreateAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `AccountData`                                                                                                          | [AccountDataInput](../../Models/Components/AccountDataInput.md)                                                        | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `request`                                                             | [CreateAccountRequest](../../Models/Requests/CreateAccountRequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
 
 ### Response
 

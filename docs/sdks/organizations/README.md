@@ -26,6 +26,7 @@ Lookup organization by ID for a detailed view of single organization.
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -34,17 +35,20 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Organizations.ReadAsync(organizationId: "123e4567-e89b-12d3-a456-426614174000");
+ReadOrganizationRequest req = new ReadOrganizationRequest() {
+    OrganizationId = "123e4567-e89b-12d3-a456-426614174000",
+};
+
+var res = await sdk.Organizations.ReadAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `OrganizationId`                                                                                                       | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique ID of the organization                                                                                          | 123e4567-e89b-12d3-a456-426614174000                                                                                   |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [ReadOrganizationRequest](../../Models/Requests/ReadOrganizationRequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
 
 ### Response
 
@@ -71,6 +75,7 @@ Get organizations with an optional filter
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -79,17 +84,18 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Organizations.ListAsync();
+ListOrganizationsRequest req = new ListOrganizationsRequest() {};
+
+var res = await sdk.Organizations.ListAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `Version`                                                                                                               | *long*                                                                                                                  | :heavy_minus_sign:                                                                                                      | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |
-| `FilterBy`                                                                                                              | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | : warning: ** DEPRECATED **: This will be removed in a future release, please migrate away from it as soon as possible. |
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [ListOrganizationsRequest](../../Models/Requests/ListOrganizationsRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 

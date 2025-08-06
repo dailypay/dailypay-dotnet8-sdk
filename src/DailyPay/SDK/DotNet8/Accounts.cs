@@ -49,7 +49,7 @@ namespace DailyPay.SDK.DotNet8
         /// Returns details about an account. This object represents a person&apos;s bank accounts, debit and pay cards, and earnings balance accounts.
         /// </remarks>
         /// </summary>
-        Task<ReadAccountResponse> ReadAsync(string accountId, long? version = 3);
+        Task<ReadAccountResponse> ReadAsync(ReadAccountRequest request);
 
         /// <summary>
         /// Get a list of Account objects
@@ -69,7 +69,7 @@ namespace DailyPay.SDK.DotNet8
         /// Create an account object to store a person&apos;s bank or card information as a destination for funds.
         /// </remarks>
         /// </summary>
-        Task<CreateAccountResponse> CreateAsync(AccountDataInput accountData, long? version = 3);
+        Task<CreateAccountResponse> CreateAsync(CreateAccountRequest request);
     }
 
     /// <summary>
@@ -93,8 +93,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.2.0";
-        private const string _sdkGenVersion = "2.672.0";
+        private const string _sdkVersion = "0.3.0";
+        private const string _sdkGenVersion = "2.674.3";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Accounts(SDKConfig config)
@@ -102,13 +102,12 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadAccountResponse> ReadAsync(string accountId, long? version = 3)
+        public async Task<ReadAccountResponse> ReadAsync(ReadAccountRequest request)
         {
-            var request = new ReadAccountRequest()
+            if (request == null)
             {
-                AccountId = accountId,
-                Version = version,
-            };
+                request = new ReadAccountRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -363,13 +362,12 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<CreateAccountResponse> CreateAsync(AccountDataInput accountData, long? version = 3)
+        public async Task<CreateAccountResponse> CreateAsync(CreateAccountRequest request)
         {
-            var request = new CreateAccountRequest()
+            if (request == null)
             {
-                AccountData = accountData,
-                Version = version,
-            };
+                request = new CreateAccountRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

@@ -25,6 +25,7 @@ Returns details about a person.
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -33,17 +34,20 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.People.ReadAsync(personId: "aa860051-c411-4709-9685-c1b716df611b");
+ReadPersonRequest req = new ReadPersonRequest() {
+    PersonId = "aa860051-c411-4709-9685-c1b716df611b",
+};
+
+var res = await sdk.People.ReadAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `PersonId`                                                                                                             | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique ID of the person                                                                                                | aa860051-c411-4709-9685-c1b716df611b                                                                                   |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `request`                                                       | [ReadPersonRequest](../../Models/Requests/ReadPersonRequest.md) | :heavy_check_mark:                                              | The request object to use for the request.                      |
 
 ### Response
 
@@ -70,6 +74,7 @@ Update a person object.
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -78,28 +83,28 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.People.UpdateAsync(
-    personId: "aa860051-c411-4709-9685-c1b716df611b",
-    personData: new PersonDataInput() {
+UpdatePersonRequest req = new UpdatePersonRequest() {
+    PersonId = "aa860051-c411-4709-9685-c1b716df611b",
+    PersonData = new PersonDataInput() {
         Data = new PersonResourceInput() {
             Id = "aa860051-c411-4709-9685-c1b716df611b",
             Attributes = new PersonAttributesInput() {
                 StateOfResidence = "NY",
             },
         },
-    }
-);
+    },
+};
+
+var res = await sdk.People.UpdateAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `PersonId`                                                                                                             | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique ID of the person                                                                                                | aa860051-c411-4709-9685-c1b716df611b                                                                                   |
-| `PersonData`                                                                                                           | [PersonDataInput](../../Models/Components/PersonDataInput.md)                                                          | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |                                                                                                                        |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [UpdatePersonRequest](../../Models/Requests/UpdatePersonRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 

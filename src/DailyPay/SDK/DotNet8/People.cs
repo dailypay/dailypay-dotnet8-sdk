@@ -43,7 +43,7 @@ namespace DailyPay.SDK.DotNet8
         /// Returns details about a person.
         /// </remarks>
         /// </summary>
-        Task<ReadPersonResponse> ReadAsync(string personId, long? version = 3);
+        Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request);
 
         /// <summary>
         /// Update a person
@@ -52,7 +52,7 @@ namespace DailyPay.SDK.DotNet8
         /// Update a person object.
         /// </remarks>
         /// </summary>
-        Task<UpdatePersonResponse> UpdateAsync(string personId, PersonDataInput personData, long? version = 3);
+        Task<UpdatePersonResponse> UpdateAsync(UpdatePersonRequest request);
     }
 
     /// <summary>
@@ -70,8 +70,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.2.0";
-        private const string _sdkGenVersion = "2.672.0";
+        private const string _sdkVersion = "0.3.0";
+        private const string _sdkGenVersion = "2.674.3";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public People(SDKConfig config)
@@ -79,13 +79,12 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadPersonResponse> ReadAsync(string personId, long? version = 3)
+        public async Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request)
         {
-            var request = new ReadPersonRequest()
+            if (request == null)
             {
-                PersonId = personId,
-                Version = version,
-            };
+                request = new ReadPersonRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -217,14 +216,12 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<UpdatePersonResponse> UpdateAsync(string personId, PersonDataInput personData, long? version = 3)
+        public async Task<UpdatePersonResponse> UpdateAsync(UpdatePersonRequest request)
         {
-            var request = new UpdatePersonRequest()
+            if (request == null)
             {
-                PersonId = personId,
-                PersonData = personData,
-                Version = version,
-            };
+                request = new UpdatePersonRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

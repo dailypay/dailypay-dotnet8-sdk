@@ -43,7 +43,7 @@ namespace DailyPay.SDK.DotNet8
         /// Returns details about a person&apos;s employment.
         /// </remarks>
         /// </summary>
-        Task<ReadJobResponse> ReadAsync(string jobId, long? version = 3);
+        Task<ReadJobResponse> ReadAsync(ReadJobRequest request);
 
         /// <summary>
         /// Update paycheck settings or deactivate a job
@@ -54,7 +54,7 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// </remarks>
         /// </summary>
-        Task<UpdateJobResponse> UpdateAsync(string jobId, JobUpdateData jobUpdateData, long? version = 3);
+        Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request);
 
         /// <summary>
         /// Get a list of job objects
@@ -83,8 +83,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.2.0";
-        private const string _sdkGenVersion = "2.672.0";
+        private const string _sdkVersion = "0.3.0";
+        private const string _sdkGenVersion = "2.674.3";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Jobs(SDKConfig config)
@@ -92,13 +92,12 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadJobResponse> ReadAsync(string jobId, long? version = 3)
+        public async Task<ReadJobResponse> ReadAsync(ReadJobRequest request)
         {
-            var request = new ReadJobRequest()
+            if (request == null)
             {
-                JobId = jobId,
-                Version = version,
-            };
+                request = new ReadJobRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -230,14 +229,12 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<UpdateJobResponse> UpdateAsync(string jobId, JobUpdateData jobUpdateData, long? version = 3)
+        public async Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request)
         {
-            var request = new UpdateJobRequest()
+            if (request == null)
             {
-                JobId = jobId,
-                JobUpdateData = jobUpdateData,
-                Version = version,
-            };
+                request = new UpdateJobRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

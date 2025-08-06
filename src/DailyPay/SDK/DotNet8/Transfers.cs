@@ -46,7 +46,7 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// </remarks>
         /// </summary>
-        Task<ReadTransferResponse> ReadAsync(string transferId, long? version = 3, string? include = null);
+        Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request);
 
         /// <summary>
         /// Get a list of transfers
@@ -57,7 +57,7 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// </remarks>
         /// </summary>
-        Task<ListTransfersResponse> ListAsync(long? version = 3, string? filterPersonId = null, string? include = null, string? filterBy = null);
+        Task<ListTransfersResponse> ListAsync(ListTransfersRequest? request = null);
 
         /// <summary>
         /// Request a transfer
@@ -68,7 +68,7 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// </remarks>
         /// </summary>
-        Task<CreateTransferResponse> CreateAsync(string idempotencyKey, TransferCreateData transferCreateData, long? version = 3, string? include = null);
+        Task<CreateTransferResponse> CreateAsync(CreateTransferRequest request);
     }
 
     /// <summary>
@@ -86,8 +86,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.2.0";
-        private const string _sdkGenVersion = "2.672.0";
+        private const string _sdkVersion = "0.3.0";
+        private const string _sdkGenVersion = "2.674.3";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Transfers(SDKConfig config)
@@ -95,14 +95,12 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadTransferResponse> ReadAsync(string transferId, long? version = 3, string? include = null)
+        public async Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request)
         {
-            var request = new ReadTransferRequest()
+            if (request == null)
             {
-                TransferId = transferId,
-                Version = version,
-                Include = include,
-            };
+                request = new ReadTransferRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -234,15 +232,8 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<ListTransfersResponse> ListAsync(long? version = 3, string? filterPersonId = null, string? include = null, string? filterBy = null)
+        public async Task<ListTransfersResponse> ListAsync(ListTransfersRequest? request = null)
         {
-            var request = new ListTransfersRequest()
-            {
-                Version = version,
-                FilterPersonId = filterPersonId,
-                Include = include,
-                FilterBy = filterBy,
-            };
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -364,15 +355,12 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<CreateTransferResponse> CreateAsync(string idempotencyKey, TransferCreateData transferCreateData, long? version = 3, string? include = null)
+        public async Task<CreateTransferResponse> CreateAsync(CreateTransferRequest request)
         {
-            var request = new CreateTransferRequest()
+            if (request == null)
             {
-                IdempotencyKey = idempotencyKey,
-                TransferCreateData = transferCreateData,
-                Version = version,
-                Include = include,
-            };
+                request = new CreateTransferRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

@@ -29,6 +29,7 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -37,18 +38,20 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Transfers.ReadAsync(transferId: "aba332a2-24a2-46de-8257-5040e71ab210");
+ReadTransferRequest req = new ReadTransferRequest() {
+    TransferId = "aba332a2-24a2-46de-8257-5040e71ab210",
+};
+
+var res = await sdk.Transfers.ReadAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                              | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            | Example                                                                                                                                                |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `TransferId`                                                                                                                                           | *string*                                                                                                                                               | :heavy_check_mark:                                                                                                                                     | Unique ID of the transfer                                                                                                                              | aba332a2-24a2-46de-8257-5040e71ab210                                                                                                                   |
-| `Version`                                                                                                                                              | *long*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>                             |                                                                                                                                                        |
-| `Include`                                                                                                                                              | *string*                                                                                                                                               | :heavy_minus_sign:                                                                                                                                     | Add related resources to the response. <br/><br/>The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.<br/> |                                                                                                                                                        |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [ReadTransferRequest](../../Models/Requests/ReadTransferRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 
@@ -77,6 +80,7 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -85,19 +89,18 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Transfers.ListAsync();
+ListTransfersRequest req = new ListTransfersRequest() {};
+
+var res = await sdk.Transfers.ListAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                              | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Version`                                                                                                                                              | *long*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>                             |
-| `FilterPersonId`                                                                                                                                       | *string*                                                                                                                                               | :heavy_minus_sign:                                                                                                                                     | Limit the results to documents related to a specific person                                                                                            |
-| `Include`                                                                                                                                              | *string*                                                                                                                                               | :heavy_minus_sign:                                                                                                                                     | Add related resources to the response. <br/><br/>The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.<br/> |
-| `FilterBy`                                                                                                                                             | *string*                                                                                                                                               | :heavy_minus_sign:                                                                                                                                     | : warning: ** DEPRECATED **: This will be removed in a future release, please migrate away from it as soon as possible.                                |
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `request`                                                             | [ListTransfersRequest](../../Models/Requests/ListTransfersRequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
 
 ### Response
 
@@ -125,6 +128,7 @@ personal `DEPOSITORY` or `CARD` account.
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -133,9 +137,9 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Transfers.CreateAsync(
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
-    transferCreateData: new TransferCreateData() {
+CreateTransferRequest req = new CreateTransferRequest() {
+    IdempotencyKey = "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    TransferCreateData = new TransferCreateData() {
         Data = new TransferCreateResource() {
             Id = "aba332a2-24a2-46de-8257-5040e71ab210",
             Attributes = new TransferAttributesInput() {
@@ -162,20 +166,19 @@ var res = await sdk.Transfers.CreateAsync(
                 },
             },
         },
-    }
-);
+    },
+};
+
+var res = await sdk.Transfers.CreateAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                               | Type                                                                                                                                                                                                    | Required                                                                                                                                                                                                | Description                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `IdempotencyKey`                                                                                                                                                                                        | *string*                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                      | An idempotency key is a unique string that you provide to ensure a request is only processed once.<br/>Any number of requests with the same idempotency key and payload will return an identical response.<br/> |
-| `TransferCreateData`                                                                                                                                                                                    | [TransferCreateData](../../Models/Components/TransferCreateData.md)                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                      | N/A                                                                                                                                                                                                     |
-| `Version`                                                                                                                                                                                               | *long*                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                      | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>                                                                              |
-| `Include`                                                                                                                                                                                               | *string*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                      | Add related resources to the response. <br/><br/>The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.<br/>                                      |
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [CreateTransferRequest](../../Models/Requests/CreateTransferRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
