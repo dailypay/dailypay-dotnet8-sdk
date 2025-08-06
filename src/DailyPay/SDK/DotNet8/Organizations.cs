@@ -44,7 +44,7 @@ namespace DailyPay.SDK.DotNet8
         /// Lookup organization by ID for a detailed view of single organization.
         /// </remarks>
         /// </summary>
-        Task<ReadOrganizationResponse> ReadAsync(string organizationId, long? version = 3);
+        Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request);
 
         /// <summary>
         /// List organizations
@@ -53,7 +53,7 @@ namespace DailyPay.SDK.DotNet8
         /// Get organizations with an optional filter
         /// </remarks>
         /// </summary>
-        Task<ListOrganizationsResponse> ListAsync(long? version = 3, string? filterBy = null);
+        Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null);
     }
 
     /// <summary>
@@ -72,8 +72,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.2.0";
-        private const string _sdkGenVersion = "2.672.0";
+        private const string _sdkVersion = "0.3.0";
+        private const string _sdkGenVersion = "2.674.3";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Organizations(SDKConfig config)
@@ -81,13 +81,12 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadOrganizationResponse> ReadAsync(string organizationId, long? version = 3)
+        public async Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request)
         {
-            var request = new ReadOrganizationRequest()
+            if (request == null)
             {
-                OrganizationId = organizationId,
-                Version = version,
-            };
+                request = new ReadOrganizationRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -219,13 +218,8 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse);
         }
 
-        public async Task<ListOrganizationsResponse> ListAsync(long? version = 3, string? filterBy = null)
+        public async Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null)
         {
-            var request = new ListOrganizationsRequest()
-            {
-                Version = version,
-                FilterBy = filterBy,
-            };
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

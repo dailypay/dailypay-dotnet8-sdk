@@ -29,6 +29,7 @@ Returns details about a paycheck object.
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -37,17 +38,20 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Paychecks.ReadAsync(paycheckId: "3fa85f64-5717-4562-b3fc-2c963f66afa6");
+ReadPaycheckRequest req = new ReadPaycheckRequest() {
+    PaycheckId = "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+};
+
+var res = await sdk.Paychecks.ReadAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `PaycheckId`                                                                                                           | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique ID of the paycheck                                                                                              | 3fa85f64-5717-4562-b3fc-2c963f66afa6                                                                                   |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [ReadPaycheckRequest](../../Models/Requests/ReadPaycheckRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 

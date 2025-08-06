@@ -26,6 +26,7 @@ Returns details about a person's employment.
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -34,17 +35,20 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Jobs.ReadAsync(jobId: "aa860051-c411-4709-9685-c1b716df611b");
+ReadJobRequest req = new ReadJobRequest() {
+    JobId = "aa860051-c411-4709-9685-c1b716df611b",
+};
+
+var res = await sdk.Jobs.ReadAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `JobId`                                                                                                                | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique ID of the job                                                                                                   | aa860051-c411-4709-9685-c1b716df611b                                                                                   |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                 | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `request`                                                 | [ReadJobRequest](../../Models/Requests/ReadJobRequest.md) | :heavy_check_mark:                                        | The request object to use for the request.                |
 
 ### Response
 
@@ -73,6 +77,7 @@ Returns the job object if the update succeeded. Returns an error if update param
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     version: 3,
@@ -81,9 +86,9 @@ var sdk = new SDK(
     }
 );
 
-var res = await sdk.Jobs.UpdateAsync(
-    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-    jobUpdateData: new JobUpdateData() {
+UpdateJobRequest req = new UpdateJobRequest() {
+    JobId = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    JobUpdateData = new JobUpdateData() {
         Data = new Data() {
             Id = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
             Attributes = new JobAttributesInput() {
@@ -102,19 +107,19 @@ var res = await sdk.Jobs.UpdateAsync(
                 },
             },
         },
-    }
-);
+    },
+};
+
+var res = await sdk.Jobs.UpdateAsync(req);
 
 // handle response
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `JobId`                                                                                                                | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | Unique ID of the job                                                                                                   | e9d84b0d-92ba-43c9-93bf-7c993313fa6f                                                                                   |
-| `JobUpdateData`                                                                                                        | [JobUpdateData](../../Models/Components/JobUpdateData.md)                                                              | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |                                                                                                                        |
-| `Version`                                                                                                              | *long*                                                                                                                 | :heavy_minus_sign:                                                                                                     | The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/> |                                                                                                                        |
+| Parameter                                                     | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `request`                                                     | [UpdateJobRequest](../../Models/Requests/UpdateJobRequest.md) | :heavy_check_mark:                                            | The request object to use for the request.                    |
 
 ### Response
 
