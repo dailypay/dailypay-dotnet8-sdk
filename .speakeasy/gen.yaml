@@ -43,7 +43,7 @@ csharp:
       webhooks: Models/Webhooks
   includeDebugSymbols: false
   inputModelSuffix: input
-  maxMethodParams: 4
+  maxMethodParams: 0
   methodArguments: infer-optional-args
   outputModelSuffix: output
   packageName: DailyPay.SDK.DotNet8
