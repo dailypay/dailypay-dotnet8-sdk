@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
     local:
         inputs:
-            - location: source/sdks.openapi.yaml
+            - location: https://s3.amazonaws.com/dp-devportal-images/sdk/openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
 targets:
