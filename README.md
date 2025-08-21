@@ -152,22 +152,17 @@ You can use a callback to automatically refresh and retrieve user access tokens 
 
 ```csharp
 using DailyPay.SDK.DotNet8;
-using DailyPay.SDK.DotNet8.Models.Requests;
+using DailyPay.SDK.DotNet8.Models.Components;
 
 // Example callback function to retrieve the latest access token
-Func<Task<string>> accessTokenCallback = async () =>
+Func<Security> tokenSource = () =>
 {
-    // Retrieve token from secure storage or refresh logic
-    return await GetLatestAccessTokenAsync();
+    // Retrieve or refresh token here
+    var token = "<YOUR_OAUTH_USER_TOKEN_HERE>";
+    return new Security { OauthUserToken = token };
 };
 
-var sdk = new SDK(
-    security: new Security()
-    {
-        OauthUserToken = accessTokenCallback
-    },
-    version: 3
-);
+var sdk = new SDK(securitySource: tokenSource, version: 3);
 
 ReadJobRequest req = new ReadJobRequest()
 {
