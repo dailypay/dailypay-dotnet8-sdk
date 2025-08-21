@@ -1,15 +1,15 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    local:
+    cloud:
         inputs:
-            - location: source/sdks.openapi.yaml
+            - location: https://s3.amazonaws.com/dp-devportal-images/oas/openapi.yml
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
 targets:
     csharp:
         target: csharp
-        source: local
+        source: cloud
         codeSamples:
             output: codeSamples.yaml
             registry:
