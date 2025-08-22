@@ -153,6 +153,7 @@ You can use a callback to automatically refresh and retrieve user access tokens 
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
 
 // Example callback function to retrieve the latest access token
 Func<Security> tokenSource = () =>
