@@ -145,6 +145,36 @@ var res = await sdk.Jobs.ReadAsync(req);
 ```
 <!-- End Authentication [security] -->
 
+<!-- Suggested: Use a Callback for Access Tokens -->
+### Suggested: Use a Callback for Access Tokens
+
+You can use a callback to automatically refresh and retrieve user access tokens from secure storage. Pass a callback as a security source when initializing the SDK:
+
+```csharp
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
+
+// Example callback function to retrieve the latest access token
+Func<Security> tokenSource = () =>
+{
+    // Retrieve or refresh token here
+    var token = "<YOUR_OAUTH_USER_TOKEN_HERE>";
+    return new Security { OauthUserToken = token };
+};
+
+var sdk = new SDK(securitySource: tokenSource, version: 3);
+
+ReadJobRequest req = new ReadJobRequest()
+{
+    JobId = "aa860051-c411-4709-9685-c1b716df611b",
+};
+
+var res = await sdk.Jobs.ReadAsync(req);
+
+// handle response
+```
+
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
