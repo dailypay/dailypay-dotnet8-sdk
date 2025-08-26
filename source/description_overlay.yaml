@@ -1,0 +1,7 @@
+overlay: 1.0.0
+info:
+  title: Modify Info Description
+  version: 1.0.0
+actions:
+  - target: "$.info.description"
+    update: Developer-friendly & type-safe C# SDK for the DailyPay Public API, built for .Net 8.
