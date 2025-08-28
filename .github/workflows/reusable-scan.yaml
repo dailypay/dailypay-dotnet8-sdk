@@ -21,9 +21,6 @@ permissions:
   security-events: write
   id-token: write
 
-env:
-  GOPRIVATE: github.com/dailypay
-
 jobs:
   scan:
     runs-on: k8s-general
