@@ -27,6 +27,8 @@ env:
 jobs:
   scan:
     runs-on: k8s-general
+    env:
+      DOTNET_INSTALL_DIR: "./.dotnet"
     strategy:
       matrix:
         branch: ["${{ inputs.branch_name }}"]
