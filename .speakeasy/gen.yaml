@@ -15,7 +15,7 @@ generation:
     sharedErrorComponentsApr2025: false
   auth:
     oAuth2ClientCredentialsEnabled: true
-    oAuth2PasswordEnabled: true
+    oAuth2PasswordEnabled: false
   sdkHooksConfigAccess: true
   tests:
     generateTests: true
