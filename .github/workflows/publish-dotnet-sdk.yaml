@@ -7,6 +7,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 jobs:
   publish:
     if: |
@@ -31,3 +32,11 @@ jobs:
           dotnet nuget push ./nupkg/*.nupkg --source github --skip-duplicate
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  tag:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/tag.yaml@v15
+    needs: publish
+    with:
+      registry_tags: main
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
