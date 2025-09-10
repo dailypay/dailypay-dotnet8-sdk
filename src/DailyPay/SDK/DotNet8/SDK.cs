@@ -63,19 +63,7 @@ namespace DailyPay.SDK.DotNet8
     }
 
     /// <summary>
-    /// DailyPay Public Rest API: # Welcome<br/>
-    /// 
-    /// <remarks>
-    /// <br/>
-    /// This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.<br/>
-    /// <br/>
-    /// Here are some links to help you get familiar with the DailyPay basics:<br/>
-    /// <br/>
-    /// <a href="/tag/Getting-Started#section/DailyPay&apos;s-API-Versioning">API Versioning</a> — Find out how we version our APIs.  <br/>
-    /// <a href="/tag/Getting-Started#section/Environments">Environments</a> — Get an overview of the different environments in the DailyPay API.  <br/>
-    /// <a href="/tag/Glossary">Glossary</a> — Explore a list of terms used in the DailyPay API.<br/>
-    /// 
-    /// </remarks>
+    /// DailyPay Public Rest API: Developer-friendly &amp; type-safe C# SDK for the DailyPay Public API, built for .Net 8.
     /// </summary>
     public interface ISDK
     {
@@ -174,6 +162,8 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// <remarks>
         /// <br/>
+        /// **_Note: You may also process debit card data and obtain a token using the <a href="/#tag/Tokenization">Toolkit Tokenization Component</a>_**<br/>
+        /// <br/>
         /// The Payments API is a PCI compliant endpoint and allows for secure debit card token creation. These tokens are used within DailyPay&apos;s APIs. When a tokenized debit card is added to a user’s account they can begin to take instant transfers.<br/>
         /// <br/>
         /// **How does this work?** A user&apos;s debit card data is sent via POST request to the Payments API. The debit card data is encrypted and tokenized before being returned. This tokenized card data is used for instant transfers via the Extend API.<br/>
@@ -192,7 +182,7 @@ namespace DailyPay.SDK.DotNet8
         /// <br/>
         /// ### 1. POST debit card data to the Payments API<br/>
         /// <br/>
-        /// After you have securely collected the debit card data for a user, create a POST to the PCI compliant payments endpoint <a href="/v2/tag/Card-Creation">`POST Generic Card`</a> with the following required parameters in this example.<br/>
+        /// After you have securely collected the debit card data for a user, create a POST to the PCI compliant <a href="/#tag/Cards/Create-a-Debit-Card-Token">Cards API</a> with the following required parameters in this example.<br/>
         /// <br/>
         /// ```json<br/>
         /// {<br/>
@@ -212,7 +202,7 @@ namespace DailyPay.SDK.DotNet8
         /// <br/>
         /// ### 2. Receive and handle the tokenized card data<br/>
         /// <br/>
-        /// The <a href="https://developer.dailypay.com/v2/reference/post_cards-generic">payments endpoint</a> returns an opaque string representing the card details. This token is encrypted and complies with PCI DSS. You will need the token for step 3, after which it can be discarded. The token is a long string and will look similar to below:<br/>
+        /// The <a href="/#tag/Cards/Create-a-Debit-Card-Token">Cards API</a> returns an opaque string representing the card details. This token is encrypted and complies with PCI DSS. You will need the token for step 3, after which it can be discarded. The token is a long string and will look similar to below:<br/>
         /// <br/>
         /// ```json<br/>
         /// {&quot;token&quot;:&quot;eyJhbGciOiJSU0Et.....T0FFU”}<br/>
@@ -220,9 +210,9 @@ namespace DailyPay.SDK.DotNet8
         /// <br/>
         /// ### 3. POST the token to the Extend API<br/>
         /// <br/>
-        /// &gt; 📘 **Important** &gt; <a href="/v2/tag/Authorization">Proper authorization</a> is required to create a transfer account.<br/>
+        /// &gt; 📘 **Important** &gt; <a href="/#tag/Authentication">Proper authorization</a> is required to create a transfer account.<br/>
         /// <br/>
-        /// Send the encrypted token in a POST request to the <a href="/v2/tag/Users#operation/createTransferAccount">transfer accounts endpoint</a> as the value for the `generic_token` field. This will create a transfer account and allow a user to start taking transfers.<br/>
+        /// Send the encrypted token in a POST request to the <a href="/#tag/Accounts/operation/createAccount">accounts endpoint</a> as the value for the `token` field in the `details` object. This will create a transfer account and allow a user to start taking transfers.<br/>
         /// 
         /// </remarks>
         /// </summary>
@@ -243,27 +233,15 @@ namespace DailyPay.SDK.DotNet8
 
 
     /// <summary>
-    /// DailyPay Public Rest API: # Welcome<br/>
-    /// 
-    /// <remarks>
-    /// <br/>
-    /// This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.<br/>
-    /// <br/>
-    /// Here are some links to help you get familiar with the DailyPay basics:<br/>
-    /// <br/>
-    /// <a href="/tag/Getting-Started#section/DailyPay&apos;s-API-Versioning">API Versioning</a> — Find out how we version our APIs.  <br/>
-    /// <a href="/tag/Getting-Started#section/Environments">Environments</a> — Get an overview of the different environments in the DailyPay API.  <br/>
-    /// <a href="/tag/Glossary">Glossary</a> — Explore a list of terms used in the DailyPay API.<br/>
-    /// 
-    /// </remarks>
+    /// DailyPay Public Rest API: Developer-friendly &amp; type-safe C# SDK for the DailyPay Public API, built for .Net 8.
     /// </summary>
     public class SDK: ISDK
     {
         public SDKConfig SDKConfiguration { get; private set; }
 
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.3.0";
-        private const string _sdkGenVersion = "2.674.3";
+        private const string _sdkVersion = "0.4.0";
+        private const string _sdkGenVersion = "2.698.4";
         private const string _openapiDocVersion = "3.0.0-beta01";
         public IJobs Jobs { get; private set; }
         public IAccounts Accounts { get; private set; }

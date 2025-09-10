@@ -1,21 +1,21 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: e98ec2843f59af8ed4d7565f52cd7f26
+  docChecksum: 69dfc9338cef445f6c49ab89dd122b45
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.598.1
-  generationVersion: 2.674.3
-  releaseVersion: 0.3.0
-  configChecksum: f28dd4dee0f7bc497a9a5edf7472506b
+  speakeasyVersion: 1.615.1
+  generationVersion: 2.698.4
+  releaseVersion: 0.4.0
+  configChecksum: 7f01cf26d23627c3ac6414ccba8db7a9
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.1
-    core: 3.11.2
+    core: 3.12.2
     deprecations: 2.81.2
     examples: 2.81.6
-    globalSecurity: 2.83.7
+    globalSecurity: 2.83.8
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
     globals: 2.82.1
@@ -153,7 +153,6 @@ generatedFiles:
   - docs/Models/Components/PersonRelationshipReadOnly.md
   - docs/Models/Components/PersonResource.md
   - docs/Models/Components/PersonResourceInput.md
-  - docs/Models/Components/Product.md
   - docs/Models/Components/SchemeOauthClientCredentialsToken.md
   - docs/Models/Components/Security.md
   - docs/Models/Components/TransferAttributes.md
@@ -353,7 +352,6 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/PersonRelationshipReadOnly.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/PersonResource.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/PersonResourceInput.cs
-  - src/DailyPay/SDK/DotNet8/Models/Components/Product.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/SchemeOauthClientCredentialsToken.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Security.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/TransferAttributes.cs
@@ -375,12 +373,14 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/WageRate.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/APIException.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/AccountCreateError.cs
+  - src/DailyPay/SDK/DotNet8/Models/Errors/DailyPayError.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorBadRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorForbidden.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorNotFound.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnauthorized.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnexpected.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/JobUpdateError.cs
+  - src/DailyPay/SDK/DotNet8/Models/Errors/ResponseValidationException.cs
   - src/DailyPay/SDK/DotNet8/Models/Errors/TransferCreateError.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateAccountRequest.cs
   - src/DailyPay/SDK/DotNet8/Models/Requests/CreateAccountResponse.cs
@@ -777,3 +777,7 @@ examples:
           application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: |
+  ## Csharp SDK Changes Detected:
+  * `Sdk.Organizations.Read()`:  `response.data.Attributes.Products.[]` **Changed** **Breaking** :warning:
+  * `Sdk.Organizations.List()`:  `response.data.[].Attributes.Products.[]` **Changed** **Breaking** :warning:

@@ -43,7 +43,11 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
     }
 );
 
@@ -68,7 +72,11 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
     }
 );
 
@@ -119,8 +127,8 @@ This SDK supports the following security schemes globally:
 
 | Name                          | Type   | Scheme       |
 | ----------------------------- | ------ | ------------ |
-| `OauthUserToken`              | oauth2 | OAuth2 token |
 | `OauthClientCredentialsToken` | oauth2 | OAuth2 token |
+| `OauthUserToken`              | oauth2 | OAuth2 token |
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```csharp
@@ -130,7 +138,11 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 
 var sdk = new SDK(
     security: new Security() {
-        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
     },
     version: 3
 );
@@ -229,26 +241,15 @@ var res = await sdk.Jobs.ReadAsync(req);
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations. All operations return a response object or throw an exception.
-
-By default, an API error will raise a `DailyPay.SDK.DotNet8.Models.Errors.APIException` exception, which has the following properties:
+[`DailyPayError`](./src/DailyPay/SDK/DotNet8/Models/Errors/DailyPayError.cs) is the base exception class for all HTTP error responses. It has the following properties:
 
 | Property      | Type                  | Description           |
 |---------------|-----------------------|-----------------------|
-| `Message`     | *string*              | The error message     |
-| `Request`     | *HttpRequestMessage*  | The HTTP request      |
-| `Response`    | *HttpResponseMessage* | The HTTP response     |
+| `Message`     | *string*              | Error message         |
+| `Request`     | *HttpRequestMessage*  | HTTP request object   |
+| `Response`    | *HttpResponseMessage* | HTTP response object  |
 
-When custom error responses are specified for an operation, the SDK may also throw their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `ReadAsync` method throws the following exceptions:
-
-| Error Type                                           | Status Code | Content Type             |
-| ---------------------------------------------------- | ----------- | ------------------------ |
-| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400         | application/vnd.api+json |
-| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401         | application/vnd.api+json |
-| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403         | application/vnd.api+json |
-| DailyPay.SDK.DotNet8.Models.Errors.ErrorNotFound     | 404         | application/vnd.api+json |
-| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500         | application/vnd.api+json |
-| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX    | \*/\*                    |
+Some exceptions in this SDK include an additional `Payload` field, which will contain deserialized custom error data when present. Possible exceptions are listed in the [Error Classes](#error-classes) section.
 
 ### Example
 
@@ -257,11 +258,16 @@ using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
 using DailyPay.SDK.DotNet8.Models.Errors;
 using DailyPay.SDK.DotNet8.Models.Requests;
+using System.Collections.Generic;
 
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
     }
 );
 
@@ -275,40 +281,58 @@ try
 
     // handle response
 }
-catch (Exception ex)
+catch (DailyPayError ex)  // all SDK exceptions inherit from DailyPayError
 {
-    if (ex is ErrorBadRequest)
+    // ex.ToString() provides a detailed error message
+    System.Console.WriteLine(ex);
+
+    // Base exception fields
+    HttpRequestMessage request = ex.Request;
+    HttpResponseMessage response = ex.Response;
+    var statusCode = (int)response.StatusCode;
+    var responseBody = ex.Body;
+
+    if (ex is ErrorBadRequest) // different exceptions may be thrown depending on the method
     {
-        // Handle exception data
-        throw;
+        // Check error data fields
+        ErrorBadRequestPayload payload = ex.Payload;
+        List<ErrorBadRequestError> Errors = payload.Errors;
     }
-    else if (ex is ErrorUnauthorized)
+
+    // An underlying cause may be provided
+    if (ex.InnerException != null)
     {
-        // Handle exception data
-        throw;
-    }
-    else if (ex is ErrorForbidden)
-    {
-        // Handle exception data
-        throw;
-    }
-    else if (ex is ErrorNotFound)
-    {
-        // Handle exception data
-        throw;
-    }
-    else if (ex is ErrorUnexpected)
-    {
-        // Handle exception data
-        throw;
-    }
-    else if (ex is DailyPay.SDK.DotNet8.Models.Errors.APIException)
-    {
-        // Handle default exception
-        throw;
+        Exception cause = ex.InnerException;
     }
 }
+catch (System.Net.Http.HttpRequestException ex)
+{
+    // Check ex.InnerException for Network connectivity errors
+}
 ```
+
+### Error Classes
+
+**Primary exceptions:**
+* [`DailyPayError`](./src/DailyPay/SDK/DotNet8/Models/Errors/DailyPayError.cs): The base class for HTTP error responses.
+  * [`ErrorUnauthorized`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnauthorized.cs): Invalid authentication credentials. Status code `401`. *
+  * [`ErrorUnexpected`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnexpected.cs): Unexpected error occured. Status code `500`. *
+  * [`ErrorForbidden`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorForbidden.cs): Not authorized to perform this operation. Status code `403`. *
+
+<details><summary>Less common exceptions (7)</summary>
+
+* [`System.Net.Http.HttpRequestException`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httprequestexception): Network connectivity error. For more details about the underlying cause, inspect the `ex.InnerException`.
+
+* Inheriting from [`DailyPayError`](./src/DailyPay/SDK/DotNet8/Models/Errors/DailyPayError.cs):
+  * [`ErrorBadRequest`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorBadRequest.cs): Bad Request. Status code `400`. Applicable to 12 of 17 methods.*
+  * [`ErrorNotFound`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorNotFound.cs): Resource was not found. Status code `404`. Applicable to 8 of 17 methods.*
+  * [`JobUpdateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/JobUpdateError.cs): Bad Request. Status code `400`. Applicable to 1 of 17 methods.*
+  * [`AccountCreateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/AccountCreateError.cs): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
+  * [`TransferCreateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/TransferCreateError.cs): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
+  * [`ResponseValidationError`](./src/DailyPay/SDK/DotNet8/Models/Errors/ResponseValidationError.cs): Thrown when the response data could not be deserialized into the expected type.
+</details>
+
+\* Refer to the [relevant documentation](#available-resources-and-operations) to determine whether an exception applies to a specific operation.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -333,7 +357,11 @@ var sdk = new SDK(
     environment: "dailypayuat",
     version: 3,
     security: new Security() {
-        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
     }
 );
 
@@ -358,7 +386,11 @@ var sdk = new SDK(
     serverUrl: "https://api.dailypay.com",
     version: 3,
     security: new Security() {
-        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
     }
 );
 

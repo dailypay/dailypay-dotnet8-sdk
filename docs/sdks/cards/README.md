@@ -5,6 +5,8 @@
 
 ## What is the Payments API?
 
+**_Note: You may also process debit card data and obtain a token using the [Toolkit Tokenization Component](/#tag/Tokenization)_**
+
 The Payments API is a PCI compliant endpoint and allows for secure debit card token creation. These tokens are used within DailyPay's APIs. When a tokenized debit card is added to a user’s account they can begin to take instant transfers.
 
 **How does this work?** A user's debit card data is sent via POST request to the Payments API. The debit card data is encrypted and tokenized before being returned. This tokenized card data is used for instant transfers via the Extend API.
@@ -23,7 +25,7 @@ Steps to create a tokenized debit card for use within DailyPay's APIs.
 
 ### 1. POST debit card data to the Payments API
 
-After you have securely collected the debit card data for a user, create a POST to the PCI compliant payments endpoint [`POST Generic Card`](/v2/tag/Card-Creation) with the following required parameters in this example.
+After you have securely collected the debit card data for a user, create a POST to the PCI compliant [Cards API](/#tag/Cards/Create-a-Debit-Card-Token) with the following required parameters in this example.
 
 ```json
 {
@@ -43,7 +45,7 @@ After you have securely collected the debit card data for a user, create a POST 
 
 ### 2. Receive and handle the tokenized card data
 
-The [payments endpoint](https://developer.dailypay.com/v2/reference/post_cards-generic) returns an opaque string representing the card details. This token is encrypted and complies with PCI DSS. You will need the token for step 3, after which it can be discarded. The token is a long string and will look similar to below:
+The [Cards API](/#tag/Cards/Create-a-Debit-Card-Token) returns an opaque string representing the card details. This token is encrypted and complies with PCI DSS. You will need the token for step 3, after which it can be discarded. The token is a long string and will look similar to below:
 
 ```json
 {"token":"eyJhbGciOiJSU0Et.....T0FFU”}
@@ -51,9 +53,9 @@ The [payments endpoint](https://developer.dailypay.com/v2/reference/post_cards-g
 
 ### 3. POST the token to the Extend API
 
-> 📘 **Important** > [Proper authorization](/v2/tag/Authorization) is required to create a transfer account.
+> 📘 **Important** > [Proper authorization](/#tag/Authentication) is required to create a transfer account.
 
-Send the encrypted token in a POST request to the [transfer accounts endpoint](/v2/tag/Users#operation/createTransferAccount) as the value for the `generic_token` field. This will create a transfer account and allow a user to start taking transfers.
+Send the encrypted token in a POST request to the [accounts endpoint](/#tag/Accounts/operation/createAccount) as the value for the `token` field in the `details` object. This will create a transfer account and allow a user to start taking transfers.
 
 
 ### Available Operations

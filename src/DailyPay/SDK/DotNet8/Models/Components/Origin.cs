@@ -17,17 +17,17 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using System.Collections.Generic;
     using System.Numerics;
     using System.Reflection;
-    
 
     public class OriginType
     {
         private OriginType(string value) { Value = value; }
 
         public string Value { get; private set; }
+
         public static OriginType AccountRelationship { get { return new OriginType("AccountRelationship"); } }
-        
+
         public static OriginType PaycheckRelationship { get { return new OriginType("PaycheckRelationship"); } }
-        
+
         public static OriginType Null { get { return new OriginType("null"); } }
 
         public override string ToString() { return Value; }
@@ -69,8 +69,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     /// </remarks>
     /// </summary>
     [JsonConverter(typeof(Origin.OriginConverter))]
-    public class Origin {
-        public Origin(OriginType type) {
+    public class Origin
+    {
+        public Origin(OriginType type)
+        {
             Type = type;
         }
 
@@ -81,17 +83,16 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public PaycheckRelationship? PaycheckRelationship { get; set; }
 
         public OriginType Type { get; set; }
-
-
-        public static Origin CreateAccountRelationship(AccountRelationship accountRelationship) {
+        public static Origin CreateAccountRelationship(AccountRelationship accountRelationship)
+        {
             OriginType typ = OriginType.AccountRelationship;
 
             Origin res = new Origin(typ);
             res.AccountRelationship = accountRelationship;
             return res;
         }
-
-        public static Origin CreatePaycheckRelationship(PaycheckRelationship paycheckRelationship) {
+        public static Origin CreatePaycheckRelationship(PaycheckRelationship paycheckRelationship)
+        {
             OriginType typ = OriginType.PaycheckRelationship;
 
             Origin res = new Origin(typ);
@@ -99,7 +100,8 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             return res;
         }
 
-        public static Origin CreateNull() {
+        public static Origin CreateNull()
+        {
             OriginType typ = OriginType.Null;
             return new Origin(typ);
         }
@@ -190,23 +192,25 @@ namespace DailyPay.SDK.DotNet8.Models.Components
                     writer.WriteRawValue("null");
                     return;
                 }
+
                 Origin res = (Origin)value;
                 if (OriginType.FromString(res.Type).Equals(OriginType.Null))
                 {
                     writer.WriteRawValue("null");
                     return;
                 }
+
                 if (res.AccountRelationship != null)
                 {
                     writer.WriteRawValue(Utilities.SerializeJSON(res.AccountRelationship));
                     return;
                 }
+
                 if (res.PaycheckRelationship != null)
                 {
                     writer.WriteRawValue(Utilities.SerializeJSON(res.PaycheckRelationship));
                     return;
                 }
-
             }
 
         }
