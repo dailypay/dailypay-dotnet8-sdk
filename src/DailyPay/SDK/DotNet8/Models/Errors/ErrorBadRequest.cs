@@ -14,17 +14,43 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
-    /// <summary>
-    /// Bad Request
-    /// </summary>
-    public class ErrorBadRequest : Exception
-    {
+    using System.Net.Http;
 
+    public class ErrorBadRequestPayload
+    {
         /// <summary>
         /// A list of errors that occurred.
         /// </summary>
         [JsonProperty("errors")]
         public List<ErrorBadRequestError> Errors { get; set; } = default!;
     }
+
+    /// <summary>
+    /// Bad Request
+    /// </summary>
+    public class ErrorBadRequest : DailyPayError
+    {
+        /// <summary>
+        ///  The original data that was passed to this exception.
+        /// </summary>
+        public ErrorBadRequestPayload Payload { get; }
+
+        [Obsolete("This field will be removed in a future release, please migrate away from it as soon as possible. Use ErrorBadRequest.Payload.Errors instead.")]
+        public List<ErrorBadRequestError> Errors { get; set; } = default!;
+
+        public ErrorBadRequest(
+            ErrorBadRequestPayload payload,
+            HttpRequestMessage request,
+            HttpResponseMessage response,
+            string body
+        ): base("API error occurred", request, response, body)
+        {
+           Payload = payload;
+
+           #pragma warning disable CS0618
+           Errors = payload.Errors;
+           #pragma warning restore CS0618
+        }
+    }
+
 }

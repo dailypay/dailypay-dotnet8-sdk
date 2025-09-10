@@ -15,10 +15,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     public class Security
     {
 
-        [SpeakeasyMetadata("security:scheme=true,type=oauth2,name=Authorization")]
-        public string? OauthUserToken { get; set; }
-
         [SpeakeasyMetadata("security:scheme=true,type=oauth2,subType=client_credentials")]
         public SchemeOauthClientCredentialsToken? OauthClientCredentialsToken { get; set; }
+
+        [SpeakeasyMetadata("security:scheme=true,type=oauth2,name=Authorization")]
+        public string? OauthUserToken { get; set; }
     }
 }

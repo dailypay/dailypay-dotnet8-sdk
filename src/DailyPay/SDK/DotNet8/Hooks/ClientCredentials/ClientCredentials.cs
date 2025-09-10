@@ -233,7 +233,7 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
                 throw new Exception("Failed to decode token response");
             }
 
-            if (tokenResponse!.TokenType != "Bearer")
+            if (!string.Equals(tokenResponse!.TokenType, "Bearer", StringComparison.OrdinalIgnoreCase))
             {
                 throw new Exception($"Unexpected token type {tokenResponse!.TokenType}");
             }

@@ -14,17 +14,43 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
-    /// <summary>
-    /// Resource was not found
-    /// </summary>
-    public class ErrorNotFound : Exception
-    {
+    using System.Net.Http;
 
+    public class ErrorNotFoundPayload
+    {
         /// <summary>
         /// A list of errors that occurred.
         /// </summary>
         [JsonProperty("errors")]
         public List<ErrorNotFoundError> Errors { get; set; } = default!;
     }
+
+    /// <summary>
+    /// Resource was not found
+    /// </summary>
+    public class ErrorNotFound : DailyPayError
+    {
+        /// <summary>
+        ///  The original data that was passed to this exception.
+        /// </summary>
+        public ErrorNotFoundPayload Payload { get; }
+
+        [Obsolete("This field will be removed in a future release, please migrate away from it as soon as possible. Use ErrorNotFound.Payload.Errors instead.")]
+        public List<ErrorNotFoundError> Errors { get; set; } = default!;
+
+        public ErrorNotFound(
+            ErrorNotFoundPayload payload,
+            HttpRequestMessage request,
+            HttpResponseMessage response,
+            string body
+        ): base("API error occurred", request, response, body)
+        {
+           Payload = payload;
+
+           #pragma warning disable CS0618
+           Errors = payload.Errors;
+           #pragma warning restore CS0618
+        }
+    }
+
 }

@@ -17,19 +17,19 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using System.Collections.Generic;
     using System.Numerics;
     using System.Reflection;
-    
 
     public class AccountAttributesOutputType
     {
         private AccountAttributesOutputType(string value) { Value = value; }
 
         public string Value { get; private set; }
+
         public static AccountAttributesOutputType CardOutput { get { return new AccountAttributesOutputType("Card_output"); } }
-        
+
         public static AccountAttributesOutputType EarningsBalanceReadOnly { get { return new AccountAttributesOutputType("Earnings Balance (read only)"); } }
-        
+
         public static AccountAttributesOutputType Depository { get { return new AccountAttributesOutputType("Depository"); } }
-        
+
         public static AccountAttributesOutputType Null { get { return new AccountAttributesOutputType("null"); } }
 
         public override string ToString() { return Value; }
@@ -63,8 +63,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     /// The details of the account.
     /// </summary>
     [JsonConverter(typeof(AccountAttributesOutput.AccountAttributesOutputConverter))]
-    public class AccountAttributesOutput {
-        public AccountAttributesOutput(AccountAttributesOutputType type) {
+    public class AccountAttributesOutput
+    {
+        public AccountAttributesOutput(AccountAttributesOutputType type)
+        {
             Type = type;
         }
 
@@ -78,25 +80,24 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public Depository? Depository { get; set; }
 
         public AccountAttributesOutputType Type { get; set; }
-
-
-        public static AccountAttributesOutput CreateCardOutput(CardOutput cardOutput) {
+        public static AccountAttributesOutput CreateCardOutput(CardOutput cardOutput)
+        {
             AccountAttributesOutputType typ = AccountAttributesOutputType.CardOutput;
 
             AccountAttributesOutput res = new AccountAttributesOutput(typ);
             res.CardOutput = cardOutput;
             return res;
         }
-
-        public static AccountAttributesOutput CreateEarningsBalanceReadOnly(EarningsBalanceReadOnly earningsBalanceReadOnly) {
+        public static AccountAttributesOutput CreateEarningsBalanceReadOnly(EarningsBalanceReadOnly earningsBalanceReadOnly)
+        {
             AccountAttributesOutputType typ = AccountAttributesOutputType.EarningsBalanceReadOnly;
 
             AccountAttributesOutput res = new AccountAttributesOutput(typ);
             res.EarningsBalanceReadOnly = earningsBalanceReadOnly;
             return res;
         }
-
-        public static AccountAttributesOutput CreateDepository(Depository depository) {
+        public static AccountAttributesOutput CreateDepository(Depository depository)
+        {
             AccountAttributesOutputType typ = AccountAttributesOutputType.Depository;
 
             AccountAttributesOutput res = new AccountAttributesOutput(typ);
@@ -104,7 +105,8 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             return res;
         }
 
-        public static AccountAttributesOutput CreateNull() {
+        public static AccountAttributesOutput CreateNull()
+        {
             AccountAttributesOutputType typ = AccountAttributesOutputType.Null;
             return new AccountAttributesOutput(typ);
         }
@@ -215,28 +217,31 @@ namespace DailyPay.SDK.DotNet8.Models.Components
                     writer.WriteRawValue("null");
                     return;
                 }
+
                 AccountAttributesOutput res = (AccountAttributesOutput)value;
                 if (AccountAttributesOutputType.FromString(res.Type).Equals(AccountAttributesOutputType.Null))
                 {
                     writer.WriteRawValue("null");
                     return;
                 }
+
                 if (res.CardOutput != null)
                 {
                     writer.WriteRawValue(Utilities.SerializeJSON(res.CardOutput));
                     return;
                 }
+
                 if (res.EarningsBalanceReadOnly != null)
                 {
                     writer.WriteRawValue(Utilities.SerializeJSON(res.EarningsBalanceReadOnly));
                     return;
                 }
+
                 if (res.Depository != null)
                 {
                     writer.WriteRawValue(Utilities.SerializeJSON(res.Depository));
                     return;
                 }
-
             }
 
         }

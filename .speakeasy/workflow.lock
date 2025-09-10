@@ -1,5 +1,13 @@
-speakeasyVersion: 1.598.1
+speakeasyVersion: 1.615.1
 sources:
+    cloud:
+        sourceNamespace: xapi
+        sourceRevisionDigest: sha256:a7bbbab79fb53f8f47687c68d98e776d30547fd38f0e8f3c090e6fe39fafd622
+        sourceBlobDigest: sha256:9d4e33c57a1fab148ff2d3321daebcd65fda9afc67e441b3d8bd2a0dd85626bc
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1757535552
+            - 3.0.0-beta01
     local:
         sourceNamespace: xapi
         sourceRevisionDigest: sha256:22ac5fa45f8a149986459f020e3272b727a32b0c6a7078e5c0b371bf7939e7d6
@@ -10,25 +18,27 @@ sources:
             - 3.0.0-beta01
 targets:
     csharp:
-        source: local
+        source: cloud
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:22ac5fa45f8a149986459f020e3272b727a32b0c6a7078e5c0b371bf7939e7d6
-        sourceBlobDigest: sha256:3ddf92b54817366bce1bfff769b02c2b01d2aead268b0b98ad5ce423240689ce
+        sourceRevisionDigest: sha256:a7bbbab79fb53f8f47687c68d98e776d30547fd38f0e8f3c090e6fe39fafd622
+        sourceBlobDigest: sha256:9d4e33c57a1fab148ff2d3321daebcd65fda9afc67e441b3d8bd2a0dd85626bc
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:fba85cd92f5f4b79fe557d973d40c2fdc13ffc2e298952b1d8a407114a12014f
+        codeSamplesRevisionDigest: sha256:83155353293d7f123623ebc143a0ca214c2174f1075a46bd122954a0d84aa962
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        local:
+        cloud:
             inputs:
-                - location: source/sdks.openapi.yaml
+                - location: https://s3.amazonaws.com/dp-devportal-images/oas/openapi.yml
+            overlays:
+                - location: source/description_overlay.yaml
             registry:
                 location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
     targets:
         csharp:
             target: csharp
-            source: local
+            source: cloud
             codeSamples:
                 output: codeSamples.yaml
                 registry:

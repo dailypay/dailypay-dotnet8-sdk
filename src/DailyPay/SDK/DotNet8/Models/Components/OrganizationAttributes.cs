@@ -9,7 +9,6 @@
 #nullable enable
 namespace DailyPay.SDK.DotNet8.Models.Components
 {
-    using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System.Collections.Generic;
@@ -27,6 +26,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// List of the names of products available for this organization.
         /// </summary>
         [JsonProperty("products")]
-        public List<Product>? Products { get; set; }
+        public List<string>? Products { get; set; }
     }
 }

@@ -26,7 +26,11 @@ using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
 
 var sdk = new SDK(security: new Security() {
-    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+        ClientID = "<YOUR_CLIENT_ID_HERE>",
+        ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+        TokenURL = "<YOUR_TOKEN_URL_HERE>",
+    },
 });
 
 var res = await sdk.Health.GetHealthAsync();
