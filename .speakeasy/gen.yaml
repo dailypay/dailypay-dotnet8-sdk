@@ -1,3 +1,6 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/speakeasy-api/sdk-gen-config/refs/heads/main/schemas/gen.config.schema.json
+# $schema=https://raw.githubusercontent.com/speakeasy-api/sdk-gen-config/refs/heads/main/schemas/gen.config.schema.json
+
 configVersion: 2.0.0
 generation:
   sdkClassName: SDK
