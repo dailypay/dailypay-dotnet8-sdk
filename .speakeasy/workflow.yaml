@@ -15,4 +15,4 @@ targets:
         codeSamples:
             output: codeSamples.yaml
             registry:
-                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-dotnet8-code-samples
