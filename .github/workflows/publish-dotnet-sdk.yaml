@@ -2,7 +2,7 @@ name: 'Publish .NET 8 SDK'
 on:
   push:
     branches:
-      - DBI-532
+      - main
   workflow_dispatch:
 permissions:
   contents: read
