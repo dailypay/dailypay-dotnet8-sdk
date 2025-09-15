@@ -3,10 +3,10 @@ id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
   docChecksum: 69dfc9338cef445f6c49ab89dd122b45
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.615.1
+  speakeasyVersion: 1.615.2
   generationVersion: 2.698.4
-  releaseVersion: 0.4.0
-  configChecksum: 7f01cf26d23627c3ac6414ccba8db7a9
+  releaseVersion: 0.4.1
+  configChecksum: eefa8efa484614309baa5b5257461f62
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
@@ -777,7 +777,3 @@ examples:
           application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Csharp SDK Changes Detected:
-  * `Sdk.Organizations.Read()`:  `response.data.Attributes.Products.[]` **Changed** **Breaking** :warning:
-  * `Sdk.Organizations.List()`:  `response.data.[].Attributes.Products.[]` **Changed** **Breaking** :warning:
