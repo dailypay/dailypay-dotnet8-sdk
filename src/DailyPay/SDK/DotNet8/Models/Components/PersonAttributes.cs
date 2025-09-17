@@ -42,5 +42,15 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </summary>
         [JsonProperty("state_of_residence")]
         public string? StateOfResidence { get; set; }
+
+        /// <summary>
+        /// Products that the person is enrolled in or eligible for.<br/>
+        /// 
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// </summary>
+        [JsonProperty("products")]
+        public Products Products { get; set; } = default!;
     }
 }

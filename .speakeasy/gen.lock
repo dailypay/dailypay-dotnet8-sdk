@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: 69dfc9338cef445f6c49ab89dd122b45
+  docChecksum: 0431fe821a53df1d85002b7bcc8d5503
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.615.1
-  generationVersion: 2.698.4
-  releaseVersion: 0.4.0
-  configChecksum: 7f01cf26d23627c3ac6414ccba8db7a9
+  speakeasyVersion: 1.617.1
+  generationVersion: 2.701.8
+  releaseVersion: 0.4.1
+  configChecksum: eefa8efa484614309baa5b5257461f62
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
@@ -21,7 +21,7 @@ features:
     globals: 2.82.1
     inputOutputModels: 2.83.0
     intellisenseMarkdownSupport: 0.1.0
-    methodArguments: 0.2.0
+    methodArguments: 0.2.1
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
@@ -60,6 +60,7 @@ generatedFiles:
   - docs/Models/Components/CardAccountDetailsOutput.md
   - docs/Models/Components/CardInput.md
   - docs/Models/Components/CardOutput.md
+  - docs/Models/Components/DailyPayCardProductEntitlement.md
   - docs/Models/Components/Data.md
   - docs/Models/Components/Depository.md
   - docs/Models/Components/DepositoryAccountDetails.md
@@ -153,6 +154,7 @@ generatedFiles:
   - docs/Models/Components/PersonRelationshipReadOnly.md
   - docs/Models/Components/PersonResource.md
   - docs/Models/Components/PersonResourceInput.md
+  - docs/Models/Components/Products.md
   - docs/Models/Components/SchemeOauthClientCredentialsToken.md
   - docs/Models/Components/Security.md
   - docs/Models/Components/TransferAttributes.md
@@ -259,6 +261,7 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/CardAccountDetailsOutput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/CardInput.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/CardOutput.cs
+  - src/DailyPay/SDK/DotNet8/Models/Components/DailyPayCardProductEntitlement.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Data.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Depository.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/DepositoryAccountDetails.cs
@@ -352,6 +355,7 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Models/Components/PersonRelationshipReadOnly.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/PersonResource.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/PersonResourceInput.cs
+  - src/DailyPay/SDK/DotNet8/Models/Components/Products.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/SchemeOauthClientCredentialsToken.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/Security.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/TransferAttributes.cs
@@ -726,7 +730,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY", "products": {"dailypay_card": {"eligible": true, "enrolled": false}}}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -748,7 +752,7 @@ examples:
         application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"state_of_residence": "NY"}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY", "products": {"dailypay_card": {"eligible": true, "enrolled": false}}}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -779,5 +783,5 @@ examplesVersion: 1.0.2
 generatedTests: {}
 releaseNotes: |
   ## Csharp SDK Changes Detected:
-  * `Sdk.Organizations.Read()`:  `response.data.Attributes.Products.[]` **Changed** **Breaking** :warning:
-  * `Sdk.Organizations.List()`:  `response.data.[].Attributes.Products.[]` **Changed** **Breaking** :warning:
+  * `Sdk.People.Read()`:  `response.data.Attributes.Products` **Added**
+  * `Sdk.People.Update()`:  `response.data.Attributes.Products` **Added**

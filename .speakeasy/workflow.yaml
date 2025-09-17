@@ -1,6 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/speakeasy-api/sdk-gen-config/refs/heads/main/schemas/workflow.schema.json
-# $schema=https://raw.githubusercontent.com/speakeasy-api/sdk-gen-config/refs/heads/main/schemas/workflow.schema.json
-
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
