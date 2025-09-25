@@ -30,15 +30,18 @@ jobs:
       matrix:
         branch: ["${{ inputs.branch_name }}"]
     steps:
-      - name: configure git
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure Git
         uses: dailypay/actions-commons/git-configure@v0
 
-      - name: install dotnet 8
+      - name: Install Dotnet 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.x
 
-      - name: scan
+      - name: Scan
         uses: jfrog/frogbot@v2
         env:
           JF_URL: https://artifactory.dailypay.com
