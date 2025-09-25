@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   scan:
-    runs-on: [self-hosted, k8s-general]
+    runs-on: ubuntu-latest
     env:
       DOTNET_INSTALL_DIR: "./.dotnet"
     strategy:
