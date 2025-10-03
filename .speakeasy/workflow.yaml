@@ -4,8 +4,6 @@ sources:
     cloud:
         inputs:
             - location: https://s3.amazonaws.com/dp-devportal-images/oas/openapi.yml
-        overlays:
-            - location: source/description_overlay.yaml
         registry:
             location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
 targets:
