@@ -31,7 +31,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// <summary>
         /// The details of the account.
         /// </summary>
-        [JsonProperty("attributes")]
+        [JsonProperty("attributes", NullValueHandling = NullValueHandling.Include)]
         public AccountAttributesOutput Attributes { get; set; } = default!;
 
         [JsonProperty("links")]
