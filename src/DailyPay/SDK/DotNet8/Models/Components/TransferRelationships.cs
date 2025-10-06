@@ -35,7 +35,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// 
         /// </remarks>
         /// </summary>
-        [JsonProperty("origin")]
+        [JsonProperty("origin", NullValueHandling = NullValueHandling.Include)]
         public Origin Origin { get; set; } = default!;
 
         [JsonProperty("destination")]
