@@ -30,8 +30,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
         public static AccountAttributesInputType DepositoryInput { get { return new AccountAttributesInputType("Depository_input"); } }
 
-        public static AccountAttributesInputType Null { get { return new AccountAttributesInputType("null"); } }
-
         public override string ToString() { return Value; }
         public static implicit operator String(AccountAttributesInputType v) { return v.Value; }
         public static AccountAttributesInputType FromString(string v) {
@@ -39,7 +37,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
                 case "Card_input": return CardInput;
                 case "Earnings Balance (read only)_input": return EarningsBalanceReadOnlyInput;
                 case "Depository_input": return DepositoryInput;
-                case "null": return Null;
                 default: throw new ArgumentException("Invalid value for AccountAttributesInputType");
             }
         }
@@ -105,27 +102,20 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             return res;
         }
 
-        public static AccountAttributesInput CreateNull()
-        {
-            AccountAttributesInputType typ = AccountAttributesInputType.Null;
-            return new AccountAttributesInput(typ);
-        }
-
         public class AccountAttributesInputConverter : JsonConverter
         {
-
             public override bool CanConvert(System.Type objectType) => objectType == typeof(AccountAttributesInput);
 
             public override bool CanRead => true;
 
             public override object? ReadJson(JsonReader reader, System.Type objectType, object? existingValue, JsonSerializer serializer)
             {
-                var json = JRaw.Create(reader).ToString();
-                if (json == "null")
+                if (reader.TokenType == JsonToken.Null)
                 {
-                    return null;
+                    throw new InvalidOperationException("Received unexpected null JSON value");
                 }
 
+                var json = JRaw.Create(reader).ToString();
                 var fallbackCandidates = new List<(System.Type, object, string)>();
 
                 try
@@ -213,17 +203,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
             public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
-                if (value == null) {
-                    writer.WriteRawValue("null");
-                    return;
+                if (value == null)
+                {
+                    throw new InvalidOperationException("Unexpected null JSON value.");
                 }
 
                 AccountAttributesInput res = (AccountAttributesInput)value;
-                if (AccountAttributesInputType.FromString(res.Type).Equals(AccountAttributesInputType.Null))
-                {
-                    writer.WriteRawValue("null");
-                    return;
-                }
 
                 if (res.CardInput != null)
                 {
