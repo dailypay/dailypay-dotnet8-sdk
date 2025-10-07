@@ -12,5 +12,8 @@ targets:
         source: cloud
         codeSamples:
             output: codeSamples.yaml
+            labelOverride:
+              omit: true
+            langOverride: C#
             registry:
                 location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-dotnet8-code-samples
