@@ -41,12 +41,14 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         public string ClientID { get; private set; }
         public string ClientSecret { get; private set; }
         public string TokenURL { get; private set; }
+        public List<string>? Scopes { get; private set; }
 
-        public Credentials(string clientID, string clientSecret, string tokenURL)
+        public Credentials(string clientID, string clientSecret, string tokenURL, List<string>? scopes)
         {
             ClientID = clientID;
             ClientSecret = clientSecret;
             TokenURL = tokenURL;
+            Scopes = scopes;
         }
     }
 
@@ -68,20 +70,24 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
 
     public class ClientCredentialsHook : ISDKInitHook, IBeforeRequestHook, IAfterErrorHook
     {
-        public ConcurrentDictionary<string, Session> Sessions { get; private set; } = new ConcurrentDictionary<string, Session>();
+        public ConcurrentDictionary<string, ConcurrentDictionary<string, Session>> Sessions { get; private set; } = new ConcurrentDictionary<string, ConcurrentDictionary<string, Session>>();
         public ISpeakeasyHttpClient Client = default!;
-        
+
         public SDKConfig SDKInit(SDKConfig config)
         {
             Client = config.Client;
             return config;
         }
-        
+
+        private Boolean IsHookDisabled(HookContext hookCtx)
+        {
+            return hookCtx.Oauth2Scopes == null;
+        }
+
         public async Task<HttpRequestMessage> BeforeRequestAsync(BeforeRequestContext hookCtx, HttpRequestMessage request)
         {
-            if (hookCtx.Oauth2Scopes == null)
+            if (IsHookDisabled(hookCtx))
             {
-                // OAuth2 not in use
                 return request;
             }
 
@@ -92,20 +98,29 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             }
 
             var sessionKey = GetSessionKey(credentials.ClientID, credentials.ClientSecret);
+            var scopes = GetRequiredScopes(credentials, hookCtx);
+            var session = GetExistingSession(sessionKey, scopes);
 
-            if (!Sessions.ContainsKey(sessionKey) || !HasRequiredScopes(Sessions[sessionKey].Scopes, hookCtx.Oauth2Scopes) || HasTokenExpired(Sessions[sessionKey].ExpiresAt))
+            if (session == null)
             {
-                var session = await DoTokenRequestAsync(
+                // Create new session
+                session = await DoTokenRequestAsync(
                     hookCtx.BaseURL,
                     credentials,
-                    GetScopes(hookCtx.Oauth2Scopes, Sessions.GetValueOrDefault(sessionKey))
+                    scopes
                 );
 
-                Sessions[sessionKey] = session;
+                var clientSessions = Sessions.GetOrAdd(
+                    sessionKey,
+                    _ => new ConcurrentDictionary<string, Session>()
+                );
+
+                var scopeKey = GetScopeKey(scopes);
+                clientSessions[scopeKey] = session;
             }
 
             request.Headers.Remove("Authorization");
-            request.Headers.Add("Authorization", $"Bearer {Sessions[sessionKey].Token}");
+            request.Headers.Add("Authorization", $"Bearer {session.Token}");
 
             return request;
         }
@@ -113,9 +128,8 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         #pragma warning disable CS1998
         public async Task<(HttpResponseMessage?, Exception?)> AfterErrorAsync(AfterErrorContext hookCtx, HttpResponseMessage? response, Exception? error)
         {
-            if (hookCtx.Oauth2Scopes == null)
+            if (IsHookDisabled(hookCtx))
             {
-                // OAuth2 not in use
                 return (response, error);
             }
 
@@ -133,8 +147,8 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
 
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                var sessionKey = GetSessionKey(credentials.ClientID, credentials.ClientSecret);
-                Sessions.TryRemove(sessionKey, out _);
+                var scopeKey = GetScopeKey(GetRequiredScopes(credentials, hookCtx));
+                RemoveSession(GetSessionKey(credentials.ClientID, credentials.ClientSecret), scopeKey);
             }
 
             return (response, error);
@@ -165,7 +179,8 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             return new Credentials(
                 security?.OauthClientCredentialsToken?.ClientID!,
                 security?.OauthClientCredentialsToken?.ClientSecret!,
-                security?.OauthClientCredentialsToken?.TokenURL!
+                security?.OauthClientCredentialsToken?.TokenURL!,
+                null
             );
         }
 
@@ -246,7 +261,7 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             DateTime? expiresAt = null;
             if (tokenResponse!.ExpiresIn != null)
             {
-                expiresAt = DateTime.Now.AddSeconds(tokenResponse!.ExpiresIn!.Value);
+                expiresAt = DateTime.UtcNow.AddSeconds(tokenResponse!.ExpiresIn!.Value);
             }
 
             return new Session(credentials, tokenResponse!.AccessToken, scopes, expiresAt);
@@ -261,26 +276,90 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             }
         }
 
+        private List<string> GetRequiredScopes(Credentials credentials, HookContext hookCtx)
+        {
+            return credentials.Scopes ?? hookCtx.Oauth2Scopes!;
+        }
+
+        private string GetScopeKey(List<string> scopes)
+        {
+            if (scopes == null)
+            {
+                return "";
+            }
+
+            if (scopes.Count == 0)
+            {
+                return "none";
+            }
+
+            return string.Join("&", scopes.OrderBy(s => s).ToList());
+        }
+
+        private Session? GetExistingSession(string sessionKey, List<string> requiredScopes)
+        {
+            if (!Sessions.TryGetValue(sessionKey, out var clientSessions))
+            {
+                return null;
+            }
+
+            var scopeKey = GetScopeKey(requiredScopes);
+
+            if (clientSessions.TryGetValue(scopeKey, out var exactSession))
+            {
+                if (HasTokenExpired(exactSession.ExpiresAt))
+                {
+                    RemoveSession(sessionKey, scopeKey);
+                }
+                else
+                {
+                    return exactSession;
+                }
+            }
+
+            // If no exact match was found, look for superset match
+            foreach (var kvp in clientSessions)
+            {
+                var session = kvp.Value;
+                if (HasTokenExpired(session.ExpiresAt))
+                {
+                    RemoveSession(sessionKey, kvp.Key);
+                }
+                else if (HasRequiredScopes(session.Scopes, requiredScopes))
+                {
+                    return session;
+                }
+            }
+
+            return null;
+        }
+
+        private void RemoveSession(string sessionKey, string scopeKey)
+        {
+            if (Sessions.TryGetValue(sessionKey, out var clientSessions))
+            {
+                clientSessions.TryRemove(scopeKey, out _);
+                if (clientSessions.IsEmpty)
+                {
+                    Sessions.TryRemove(sessionKey, out _);
+                }
+            }
+        }
+
         private bool HasRequiredScopes(List<string> sessionScopes, List<string> requiredScopes)
         {
             return requiredScopes.All(requiredScope => sessionScopes.Contains(requiredScope));
         }
 
-        private List<string> GetScopes(List<string> requiredScopes, Session? session)
-        {
-            if (session?.Scopes != null)
-            {
-                var scopes = new List<string>(requiredScopes);
-                scopes.AddRange(session.Scopes);
-                return scopes.Distinct().ToList();
-            }
-
-            return requiredScopes;
-        }
-
+        /// <summary>
+        /// Checks if the token has expired.
+        /// If no `expires_in` field was returned by the authorization server, the token is considered to never expire.
+        /// A 60-second buffer is applied to refresh tokens before they actually expire.
+        /// </summary>
         private bool HasTokenExpired(DateTime? expiresAt)
         {
-            return expiresAt == null || DateTime.UtcNow.AddSeconds(60) >= expiresAt;
+            return expiresAt != null && DateTime.UtcNow.AddSeconds(60) >= expiresAt;
         }
+
     }
 }
