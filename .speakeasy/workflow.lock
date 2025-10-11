@@ -1,4 +1,4 @@
-speakeasyVersion: 1.634.2
+speakeasyVersion: 1.636.3
 sources:
     cloud:
         sourceNamespace: xapi
@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:df79c6083ab50b27bf086799275b969de4047372361572a07a3df33a89318a8a
         tags:
             - latest
-            - speakeasy-sdk-regen-1759537306
+            - speakeasy-sdk-regen-1760110739
             - 3.0.0-beta01
     local:
         sourceNamespace: xapi
@@ -23,7 +23,7 @@ targets:
         sourceRevisionDigest: sha256:15080505fed7751d9669c0205dcbaf1f47613b1e94c531c3a07a57e570a265b4
         sourceBlobDigest: sha256:df79c6083ab50b27bf086799275b969de4047372361572a07a3df33a89318a8a
         codeSamplesNamespace: xapi-dotnet8-code-samples
-        codeSamplesRevisionDigest: sha256:254de77c40ad309ccb74d10e0c10945b5f18bd635aabb9a6a234df2133b44ba4
+        codeSamplesRevisionDigest: sha256:06fc469cd516bf4c5d42667ee1d636503cfdc774e027a8f9013e86c7913cebb2
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -41,3 +41,6 @@ workflow:
                 output: codeSamples.yaml
                 registry:
                     location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-dotnet8-code-samples
+                langOverride: C#
+                labelOverride:
+                    omit: true

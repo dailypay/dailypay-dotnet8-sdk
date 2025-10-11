@@ -6,8 +6,7 @@ actions:
   - target: $["paths"]["/cards/generic"]["post"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: createGenericCardToken
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Requests;
@@ -35,8 +34,7 @@ actions:
   - target: $["paths"]["/rest/accounts"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: listAccounts
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -63,8 +61,7 @@ actions:
   - target: $["paths"]["/rest/accounts"]["post"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: createAccount
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -113,8 +110,7 @@ actions:
   - target: $["paths"]["/rest/accounts/{account_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: readAccount
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -141,8 +137,7 @@ actions:
   - target: $["paths"]["/rest/health"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: getHealth
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -161,8 +156,7 @@ actions:
   - target: $["paths"]["/rest/jobs"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: listJobs
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -187,8 +181,7 @@ actions:
   - target: $["paths"]["/rest/jobs/{job_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: readJob
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -215,8 +208,7 @@ actions:
   - target: $["paths"]["/rest/jobs/{job_id}"]["patch"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: updateJob
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -263,8 +255,7 @@ actions:
   - target: $["paths"]["/rest/organizations"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: listOrganizations
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -289,8 +280,7 @@ actions:
   - target: $["paths"]["/rest/organizations/{organization_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: readOrganization
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -317,8 +307,7 @@ actions:
   - target: $["paths"]["/rest/paychecks"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: listPaychecks
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -351,8 +340,7 @@ actions:
   - target: $["paths"]["/rest/paychecks/{paycheck_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: readPaycheck
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -379,8 +367,7 @@ actions:
   - target: $["paths"]["/rest/people/{person_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: readPerson
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -407,8 +394,7 @@ actions:
   - target: $["paths"]["/rest/people/{person_id}"]["patch"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: updatePerson
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -443,8 +429,7 @@ actions:
   - target: $["paths"]["/rest/transfers"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: listTransfers
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -469,8 +454,7 @@ actions:
   - target: $["paths"]["/rest/transfers"]["post"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: createTransfer
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;
@@ -525,8 +509,7 @@ actions:
   - target: $["paths"]["/rest/transfers/{transfer_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: csharp
-          label: readTransfer
+        - lang: C#
           source: |-
             using DailyPay.SDK.DotNet8;
             using DailyPay.SDK.DotNet8.Models.Components;

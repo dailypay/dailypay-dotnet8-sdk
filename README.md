@@ -228,7 +228,6 @@ var res = await sdk.Jobs.ReadAsync(req);
 * [Read](docs/sdks/people/README.md#read) - Get a person object
 * [Update](docs/sdks/people/README.md#update) - Update a person
 
-
 ### [Transfers](docs/sdks/transfers/README.md)
 
 * [Read](docs/sdks/transfers/README.md#read) - Get a transfer object
