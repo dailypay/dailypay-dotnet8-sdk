@@ -3,10 +3,10 @@ id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
   docChecksum: e46e93532757c919514e87097084dba4
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.634.2
-  generationVersion: 2.721.3
-  releaseVersion: 0.5.0
-  configChecksum: e029fe0dabde9016f9f1283a0a5efe43
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.6.0
+  configChecksum: d7f185b0ec7850558917a985c5756077
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
@@ -25,7 +25,7 @@ features:
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
-    oauth2ClientCredentials: 0.3.3
+    oauth2ClientCredentials: 1.1.0
     responseFormat: 0.0.4
     sdkHooks: 0.2.0
     unions: 1.1.0
@@ -223,7 +223,6 @@ generatedFiles:
   - docs/sdks/organizations/README.md
   - docs/sdks/paychecks/README.md
   - docs/sdks/people/README.md
-  - docs/sdks/sdk/README.md
   - docs/sdks/transfers/README.md
   - global.json
   - src/DailyPay/SDK/DotNet8/Accounts.cs
