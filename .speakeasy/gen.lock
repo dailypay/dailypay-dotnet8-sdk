@@ -3,16 +3,16 @@ id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
   docChecksum: e46e93532757c919514e87097084dba4
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.636.3
-  generationVersion: 2.723.11
-  releaseVersion: 0.6.0
-  configChecksum: d7f185b0ec7850558917a985c5756077
+  speakeasyVersion: 1.638.0
+  generationVersion: 2.728.0
+  releaseVersion: 0.7.0
+  configChecksum: a9ed5798dce17e3fe16bf07b23facea6
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.1
-    core: 3.13.0
+    core: 3.15.1
     deprecations: 2.81.2
     examples: 2.81.6
     globalSecurity: 2.83.8
