@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>DailyPay.SDK.DotNet8</PackageId>
-    <Version>0.7.2</Version>
+    <Version>0.7.3</Version>
     <TargetFramework>net8.0</TargetFramework>
     <Authors>DailyPay, Inc.</Authors>
     <Copyright>Copyright (c) DailyPay, Inc. 2025</Copyright>
