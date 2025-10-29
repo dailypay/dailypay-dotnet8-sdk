@@ -1,4 +1,4 @@
-speakeasyVersion: 1.642.1
+speakeasyVersion: 1.642.2
 sources:
     cloud:
         sourceNamespace: xapi
@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:df79c6083ab50b27bf086799275b969de4047372361572a07a3df33a89318a8a
         tags:
             - latest
-            - speakeasy-sdk-regen-1761683932
+            - speakeasy-sdk-regen-1761750049
             - 3.0.0-beta01
     local:
         sourceNamespace: xapi
@@ -23,7 +23,7 @@ targets:
         sourceRevisionDigest: sha256:15080505fed7751d9669c0205dcbaf1f47613b1e94c531c3a07a57e570a265b4
         sourceBlobDigest: sha256:df79c6083ab50b27bf086799275b969de4047372361572a07a3df33a89318a8a
         codeSamplesNamespace: xapi-dotnet8-code-samples
-        codeSamplesRevisionDigest: sha256:5eea045412a204449257c72175f164081e1fed265d2acbd1591634d26aeaf933
+        codeSamplesRevisionDigest: sha256:dca3ec422a788d8672f05e6e68fe3689b2a59966c3b2c909b429329b9890f1e2
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
