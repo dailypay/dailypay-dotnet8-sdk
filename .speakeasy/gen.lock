@@ -5,8 +5,8 @@ management:
   docVersion: 3.0.0-beta01
   speakeasyVersion: 1.642.2
   generationVersion: 2.731.6
-  releaseVersion: 0.7.5
-  configChecksum: 9efe7a458a04de1f0c2f79db8a9c6b48
+  releaseVersion: 0.7.6
+  configChecksum: 42fc85288bfcf804c72ebf4477fab9ea
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
