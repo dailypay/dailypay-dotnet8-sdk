@@ -20,12 +20,13 @@ generation:
   sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.7.6
+  version: 0.8.0
   additionalDependencies: []
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
