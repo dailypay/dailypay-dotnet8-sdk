@@ -44,7 +44,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string? StateOfResidence { get; set; }
 
         /// <summary>
-        /// Products that the person is enrolled in or eligible for.<br/>
+        /// Products that the person is enrolled in or eligible for. This data is refreshed nightly.<br/>
         /// 
         /// <remarks>
         /// 

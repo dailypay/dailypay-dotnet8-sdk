@@ -19,70 +19,68 @@ namespace DailyPay.SDK.DotNet8
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// The _health_ endpoint provides a simple health check for the API. <br/>
-    /// 
-    /// <remarks>
-    /// <br/>
-    /// **Functionality:** Check the status of the API to ensure it is functioning<br/>
-    /// correctly.<br/>
-    /// 
-    /// </remarks>
+    /// Securely tokenize personal cards for use in the accounts API.
     /// </summary>
-    public interface IHealth
+    public interface ICardTokenization
     {
 
         /// <summary>
-        /// Verify the status of the API
+        /// Obtain a card token
         /// 
         /// <remarks>
-        /// Returns a 200 status code if the API is up and running.<br/>
-        /// 
+        /// Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
         /// </remarks>
         /// </summary>
-        Task<GetHealthResponse> GetHealthAsync();
+        Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null);
     }
 
     /// <summary>
-    /// The _health_ endpoint provides a simple health check for the API. <br/>
-    /// 
-    /// <remarks>
-    /// <br/>
-    /// **Functionality:** Check the status of the API to ensure it is functioning<br/>
-    /// correctly.<br/>
-    /// 
-    /// </remarks>
+    /// Securely tokenize personal cards for use in the accounts API.
     /// </summary>
-    public class Health: IHealth
+    public class CardTokenization: ICardTokenization
     {
+        /// <summary>
+        /// List of server URLs available for the createGenericCardToken operation.
+        /// </summary>
+        public static readonly string[] CreateGenericCardTokenServerList = {
+            "https://payments.dailypay.com/v2",
+        };
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
         private const string _sdkVersion = "0.8.1";
         private const string _sdkGenVersion = "2.753.6";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
-        public Health(SDKConfig config)
+        public CardTokenization(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<GetHealthResponse> GetHealthAsync()
+        public async Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null)
         {
-            string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
-
-            var urlString = baseUrl + "/rest/health";
-
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
-            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
-
-            if (SDKConfiguration.SecuritySource != null)
+            string baseUrl = Utilities.TemplateUrl(CreateGenericCardTokenServerList[0], new Dictionary<string, string>(){
+            });
+            if (serverUrl != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                baseUrl = serverUrl;
             }
 
-            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "getHealth", new List<string> { "health:read" }, SDKConfiguration.SecuritySource);
+            var urlString = baseUrl + "/cards/generic";
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, urlString);
+            httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
+
+            var serializedBody = RequestBodySerializer.Serialize(request, "Request", "json", false, false);
+            if (serializedBody != null)
+            {
+                httpRequest.Content = serializedBody;
+            }
+
+            var hookCtx = new HookContext(SDKConfiguration, baseUrl, "createGenericCardToken", new List<string> { "client:admin" }, null);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
 
@@ -92,7 +90,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 401 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -123,17 +121,17 @@ namespace DailyPay.SDK.DotNet8
                 if(Utilities.IsContentTypeMatch("application/json", contentType))
                 {
                     var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                    Health200 obj;
+                    CreateGenericCardTokenResponseBody obj;
                     try
                     {
-                        obj = ResponseBodyDeserializer.DeserializeNotNull<Health200>(httpResponseBody, NullValueHandling.Ignore);
+                        obj = ResponseBodyDeserializer.DeserializeNotNull<CreateGenericCardTokenResponseBody>(httpResponseBody, NullValueHandling.Ignore);
                     }
                     catch (Exception ex)
                     {
-                        throw new ResponseValidationException("Failed to deserialize response body into Health200.", httpRequest, httpResponse, httpResponseBody, ex);
+                        throw new ResponseValidationException("Failed to deserialize response body into CreateGenericCardTokenResponseBody.", httpRequest, httpResponse, httpResponseBody, ex);
                     }
 
-                    var response = new GetHealthResponse()
+                    var response = new CreateGenericCardTokenResponse()
                     {
                         HttpMeta = new Models.Components.HTTPMetadata()
                         {
@@ -141,48 +139,8 @@ namespace DailyPay.SDK.DotNet8
                             Request = httpRequest
                         }
                     };
-                    response.Health200 = obj;
+                    response.Object = obj;
                     return response;
-                }
-
-                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
-            }
-            else if(responseStatusCode == 401)
-            {
-                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
-                {
-                    var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                    ErrorUnauthorizedPayload payload;
-                    try
-                    {
-                        payload = ResponseBodyDeserializer.DeserializeNotNull<ErrorUnauthorizedPayload>(httpResponseBody, NullValueHandling.Ignore);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ResponseValidationException("Failed to deserialize response body into ErrorUnauthorizedPayload.", httpRequest, httpResponse, httpResponseBody, ex);
-                    }
-
-                    throw new ErrorUnauthorized(payload, httpRequest, httpResponse, httpResponseBody);
-                }
-
-                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
-            }
-            else if(responseStatusCode == 500)
-            {
-                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
-                {
-                    var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                    ErrorUnexpectedPayload payload;
-                    try
-                    {
-                        payload = ResponseBodyDeserializer.DeserializeNotNull<ErrorUnexpectedPayload>(httpResponseBody, NullValueHandling.Ignore);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ResponseValidationException("Failed to deserialize response body into ErrorUnexpectedPayload.", httpRequest, httpResponse, httpResponseBody, ex);
-                    }
-
-                    throw new ErrorUnexpected(payload, httpRequest, httpResponse, httpResponseBody);
                 }
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
@@ -191,7 +149,7 @@ namespace DailyPay.SDK.DotNet8
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
             }
-            else if(responseStatusCode >= 500 && responseStatusCode < 600)
+            else if(responseStatusCode == 500 || responseStatusCode >= 500 && responseStatusCode < 600)
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
             }

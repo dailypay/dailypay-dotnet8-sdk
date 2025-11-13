@@ -1,6 +1,6 @@
 # DailyPayCardProductEntitlement
 
-The DailyPay Visa®️ Prepaid Card program.
+The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.
 
 
 

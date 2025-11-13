@@ -9,28 +9,25 @@
 #nullable enable
 namespace DailyPay.SDK.DotNet8.Models.Components
 {
-    using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     
     /// <summary>
-    /// Products that the person is enrolled in or eligible for. This data is refreshed nightly.<br/>
-    /// 
-    /// <remarks>
-    /// 
-    /// </remarks>
+    /// Additional information about the error.
     /// </summary>
-    public class Products
+    public class ErrorConflictErrorMeta
     {
 
         /// <summary>
-        /// The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// A UUID for the originating request.
         /// </summary>
-        [JsonProperty("dailypay_card")]
-        public DailyPayCardProductEntitlement DailyPayCardProductEntitlement { get; set; } = default!;
+        [JsonProperty("request_id")]
+        public string? RequestId { get; set; }
+
+        /// <summary>
+        /// An ID used for tracing purposes.
+        /// </summary>
+        [JsonProperty("trace_id")]
+        public string? TraceId { get; set; }
     }
 }

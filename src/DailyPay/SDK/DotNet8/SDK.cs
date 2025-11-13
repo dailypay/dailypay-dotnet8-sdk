@@ -63,19 +63,7 @@ namespace DailyPay.SDK.DotNet8
     }
 
     /// <summary>
-    /// DailyPay Public Rest API: # Welcome<br/>
-    /// 
-    /// <remarks>
-    /// <br/>
-    /// This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.<br/>
-    /// <br/>
-    /// Here are some links to help you get familiar with the DailyPay basics:<br/>
-    /// <br/>
-    /// <a href="/tag/Getting-Started#section/DailyPay&apos;s-API-Versioning">API Versioning</a> — Find out how we version our APIs.  <br/>
-    /// <a href="/tag/Getting-Started#section/Environments">Environments</a> — Get an overview of the different environments in the DailyPay API.  <br/>
-    /// <a href="/tag/Glossary">Glossary</a> — Explore a list of terms used in the DailyPay API.<br/>
-    /// 
-    /// </remarks>
+    /// DailyPay Rest API: Embed DailyPay and On Demand Pay features into your application.
     /// </summary>
     public interface ISDK
     {
@@ -170,65 +158,9 @@ namespace DailyPay.SDK.DotNet8
         public IPeople People { get; }
 
         /// <summary>
-        /// ## What is the Payments API?<br/>
-        /// 
-        /// <remarks>
-        /// <br/>
-        /// **_Note: You may also process debit card data and obtain a token using the <a href="/#tag/Tokenization">Toolkit Tokenization Component</a>_**<br/>
-        /// <br/>
-        /// The Payments API is a PCI compliant endpoint and allows for secure debit card token creation. These tokens are used within DailyPay&apos;s APIs. When a tokenized debit card is added to a user’s account they can begin to take instant transfers.<br/>
-        /// <br/>
-        /// **How does this work?** A user&apos;s debit card data is sent via POST request to the Payments API. The debit card data is encrypted and tokenized before being returned. This tokenized card data is used for instant transfers via the Extend API.<br/>
-        /// <br/>
-        /// ### What is PCI compliance?<br/>
-        /// <br/>
-        /// It’s how we keep card data secure. DailyPay has a responsibility and legal requirement to protect debit card data therefore the Payments API endpoint complies with the Payment Card Industry Data Security Standards <a href="https://www.pcisecuritystandards.org/">PCI DSS</a>.<br/>
-        /// <br/>
-        /// &gt; 📘 **Info**<br/>
-        /// &gt; DailyPay only handles card data during encryption and tokenization<br/>
-        /// &gt; **The Payments server is DailyPay’s only PCI compliant API.**<br/>
-        /// <br/>
-        /// ## Create a Debit Card Token<br/>
-        /// <br/>
-        /// Steps to create a tokenized debit card for use within DailyPay&apos;s APIs.<br/>
-        /// <br/>
-        /// ### 1. POST debit card data to the Payments API<br/>
-        /// <br/>
-        /// After you have securely collected the debit card data for a user, create a POST to the PCI compliant <a href="/#tag/Cards/Create-a-Debit-Card-Token">Cards API</a> with the following required parameters in this example.<br/>
-        /// <br/>
-        /// ```json<br/>
-        /// {<br/>
-        ///   &quot;first_name&quot;: &quot;Edith&quot;,<br/>
-        ///   &quot;last_name&quot;: &quot;Clarke&quot;,<br/>
-        ///   &quot;card_number&quot;: &quot;4007589999999912&quot;,<br/>
-        ///   &quot;expiration_year&quot;: &quot;2027&quot;,<br/>
-        ///   &quot;expiration_month&quot;: &quot;02&quot;,<br/>
-        ///   &quot;cvv&quot;: &quot;123&quot;,<br/>
-        ///   &quot;address_line_one&quot;: &quot;1234 Street&quot;,<br/>
-        ///   &quot;address_city&quot;: &quot;Fort Lee&quot;,<br/>
-        ///   &quot;address_state&quot;: &quot;NJ&quot;,<br/>
-        ///   &quot;address_zip_code&quot;: &quot;07237&quot;,<br/>
-        ///   &quot;address_country&quot;: &quot;US&quot;<br/>
-        /// }<br/>
-        /// ```<br/>
-        /// <br/>
-        /// ### 2. Receive and handle the tokenized card data<br/>
-        /// <br/>
-        /// The <a href="/#tag/Cards/Create-a-Debit-Card-Token">Cards API</a> returns an opaque string representing the card details. This token is encrypted and complies with PCI DSS. You will need the token for step 3, after which it can be discarded. The token is a long string and will look similar to below:<br/>
-        /// <br/>
-        /// ```json<br/>
-        /// {&quot;token&quot;:&quot;eyJhbGciOiJSU0Et.....T0FFU”}<br/>
-        /// ```<br/>
-        /// <br/>
-        /// ### 3. POST the token to the Extend API<br/>
-        /// <br/>
-        /// &gt; 📘 **Important** &gt; <a href="/#tag/Authentication">Proper authorization</a> is required to create a transfer account.<br/>
-        /// <br/>
-        /// Send the encrypted token in a POST request to the <a href="/#tag/Accounts/operation/createAccount">accounts endpoint</a> as the value for the `token` field in the `details` object. This will create a transfer account and allow a user to start taking transfers.<br/>
-        /// 
-        /// </remarks>
+        /// Securely tokenize personal cards for use in the accounts API.
         /// </summary>
-        public ICards Cards { get; }
+        public ICardTokenization CardTokenization { get; }
 
         /// <summary>
         /// The _health_ endpoint provides a simple health check for the API. <br/>
@@ -245,27 +177,15 @@ namespace DailyPay.SDK.DotNet8
 
 
     /// <summary>
-    /// DailyPay Public Rest API: # Welcome<br/>
-    /// 
-    /// <remarks>
-    /// <br/>
-    /// This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.<br/>
-    /// <br/>
-    /// Here are some links to help you get familiar with the DailyPay basics:<br/>
-    /// <br/>
-    /// <a href="/tag/Getting-Started#section/DailyPay&apos;s-API-Versioning">API Versioning</a> — Find out how we version our APIs.  <br/>
-    /// <a href="/tag/Getting-Started#section/Environments">Environments</a> — Get an overview of the different environments in the DailyPay API.  <br/>
-    /// <a href="/tag/Glossary">Glossary</a> — Explore a list of terms used in the DailyPay API.<br/>
-    /// 
-    /// </remarks>
+    /// DailyPay Rest API: Embed DailyPay and On Demand Pay features into your application.
     /// </summary>
     public class SDK: ISDK
     {
         public SDKConfig SDKConfiguration { get; private set; }
 
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.8.0";
-        private const string _sdkGenVersion = "2.743.2";
+        private const string _sdkVersion = "0.8.1";
+        private const string _sdkGenVersion = "2.753.6";
         private const string _openapiDocVersion = "3.0.0-beta01";
         public IJobs Jobs { get; private set; }
         public IAccounts Accounts { get; private set; }
@@ -273,7 +193,7 @@ namespace DailyPay.SDK.DotNet8
         public IPaychecks Paychecks { get; private set; }
         public IOrganizations Organizations { get; private set; }
         public IPeople People { get; private set; }
-        public ICards Cards { get; private set; }
+        public ICardTokenization CardTokenization { get; private set; }
         public IHealth Health { get; private set; }
 
         public SDK(SDKConfig config)
@@ -293,7 +213,7 @@ namespace DailyPay.SDK.DotNet8
 
             People = new People(SDKConfiguration);
 
-            Cards = new Cards(SDKConfiguration);
+            CardTokenization = new CardTokenization(SDKConfiguration);
 
             Health = new Health(SDKConfiguration);
         }
@@ -305,7 +225,7 @@ namespace DailyPay.SDK.DotNet8
         /// <param name="securitySource">A function that returns the security configuration dynamically. This takes precedence over the static security parameter if both are provided.</param>
         /// <param name="version">The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/></param>
         /// <param name="serverIndex">The index of the server to use from the predefined server list. Must be between 0 and the length of the server list. Defaults to 0 if not specified.</param>
-        /// <param name="environment">Server variable for environment. This will replace the {environment} placeholder in server URLs.</param>
+        /// <param name="environment">DailyPay REST API server</param>
         /// <param name="serverUrl">A custom server URL to use instead of the predefined server list. If provided with urlParams, the URL will be templated with the provided parameters.</param>
         /// <param name="urlParams">A dictionary of parameters to use for templating the serverUrl. Only used when serverUrl is provided.</param>
         /// <param name="client">A custom HTTP client implementation to use for making API requests. If not provided, the default SpeakeasyHttpClient will be used.</param>
@@ -367,7 +287,7 @@ namespace DailyPay.SDK.DotNet8
 
             People = new People(SDKConfiguration);
 
-            Cards = new Cards(SDKConfiguration);
+            CardTokenization = new CardTokenization(SDKConfiguration);
 
             Health = new Health(SDKConfiguration);
         }

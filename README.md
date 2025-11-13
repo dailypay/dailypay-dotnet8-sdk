@@ -200,9 +200,9 @@ var res = await sdk.Jobs.ReadAsync(req);
 * [List](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [Create](docs/sdks/accounts/README.md#create) - Create an Account object
 
-### [Cards](docs/sdks/cards/README.md)
+### [CardTokenization](docs/sdks/cardtokenization/README.md)
 
-* [Create](docs/sdks/cards/README.md#create) - Obtain a card token
+* [Create](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 
 ### [Health](docs/sdks/health/README.md)
 
@@ -319,7 +319,7 @@ catch (System.Net.Http.HttpRequestException ex)
   * [`ErrorUnexpected`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnexpected.cs): Unexpected error occured. Status code `500`. *
   * [`ErrorForbidden`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorForbidden.cs): Not authorized to perform this operation. Status code `403`. *
 
-<details><summary>Less common exceptions (7)</summary>
+<details><summary>Less common exceptions (8)</summary>
 
 * [`System.Net.Http.HttpRequestException`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httprequestexception): Network connectivity error. For more details about the underlying cause, inspect the `ex.InnerException`.
 
@@ -329,6 +329,7 @@ catch (System.Net.Http.HttpRequestException ex)
   * [`JobUpdateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/JobUpdateError.cs): Bad Request. Status code `400`. Applicable to 1 of 17 methods.*
   * [`AccountCreateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/AccountCreateError.cs): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
   * [`TransferCreateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/TransferCreateError.cs): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
+  * [`ErrorConflict`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorConflict.cs): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 17 methods.*
   * [`ResponseValidationError`](./src/DailyPay/SDK/DotNet8/Models/Errors/ResponseValidationError.cs): Thrown when the response data could not be deserialized into the expected type.
 </details>
 
@@ -428,7 +429,7 @@ CreateGenericCardTokenRequest req = new CreateGenericCardTokenRequest() {
     AddressCountry = "US",
 };
 
-var res = await sdk.Cards.CreateAsync(
+var res = await sdk.CardTokenization.CreateAsync(
     request: req,
     serverUrl: "https://payments.dailypay.com/v2"
 );

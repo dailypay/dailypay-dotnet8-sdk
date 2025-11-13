@@ -13,7 +13,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using Newtonsoft.Json;
     
     /// <summary>
-    /// The DailyPay Visa®️ Prepaid Card program.<br/>
+    /// The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.<br/>
     /// 
     /// <remarks>
     /// 

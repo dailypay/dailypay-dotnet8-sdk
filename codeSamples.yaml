@@ -28,7 +28,7 @@ actions:
                 AddressCountry = "US",
             };
 
-            var res = await sdk.Cards.CreateAsync(req);
+            var res = await sdk.CardTokenization.CreateAsync(req);
 
             // handle response
   - target: $["paths"]["/rest/accounts"]["get"]
