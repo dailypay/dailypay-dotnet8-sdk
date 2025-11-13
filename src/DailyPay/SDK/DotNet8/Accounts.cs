@@ -56,7 +56,6 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// <remarks>
         /// Returns a list of account objects. An account object represents a person&apos;s bank accounts, debit and pay cards, and earnings balance accounts.<br/>
-        /// See <a href="https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters">Filtering Accounts</a> for a description of filterable fields.<br/>
         /// 
         /// </remarks>
         /// </summary>
@@ -93,8 +92,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.8.0";
-        private const string _sdkGenVersion = "2.743.2";
+        private const string _sdkVersion = "0.8.1";
+        private const string _sdkGenVersion = "2.753.6";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Accounts(SDKConfig config)

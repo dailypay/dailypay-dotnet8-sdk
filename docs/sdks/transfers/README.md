@@ -75,7 +75,6 @@ var res = await sdk.Transfers.ReadAsync(req);
 ## List
 
 Returns a list of transfer objects.
-See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
 
 
 ### Example Usage
@@ -203,5 +202,6 @@ var res = await sdk.Transfers.CreateAsync(req);
 | DailyPay.SDK.DotNet8.Models.Errors.TransferCreateError | 400                                                    | application/vnd.api+json                               |
 | DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized   | 401                                                    | application/vnd.api+json                               |
 | DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden      | 403                                                    | application/vnd.api+json                               |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorConflict       | 409                                                    | application/vnd.api+json                               |
 | DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected     | 500                                                    | application/vnd.api+json                               |
 | DailyPay.SDK.DotNet8.Models.Errors.APIException        | 4XX, 5XX                                               | \*/\*                                                  |

@@ -53,7 +53,6 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// <remarks>
         /// Returns a list of transfer objects.<br/>
-        /// See <a href="https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters">Filtering Transfers</a> for a description of filterable fields.<br/>
         /// 
         /// </remarks>
         /// </summary>
@@ -86,8 +85,8 @@ namespace DailyPay.SDK.DotNet8
     {
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.8.0";
-        private const string _sdkGenVersion = "2.743.2";
+        private const string _sdkVersion = "0.8.1";
+        private const string _sdkGenVersion = "2.753.6";
         private const string _openapiDocVersion = "3.0.0-beta01";
 
         public Transfers(SDKConfig config)
@@ -501,7 +500,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 409 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -612,6 +611,26 @@ namespace DailyPay.SDK.DotNet8
                     }
 
                     throw new ErrorForbidden(payload, httpRequest, httpResponse, httpResponseBody);
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
+            }
+            else if(responseStatusCode == 409)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                    ErrorConflictPayload payload;
+                    try
+                    {
+                        payload = ResponseBodyDeserializer.DeserializeNotNull<ErrorConflictPayload>(httpResponseBody, NullValueHandling.Ignore);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ResponseValidationException("Failed to deserialize response body into ErrorConflictPayload.", httpRequest, httpResponse, httpResponseBody, ex);
+                    }
+
+                    throw new ErrorConflict(payload, httpRequest, httpResponse, httpResponseBody);
                 }
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());

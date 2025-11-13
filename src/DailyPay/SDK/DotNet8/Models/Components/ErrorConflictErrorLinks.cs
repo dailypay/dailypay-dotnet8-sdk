@@ -10,16 +10,15 @@
 namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
+    using Newtonsoft.Json;
     
-    public class SchemeOauthClientCredentialsToken
+    /// <summary>
+    /// A list of links to resources that may be helpful in resolving the error.
+    /// </summary>
+    public class ErrorConflictErrorLinks
     {
 
-        [SpeakeasyMetadata("security:name=clientID")]
-        public string ClientID { get; set; } = default!;
-
-        [SpeakeasyMetadata("security:name=clientSecret")]
-        public string ClientSecret { get; set; } = default!;
-
-        public string TokenURL { get; set; } = "https://auth.dailypay.com/oauth2/token";
+        [JsonProperty("about")]
+        public string? About { get; set; }
     }
 }
