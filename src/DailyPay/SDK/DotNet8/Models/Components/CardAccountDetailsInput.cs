@@ -25,12 +25,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string Token { get; set; } = default!;
 
         /// <summary>
-        /// The issuer of the card.
-        /// </summary>
-        [JsonProperty("issuer")]
-        public string Issuer { get; set; } = default!;
-
-        /// <summary>
         /// The first name of the account holder.
         /// </summary>
         [JsonProperty("first_name")]
