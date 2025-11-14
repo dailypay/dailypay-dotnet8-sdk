@@ -96,7 +96,9 @@ var sdk = new SDK(
     }
 );
 
-ListTransfersRequest req = new ListTransfersRequest() {};
+ListTransfersRequest req = new ListTransfersRequest() {
+    FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
+};
 
 var res = await sdk.Transfers.ListAsync(req);
 
@@ -149,7 +151,7 @@ var sdk = new SDK(
 );
 
 CreateTransferRequest req = new CreateTransferRequest() {
-    IdempotencyKey = "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    IdempotencyKey = "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     TransferCreateData = new TransferCreateData() {
         Data = new TransferCreateResource() {
             Id = "aba332a2-24a2-46de-8257-5040e71ab210",

@@ -100,7 +100,9 @@ var sdk = new SDK(
 );
 
 ListAccountsRequest req = new ListAccountsRequest() {
+    FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
     FilterAccountType = FilterAccountType.EarningsBalance,
+    FilterSubtype = "ODP",
 };
 
 var res = await sdk.Accounts.ListAsync(req);

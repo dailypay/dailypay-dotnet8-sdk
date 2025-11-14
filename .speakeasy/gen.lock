@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: 2d24d99543d5376427756737ba505990
-  docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.656.2
-  generationVersion: 2.753.6
-  releaseVersion: 0.8.1
-  configChecksum: ce28ecb114f9ad004c96b894f405559c
+  docChecksum: b322e1a9dd709cfe89500aff41c873f0
+  docVersion: 3.0.0-beta87
+  speakeasyVersion: 1.657.0
+  generationVersion: 2.755.0
+  releaseVersion: 0.8.2
+  configChecksum: a38ef0ea7c4a8203b3bea7f8dae9d8a6
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
@@ -510,6 +510,12 @@ examples:
   listJobs:
     speakeasy-default-list-jobs:
       parameters:
+        query:
+          filter[external_identifiers.primary_identifier]: "PRIMARY_ID_98765"
+          filter[external_identifiers.employee_id]: "EMP123456"
+          filter[external_identifiers.group]: "12345"
+          filter[person.id]: "aa860051-c411-4709-9685-c1b716df611b"
+          filter[organization.id]: "f0b30634-108c-439c-a8c1-c6a91197f022"
         header:
           DailyPay-API-Version: 3
       responses:
@@ -548,6 +554,8 @@ examples:
       parameters:
         query:
           filter[account_type]: "EARNINGS_BALANCE"
+          filter[person.id]: "aa860051-c411-4709-9685-c1b716df611b"
+          filter[subtype]: "ODP"
         header:
           DailyPay-API-Version: 3
       responses:
@@ -584,7 +592,7 @@ examples:
         header:
           DailyPay-API-Version: 3
       requestBody:
-        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"token": "abc.efg.123", "issuer": "411600", "first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"token": "abc.efg.123", "first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
         "200":
           application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "type": "accounts", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 300, "currency": "USD"}, {"schedule": "NEXT_BUSINESS_DAY", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "account_type": "DEPOSITORY", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
@@ -619,6 +627,8 @@ examples:
   listTransfers:
     speakeasy-default-list-transfers:
       parameters:
+        query:
+          filter[person.id]: "aa860051-c411-4709-9685-c1b716df611b"
         header:
           DailyPay-API-Version: 3
       responses:
@@ -637,7 +647,7 @@ examples:
       parameters:
         header:
           DailyPay-API-Version: 3
-          Idempotency-Key: "ea9f2225-403b-4e2c-93b0-0eda090ffa65"
+          Idempotency-Key: "e2736aa1-78c4-4cc6-b0a6-848e733f232a"
       requestBody:
         application/vnd.api+json: {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "schedule": "WITHIN_THIRTY_MINUTES"}, "relationships": {"origin": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "destination": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
@@ -683,6 +693,8 @@ examples:
           filter[pay_period_ends_at__lt]: "2023-03-15T04:00:00Z"
           filter[pay_period_starts_at__gte]: "2023-03-15T04:00:00Z"
           filter[pay_period_starts_at__lt]: "2023-03-15T04:00:00Z"
+          filter[job.id]: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f"
+          filter[status]: "DEPOSITED"
         header:
           DailyPay-API-Version: 3
       responses:
@@ -792,8 +804,4 @@ examples:
           application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Csharp SDK Changes Detected:
-  * `Sdk.CardTokenization.Create()`: **Added**
-  * `Sdk.Cards.Create()`: **Deleted** **Breaking** :warning:
-  * `Sdk.Transfers.Create()`:  `error.status[409]` **Added**
+releaseNotes: "## Csharp SDK Changes Detected:\n* `Sdk.Accounts.Create()`: \n  *  `request.AccountData.Data.Attributes.[card].CardAccountDetails.Issuer` **Removed** **Breaking** :warning:\n"

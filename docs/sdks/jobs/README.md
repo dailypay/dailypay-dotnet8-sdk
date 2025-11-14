@@ -168,7 +168,13 @@ var sdk = new SDK(
     }
 );
 
-ListJobsRequest req = new ListJobsRequest() {};
+ListJobsRequest req = new ListJobsRequest() {
+    FilterExternalIdentifiersPrimaryIdentifier = "PRIMARY_ID_98765",
+    FilterExternalIdentifiersEmployeeId = "EMP123456",
+    FilterExternalIdentifiersGroup = "12345",
+    FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
+    FilterOrganizationId = "f0b30634-108c-439c-a8c1-c6a91197f022",
+};
 
 var res = await sdk.Jobs.ListAsync(req);
 

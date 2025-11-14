@@ -98,6 +98,8 @@ var sdk = new SDK(
 );
 
 ListPaychecksRequest req = new ListPaychecksRequest() {
+    FilterJobId = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    FilterStatus = FilterPaycheckStatus.Deposited,
     FilterDepositExpectedAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
     FilterDepositExpectedAtLt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
     FilterPayPeriodEndsAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
