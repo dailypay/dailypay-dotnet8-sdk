@@ -51,9 +51,9 @@ namespace DailyPay.SDK.DotNet8
         };
         public SDKConfig SDKConfiguration { get; private set; }
         private const string _language = "csharp";
-        private const string _sdkVersion = "0.8.2";
-        private const string _sdkGenVersion = "2.755.0";
-        private const string _openapiDocVersion = "3.0.0-beta87";
+        private const string _sdkVersion = "0.8.3";
+        private const string _sdkGenVersion = "2.755.6";
+        private const string _openapiDocVersion = "3.0.0-beta01";
 
         public CardTokenization(SDKConfig config)
         {

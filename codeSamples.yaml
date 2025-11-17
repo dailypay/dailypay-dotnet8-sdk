@@ -52,9 +52,7 @@ actions:
             );
 
             ListAccountsRequest req = new ListAccountsRequest() {
-                FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
                 FilterAccountType = FilterAccountType.EarningsBalance,
-                FilterSubtype = "ODP",
             };
 
             var res = await sdk.Accounts.ListAsync(req);
@@ -175,13 +173,7 @@ actions:
                 }
             );
 
-            ListJobsRequest req = new ListJobsRequest() {
-                FilterExternalIdentifiersPrimaryIdentifier = "PRIMARY_ID_98765",
-                FilterExternalIdentifiersEmployeeId = "EMP123456",
-                FilterExternalIdentifiersGroup = "12345",
-                FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
-                FilterOrganizationId = "f0b30634-108c-439c-a8c1-c6a91197f022",
-            };
+            ListJobsRequest req = new ListJobsRequest() {};
 
             var res = await sdk.Jobs.ListAsync(req);
 
@@ -334,8 +326,6 @@ actions:
             );
 
             ListPaychecksRequest req = new ListPaychecksRequest() {
-                FilterJobId = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-                FilterStatus = FilterPaycheckStatus.Deposited,
                 FilterDepositExpectedAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
                 FilterDepositExpectedAtLt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
                 FilterPayPeriodEndsAtGte = System.DateTime.Parse("2023-03-15T04:00:00Z"),
@@ -456,9 +446,7 @@ actions:
                 }
             );
 
-            ListTransfersRequest req = new ListTransfersRequest() {
-                FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
-            };
+            ListTransfersRequest req = new ListTransfersRequest() {};
 
             var res = await sdk.Transfers.ListAsync(req);
 
@@ -484,7 +472,7 @@ actions:
             );
 
             CreateTransferRequest req = new CreateTransferRequest() {
-                IdempotencyKey = "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
+                IdempotencyKey = "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
                 TransferCreateData = new TransferCreateData() {
                     Data = new TransferCreateResource() {
                         Id = "aba332a2-24a2-46de-8257-5040e71ab210",
