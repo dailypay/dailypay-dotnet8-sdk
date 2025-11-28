@@ -26,7 +26,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.8.4
+  version: 0.8.5
   additionalDependencies: []
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
@@ -48,9 +48,11 @@ csharp:
       shared: Models/Components
       webhooks: Models/Webhooks
   includeDebugSymbols: false
+  inferUnionDiscriminators: false
   inputModelSuffix: input
   maxMethodParams: 0
   methodArguments: infer-optional-args
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageName: DailyPay.SDK.DotNet8
   packageTags: ""

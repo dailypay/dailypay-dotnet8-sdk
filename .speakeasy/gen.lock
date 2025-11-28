@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: a9c33e466fad7a1e8249ff3254d6c1fc
-  docVersion: 3.0.0-beta95
-  speakeasyVersion: 1.660.0
-  generationVersion: 2.760.2
-  releaseVersion: 0.8.4
-  configChecksum: 4e6c1a0452d92f0d4cca6e3d77396216
+  docChecksum: 76ec3e0eec63f06d3f5e0050d59893f1
+  docVersion: 3.0.0-beta96
+  speakeasyVersion: 1.664.0
+  generationVersion: 2.766.1
+  releaseVersion: 0.8.5
+  configChecksum: aba44833e619c74d06ca1564cff430a6
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.1
-    core: 3.15.4
+    core: 3.15.7
     deprecations: 2.81.2
     examples: 2.81.6
     globalSecurity: 2.83.8
@@ -437,6 +437,7 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Transfers.cs
   - src/DailyPay/SDK/DotNet8/Utils/AnyDeserializer.cs
   - src/DailyPay/SDK/DotNet8/Utils/BigIntStrConverter.cs
+  - src/DailyPay/SDK/DotNet8/Utils/Constants.cs
   - src/DailyPay/SDK/DotNet8/Utils/DecimalStrConverter.cs
   - src/DailyPay/SDK/DotNet8/Utils/EnumConverter.cs
   - src/DailyPay/SDK/DotNet8/Utils/FlexibleObjectDeserializer.cs
@@ -804,4 +805,3 @@ examples:
           application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Csharp SDK Changes Detected:\n* `Sdk.Accounts.Create()`: \n  *  `request.AccountData.Data.Attributes.[card].CardAccountDetails.Issuer` **Removed** **Breaking** :warning:\n"
