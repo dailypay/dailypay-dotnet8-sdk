@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: 76ec3e0eec63f06d3f5e0050d59893f1
-  docVersion: 3.0.0-beta96
-  speakeasyVersion: 1.664.0
-  generationVersion: 2.766.1
-  releaseVersion: 0.8.5
-  configChecksum: aba44833e619c74d06ca1564cff430a6
+  docChecksum: e5523e894b66a18737191a9f822a486c
+  docVersion: 3.0.0-beta97
+  speakeasyVersion: 1.666.0
+  generationVersion: 2.768.0
+  releaseVersion: 0.9.0
+  configChecksum: f5943e55b71f06ba45501f9c78c5c3db
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 features:
   csharp:
@@ -27,7 +27,7 @@ features:
     nullables: 0.1.1
     oauth2ClientCredentials: 1.1.0
     responseFormat: 0.0.4
-    sdkHooks: 0.2.0
+    sdkHooks: 0.3.0
     unions: 1.1.0
 generatedFiles:
   - .gitattributes
@@ -236,6 +236,7 @@ generatedFiles:
   - src/DailyPay/SDK/DotNet8/Health.cs
   - src/DailyPay/SDK/DotNet8/Hooks/ClientCredentials/ClientCredentials.cs
   - src/DailyPay/SDK/DotNet8/Hooks/HookTypes.cs
+  - src/DailyPay/SDK/DotNet8/Hooks/OAuth2Scopes.cs
   - src/DailyPay/SDK/DotNet8/Hooks/SDKHooks.cs
   - src/DailyPay/SDK/DotNet8/Jobs.cs
   - src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributesCardAccountBalances.cs
