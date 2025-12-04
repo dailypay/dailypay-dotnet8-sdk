@@ -35,7 +35,7 @@ namespace DailyPay.SDK.DotNet8
         /// Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
         /// </remarks>
         /// </summary>
-        Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null);
+        Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null)
+        public async Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null, RetryConfig? retryConfig = null)
         {
             string baseUrl = Utilities.TemplateUrl(CreateGenericCardTokenServerList[0], new Dictionary<string, string>(){
             });
@@ -84,11 +84,46 @@ namespace DailyPay.SDK.DotNet8
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "createGenericCardToken", new List<string> { "client:admin" }, null);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+            if (retryConfig == null)
+            {
+                if (this.SDKConfiguration.RetryConfig != null)
+                {
+                    retryConfig = this.SDKConfiguration.RetryConfig;
+                }
+                else
+                {
+                    var backoff = new BackoffStrategy(
+                        initialIntervalMs: 500L,
+                        maxIntervalMs: 60000L,
+                        maxElapsedTimeMs: 30000L,
+                        exponent: 1.25
+                    );
+                    retryConfig = new RetryConfig(
+                        strategy: RetryConfig.RetryStrategy.BACKOFF,
+                        backoff: backoff,
+                        retryConnectionErrors: true
+                    );
+                }
+            }
+
+            List<string> statusCodes = new List<string>
+            {
+                "408",
+                "409",
+                "5XX",
+            };
+
+            Func<Task<HttpResponseMessage>> retrySend = async () =>
+            {
+                var _httpRequest = await SDKConfiguration.Client.CloneAsync(httpRequest);
+                return await SDKConfiguration.Client.SendAsync(_httpRequest);
+            };
+            var retries = new DailyPay.SDK.DotNet8.Utils.Retries.Retries(retrySend, retryConfig, statusCodes);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)

@@ -44,7 +44,7 @@ namespace DailyPay.SDK.DotNet8
         /// Lookup organization by ID for a detailed view of single organization.
         /// </remarks>
         /// </summary>
-        Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request);
+        Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
         /// List organizations
@@ -53,7 +53,7 @@ namespace DailyPay.SDK.DotNet8
         /// Get organizations with an optional filter
         /// </remarks>
         /// </summary>
-        Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null);
+        Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request)
+        public async Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null)
             {
@@ -105,11 +105,46 @@ namespace DailyPay.SDK.DotNet8
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readOrganization", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+            if (retryConfig == null)
+            {
+                if (this.SDKConfiguration.RetryConfig != null)
+                {
+                    retryConfig = this.SDKConfiguration.RetryConfig;
+                }
+                else
+                {
+                    var backoff = new BackoffStrategy(
+                        initialIntervalMs: 500L,
+                        maxIntervalMs: 60000L,
+                        maxElapsedTimeMs: 30000L,
+                        exponent: 1.25
+                    );
+                    retryConfig = new RetryConfig(
+                        strategy: RetryConfig.RetryStrategy.BACKOFF,
+                        backoff: backoff,
+                        retryConnectionErrors: true
+                    );
+                }
+            }
+
+            List<string> statusCodes = new List<string>
+            {
+                "408",
+                "409",
+                "5XX",
+            };
+
+            Func<Task<HttpResponseMessage>> retrySend = async () =>
+            {
+                var _httpRequest = await SDKConfiguration.Client.CloneAsync(httpRequest);
+                return await SDKConfiguration.Client.SendAsync(_httpRequest);
+            };
+            var retries = new DailyPay.SDK.DotNet8.Utils.Retries.Retries(retrySend, retryConfig, statusCodes);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
@@ -279,7 +314,7 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null)
+        public async Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null, RetryConfig? retryConfig = null)
         {
             request.Version ??= SDKConfiguration.Version;
             
@@ -298,11 +333,46 @@ namespace DailyPay.SDK.DotNet8
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listOrganizations", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+            if (retryConfig == null)
+            {
+                if (this.SDKConfiguration.RetryConfig != null)
+                {
+                    retryConfig = this.SDKConfiguration.RetryConfig;
+                }
+                else
+                {
+                    var backoff = new BackoffStrategy(
+                        initialIntervalMs: 500L,
+                        maxIntervalMs: 60000L,
+                        maxElapsedTimeMs: 30000L,
+                        exponent: 1.25
+                    );
+                    retryConfig = new RetryConfig(
+                        strategy: RetryConfig.RetryStrategy.BACKOFF,
+                        backoff: backoff,
+                        retryConnectionErrors: true
+                    );
+                }
+            }
+
+            List<string> statusCodes = new List<string>
+            {
+                "408",
+                "409",
+                "5XX",
+            };
+
+            Func<Task<HttpResponseMessage>> retrySend = async () =>
+            {
+                var _httpRequest = await SDKConfiguration.Client.CloneAsync(httpRequest);
+                return await SDKConfiguration.Client.SendAsync(_httpRequest);
+            };
+            var retries = new DailyPay.SDK.DotNet8.Utils.Retries.Retries(retrySend, retryConfig, statusCodes);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)

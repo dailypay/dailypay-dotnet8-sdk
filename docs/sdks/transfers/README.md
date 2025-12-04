@@ -43,6 +43,7 @@ var sdk = new SDK(
 );
 
 ReadTransferRequest req = new ReadTransferRequest() {
+    Include = "estimated_funding_sources,final_funding_sources",
     TransferId = "aba332a2-24a2-46de-8257-5040e71ab210",
 };
 
@@ -97,6 +98,7 @@ var sdk = new SDK(
 );
 
 ListTransfersRequest req = new ListTransfersRequest() {
+    Include = "estimated_funding_sources,final_funding_sources",
     FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
 };
 
@@ -151,30 +153,30 @@ var sdk = new SDK(
 );
 
 CreateTransferRequest req = new CreateTransferRequest() {
+    Include = "estimated_funding_sources,final_funding_sources",
     IdempotencyKey = "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     TransferCreateData = new TransferCreateData() {
         Data = new TransferCreateResource() {
-            Id = "aba332a2-24a2-46de-8257-5040e71ab210",
             Attributes = new TransferAttributesInput() {
                 Preview = true,
-                Amount = 2500,
+                Amount = 15000,
                 Currency = "USD",
                 Schedule = TransferAttributesSchedule.WithinThirtyMinutes,
             },
             Relationships = new TransferCreateRelationships() {
                 Origin = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                        Id = "123e4567-e89b-12d3-a456-426614174000",
                     },
                 },
                 Destination = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                        Id = "223e4567-e89b-12d3-a456-426614174001",
                     },
                 },
                 Person = new PersonRelationship() {
                     Data = new PersonIdentifier() {
-                        Id = "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+                        Id = "aa860051-c411-4709-9685-c1b716df611b",
                     },
                 },
             },
