@@ -26,17 +26,6 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         public long? Version { get; set; } = 3;
 
         /// <summary>
-        /// An idempotency key is a unique string that you provide to ensure a request is only processed once.<br/>
-        /// 
-        /// <remarks>
-        /// Any number of requests with the same idempotency key and payload will return an identical response.<br/>
-        /// 
-        /// </remarks>
-        /// </summary>
-        [SpeakeasyMetadata("header:style=simple,explode=false,name=Idempotency-Key")]
-        public string IdempotencyKey { get; set; } = default!;
-
-        /// <summary>
         /// Add related resources to the response. <br/>
         /// 
         /// <remarks>
@@ -47,6 +36,17 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         /// </summary>
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=include")]
         public string? Include { get; set; }
+
+        /// <summary>
+        /// An idempotency key is a unique string that you provide to ensure a request is only processed once.<br/>
+        /// 
+        /// <remarks>
+        /// Any number of requests with the same idempotency key and payload will return an identical response.<br/>
+        /// 
+        /// </remarks>
+        /// </summary>
+        [SpeakeasyMetadata("header:style=simple,explode=false,name=Idempotency-Key")]
+        public string IdempotencyKey { get; set; } = default!;
 
         [SpeakeasyMetadata("request:mediaType=application/vnd.api+json")]
         public TransferCreateData TransferCreateData { get; set; } = default!;

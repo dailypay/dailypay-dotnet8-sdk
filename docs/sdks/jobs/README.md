@@ -99,18 +99,15 @@ UpdateJobRequest req = new UpdateJobRequest() {
     JobUpdateData = new JobUpdateData() {
         Data = new Data() {
             Id = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-            Attributes = new JobAttributesInput() {
-                ActivationStatus = ActivationStatus.Deactivated,
-            },
             Relationships = new JobRelationshipsInput() {
                 DirectDepositDefaultDepository = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                        Id = "123e4567-e89b-12d3-a456-426614174000",
                     },
                 },
                 DirectDepositDefaultCard = new AccountRelationship() {
                     Data = new AccountIdentifier() {
-                        Id = "2bc7d781-3247-46f6-b60f-4090d214936a",
+                        Id = "223e4567-e89b-12d3-a456-426614174001",
                     },
                 },
             },

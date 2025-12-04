@@ -37,25 +37,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// The total amount of funds settled in the account. <br/>
         /// 
         /// <remarks>
-        /// <br/>
-        /// This value is in units of the lowest denomination in the associated<br/>
-        /// currency. For example, `{ amount: 7250, currency: &apos;USD&apos; }` resolves to<br/>
-        /// $72.50.<br/>
-        /// <br/>
-        /// <br/>
-        /// **Special note for earnings_balance-type accounts:**<br/>
-        /// During a typical pay period, if a user transfers no money from an earnings_balance-type account to a personal account, <br/>
-        /// the `current` balance will generally be 0, because transfers from earnings to this account will be <br/>
-        /// PENDING until the paycheck related to those earnings is processed. <br/>
-        /// Pending inflows are included in the `available` balance, not the `current` balance.<br/>
-        ///  <br/>
-        /// If a user transfers money from an earnings_balance-type account to a personal account, <br/>
-        /// the `current` balance will be negative as those transfers settle. When a paycheck is processed, <br/>
-        /// DailyPay will automatically attempt to zero out the balance, <br/>
-        /// transferring any remaining funds to the `default_paycheck_destination` set for the associated Job.<br/>
-        /// <br/>
-        /// If DailyPay is unable to zero out the balance during paycheck processing, the `current` balance will remain negative, <br/>
-        /// which may impact a user&apos;s ability to transfer additional funds from their earnings balance. <br/>
+        /// This value is in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: &apos;USD&apos; }` resolves to $72.50.<br/>
+        /// **Special note for Earnings Balance accounts:**<br/>
+        /// If a user transfers money from an Earnings Balance account to a personal account, the `current` balance may be negative as those transfers settle. When a paycheck is processed, DailyPay will automatically attempt to zero out the balance,  transferring any remaining funds to the `direct_deposit_default_depository` account set for the associated Job.<br/>
+        /// If DailyPay is unable to zero out the balance during paycheck processing, the `current` balance will remain negative,  which may impact a user&apos;s ability to transfer additional funds from their earnings balance. <br/>
         /// In those cases, the available balance will be 0.<br/>
         /// 
         /// </remarks>

@@ -43,7 +43,7 @@ namespace DailyPay.SDK.DotNet8
         /// Returns details about a person&apos;s employment.
         /// </remarks>
         /// </summary>
-        Task<ReadJobResponse> ReadAsync(ReadJobRequest request);
+        Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
         /// Update paycheck settings or deactivate a job
@@ -54,7 +54,7 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// </remarks>
         /// </summary>
-        Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request);
+        Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
         /// Get a list of job objects
@@ -64,7 +64,7 @@ namespace DailyPay.SDK.DotNet8
         /// 
         /// </remarks>
         /// </summary>
-        Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null);
+        Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = config;
         }
 
-        public async Task<ReadJobResponse> ReadAsync(ReadJobRequest request)
+        public async Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null)
             {
@@ -115,11 +115,46 @@ namespace DailyPay.SDK.DotNet8
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readJob", new List<string> { "client:lookup", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+            if (retryConfig == null)
+            {
+                if (this.SDKConfiguration.RetryConfig != null)
+                {
+                    retryConfig = this.SDKConfiguration.RetryConfig;
+                }
+                else
+                {
+                    var backoff = new BackoffStrategy(
+                        initialIntervalMs: 500L,
+                        maxIntervalMs: 60000L,
+                        maxElapsedTimeMs: 30000L,
+                        exponent: 1.25
+                    );
+                    retryConfig = new RetryConfig(
+                        strategy: RetryConfig.RetryStrategy.BACKOFF,
+                        backoff: backoff,
+                        retryConnectionErrors: true
+                    );
+                }
+            }
+
+            List<string> statusCodes = new List<string>
+            {
+                "408",
+                "409",
+                "5XX",
+            };
+
+            Func<Task<HttpResponseMessage>> retrySend = async () =>
+            {
+                var _httpRequest = await SDKConfiguration.Client.CloneAsync(httpRequest);
+                return await SDKConfiguration.Client.SendAsync(_httpRequest);
+            };
+            var retries = new DailyPay.SDK.DotNet8.Utils.Retries.Retries(retrySend, retryConfig, statusCodes);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
@@ -289,7 +324,7 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request)
+        public async Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null)
             {
@@ -318,11 +353,46 @@ namespace DailyPay.SDK.DotNet8
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "updateJob", null, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+            if (retryConfig == null)
+            {
+                if (this.SDKConfiguration.RetryConfig != null)
+                {
+                    retryConfig = this.SDKConfiguration.RetryConfig;
+                }
+                else
+                {
+                    var backoff = new BackoffStrategy(
+                        initialIntervalMs: 500L,
+                        maxIntervalMs: 60000L,
+                        maxElapsedTimeMs: 30000L,
+                        exponent: 1.25
+                    );
+                    retryConfig = new RetryConfig(
+                        strategy: RetryConfig.RetryStrategy.BACKOFF,
+                        backoff: backoff,
+                        retryConnectionErrors: true
+                    );
+                }
+            }
+
+            List<string> statusCodes = new List<string>
+            {
+                "408",
+                "409",
+                "5XX",
+            };
+
+            Func<Task<HttpResponseMessage>> retrySend = async () =>
+            {
+                var _httpRequest = await SDKConfiguration.Client.CloneAsync(httpRequest);
+                return await SDKConfiguration.Client.SendAsync(_httpRequest);
+            };
+            var retries = new DailyPay.SDK.DotNet8.Utils.Retries.Retries(retrySend, retryConfig, statusCodes);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
@@ -492,7 +562,7 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null)
+        public async Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null)
         {
             request.Version ??= SDKConfiguration.Version;
             
@@ -511,11 +581,46 @@ namespace DailyPay.SDK.DotNet8
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listJobs", new List<string> { "client:lookup", "client:admin" }, SDKConfiguration.SecuritySource);
 
             httpRequest = await this.SDKConfiguration.Hooks.BeforeRequestAsync(new BeforeRequestContext(hookCtx), httpRequest);
+            if (retryConfig == null)
+            {
+                if (this.SDKConfiguration.RetryConfig != null)
+                {
+                    retryConfig = this.SDKConfiguration.RetryConfig;
+                }
+                else
+                {
+                    var backoff = new BackoffStrategy(
+                        initialIntervalMs: 500L,
+                        maxIntervalMs: 60000L,
+                        maxElapsedTimeMs: 30000L,
+                        exponent: 1.25
+                    );
+                    retryConfig = new RetryConfig(
+                        strategy: RetryConfig.RetryStrategy.BACKOFF,
+                        backoff: backoff,
+                        retryConnectionErrors: true
+                    );
+                }
+            }
+
+            List<string> statusCodes = new List<string>
+            {
+                "408",
+                "409",
+                "5XX",
+            };
+
+            Func<Task<HttpResponseMessage>> retrySend = async () =>
+            {
+                var _httpRequest = await SDKConfiguration.Client.CloneAsync(httpRequest);
+                return await SDKConfiguration.Client.SendAsync(_httpRequest);
+            };
+            var retries = new DailyPay.SDK.DotNet8.Utils.Retries.Retries(retrySend, retryConfig, statusCodes);
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await SDKConfiguration.Client.SendAsync(httpRequest);
+                httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
                 if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
