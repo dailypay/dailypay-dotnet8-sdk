@@ -1,5 +1,4 @@
 # CardTokenization
-(*CardTokenization*)
 
 ## Overview
 
