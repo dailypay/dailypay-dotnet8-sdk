@@ -191,18 +191,6 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
                 throw new Exception("SpeakeasyHttpClient not provided");
             }
 
-            var payload = new List<PayloadValue>
-            {
-                new PayloadValue("grant_type", "client_credentials"),
-                new PayloadValue("client_id", credentials.ClientID),
-                new PayloadValue("client_secret", credentials.ClientSecret),
-            };
-
-            if (scopes.Count > 0)
-            {
-                payload.Add(new PayloadValue("scope", string.Join(" ", scopes)));
-            }
-
             Uri tokenUri;
             try
             {
@@ -216,9 +204,22 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Post,
-                    RequestUri = tokenUri,
-                    Content = new FormUrlEncodedContent(payload)
+                    RequestUri = tokenUri
                 };
+
+            var payload = new List<PayloadValue>
+            {
+                new PayloadValue("grant_type", "client_credentials"),
+            };
+            payload.Add(new PayloadValue("client_id", credentials.ClientID));
+            payload.Add(new PayloadValue("client_secret", credentials.ClientSecret));
+
+            if (scopes.Count > 0)
+            {
+                payload.Add(new PayloadValue("scope", string.Join(" ", scopes)));
+            }
+
+            request.Content = new FormUrlEncodedContent(payload);
 
             var response = await Client.SendAsync(request);
             var responseBody = await response.Content.ReadAsStringAsync();

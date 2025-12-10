@@ -1,5 +1,4 @@
 # Paychecks
-(*Paychecks*)
 
 ## Overview
 

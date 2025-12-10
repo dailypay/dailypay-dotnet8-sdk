@@ -1,5 +1,4 @@
 # People
-(*People*)
 
 ## Overview
 
