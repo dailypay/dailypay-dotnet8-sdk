@@ -156,11 +156,11 @@ CreateTransferRequest req = new CreateTransferRequest() {
     IdempotencyKey = "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     TransferCreateData = new TransferCreateData() {
         Data = new TransferCreateResource() {
-            Attributes = new TransferAttributesInput() {
+            Attributes = new TransferCreateAttributes() {
                 Preview = true,
                 Amount = 15000,
                 Currency = "USD",
-                Schedule = TransferAttributesSchedule.WithinThirtyMinutes,
+                Schedule = TransferCreateAttributesSchedule.WithinThirtyMinutes,
             },
             Relationships = new TransferCreateRelationships() {
                 Origin = new AccountRelationship() {

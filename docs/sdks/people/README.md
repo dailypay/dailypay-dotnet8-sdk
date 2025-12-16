@@ -92,10 +92,10 @@ var sdk = new SDK(
 
 UpdatePersonRequest req = new UpdatePersonRequest() {
     PersonId = "aa860051-c411-4709-9685-c1b716df611b",
-    PersonData = new PersonDataInput() {
-        Data = new PersonResourceInput() {
+    PersonUpdateData = new PersonUpdateData() {
+        PersonUpdateResource = new PersonUpdateResource() {
             Id = "aa860051-c411-4709-9685-c1b716df611b",
-            Attributes = new PersonAttributesInput() {
+            PersonUpdateAttributes = new PersonUpdateAttributes() {
                 StateOfResidence = "NY",
             },
         },

@@ -50,12 +50,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string Currency { get; set; } = default!;
 
         /// <summary>
-        /// The status of the transfer.
-        /// </summary>
-        [JsonProperty("status")]
-        public TransferAttributesStatus Status { get; set; } = default!;
-
-        /// <summary>
         /// Set the schedule for the transfer. If not set, the transfer will be processed immediately. <br/>
         /// 
         /// <remarks>
@@ -65,6 +59,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </summary>
         [JsonProperty("schedule")]
         public TransferAttributesSchedule Schedule { get; set; } = default!;
+
+        /// <summary>
+        /// The status of the transfer.
+        /// </summary>
+        [JsonProperty("status")]
+        public TransferAttributesStatus Status { get; set; } = default!;
 
         /// <summary>
         /// An ISO 8601 timestamp denoting the receipt for the request.

@@ -23,7 +23,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// A code that indicates the status of an account that is a destination for funds.
         /// </summary>
         [JsonProperty("verification_status")]
-        public AccountAttributesDepositoryVerificationStatus VerificationStatus { get; set; } = default!;
+        public AccountAttributesDepositoryAccountVerificationStatus AccountVerificationStatus { get; set; } = default!;
 
         [JsonProperty("balances")]
         public AccountAttributesDepositoryAccountBalances AccountBalances { get; set; } = default!;
@@ -53,6 +53,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// The banking details of the account and account holder.
         /// </summary>
         [JsonProperty("details")]
-        public DepositoryAccountDetails DepositoryAccountDetails { get; set; } = default!;
+        public AccountAttributesDepositoryDepositoryAccountDetails DepositoryAccountDetails { get; set; } = default!;
     }
 }

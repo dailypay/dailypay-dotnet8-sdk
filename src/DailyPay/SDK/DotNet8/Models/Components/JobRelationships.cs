@@ -20,7 +20,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     {
 
         [JsonProperty("person")]
-        public PersonRelationshipReadOnly Person { get; set; } = default!;
+        public PersonRelationship Person { get; set; } = default!;
 
         [JsonProperty("organization")]
         public OrganizationRelationship Organization { get; set; } = default!;

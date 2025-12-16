@@ -23,7 +23,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// A code that indicates the status of an account that is a destination for funds.
         /// </summary>
         [JsonProperty("verification_status")]
-        public AccountAttributesEarningsBalanceVerificationStatus VerificationStatus { get; set; } = default!;
+        public AccountAttributesEarningsBalanceAccountVerificationStatus AccountVerificationStatus { get; set; } = default!;
 
         [JsonProperty("balances")]
         public AccountAttributesEarningsBalanceAccountBalances AccountBalances { get; set; } = default!;

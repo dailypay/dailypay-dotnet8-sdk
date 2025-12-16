@@ -22,15 +22,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         [JsonProperty("id")]
         public string Id { get; set; } = default!;
 
-        /// <summary>
-        /// An object representing a transfer of money from one account to another. <br/>
-        /// 
-        /// <remarks>
-        /// Created when a person takes an advance against a future paycheck, or on a daily basis <br/>
-        /// when we update estimated earnings based on current employment.<br/>
-        /// 
-        /// </remarks>
-        /// </summary>
         [JsonProperty("attributes")]
         public TransferAttributes Attributes { get; set; } = default!;
 

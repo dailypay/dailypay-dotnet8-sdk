@@ -198,14 +198,14 @@ namespace DailyPay.SDK.DotNet8
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                    AccountDataOutput obj;
+                    AccountData obj;
                     try
                     {
-                        obj = ResponseBodyDeserializer.DeserializeNotNull<AccountDataOutput>(httpResponseBody, NullValueHandling.Ignore);
+                        obj = ResponseBodyDeserializer.DeserializeNotNull<AccountData>(httpResponseBody, NullValueHandling.Ignore);
                     }
                     catch (Exception ex)
                     {
-                        throw new ResponseValidationException("Failed to deserialize response body into AccountDataOutput.", httpRequest, httpResponse, httpResponseBody, ex);
+                        throw new ResponseValidationException("Failed to deserialize response body into AccountData.", httpRequest, httpResponse, httpResponseBody, ex);
                     }
 
                     var response = new ReadAccountResponse()
@@ -558,7 +558,7 @@ namespace DailyPay.SDK.DotNet8
             httpRequest.Headers.Add("user-agent", SDKConfiguration.UserAgent);
             HeaderSerializer.PopulateHeaders(ref httpRequest, request);
 
-            var serializedBody = RequestBodySerializer.Serialize(request, "AccountData", "json", false, false);
+            var serializedBody = RequestBodySerializer.Serialize(request, "AccountCreateData", "json", false, false);
             if (serializedBody != null)
             {
                 httpRequest.Content = serializedBody;
@@ -645,14 +645,14 @@ namespace DailyPay.SDK.DotNet8
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
                     var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                    AccountDataOutput obj;
+                    AccountData obj;
                     try
                     {
-                        obj = ResponseBodyDeserializer.DeserializeNotNull<AccountDataOutput>(httpResponseBody, NullValueHandling.Ignore);
+                        obj = ResponseBodyDeserializer.DeserializeNotNull<AccountData>(httpResponseBody, NullValueHandling.Ignore);
                     }
                     catch (Exception ex)
                     {
-                        throw new ResponseValidationException("Failed to deserialize response body into AccountDataOutput.", httpRequest, httpResponse, httpResponseBody, ex);
+                        throw new ResponseValidationException("Failed to deserialize response body into AccountData.", httpRequest, httpResponse, httpResponseBody, ex);
                     }
 
                     var response = new CreateAccountResponse()

@@ -21,6 +21,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     {
 
         [JsonProperty("data")]
-        public List<AccountResourceOutput> Data { get; set; } = default!;
+        public List<AccountResource> Data { get; set; } = default!;
     }
 }

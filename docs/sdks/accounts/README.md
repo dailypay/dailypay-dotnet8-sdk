@@ -153,13 +153,13 @@ var sdk = new SDK(
 );
 
 CreateAccountRequest req = new CreateAccountRequest() {
-    AccountData = new AccountDataInput() {
-        Data = new AccountResourceInput() {
-            Attributes = AccountAttributesInput.CreateDepositoryInput(
-                new DepositoryInput() {
+    AccountCreateData = new AccountCreateData() {
+        Data = new AccountCreateResource() {
+            Attributes = AccountCreateAttributes.CreateAccountCreateAttributesDepository(
+                new AccountCreateAttributesDepository() {
                     Name = "Acme Bank Checking Account",
-                    Subtype = AccountAttributesDepositorySubtype.Checking,
-                    DepositoryAccountDetails = new DepositoryAccountDetails() {
+                    Subtype = AccountCreateAttributesDepositorySubtype.Checking,
+                    DepositoryAccountDetails = new AccountCreateAttributesDepositoryDepositoryAccountDetails() {
                         FirstName = "Edith",
                         LastName = "Clarke",
                         RoutingNumber = "XXXXX2021",
