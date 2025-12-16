@@ -1,0 +1,10 @@
+# AccountCreateResource
+
+
+## Fields
+
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   | Example                                                                       |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `Type`                                                                        | *string*                                                                      | :heavy_check_mark:                                                            | The type of the resource. Always `accounts`.                                  | accounts                                                                      |
+| `Attributes`                                                                  | [AccountCreateAttributes](../../Models/Components/AccountCreateAttributes.md) | :heavy_check_mark:                                                            | The details of the account.                                                   |                                                                               |
+| `Relationships`                                                               | [AccountRelationships](../../Models/Components/AccountRelationships.md)       | :heavy_check_mark:                                                            | N/A                                                                           |                                                                               |

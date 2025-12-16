@@ -35,7 +35,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </remarks>
         /// </summary>
         [JsonProperty("attributes")]
-        public TransferAttributesInput Attributes { get; set; } = default!;
+        public TransferCreateAttributes Attributes { get; set; } = default!;
 
         [JsonProperty("relationships")]
         public TransferCreateRelationships Relationships { get; set; } = default!;

@@ -45,7 +45,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </remarks>
         /// </summary>
         [JsonProperty("activation_status")]
-        public ActivationStatus? ActivationStatus { get; set; }
+        public JobAttributesActivationStatus ActivationStatus { get; set; } = default!;
 
         [JsonProperty("wage_rate")]
         public WageRate WageRate { get; set; } = default!;

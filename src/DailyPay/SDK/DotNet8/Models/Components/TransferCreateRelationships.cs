@@ -13,13 +13,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     
-    /// <summary>
-    /// The relationships between the transfer and other resources, including the destination account, the origination account, and the person who initiated the transfer.<br/>
-    /// 
-    /// <remarks>
-    /// 
-    /// </remarks>
-    /// </summary>
     public class TransferCreateRelationships
     {
 
@@ -27,9 +20,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public AccountRelationship Origin { get; set; } = default!;
 
         [JsonProperty("destination")]
-        public AccountRelationship Destination { get; set; } = default!;
+        public AccountRelationship? Destination { get; set; }
 
         [JsonProperty("person")]
-        public PersonRelationship Person { get; set; } = default!;
+        public PersonRelationship? Person { get; set; }
     }
 }

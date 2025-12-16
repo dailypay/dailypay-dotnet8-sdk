@@ -32,6 +32,6 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         public string PersonId { get; set; } = default!;
 
         [SpeakeasyMetadata("request:mediaType=application/vnd.api+json")]
-        public PersonDataInput PersonData { get; set; } = default!;
+        public PersonUpdateData PersonUpdateData { get; set; } = default!;
     }
 }

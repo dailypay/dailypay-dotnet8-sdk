@@ -20,6 +20,6 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// A job describes the financial relationship between a person and an organization.
         /// </summary>
         [JsonProperty("data")]
-        public Data Data { get; set; } = default!;
+        public JobUpdateResource JobUpdateResource { get; set; } = default!;
     }
 }

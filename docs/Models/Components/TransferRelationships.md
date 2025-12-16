@@ -1,8 +1,5 @@
 # TransferRelationships
 
-The relationships between the transfer and other resources, including the destination account, the origination account, and the person who initiated the transfer.
-
-
 
 ## Fields
 
