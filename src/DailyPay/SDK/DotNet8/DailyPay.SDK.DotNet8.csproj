@@ -3,10 +3,10 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>DailyPay.SDK.DotNet8</PackageId>
-    <Version>0.11.0</Version>
+    <Version>0.11.1</Version>
     <TargetFramework>net8.0</TargetFramework>
     <Authors>DailyPay, Inc.</Authors>
-    <Copyright>Copyright (c) DailyPay, Inc. 2025</Copyright>
+    <Copyright>Copyright (c) DailyPay, Inc. 2026</Copyright>
     <RepositoryUrl>https://github.com/dailypay/dailypay-dotnet8-sdk.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>DailyPay Rest API: Embed DailyPay and On Demand Pay features into your application.</Description>
