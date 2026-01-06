@@ -98,7 +98,6 @@ var sdk = new SDK(
 
 ListTransfersRequest req = new ListTransfersRequest() {
     Include = "estimated_funding_sources,final_funding_sources",
-    FilterPersonId = "aa860051-c411-4709-9685-c1b716df611b",
 };
 
 var res = await sdk.Transfers.ListAsync(req);

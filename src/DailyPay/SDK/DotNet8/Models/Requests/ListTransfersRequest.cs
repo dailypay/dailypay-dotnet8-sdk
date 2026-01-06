@@ -37,12 +37,6 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=include")]
         public string? Include { get; set; }
 
-        /// <summary>
-        /// Limit the results to documents related to a specific person
-        /// </summary>
-        [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter[person.id]")]
-        public string? FilterPersonId { get; set; }
-
         [Obsolete("This field will be removed in a future release, please migrate away from it as soon as possible")]
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter")]
         public string? FilterBy { get; set; }
