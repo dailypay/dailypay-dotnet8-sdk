@@ -84,10 +84,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ReadOrganizationResponse> ReadAsync(ReadOrganizationRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new ReadOrganizationRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -316,6 +314,10 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ListOrganizationsResponse> ListAsync(ListOrganizationsRequest? request = null, RetryConfig? retryConfig = null)
         {
+            if (request == null)
+            {
+                request = new ListOrganizationsRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

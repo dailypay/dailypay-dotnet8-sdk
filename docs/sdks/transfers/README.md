@@ -84,6 +84,7 @@ Returns a list of transfer objects.
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
 using DailyPay.SDK.DotNet8.Models.Requests;
+using System;
 
 var sdk = new SDK(
     version: 3,
@@ -98,6 +99,7 @@ var sdk = new SDK(
 
 ListTransfersRequest req = new ListTransfersRequest() {
     Include = "estimated_funding_sources,final_funding_sources",
+    FilterSubmittedAtGt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
 };
 
 var res = await sdk.Transfers.ListAsync(req);

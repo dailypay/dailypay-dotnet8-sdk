@@ -63,6 +63,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null, RetryConfig? retryConfig = null)
         {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             string baseUrl = Utilities.TemplateUrl(CreateGenericCardTokenServerList[0], new Dictionary<string, string>(){
             });
             if (serverUrl != null)
