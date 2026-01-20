@@ -94,10 +94,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new ReadJobRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -326,10 +324,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new UpdateJobRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -564,6 +560,10 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null)
         {
+            if (request == null)
+            {
+                request = new ListJobsRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

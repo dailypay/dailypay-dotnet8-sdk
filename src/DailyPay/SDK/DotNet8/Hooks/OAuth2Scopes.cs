@@ -13,7 +13,7 @@ namespace DailyPay.SDK.DotNet8.Hooks
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Available scopes for the  OAuth 2.0 scheme (clientCredentials flow).
+    /// Available scopes for the oauth_client_credentials_token OAuth 2.0 scheme (clientCredentials flow).
     /// </summary>
     public enum OauthClientCredentialsTokenOAuth2Scope
     {
@@ -60,7 +60,7 @@ namespace DailyPay.SDK.DotNet8.Hooks
     }
 
     /// <summary>
-    /// Available scopes for the  OAuth 2.0 scheme (authorizationCode flow).
+    /// Available scopes for the oauth_user_token OAuth 2.0 scheme (authorizationCode flow).
     /// </summary>
     public enum OauthUserTokenOAuth2Scope
     {

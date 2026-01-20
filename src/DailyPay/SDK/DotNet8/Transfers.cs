@@ -97,10 +97,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new ReadTransferRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -329,6 +327,10 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ListTransfersResponse> ListAsync(ListTransfersRequest? request = null, RetryConfig? retryConfig = null)
         {
+            if (request == null)
+            {
+                request = new ListTransfersRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -537,10 +539,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<CreateTransferResponse> CreateAsync(CreateTransferRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new CreateTransferRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

@@ -20,7 +20,7 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         public HTTPMetadata HttpMeta { get; set; } = default!;
 
         /// <summary>
-        /// Returns the job object.
+        /// Returns the updated Job object
         /// </summary>
         public JobData? JobData { get; set; }
     }

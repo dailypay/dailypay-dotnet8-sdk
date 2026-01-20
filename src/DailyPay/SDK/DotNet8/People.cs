@@ -82,10 +82,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new ReadPersonRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -314,10 +312,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<UpdatePersonResponse> UpdateAsync(UpdatePersonRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new UpdatePersonRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();

@@ -91,10 +91,8 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ReadPaycheckResponse> ReadAsync(ReadPaycheckRequest request, RetryConfig? retryConfig = null)
         {
-            if (request == null)
-            {
-                request = new ReadPaycheckRequest();
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
@@ -323,6 +321,10 @@ namespace DailyPay.SDK.DotNet8
 
         public async Task<ListPaychecksResponse> ListAsync(ListPaychecksRequest? request = null, RetryConfig? retryConfig = null)
         {
+            if (request == null)
+            {
+                request = new ListPaychecksRequest();
+            }
             request.Version ??= SDKConfiguration.Version;
             
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
