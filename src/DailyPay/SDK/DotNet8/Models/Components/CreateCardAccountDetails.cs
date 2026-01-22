@@ -83,11 +83,5 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </summary>
         [JsonProperty("address_country")]
         public string AddressCountry { get; set; } = default!;
-
-        /// <summary>
-        /// The issuer of the card.
-        /// </summary>
-        [JsonProperty("issuer")]
-        public string Issuer { get; set; } = default!;
     }
 }
