@@ -37,12 +37,6 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=include")]
         public string? Include { get; set; }
 
-        /// <summary>
-        /// Limit the results to documents submitted after this date.
-        /// </summary>
-        [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter[submitted_at__gt]")]
-        public DateTime? FilterSubmittedAtGt { get; set; }
-
         [Obsolete("This field will be removed in a future release, please migrate away from it as soon as possible")]
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter")]
         public string? FilterBy { get; set; }
