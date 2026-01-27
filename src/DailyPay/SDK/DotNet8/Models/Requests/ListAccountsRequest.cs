@@ -12,22 +12,17 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using System;
-    
+
     public class ListAccountsRequest
     {
-
         /// <summary>
-        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
         /// </summary>
         [SpeakeasyMetadata("header:style=simple,explode=false,name=DailyPay-API-Version")]
         public long? Version { get; set; } = 3;
 
         /// <summary>
-        /// Limit the results to documents related to a specific person
+        /// Limit the results to documents related to a specific person.
         /// </summary>
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter[person.id]")]
         public string? FilterPersonId { get; set; }

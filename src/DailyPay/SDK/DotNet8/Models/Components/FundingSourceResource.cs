@@ -12,13 +12,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// A source describes how transfers with an origin of EARNINGS_BALANCE account are funded.
     /// </summary>
     public class FundingSourceResource
     {
-
         [JsonProperty("id")]
         public string Id { get; set; } = default!;
 

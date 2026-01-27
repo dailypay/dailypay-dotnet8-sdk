@@ -12,13 +12,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// Returns the paycheck object.
     /// </summary>
     public class PaycheckData
     {
-
         [JsonProperty("data")]
         public PaycheckResource Data { get; set; } = default!;
     }

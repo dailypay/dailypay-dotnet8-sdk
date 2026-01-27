@@ -10,10 +10,9 @@
 namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
-    
+
     public class SchemeOauthClientCredentialsToken
     {
-
         [SpeakeasyMetadata("security:name=clientID")]
         public string ClientID { get; set; } = default!;
 

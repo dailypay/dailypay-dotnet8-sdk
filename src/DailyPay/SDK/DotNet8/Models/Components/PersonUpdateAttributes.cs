@@ -11,19 +11,14 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
     /// </summary>
     public class PersonUpdateAttributes
     {
-
         /// <summary>
-        /// The two-letter abbreviation for the state in which the person resides, if located in the United States.  This is used for regulatory compliance purposes.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The two-letter abbreviation for the state in which the person resides, if located in the United States.  This is used for regulatory compliance purposes.
         /// </summary>
         [JsonProperty("state_of_residence")]
         public string StateOfResidence { get; set; } = default!;

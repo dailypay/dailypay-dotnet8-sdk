@@ -12,7 +12,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     public enum Frequency
     {
         [JsonProperty("HOURLY")]
@@ -61,5 +61,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum Frequency");
         }
     }
-
 }

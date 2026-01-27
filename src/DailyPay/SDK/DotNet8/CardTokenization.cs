@@ -27,15 +27,25 @@ namespace DailyPay.SDK.DotNet8
     /// </summary>
     public interface ICardTokenization
     {
-
         /// <summary>
-        /// Obtain a card token
-        /// 
+        /// Obtain a card token.
+        /// </summary>
         /// <remarks>
         /// Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
         /// </remarks>
-        /// </summary>
-        Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="CreateGenericCardTokenRequest"/> parameter.</param>
+        /// <param name="serverUrl">The server URL to use for this operation. If not provided, the default server URL will be used.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="CreateGenericCardTokenResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<CreateGenericCardTokenResponse> CreateAsync(
+            CreateGenericCardTokenRequest request,
+            string? serverUrl = null,
+            RetryConfig? retryConfig = null
+        );
     }
 
     /// <summary>
@@ -49,19 +59,37 @@ namespace DailyPay.SDK.DotNet8
         public static readonly string[] CreateGenericCardTokenServerList = {
             "https://payments.dailypay.com/v2",
         };
-        public SDKConfig SDKConfiguration { get; private set; }
 
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
+        /// <summary>
+        /// SDK Configuration.
+        /// <see cref="SDKConfig"/>
+        /// </summary>
+        public SDKConfig SDKConfiguration { get; private set; }
 
         public CardTokenization(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<CreateGenericCardTokenResponse> CreateAsync(CreateGenericCardTokenRequest request, string? serverUrl = null, RetryConfig? retryConfig = null)
+        /// <summary>
+        /// Obtain a card token.
+        /// </summary>
+        /// <remarks>
+        /// Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
+        /// </remarks>
+        /// <param name="request">A <see cref="CreateGenericCardTokenRequest"/> parameter.</param>
+        /// <param name="serverUrl">The server URL to use for this operation. If not provided, the default server URL will be used.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="CreateGenericCardTokenResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<CreateGenericCardTokenResponse> CreateAsync(
+            CreateGenericCardTokenRequest request,
+            string? serverUrl = null,
+            RetryConfig? retryConfig = null
+        )
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -71,7 +99,6 @@ namespace DailyPay.SDK.DotNet8
             {
                 baseUrl = serverUrl;
             }
-
             var urlString = baseUrl + "/cards/generic";
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, urlString);
@@ -128,7 +155,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -187,12 +214,13 @@ namespace DailyPay.SDK.DotNet8
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
             }
-            else if(responseStatusCode == 500 || responseStatusCode >= 500 && responseStatusCode < 600)
+            else if(responseStatusCode >= 500 && responseStatusCode < 600)
             {
                 throw new Models.Errors.APIException("API error occurred", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
             }
 
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
+
     }
 }

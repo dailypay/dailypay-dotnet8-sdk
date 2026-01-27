@@ -13,13 +13,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    
+
     /// <summary>
     /// Returns a list of organization objects that match the filter. If no organizations match the filter, the resulting collection will be empty. If no filter is provider, the resulting collection will include all accessible organizations.
     /// </summary>
     public class OrganizationsData
     {
-
         [JsonProperty("data")]
         public List<OrganizationResource> Data { get; set; } = default!;
     }

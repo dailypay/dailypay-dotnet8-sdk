@@ -12,13 +12,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// Returns the person object.
     /// </summary>
     public class PersonData
     {
-
         [JsonProperty("data")]
         public PersonResource Data { get; set; } = default!;
     }

@@ -26,7 +26,7 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
     }
 
     /// <summary>
-    /// Not authorized to perform this operation
+    /// Not authorized to perform this operation.
     /// </summary>
     public class ErrorForbidden : DailyPayError
     {
@@ -52,5 +52,4 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
            #pragma warning restore CS0618
         }
     }
-
 }

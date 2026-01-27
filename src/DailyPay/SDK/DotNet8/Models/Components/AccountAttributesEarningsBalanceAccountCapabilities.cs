@@ -13,21 +13,16 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    
+
     public class AccountAttributesEarningsBalanceAccountCapabilities
     {
-
         /// <summary>
         /// List of the timing and associate fees available when crediting this account as a<br/>
-        /// 
-        /// <remarks>
         /// transfer destination.<br/>
         /// <br/>
         /// Actual fees may differ at the time of transfer; please refer to <br/>
         /// the transfer preview attribute for the most accurate fee information <br/>
-        /// for any given transfer. <br/>
-        /// 
-        /// </remarks>
+        /// for any given transfer.
         /// </summary>
         [JsonProperty("transfer_destination")]
         public List<TransferDestinationCapability> TransferDestination { get; set; } = default!;

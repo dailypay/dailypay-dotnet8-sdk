@@ -11,16 +11,11 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
 {
     using DailyPay.SDK.DotNet8.Utils;
     using System;
-    
+
     public class ListJobsRequest
     {
-
         /// <summary>
-        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
         /// </summary>
         [SpeakeasyMetadata("header:style=simple,explode=false,name=DailyPay-API-Version")]
         public long? Version { get; set; } = 3;
@@ -44,13 +39,13 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
         public string? FilterExternalIdentifiersGroup { get; set; }
 
         /// <summary>
-        /// Limit the results to documents related to a specific person
+        /// Limit the results to documents related to a specific person.
         /// </summary>
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter[person.id]")]
         public string? FilterPersonId { get; set; }
 
         /// <summary>
-        /// _Not yet supported_ Limit the results to documents related to a specific organization
+        /// _Not yet supported_ Limit the results to documents related to a specific organization.
         /// </summary>
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter[organization.id]")]
         public string? FilterOrganizationId { get; set; }

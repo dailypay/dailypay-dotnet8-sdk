@@ -24,80 +24,116 @@ namespace DailyPay.SDK.DotNet8
 
     /// <summary>
     /// The _jobs_ endpoint provides access to comprehensive information <br/>
-    /// 
-    /// <remarks>
-    /// about a person&apos;s employment. It enables you to retrieve details about<br/>
+    /// about a person's employment. It enables you to retrieve details about<br/>
     /// individual jobs, including information about the organization<br/>
     /// they work for, status, wage rate, job title, location,<br/>
-    /// paycheck settings, and related links to associated accounts.<br/>
-    /// 
-    /// </remarks>
+    /// paycheck settings, and related links to associated accounts.
     /// </summary>
     public interface IJobs
     {
-
         /// <summary>
-        /// Get a job object
-        /// 
-        /// <remarks>
-        /// Returns details about a person&apos;s employment.
-        /// </remarks>
+        /// Get a job object.
         /// </summary>
-        Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null);
+        /// <remarks>
+        /// Returns details about a person's employment.
+        /// </remarks>
+        /// <param name="request">A <see cref="ReadJobRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadJobResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
-        /// Update paycheck settings or deactivate a job
-        /// 
+        /// Update paycheck settings or deactivate a job.
+        /// </summary>
         /// <remarks>
         /// Update this job to set where pay should be deposited for paychecks related to this job,  or deactivate on-demand pay for this job. <br/>
-        /// Returns the job object if the update succeeded. Returns an error if update parameters are invalid.<br/>
-        /// 
+        /// Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
         /// </remarks>
-        /// </summary>
-        Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="UpdateJobRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="UpdateJobResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="JobUpdateError">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
-        /// Get a list of job objects
-        /// 
-        /// <remarks>
-        /// Returns a collection of job objects. This object represents a person&apos;s employment details.<br/>
-        /// 
-        /// </remarks>
+        /// Get a list of job objects.
         /// </summary>
-        Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null);
+        /// <remarks>
+        /// Returns a collection of job objects. This object represents a person's employment details.
+        /// </remarks>
+        /// <param name="request">A <see cref="ListJobsRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ListJobsResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
     /// The _jobs_ endpoint provides access to comprehensive information <br/>
-    /// 
-    /// <remarks>
-    /// about a person&apos;s employment. It enables you to retrieve details about<br/>
+    /// about a person's employment. It enables you to retrieve details about<br/>
     /// individual jobs, including information about the organization<br/>
     /// they work for, status, wage rate, job title, location,<br/>
-    /// paycheck settings, and related links to associated accounts.<br/>
-    /// 
-    /// </remarks>
+    /// paycheck settings, and related links to associated accounts.
     /// </summary>
     public class Jobs: IJobs
     {
+        /// <summary>
+        /// SDK Configuration.
+        /// <see cref="SDKConfig"/>
+        /// </summary>
         public SDKConfig SDKConfiguration { get; private set; }
-
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
 
         public Jobs(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null)
+        /// <summary>
+        /// Get a job object.
+        /// </summary>
+        /// <remarks>
+        /// Returns details about a person's employment.
+        /// </remarks>
+        /// <param name="request">A <see cref="ReadJobRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadJobResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ReadJobResponse> ReadAsync(ReadJobRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/jobs/{job_id}", request, null);
 
@@ -155,7 +191,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -322,12 +358,31 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Update paycheck settings or deactivate a job.
+        /// </summary>
+        /// <remarks>
+        /// Update this job to set where pay should be deposited for paychecks related to this job,  or deactivate on-demand pay for this job. <br/>
+        /// Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
+        /// </remarks>
+        /// <param name="request">A <see cref="UpdateJobRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="UpdateJobResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="JobUpdateError">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<UpdateJobResponse> UpdateAsync(UpdateJobRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/jobs/{job_id}", request, null);
 
@@ -391,7 +446,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -558,14 +613,31 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Get a list of job objects.
+        /// </summary>
+        /// <remarks>
+        /// Returns a collection of job objects. This object represents a person's employment details.
+        /// </remarks>
+        /// <param name="request">A <see cref="ListJobsRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ListJobsResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ListJobsResponse> ListAsync(ListJobsRequest? request = null, RetryConfig? retryConfig = null)
         {
             if (request == null)
             {
                 request = new ListJobsRequest();
             }
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/jobs", request, null);
 
@@ -623,7 +695,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -769,5 +841,6 @@ namespace DailyPay.SDK.DotNet8
 
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
+
     }
 }

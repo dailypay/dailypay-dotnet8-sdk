@@ -11,12 +11,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class FundingSourceAttributes
     {
-
         /// <summary>
-        /// A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: &apos;USD&apos; }` resolves to $72.50.
+        /// A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
         /// </summary>
         [JsonProperty("amount")]
         public long Amount { get; set; } = default!;

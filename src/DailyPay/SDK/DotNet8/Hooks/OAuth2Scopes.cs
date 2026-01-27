@@ -17,7 +17,6 @@ namespace DailyPay.SDK.DotNet8.Hooks
     /// </summary>
     public enum OauthClientCredentialsTokenOAuth2Scope
     {
-
         /// <summary>
         /// Read access to resources necessary to find a person by known identifiers.
         /// </summary>
@@ -64,7 +63,6 @@ namespace DailyPay.SDK.DotNet8.Hooks
     /// </summary>
     public enum OauthUserTokenOAuth2Scope
     {
-
         /// <summary>
         /// Read access to all relevant objects for a non-application user,  including accounts, jobs, people, transfers, and paychecks.
         /// </summary>

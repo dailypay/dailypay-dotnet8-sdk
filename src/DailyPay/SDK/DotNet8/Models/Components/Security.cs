@@ -11,10 +11,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
-    
+
     public class Security
     {
-
         [SpeakeasyMetadata("security:scheme=true,type=oauth2,subType=client_credentials")]
         public SchemeOauthClientCredentialsToken? OauthClientCredentialsToken { get; set; }
 

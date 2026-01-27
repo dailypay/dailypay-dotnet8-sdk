@@ -12,12 +12,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    
+
     public class OrganizationAttributes
     {
-
         /// <summary>
-        /// Organization&apos;s name
+        /// Organization's name.
         /// </summary>
         [JsonProperty("name")]
         public string? Name { get; set; }

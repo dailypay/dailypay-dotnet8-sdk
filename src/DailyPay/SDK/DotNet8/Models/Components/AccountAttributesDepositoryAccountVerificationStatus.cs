@@ -12,7 +12,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
     /// A code that indicates the status of an account that is a destination for funds.
     /// </summary>
@@ -58,5 +58,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum AccountAttributesDepositoryAccountVerificationStatus");
         }
     }
-
 }

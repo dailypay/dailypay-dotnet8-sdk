@@ -12,18 +12,13 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class JobUpdateAttributes
     {
-
         /// <summary>
         /// Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.<br/>
-        /// 
-        /// <remarks>
         /// <br/>
-        /// To deactivate a job, update activation_status to `DEACTIVATED`.<br/>
-        /// 
-        /// </remarks>
+        /// To deactivate a job, update activation_status to `DEACTIVATED`.
         /// </summary>
         [JsonProperty("activation_status")]
         public JobUpdateDataActivationStatus? ActivationStatus { get; set; }

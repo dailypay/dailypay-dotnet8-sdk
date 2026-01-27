@@ -23,84 +23,124 @@ namespace DailyPay.SDK.DotNet8
     using System.Threading.Tasks;
 
     /// <summary>
-    /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer&apos;s unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
-    /// 
-    /// <remarks>
+    /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer's unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
     /// <br/>
     /// **Functionality** Retrieve transfer information, monitor transfer statuses, view transfer schedules, and access relevant links for the source, destination, and origin of the transfer.<br/>
     /// <br/>
-    /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll<br/>
-    /// 
-    /// </remarks>
+    /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll.
     /// </summary>
     public interface ITransfers
     {
-
         /// <summary>
-        /// Get a transfer object
-        /// 
+        /// Get a transfer object.
+        /// </summary>
         /// <remarks>
         /// Returns details about a transfer of money from one account to another. <br/>
         /// <br/>
-        /// Created when a person takes an advance against a future paycheck, or on a daily basis when available balance is updated based on current employment.<br/>
-        /// 
+        /// Created when a person takes an advance against a future paycheck, or on a daily basis when available balance is updated based on current employment.
         /// </remarks>
-        /// </summary>
-        Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="ReadTransferRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadTransferResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
-        /// Get a list of transfers
-        /// 
+        /// Get a list of transfers.
+        /// </summary>
         /// <remarks>
-        /// Returns a list of transfer objects.<br/>
-        /// 
+        /// Returns a list of transfer objects.
         /// </remarks>
-        /// </summary>
-        Task<ListTransfersResponse> ListAsync(ListTransfersRequest? request = null, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="ListTransfersRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ListTransfersResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ListTransfersResponse> ListAsync(
+            ListTransfersRequest? request = null,
+            RetryConfig? retryConfig = null
+        );
 
         /// <summary>
-        /// Request a transfer
-        /// 
+        /// Request a transfer.
+        /// </summary>
         /// <remarks>
         /// Request transfer of funds from an `EARNINGS_BALANCE` account to a<br/>
-        /// personal `DEPOSITORY` or `CARD` account.<br/>
-        /// 
+        /// personal `DEPOSITORY` or `CARD` account.
         /// </remarks>
-        /// </summary>
-        Task<CreateTransferResponse> CreateAsync(CreateTransferRequest request, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="CreateTransferRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="CreateTransferResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="TransferCreateError">The request contained an error. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorConflict">A conflict occurred with the current state of the resource. Thrown when the API returns a 409 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<CreateTransferResponse> CreateAsync(CreateTransferRequest request, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
-    /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer&apos;s unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
-    /// 
-    /// <remarks>
+    /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer's unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
     /// <br/>
     /// **Functionality** Retrieve transfer information, monitor transfer statuses, view transfer schedules, and access relevant links for the source, destination, and origin of the transfer.<br/>
     /// <br/>
-    /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll<br/>
-    /// 
-    /// </remarks>
+    /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll.
     /// </summary>
     public class Transfers: ITransfers
     {
+        /// <summary>
+        /// SDK Configuration.
+        /// <see cref="SDKConfig"/>
+        /// </summary>
         public SDKConfig SDKConfiguration { get; private set; }
-
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
 
         public Transfers(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request, RetryConfig? retryConfig = null)
+        /// <summary>
+        /// Get a transfer object.
+        /// </summary>
+        /// <remarks>
+        /// Returns details about a transfer of money from one account to another. <br/>
+        /// <br/>
+        /// Created when a person takes an advance against a future paycheck, or on a daily basis when available balance is updated based on current employment.
+        /// </remarks>
+        /// <param name="request">A <see cref="ReadTransferRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadTransferResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ReadTransferResponse> ReadAsync(ReadTransferRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/transfers/{transfer_id}", request, null);
 
@@ -158,7 +198,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -325,14 +365,34 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<ListTransfersResponse> ListAsync(ListTransfersRequest? request = null, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Get a list of transfers.
+        /// </summary>
+        /// <remarks>
+        /// Returns a list of transfer objects.
+        /// </remarks>
+        /// <param name="request">A <see cref="ListTransfersRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ListTransfersResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ListTransfersResponse> ListAsync(
+            ListTransfersRequest? request = null,
+            RetryConfig? retryConfig = null
+        )
         {
             if (request == null)
             {
                 request = new ListTransfersRequest();
             }
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/transfers", request, null);
 
@@ -390,7 +450,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -537,12 +597,34 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<CreateTransferResponse> CreateAsync(CreateTransferRequest request, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Request a transfer.
+        /// </summary>
+        /// <remarks>
+        /// Request transfer of funds from an `EARNINGS_BALANCE` account to a<br/>
+        /// personal `DEPOSITORY` or `CARD` account.
+        /// </remarks>
+        /// <param name="request">A <see cref="CreateTransferRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="CreateTransferResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="TransferCreateError">The request contained an error. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorConflict">A conflict occurred with the current state of the resource. Thrown when the API returns a 409 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<CreateTransferResponse> CreateAsync(
+            CreateTransferRequest request,
+            RetryConfig? retryConfig = null
+        )
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/transfers", request, null);
 
@@ -606,7 +688,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 409 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -772,5 +854,6 @@ namespace DailyPay.SDK.DotNet8
 
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
+
     }
 }

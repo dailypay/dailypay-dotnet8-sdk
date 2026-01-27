@@ -11,33 +11,20 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
-    /// The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.<br/>
-    /// 
-    /// <remarks>
-    /// 
-    /// </remarks>
+    /// The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.
     /// </summary>
     public class DailyPayCardProductEntitlement
     {
-
         /// <summary>
-        /// Whether the person is eligible to enroll in the DailyPay Visa®️ Prepaid Card program.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// Whether the person is eligible to enroll in the DailyPay Visa®️ Prepaid Card program.
         /// </summary>
         [JsonProperty("eligible")]
         public bool Eligible { get; set; } = default!;
 
         /// <summary>
-        /// Whether the person is enrolled in the DailyPay Visa®️ Prepaid Card program.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// Whether the person is enrolled in the DailyPay Visa®️ Prepaid Card program.
         /// </summary>
         [JsonProperty("enrolled")]
         public bool Enrolled { get; set; } = default!;

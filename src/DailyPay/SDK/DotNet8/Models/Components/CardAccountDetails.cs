@@ -11,13 +11,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// The banking details of the account and account holder.
     /// </summary>
     public class CardAccountDetails
     {
-
         /// <summary>
         /// Last four digits of the card number.
         /// </summary>

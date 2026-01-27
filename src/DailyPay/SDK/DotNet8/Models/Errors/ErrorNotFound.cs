@@ -26,7 +26,7 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
     }
 
     /// <summary>
-    /// Resource was not found
+    /// Resource was not found.
     /// </summary>
     public class ErrorNotFound : DailyPayError
     {
@@ -52,5 +52,4 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
            #pragma warning restore CS0618
         }
     }
-
 }

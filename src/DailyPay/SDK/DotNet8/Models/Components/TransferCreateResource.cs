@@ -12,10 +12,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class TransferCreateResource
     {
-
         [JsonProperty("type")]
         public string Type { get; } = "transfers";
 
@@ -27,12 +26,8 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
         /// <summary>
         /// An object representing a transfer of money from one account to another. <br/>
-        /// 
-        /// <remarks>
         /// Created when a person takes an advance against a future paycheck, or on a daily basis <br/>
-        /// when we update estimated earnings based on current employment.<br/>
-        /// 
-        /// </remarks>
+        /// when we update estimated earnings based on current employment.
         /// </summary>
         [JsonProperty("attributes")]
         public TransferCreateAttributes Attributes { get; set; } = default!;

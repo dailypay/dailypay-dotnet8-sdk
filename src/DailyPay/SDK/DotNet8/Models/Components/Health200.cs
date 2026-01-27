@@ -11,21 +11,20 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
-    /// Returns a healthcheck document
+    /// Returns a healthcheck document.
     /// </summary>
     public class Health200
     {
-
         /// <summary>
-        /// The status of the API
+        /// The status of the API.
         /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; } = default!;
 
         /// <summary>
-        /// The version of the API
+        /// The version of the API.
         /// </summary>
         [JsonProperty("version")]
         public string Version { get; set; } = default!;

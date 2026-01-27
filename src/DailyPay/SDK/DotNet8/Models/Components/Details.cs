@@ -10,7 +10,7 @@
 namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
-    
+
     /// <summary>
     /// An empty object for earnings balance accounts.
     /// </summary>
