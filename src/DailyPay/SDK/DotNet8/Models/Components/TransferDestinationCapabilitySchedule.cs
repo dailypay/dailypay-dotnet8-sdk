@@ -12,7 +12,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
     /// The expected time for the transfer to be completed.
     /// </summary>
@@ -56,5 +56,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum TransferDestinationCapabilitySchedule");
         }
     }
-
 }

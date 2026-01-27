@@ -24,10 +24,8 @@ namespace DailyPay.SDK.DotNet8
 
     /// <summary>
     /// The _accounts_ endpoint provides comprehensive information about money<br/>
-    /// 
-    /// <remarks>
     /// accounts. You can retrieve account details, including the<br/>
-    /// account&apos;s unique ID, a link to the account holder, type, subtype,<br/>
+    /// account's unique ID, a link to the account holder, type, subtype,<br/>
     /// verification status, balance details, transfer capabilities, and<br/>
     /// user-specific information such as names, routing numbers, and partial<br/>
     /// account numbers.<br/>
@@ -35,48 +33,75 @@ namespace DailyPay.SDK.DotNet8
     /// <br/>
     /// **Functionality:** Access detailed user account information, verify<br/>
     /// account balances, view transfer capabilities, and access user-specific<br/>
-    /// details associated with each account.<br/>
-    /// 
-    /// </remarks>
+    /// details associated with each account.
     /// </summary>
     public interface IAccounts
     {
+        /// <summary>
+        /// Get an Account object.
+        /// </summary>
+        /// <remarks>
+        /// Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// </remarks>
+        /// <param name="request">A <see cref="ReadAccountRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadAccountResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ReadAccountResponse> ReadAsync(ReadAccountRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
-        /// Get an Account object
-        /// 
-        /// <remarks>
-        /// Returns details about an account. This object represents a person&apos;s bank accounts, debit and pay cards, and earnings balance accounts.
-        /// </remarks>
+        /// Get a list of Account objects.
         /// </summary>
-        Task<ReadAccountResponse> ReadAsync(ReadAccountRequest request, RetryConfig? retryConfig = null);
+        /// <remarks>
+        /// Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// </remarks>
+        /// <param name="request">A <see cref="ListAccountsRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ListAccountsResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ListAccountsResponse> ListAsync(
+            ListAccountsRequest? request = null,
+            RetryConfig? retryConfig = null
+        );
 
         /// <summary>
-        /// Get a list of Account objects
-        /// 
-        /// <remarks>
-        /// Returns a list of account objects. An account object represents a person&apos;s bank accounts, debit and pay cards, and earnings balance accounts.<br/>
-        /// 
-        /// </remarks>
+        /// Create an Account object.
         /// </summary>
-        Task<ListAccountsResponse> ListAsync(ListAccountsRequest? request = null, RetryConfig? retryConfig = null);
-
-        /// <summary>
-        /// Create an Account object
-        /// 
         /// <remarks>
-        /// Create an account object to store a person&apos;s bank or card information as a destination for funds.
+        /// Create an account object to store a person's bank or card information as a destination for funds.
         /// </remarks>
-        /// </summary>
-        Task<CreateAccountResponse> CreateAsync(CreateAccountRequest request, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="CreateAccountRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="CreateAccountResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="AccountCreateError">The request contained an error. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<CreateAccountResponse> CreateAsync(CreateAccountRequest request, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
     /// The _accounts_ endpoint provides comprehensive information about money<br/>
-    /// 
-    /// <remarks>
     /// accounts. You can retrieve account details, including the<br/>
-    /// account&apos;s unique ID, a link to the account holder, type, subtype,<br/>
+    /// account's unique ID, a link to the account holder, type, subtype,<br/>
     /// verification status, balance details, transfer capabilities, and<br/>
     /// user-specific information such as names, routing numbers, and partial<br/>
     /// account numbers.<br/>
@@ -84,30 +109,44 @@ namespace DailyPay.SDK.DotNet8
     /// <br/>
     /// **Functionality:** Access detailed user account information, verify<br/>
     /// account balances, view transfer capabilities, and access user-specific<br/>
-    /// details associated with each account.<br/>
-    /// 
-    /// </remarks>
+    /// details associated with each account.
     /// </summary>
     public class Accounts: IAccounts
     {
+        /// <summary>
+        /// SDK Configuration.
+        /// <see cref="SDKConfig"/>
+        /// </summary>
         public SDKConfig SDKConfiguration { get; private set; }
-
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
 
         public Accounts(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<ReadAccountResponse> ReadAsync(ReadAccountRequest request, RetryConfig? retryConfig = null)
+        /// <summary>
+        /// Get an Account object.
+        /// </summary>
+        /// <remarks>
+        /// Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// </remarks>
+        /// <param name="request">A <see cref="ReadAccountRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadAccountResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ReadAccountResponse> ReadAsync(ReadAccountRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/accounts/{account_id}", request, null);
 
@@ -165,7 +204,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -332,14 +371,34 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<ListAccountsResponse> ListAsync(ListAccountsRequest? request = null, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Get a list of Account objects.
+        /// </summary>
+        /// <remarks>
+        /// Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// </remarks>
+        /// <param name="request">A <see cref="ListAccountsRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ListAccountsResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ListAccountsResponse> ListAsync(
+            ListAccountsRequest? request = null,
+            RetryConfig? retryConfig = null
+        )
         {
             if (request == null)
             {
                 request = new ListAccountsRequest();
             }
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/accounts", request, null);
 
@@ -397,7 +456,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -544,14 +603,33 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<CreateAccountResponse> CreateAsync(CreateAccountRequest request, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Create an Account object.
+        /// </summary>
+        /// <remarks>
+        /// Create an account object to store a person's bank or card information as a destination for funds.
+        /// </remarks>
+        /// <param name="request">A <see cref="CreateAccountRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="CreateAccountResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="AccountCreateError">The request contained an error. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<CreateAccountResponse> CreateAsync(
+            CreateAccountRequest request,
+            RetryConfig? retryConfig = null
+        )
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
-            string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
 
+            string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = baseUrl + "/rest/accounts";
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, urlString);
@@ -614,7 +692,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -760,5 +838,6 @@ namespace DailyPay.SDK.DotNet8
 
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
+
     }
 }

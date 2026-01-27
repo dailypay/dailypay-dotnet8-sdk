@@ -24,68 +24,97 @@ namespace DailyPay.SDK.DotNet8
 
     /// <summary>
     /// The _people_ endpoint allows you to see information related to who owns <br/>
-    /// 
-    /// <remarks>
     /// resources such as jobs and accounts.<br/>
     /// <br/>
     /// **Functionality:** Retrieve limited details about a person, including<br/>
-    /// their name, global status, and state of residence.<br/>
-    /// 
-    /// </remarks>
+    /// their name, global status, and state of residence.
     /// </summary>
     public interface IPeople
     {
-
         /// <summary>
-        /// Get a person object
-        /// 
+        /// Get a person object.
+        /// </summary>
         /// <remarks>
         /// Returns details about a person.
         /// </remarks>
-        /// </summary>
-        Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="ReadPersonRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadPersonResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request, RetryConfig? retryConfig = null);
 
         /// <summary>
-        /// Update a person
-        /// 
+        /// Update a person.
+        /// </summary>
         /// <remarks>
         /// Update a person object.
         /// </remarks>
-        /// </summary>
-        Task<UpdatePersonResponse> UpdateAsync(UpdatePersonRequest request, RetryConfig? retryConfig = null);
+        /// <param name="request">A <see cref="UpdatePersonRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="UpdatePersonResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<UpdatePersonResponse> UpdateAsync(UpdatePersonRequest request, RetryConfig? retryConfig = null);
     }
 
     /// <summary>
     /// The _people_ endpoint allows you to see information related to who owns <br/>
-    /// 
-    /// <remarks>
     /// resources such as jobs and accounts.<br/>
     /// <br/>
     /// **Functionality:** Retrieve limited details about a person, including<br/>
-    /// their name, global status, and state of residence.<br/>
-    /// 
-    /// </remarks>
+    /// their name, global status, and state of residence.
     /// </summary>
     public class People: IPeople
     {
+        /// <summary>
+        /// SDK Configuration.
+        /// <see cref="SDKConfig"/>
+        /// </summary>
         public SDKConfig SDKConfiguration { get; private set; }
-
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
 
         public People(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request, RetryConfig? retryConfig = null)
+        /// <summary>
+        /// Get a person object.
+        /// </summary>
+        /// <remarks>
+        /// Returns details about a person.
+        /// </remarks>
+        /// <param name="request">A <see cref="ReadPersonRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="ReadPersonResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<ReadPersonResponse> ReadAsync(ReadPersonRequest request, RetryConfig? retryConfig = null)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/people/{person_id}", request, null);
 
@@ -143,7 +172,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -310,12 +339,33 @@ namespace DailyPay.SDK.DotNet8
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<UpdatePersonResponse> UpdateAsync(UpdatePersonRequest request, RetryConfig? retryConfig = null)
+
+        /// <summary>
+        /// Update a person.
+        /// </summary>
+        /// <remarks>
+        /// Update a person object.
+        /// </remarks>
+        /// <param name="request">A <see cref="UpdatePersonRequest"/> parameter.</param>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="UpdatePersonResponse"/> response envelope when completed.</returns>
+        /// <exception cref="ArgumentNullException">The required parameter <paramref name="request"/> is null.</exception>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorBadRequest">Bad Request. Thrown when the API returns a 400 response.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
+        /// <exception cref="ErrorNotFound">Resource was not found. Thrown when the API returns a 404 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<UpdatePersonResponse> UpdateAsync(
+            UpdatePersonRequest request,
+            RetryConfig? retryConfig = null
+        )
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
-
             request.Version ??= SDKConfiguration.Version;
-            
+
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
             var urlString = URLBuilder.Build(baseUrl, "/rest/people/{person_id}", request, null);
 
@@ -379,7 +429,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 400 || _statusCode == 401 || _statusCode == 403 || _statusCode == 404 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -545,5 +595,6 @@ namespace DailyPay.SDK.DotNet8
 
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
+
     }
 }

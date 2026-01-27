@@ -12,14 +12,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
     /// Set the schedule for the transfer. If not set, the transfer will be processed immediately. <br/>
-    /// 
-    /// <remarks>
-    /// A preview transfer will never send.<br/>
-    /// 
-    /// </remarks>
+    /// A preview transfer will never send.
     /// </summary>
     public enum TransferCreateAttributesSchedule
     {
@@ -61,5 +57,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum TransferCreateAttributesSchedule");
         }
     }
-
 }

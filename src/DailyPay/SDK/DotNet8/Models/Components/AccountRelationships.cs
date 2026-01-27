@@ -12,10 +12,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class AccountRelationships
     {
-
         [JsonProperty("person")]
         public PersonRelationship Person { get; set; } = default!;
     }

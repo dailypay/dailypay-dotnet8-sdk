@@ -11,12 +11,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class PersonLinks
     {
-
         /// <summary>
-        /// The URI for the user
+        /// The URI for the user.
         /// </summary>
         [JsonProperty("self")]
         public string Self { get; set; } = default!;

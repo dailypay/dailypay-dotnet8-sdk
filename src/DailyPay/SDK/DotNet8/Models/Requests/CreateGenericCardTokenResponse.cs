@@ -13,19 +13,14 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
     using DailyPay.SDK.DotNet8.Models.Requests;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class CreateGenericCardTokenResponse
     {
-
         [JsonProperty("-")]
         public HTTPMetadata HttpMeta { get; set; } = default!;
 
         /// <summary>
-        /// Returns an opaque string representing the card details.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// Returns an opaque string representing the card details.
         /// </summary>
         public CreateGenericCardTokenResponseBody? Object { get; set; }
     }

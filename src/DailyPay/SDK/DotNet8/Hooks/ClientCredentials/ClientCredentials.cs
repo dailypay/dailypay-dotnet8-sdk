@@ -10,20 +10,23 @@
 
 namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
 {
-        using DailyPay.SDK.DotNet8.Models.Components;
-        using DailyPay.SDK.DotNet8.Utils;
-        using Newtonsoft.Json;
-        using System;
-        using System.Collections.Concurrent;
-        using System.Collections.Generic;
-        using System.Linq;
-        using System.Net.Http;
-        using System.Security.Cryptography;
-        using System.Text;
-        using System.Threading.Tasks;
+    using DailyPay.SDK.DotNet8.Models.Components;
+    using DailyPay.SDK.DotNet8.Utils;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Threading.Tasks;
 
     using PayloadValue = System.Collections.Generic.KeyValuePair<string?, string?>;
 
+    /// <summary>
+    /// Represents the response from the token endpoint.
+    /// </summary>
     public class TokenResponse
     {
         [JsonProperty("access_token")]
@@ -36,6 +39,9 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         public long? ExpiresIn { get; private set; }
     }
 
+    /// <summary>
+    /// Represents OAuth2 client credentials.
+    /// </summary>
     public class Credentials
     {
         public string ClientID { get; private set; }
@@ -43,6 +49,13 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         public string TokenURL { get; private set; }
         public List<string>? Scopes { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Credentials"/> class.
+        /// </summary>
+        /// <param name="clientID">The client ID.</param>
+        /// <param name="clientSecret">The client secret.</param>
+        /// <param name="tokenURL">The authorization server token endpoint.</param>
+        /// <param name="scopes">The list of scopes for the token request.</param>
         public Credentials(string clientID, string clientSecret, string tokenURL, List<string>? scopes)
         {
             ClientID = clientID;
@@ -52,6 +65,9 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         }
     }
 
+    /// <summary>
+    /// Represents an OAuth2 session with access token and associated metadata.
+    /// </summary>
     public class Session
     {
         public Credentials Credentials { get; private set; }
@@ -59,6 +75,13 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         public List<string> Scopes { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Session"/> class.
+        /// </summary>
+        /// <param name="credentials">The client credentials for this session.</param>
+        /// <param name="token">The access token.</param>
+        /// <param name="scopes">The list of scopes associated with the token.</param>
+        /// <param name="expiresAt">The expiration time of the token.</param>
         public Session(Credentials credentials, string token, List<string> scopes, DateTime? expiresAt = null)
         {
             Credentials = credentials;
@@ -68,22 +91,45 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         }
     }
 
+    /// <summary>
+    /// Hook that handles the OAuth2 client credentials flow.
+    /// Implements <see cref="ISDKInitHook"/>, <see cref="IBeforeRequestHook"/>, and <see cref="IAfterErrorHook"/>.
+    /// </summary>
     public class ClientCredentialsHook : ISDKInitHook, IBeforeRequestHook, IAfterErrorHook
     {
+        /// <summary>In-memory store for OAuth2 sessions.</summary>
         public ConcurrentDictionary<string, ConcurrentDictionary<string, Session>> Sessions { get; private set; } = new ConcurrentDictionary<string, ConcurrentDictionary<string, Session>>();
+
+        /// <summary>The HTTP client used to make requests.</summary>
         public ISpeakeasyHttpClient Client = default!;
 
+        /// <summary>
+        /// Sets the HTTP client to be used by the Hook.
+        /// </summary>
+        /// <param name="config">The SDK configuration.</param>
+        /// <returns>The SDK configuration.</returns>
         public SDKConfig SDKInit(SDKConfig config)
         {
             Client = config.Client;
             return config;
         }
 
+        /// <summary>
+        /// Checks whether the hook is disabled based on the presence of OAuth2 scopes in the hook context.
+        /// </summary>
         private Boolean IsHookDisabled(HookContext hookCtx)
         {
             return hookCtx.Oauth2Scopes == null;
         }
 
+        /// <summary>
+        /// Performs the OAuth2 client credentials flow before sending the HTTP request.
+        /// First it checks for an existing valid session with the required scopes.
+        /// If no valid session is found, a token request is made to obtain a new access token.
+        /// </summary>
+        /// <param name="hookCtx">The hook context containing request metadata.</param>
+        /// <param name="request">The HTTP request message.</param>
+        /// <returns>The modified HTTP request message with the Authorization header set.</returns>
         public async Task<HttpRequestMessage> BeforeRequestAsync(BeforeRequestContext hookCtx, HttpRequestMessage request)
         {
             if (IsHookDisabled(hookCtx))
@@ -126,6 +172,13 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         }
 
         #pragma warning disable CS1998
+        /// <summary>
+        /// Removes the session if the last HTTP request resulted in an unauthorized error.
+        /// </summary>
+        /// <param name="hookCtx">The hook context containing request metadata.</param>
+        /// <param name="response">The HTTP response message.</param>
+        /// <param name="error">The exception that occurred during the request.</param>
+        /// <returns>The original response and error.</returns>
         public async Task<(HttpResponseMessage?, Exception?)> AfterErrorAsync(AfterErrorContext hookCtx, HttpResponseMessage? response, Exception? error)
         {
             if (IsHookDisabled(hookCtx))
@@ -155,6 +208,11 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         }
         #pragma warning restore CS1998
 
+        /// <summary>
+        /// Retrieves the client credentials from the appropriate security source.
+        /// </summary>
+        /// <param name="hookCtx">The hook context containing security information.</param>
+        /// <returns>The client credentials, or null if not available.</returns>
         private Credentials? GetCredentials(HookContext hookCtx)
         {
 
@@ -167,6 +225,11 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         }
 
 
+        /// <summary>
+        /// Retrieves Client Credentials OAuth2 credentials from the security source.
+        /// </summary>
+        /// <param name="securitySource">A callback function that provides the security object.</param>
+        /// <returns>Credentials if available, null otherwise.</returns>
         private Credentials? GetCredentialsGlobal(Func<object> securitySource)
         {
             var security = securitySource() as Security;
@@ -184,6 +247,13 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             );
         }
 
+        /// <summary>
+        /// Performs the token request to the authorization server.
+        /// </summary>
+        /// <param name="baseURL">The base URL of the authorization server.</param>
+        /// <param name="credentials">The client credentials to authenticate with.</param>
+        /// <param name="scopes">The list of scopes for the token request.</param>
+        /// <returns>A session containing the access token and associated metadata.</returns>
         private async Task<Session> DoTokenRequestAsync(string baseURL, Credentials credentials, List<string> scopes)
         {
             if( Client == null )
@@ -268,6 +338,12 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             return new Session(credentials, tokenResponse!.AccessToken, scopes, expiresAt);
         }
 
+        /// <summary>
+        /// Generates a unique key associated with the client credentials.
+        /// </summary>
+        /// <param name="clientID">The client ID.</param>
+        /// <param name="clientSecret">The client secret.</param>
+        /// <returns>A unique session key.</returns>
         private string GetSessionKey(string clientID, string clientSecret)
         {
             using (MD5 md5 = MD5.Create())
@@ -277,11 +353,22 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             }
         }
 
+        /// <summary>
+        /// Returns the list of required scopes for the token request.
+        /// </summary>
+        /// <param name="credentials">The client credentials containing optional scopes.</param>
+        /// <param name="hookCtx">The hook context containing OAuth2 scopes.</param>
+        /// <returns>The list of required scopes.</returns>
         private List<string> GetRequiredScopes(Credentials credentials, HookContext hookCtx)
         {
             return credentials.Scopes ?? hookCtx.Oauth2Scopes!;
         }
 
+        /// <summary>
+        /// Generates a unique key for a given set of scopes.
+        /// </summary>
+        /// <param name="scopes">The list of scopes.</param>
+        /// <returns>A unique scope key.</returns>
         private string GetScopeKey(List<string> scopes)
         {
             if (scopes == null)
@@ -297,6 +384,12 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             return string.Join("&", scopes.OrderBy(s => s).ToList());
         }
 
+        /// <summary>
+        /// Tries retrieving an existing session with the required scopes.
+        /// </summary>
+        /// <param name="sessionKey">The session key associated with the client credentials.</param>
+        /// <param name="requiredScopes">The list of required scopes.</param>
+        /// <returns>The existing session if found; otherwise, null.</returns>
         private Session? GetExistingSession(string sessionKey, List<string> requiredScopes)
         {
             if (!Sessions.TryGetValue(sessionKey, out var clientSessions))
@@ -335,6 +428,11 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             return null;
         }
 
+        /// <summary>
+        /// Removes a session from the session store.
+        /// </summary>
+        /// <param name="sessionKey">The session key associated with the client credentials.</param>
+        /// <param name="scopeKey">The scope key associated with the session.</param>
         private void RemoveSession(string sessionKey, string scopeKey)
         {
             if (Sessions.TryGetValue(sessionKey, out var clientSessions))
@@ -347,6 +445,12 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
             }
         }
 
+        /// <summary>
+        /// Checks whether the scope list for the current session includes all required scopes.
+        /// </summary>
+        /// <param name="sessionScopes">The list of scopes associated with the current session.</param>
+        /// <param name="requiredScopes">The list of required scopes.</param>
+        /// <returns>True if all required scopes are present; otherwise, false.</returns>
         private bool HasRequiredScopes(List<string> sessionScopes, List<string> requiredScopes)
         {
             return requiredScopes.All(requiredScope => sessionScopes.Contains(requiredScope));
@@ -357,6 +461,8 @@ namespace DailyPay.SDK.DotNet8.Hooks.ClientCredentials
         /// If no `expires_in` field was returned by the authorization server, the token is considered to never expire.
         /// A 60-second buffer is applied to refresh tokens before they actually expire.
         /// </summary>
+        /// <param name="expiresAt">The expiration time of the token.</param>
+        /// <returns>True if the token has expired; otherwise, false.</returns>
         private bool HasTokenExpired(DateTime? expiresAt)
         {
             return expiresAt != null && DateTime.UtcNow.AddSeconds(60) >= expiresAt;

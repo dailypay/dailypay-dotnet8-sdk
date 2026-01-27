@@ -12,10 +12,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class TransferDestinationCapability
     {
-
         /// <summary>
         /// The expected time for the transfer to be completed.
         /// </summary>
@@ -24,15 +23,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
         /// <summary>
         /// A monetary quantity expressed in units of the lowest denomination in<br/>
-        /// 
-        /// <remarks>
-        /// the associated currency. For example, `{ amount: 299, currency: &apos;USD&apos;<br/>
+        /// the associated currency. For example, `{ amount: 299, currency: 'USD'<br/>
         /// }` resolves to $2.99.<br/>
         /// <br/>
         /// If a transfer incurs a fee, the fee will be deducted from the amount of<br/>
-        /// the transfer.<br/>
-        /// 
-        /// </remarks>
+        /// the transfer.
         /// </summary>
         [JsonProperty("fee")]
         public long Fee { get; set; } = default!;

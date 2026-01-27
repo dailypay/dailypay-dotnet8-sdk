@@ -12,15 +12,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
-    /// - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource&apos;s relationships to set up direct deposit.<br/>
-    /// 
-    /// <remarks>
+    /// - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource's relationships to set up direct deposit.<br/>
     /// - `SETUP_PENDING` A system action is still pending.<br/>
-    /// - `SETUP_COMPLETE` Direct deposit is set up for this Job.<br/>
-    /// 
-    /// </remarks>
+    /// - `SETUP_COMPLETE` Direct deposit is set up for this Job.
     /// </summary>
     public enum DirectDepositStatus
     {
@@ -64,5 +60,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum DirectDepositStatus");
         }
     }
-
 }

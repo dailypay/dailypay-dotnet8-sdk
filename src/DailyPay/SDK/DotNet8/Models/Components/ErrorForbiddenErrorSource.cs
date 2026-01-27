@@ -11,13 +11,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// Location in the request that may have caused the error.
     /// </summary>
     public class ErrorForbiddenErrorSource
     {
-
         /// <summary>
         /// The name of the parameter that caused the error.
         /// </summary>

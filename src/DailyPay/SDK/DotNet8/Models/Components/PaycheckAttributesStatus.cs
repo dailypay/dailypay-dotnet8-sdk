@@ -12,7 +12,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
     /// A paycheck expected for an open pay period will have the status ESTIMATED. At the end of the pay period, the paycheck will begin PROCESSING. When it is sent, it will become IN_TRANSIT. Finally, once deposited in an account it will have the status DEPOSITED.
     /// </summary>
@@ -60,5 +60,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum PaycheckAttributesStatus");
         }
     }
-
 }

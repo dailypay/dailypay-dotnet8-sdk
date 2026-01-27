@@ -12,23 +12,14 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
-    /// Products that the person is enrolled in or eligible for. This data is refreshed nightly.<br/>
-    /// 
-    /// <remarks>
-    /// 
-    /// </remarks>
+    /// Products that the person is enrolled in or eligible for. This data is refreshed nightly.
     /// </summary>
     public class Products
     {
-
         /// <summary>
-        /// The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.
         /// </summary>
         [JsonProperty("dailypay_card")]
         public DailyPayCardProductEntitlement DailyPayCardProductEntitlement { get; set; } = default!;

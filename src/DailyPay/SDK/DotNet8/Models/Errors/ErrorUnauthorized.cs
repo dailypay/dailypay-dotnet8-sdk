@@ -26,7 +26,7 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
     }
 
     /// <summary>
-    /// Invalid authentication credentials
+    /// Invalid authentication credentials.
     /// </summary>
     public class ErrorUnauthorized : DailyPayError
     {
@@ -52,5 +52,4 @@ namespace DailyPay.SDK.DotNet8.Models.Errors
            #pragma warning restore CS0618
         }
     }
-
 }

@@ -12,17 +12,13 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
     /// The statuses and required actions are:<br/>
-    /// 
-    /// <remarks>
     /// - `null` The person has not been disallowed, and is free to use DailyPay.<br/>
     /// - `INACTIVE` The person has not completed registration or account verification.<br/>
     /// - `DELINQUENT` The person has an outstanding, unrecoverable balance with DailyPay, and should contact support.<br/>
-    /// - `BANNED` Access has been revoked.<br/>
-    /// 
-    /// </remarks>
+    /// - `BANNED` Access has been revoked.
     /// </summary>
     public enum DisallowReason
     {
@@ -66,5 +62,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum DisallowReason");
         }
     }
-
 }

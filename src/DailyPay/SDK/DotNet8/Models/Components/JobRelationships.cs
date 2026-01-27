@@ -12,13 +12,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
     /// </summary>
     public class JobRelationships
     {
-
         [JsonProperty("person")]
         public PersonRelationship Person { get; set; } = default!;
 

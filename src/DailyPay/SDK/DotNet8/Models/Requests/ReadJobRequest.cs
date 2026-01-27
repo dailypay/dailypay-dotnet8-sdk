@@ -10,22 +10,17 @@
 namespace DailyPay.SDK.DotNet8.Models.Requests
 {
     using DailyPay.SDK.DotNet8.Utils;
-    
+
     public class ReadJobRequest
     {
-
         /// <summary>
-        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
         /// </summary>
         [SpeakeasyMetadata("header:style=simple,explode=false,name=DailyPay-API-Version")]
         public long? Version { get; set; } = 3;
 
         /// <summary>
-        /// Unique ID of the job
+        /// Unique ID of the job.
         /// </summary>
         [SpeakeasyMetadata("pathParam:style=simple,explode=false,name=job_id")]
         public string JobId { get; set; } = default!;

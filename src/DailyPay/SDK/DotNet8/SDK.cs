@@ -20,7 +20,6 @@ namespace DailyPay.SDK.DotNet8
     using System.Net.Http;
     using System.Threading.Tasks;
 
-
     public enum ServerEnvironment
     {
         [JsonProperty("dailypay")]
@@ -67,26 +66,19 @@ namespace DailyPay.SDK.DotNet8
     /// </summary>
     public interface ISDK
     {
-
         /// <summary>
         /// The _jobs_ endpoint provides access to comprehensive information <br/>
-        /// 
-        /// <remarks>
-        /// about a person&apos;s employment. It enables you to retrieve details about<br/>
+        /// about a person's employment. It enables you to retrieve details about<br/>
         /// individual jobs, including information about the organization<br/>
         /// they work for, status, wage rate, job title, location,<br/>
-        /// paycheck settings, and related links to associated accounts.<br/>
-        /// 
-        /// </remarks>
+        /// paycheck settings, and related links to associated accounts.
         /// </summary>
         public IJobs Jobs { get; }
 
         /// <summary>
         /// The _accounts_ endpoint provides comprehensive information about money<br/>
-        /// 
-        /// <remarks>
         /// accounts. You can retrieve account details, including the<br/>
-        /// account&apos;s unique ID, a link to the account holder, type, subtype,<br/>
+        /// account's unique ID, a link to the account holder, type, subtype,<br/>
         /// verification status, balance details, transfer capabilities, and<br/>
         /// user-specific information such as names, routing numbers, and partial<br/>
         /// account numbers.<br/>
@@ -94,29 +86,21 @@ namespace DailyPay.SDK.DotNet8
         /// <br/>
         /// **Functionality:** Access detailed user account information, verify<br/>
         /// account balances, view transfer capabilities, and access user-specific<br/>
-        /// details associated with each account.<br/>
-        /// 
-        /// </remarks>
+        /// details associated with each account.
         /// </summary>
         public IAccounts Accounts { get; }
 
         /// <summary>
-        /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer&apos;s unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
-        /// 
-        /// <remarks>
+        /// The _transfers_ endpoint allows you to initiate and track money movement.  You can access transfer details, including the transfer's unique ID, amount, currency, status, schedule, submission and resolution times, fees, and related links to the involved parties.<br/>
         /// <br/>
         /// **Functionality** Retrieve transfer information, monitor transfer statuses, view transfer schedules, and access relevant links for the source, destination, and origin of the transfer.<br/>
         /// <br/>
-        /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll<br/>
-        /// 
-        /// </remarks>
+        /// **Important** - Account origin: a user initiated movement of money from one account to another - Paycheck origin: an automatic (system-generated) movement of money as part of payroll.
         /// </summary>
         public ITransfers Transfers { get; }
 
         /// <summary>
         /// The _paychecks_ endpoint provides detailed information about paychecks. <br/>
-        /// 
-        /// <remarks>
         /// You can retrieve individual paycheck details, including the<br/>
         /// person and job associated with the paycheck, its status, pay period,<br/>
         /// expected deposit date, total debited amount, withholdings, earnings, and<br/>
@@ -124,36 +108,26 @@ namespace DailyPay.SDK.DotNet8
         /// <br/>
         /// **Functionality:** Retrieve specific paycheck details, including payee and<br/>
         /// job information, and monitor the status and financial details of each<br/>
-        /// paycheck.<br/>
-        /// 
-        /// </remarks>
+        /// paycheck.
         /// </summary>
         public IPaychecks Paychecks { get; }
 
         /// <summary>
         /// The _organizations_ endpoint provides details about a business entity, <br/>
-        /// 
-        /// <remarks>
         /// such as an employer, or a group of people, such as a division.<br/>
         /// <br/>
         /// The response includes the organization name and ID which can be used to<br/>
         /// make subsequent endpoint calls related to the organization and its<br/>
-        /// employees.<br/>
-        /// 
-        /// </remarks>
+        /// employees.
         /// </summary>
         public IOrganizations Organizations { get; }
 
         /// <summary>
         /// The _people_ endpoint allows you to see information related to who owns <br/>
-        /// 
-        /// <remarks>
         /// resources such as jobs and accounts.<br/>
         /// <br/>
         /// **Functionality:** Retrieve limited details about a person, including<br/>
-        /// their name, global status, and state of residence.<br/>
-        /// 
-        /// </remarks>
+        /// their name, global status, and state of residence.
         /// </summary>
         public IPeople People { get; }
 
@@ -164,38 +138,59 @@ namespace DailyPay.SDK.DotNet8
 
         /// <summary>
         /// The _health_ endpoint provides a simple health check for the API. <br/>
-        /// 
-        /// <remarks>
         /// <br/>
         /// **Functionality:** Check the status of the API to ensure it is functioning<br/>
-        /// correctly.<br/>
-        /// 
-        /// </remarks>
+        /// correctly.
         /// </summary>
         public IHealth Health { get; }
     }
-
 
     /// <summary>
     /// DailyPay Rest API: Embed DailyPay and On Demand Pay features into your application.
     /// </summary>
     public class SDK: ISDK
     {
+        /// <summary>
+        /// The main SDK Configuration.
+        /// </summary>
         public SDKConfig SDKConfiguration { get; private set; }
-
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
+        /// <summary>
+        /// The Jobs sub-SDK.
+        /// </summary>
         public IJobs Jobs { get; private set; }
+        /// <summary>
+        /// The Accounts sub-SDK.
+        /// </summary>
         public IAccounts Accounts { get; private set; }
+        /// <summary>
+        /// The Transfers sub-SDK.
+        /// </summary>
         public ITransfers Transfers { get; private set; }
+        /// <summary>
+        /// The Paychecks sub-SDK.
+        /// </summary>
         public IPaychecks Paychecks { get; private set; }
+        /// <summary>
+        /// The Organizations sub-SDK.
+        /// </summary>
         public IOrganizations Organizations { get; private set; }
+        /// <summary>
+        /// The People sub-SDK.
+        /// </summary>
         public IPeople People { get; private set; }
+        /// <summary>
+        /// The CardTokenization sub-SDK.
+        /// </summary>
         public ICardTokenization CardTokenization { get; private set; }
+        /// <summary>
+        /// The Health sub-SDK.
+        /// </summary>
         public IHealth Health { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the SDK based on a <see cref="SDKConfig"/> configuration object.
+        /// </summary>
+        /// <param name="config">The SDK configuration object.</param>
         public SDK(SDKConfig config)
         {
             SDKConfiguration = config;
@@ -223,21 +218,31 @@ namespace DailyPay.SDK.DotNet8
         /// </summary>
         /// <param name="security">The security configuration to use for API requests. If provided, this will be used as a static security configuration.</param>
         /// <param name="securitySource">A function that returns the security configuration dynamically. This takes precedence over the static security parameter if both are provided.</param>
-        /// <param name="version">The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/></param>
+        /// <param name="version">The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.</param>
         /// <param name="serverIndex">The index of the server to use from the predefined server list. Must be between 0 and the length of the server list. Defaults to 0 if not specified.</param>
-        /// <param name="environment">DailyPay REST API server</param>
+        /// <param name="environment">DailyPay REST API server.</param>
         /// <param name="serverUrl">A custom server URL to use instead of the predefined server list. If provided with urlParams, the URL will be templated with the provided parameters.</param>
         /// <param name="urlParams">A dictionary of parameters to use for templating the serverUrl. Only used when serverUrl is provided.</param>
         /// <param name="client">A custom HTTP client implementation to use for making API requests. If not provided, the default SpeakeasyHttpClient will be used.</param>
         /// <param name="retryConfig">Configuration for retry behavior when API requests fail. Defines retry strategies, backoff policies, and maximum retry attempts.</param>
-        /// <exception cref="Exception">Thrown when the serverIndex is out of range (less than 0 or greater than or equal to the server list length).</exception>
-        public SDK(DailyPay.SDK.DotNet8.Models.Components.Security? security = null, Func<DailyPay.SDK.DotNet8.Models.Components.Security>? securitySource = null, long? version = null, int? serverIndex = null, ServerEnvironment? environment = null, string? serverUrl = null, Dictionary<string, string>? urlParams = null, ISpeakeasyHttpClient? client = null, RetryConfig? retryConfig = null)
+        /// <exception cref="ArgumentOutOfRangeException">Invalid value provided for <paramref name="serverIndex"/>: must be between 0 (inclusive) and 1 (exclusive).</exception>
+        public SDK(
+            DailyPay.SDK.DotNet8.Models.Components.Security? security = null,
+            Func<DailyPay.SDK.DotNet8.Models.Components.Security>? securitySource = null,
+            long? version = null,
+            int? serverIndex = null,
+            ServerEnvironment? environment = null,
+            string? serverUrl = null,
+            Dictionary<string, string>? urlParams = null,
+            ISpeakeasyHttpClient? client = null,
+            RetryConfig? retryConfig = null
+        )
         {
             if (serverIndex != null)
             {
                 if (serverIndex.Value < 0 || serverIndex.Value >= SDKConfig.ServerList.Length)
                 {
-                    throw new Exception($"Invalid server index {serverIndex.Value}");
+                    throw new ArgumentOutOfRangeException($"Invalid server index {serverIndex}: must be between 0 (inclusive) and {SDKConfig.ServerList.Length} (exclusive)." );
                 }
             }
 
@@ -297,28 +302,40 @@ namespace DailyPay.SDK.DotNet8
             SDKConfiguration = SDKConfiguration.Hooks.SDKInit(SDKConfiguration);
         }
 
+        /// <summary>
+        /// Builder class for constructing an instance of the SDK.
+        /// </summary>
         public class SDKBuilder
         {
             private SDKConfig _sdkConfig = new SDKConfig(client: new SpeakeasyHttpClient());
 
             public SDKBuilder() { }
 
+            /// <summary>
+            /// Overrides the default server by index.
+            /// </summary>
             public SDKBuilder WithServerIndex(int serverIndex)
             {
                 if (serverIndex < 0 || serverIndex >= SDKConfig.ServerList.Length)
                 {
-                    throw new Exception($"Invalid server index {serverIndex}");
+                    throw new ArgumentOutOfRangeException($"Invalid server index {serverIndex}: must be between 0 (inclusive) and {SDKConfig.ServerList.Length} (exclusive)." );
                 }
                 _sdkConfig.ServerIndex = serverIndex;
                 return this;
             }
 
+            /// <summary>
+            /// Sets the environment server variable for the templated server URL.
+            /// </summary>
             public SDKBuilder WithEnvironment(ServerEnvironment environment)
             {
                 _sdkConfig.SetServerVariable("environment", ServerEnvironmentExtension.Value(environment));
                 return this;
             }
 
+            /// <summary>
+            /// Overrides the default server URL for the SDK.
+            /// </summary>
             public SDKBuilder WithServerUrl(string serverUrl, Dictionary<string, string>? serverVariables = null)
             {
                 if (serverVariables != null)
@@ -328,37 +345,54 @@ namespace DailyPay.SDK.DotNet8
                 _sdkConfig.ServerUrl = serverUrl;
                 return this;
             }
-
+            /// <summary>
+            /// Sets the Version global parameter for the SDK.
+            /// </summary>
             public SDKBuilder WithVersion(long version)
             {
                 _sdkConfig.Version = version;
                 return this;
             }
 
+            /// <summary>
+            /// Sets the securitySource security parameter for the SDK.
+            /// </summary>
             public SDKBuilder WithSecuritySource(Func<DailyPay.SDK.DotNet8.Models.Components.Security> securitySource)
             {
                 _sdkConfig.SecuritySource = securitySource;
                 return this;
             }
 
+            /// <summary>
+            /// Sets the security security parameter for the SDK.
+            /// </summary>
             public SDKBuilder WithSecurity(DailyPay.SDK.DotNet8.Models.Components.Security security)
             {
                 _sdkConfig.SecuritySource = () => security;
                 return this;
             }
 
+            /// <summary>
+            /// Sets a custom HTTP client to be used by the SDK.
+            /// </summary>
             public SDKBuilder WithClient(ISpeakeasyHttpClient client)
             {
                 _sdkConfig.Client = client;
                 return this;
             }
 
+            /// <summary>
+            /// Sets the retry configuration for the SDK.
+            /// </summary>
             public SDKBuilder WithRetryConfig(RetryConfig retryConfig)
             {
                 _sdkConfig.RetryConfig = retryConfig;
                 return this;
             }
 
+            /// <summary>
+            /// Builds and returns the SDK instance.
+            /// </summary>
             public SDK Build()
             {
               return new SDK(_sdkConfig);

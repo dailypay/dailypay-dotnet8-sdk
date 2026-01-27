@@ -11,39 +11,26 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
 {
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
-    
+
     public class CreateTransferRequest
     {
-
         /// <summary>
-        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
         /// </summary>
         [SpeakeasyMetadata("header:style=simple,explode=false,name=DailyPay-API-Version")]
         public long? Version { get; set; } = 3;
 
         /// <summary>
         /// Add related resources to the response. <br/>
-        /// 
-        /// <remarks>
         /// <br/>
-        /// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.<br/>
-        /// 
-        /// </remarks>
+        /// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
         /// </summary>
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=include")]
         public string? Include { get; set; }
 
         /// <summary>
         /// An idempotency key is a unique string that you provide to ensure a request is only processed once.<br/>
-        /// 
-        /// <remarks>
-        /// Any number of requests with the same idempotency key and payload will return an identical response.<br/>
-        /// 
-        /// </remarks>
+        /// Any number of requests with the same idempotency key and payload will return an identical response.
         /// </summary>
         [SpeakeasyMetadata("header:style=simple,explode=false,name=Idempotency-Key")]
         public string IdempotencyKey { get; set; } = default!;

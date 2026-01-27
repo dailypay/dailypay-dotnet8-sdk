@@ -12,32 +12,23 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// An object representing a transfer of money from one account to another. <br/>
-    /// 
-    /// <remarks>
     /// Created when a person takes an advance against a future paycheck, or on a daily basis <br/>
-    /// when we update estimated earnings based on current employment.<br/>
-    /// 
-    /// </remarks>
+    /// when we update estimated earnings based on current employment.
     /// </summary>
     public class TransferCreateAttributes
     {
-
         /// <summary>
         /// Include this field to preview a transfer without sending it, to see, for example, the fee that would be charged. This will return the same response as a typical transfer request.<br/>
-        /// 
-        /// <remarks>
-        /// When the preview field is true in the response to creating a transfer, that indicates no transfer was created.<br/>
-        /// 
-        /// </remarks>
+        /// When the preview field is true in the response to creating a transfer, that indicates no transfer was created.
         /// </summary>
         [JsonProperty("preview")]
         public bool? Preview { get; set; } = false;
 
         /// <summary>
-        /// A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: &apos;USD&apos; }` resolves to $72.50.
+        /// A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
         /// </summary>
         [JsonProperty("amount")]
         public long Amount { get; set; } = default!;
@@ -50,11 +41,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
         /// <summary>
         /// Set the schedule for the transfer. If not set, the transfer will be processed immediately. <br/>
-        /// 
-        /// <remarks>
-        /// A preview transfer will never send.<br/>
-        /// 
-        /// </remarks>
+        /// A preview transfer will never send.
         /// </summary>
         [JsonProperty("schedule")]
         public TransferCreateAttributesSchedule Schedule { get; set; } = default!;

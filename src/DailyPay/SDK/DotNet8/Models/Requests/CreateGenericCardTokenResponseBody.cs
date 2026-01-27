@@ -11,24 +11,15 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
-    /// Returns an opaque string representing the card details.<br/>
-    /// 
-    /// <remarks>
-    /// 
-    /// </remarks>
+    /// Returns an opaque string representing the card details.
     /// </summary>
     public class CreateGenericCardTokenResponseBody
     {
-
         /// <summary>
         /// This token should be supplied in the `generic_token` field when creating a TransferAccount with <br/>
-        /// 
-        /// <remarks>
-        /// `transfer_account_type` of DebitCard using the Extend API &quot;Create a transfer account&quot; endpoint.<br/>
-        /// 
-        /// </remarks>
+        /// `transfer_account_type` of DebitCard using the Extend API "Create a transfer account" endpoint.
         /// </summary>
         [JsonProperty("token")]
         public string Token { get; set; } = default!;

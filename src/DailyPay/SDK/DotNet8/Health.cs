@@ -23,56 +23,63 @@ namespace DailyPay.SDK.DotNet8
 
     /// <summary>
     /// The _health_ endpoint provides a simple health check for the API. <br/>
-    /// 
-    /// <remarks>
     /// <br/>
     /// **Functionality:** Check the status of the API to ensure it is functioning<br/>
-    /// correctly.<br/>
-    /// 
-    /// </remarks>
+    /// correctly.
     /// </summary>
     public interface IHealth
     {
-
         /// <summary>
-        /// Verify the status of the API
-        /// 
-        /// <remarks>
-        /// Returns a 200 status code if the API is up and running.<br/>
-        /// 
-        /// </remarks>
+        /// Verify the status of the API.
         /// </summary>
-        Task<GetHealthResponse> GetHealthAsync(RetryConfig? retryConfig = null);
+        /// <remarks>
+        /// Returns a 200 status code if the API is up and running.
+        /// </remarks>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="GetHealthResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public  Task<GetHealthResponse> GetHealthAsync(RetryConfig? retryConfig = null);
     }
 
     /// <summary>
     /// The _health_ endpoint provides a simple health check for the API. <br/>
-    /// 
-    /// <remarks>
     /// <br/>
     /// **Functionality:** Check the status of the API to ensure it is functioning<br/>
-    /// correctly.<br/>
-    /// 
-    /// </remarks>
+    /// correctly.
     /// </summary>
     public class Health: IHealth
     {
+        /// <summary>
+        /// SDK Configuration.
+        /// <see cref="SDKConfig"/>
+        /// </summary>
         public SDKConfig SDKConfiguration { get; private set; }
-
-        private const string _language = Constants.Language;
-        private const string _sdkVersion = Constants.SdkVersion;
-        private const string _sdkGenVersion = Constants.SdkGenVersion;
-        private const string _openapiDocVersion = Constants.OpenApiDocVersion;
 
         public Health(SDKConfig config)
         {
             SDKConfiguration = config;
         }
 
-        public async Task<GetHealthResponse> GetHealthAsync(RetryConfig? retryConfig = null)
+        /// <summary>
+        /// Verify the status of the API.
+        /// </summary>
+        /// <remarks>
+        /// Returns a 200 status code if the API is up and running.
+        /// </remarks>
+        /// <param name="retryConfig">The retry configuration to use for this operation.</param>
+        /// <returns>An awaitable task that returns a <see cref="GetHealthResponse"/> response envelope when completed.</returns>
+        /// <exception cref="HttpRequestException">The HTTP request failed due to network issues.</exception>
+        /// <exception cref="ResponseValidationException">The response body could not be deserialized.</exception>
+        /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
+        public async  Task<GetHealthResponse> GetHealthAsync(RetryConfig? retryConfig = null)
         {
             string baseUrl = this.SDKConfiguration.GetTemplatedServerUrl();
-
             var urlString = baseUrl + "/rest/health";
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, urlString);
@@ -128,7 +135,7 @@ namespace DailyPay.SDK.DotNet8
                 httpResponse = await retries.Run();
                 int _statusCode = (int)httpResponse.StatusCode;
 
-                if (_statusCode == 401 || _statusCode >= 400 && _statusCode < 500 || _statusCode == 500 || _statusCode >= 500 && _statusCode < 600)
+                if (_statusCode >= 400 && _statusCode < 500 || _statusCode >= 500 && _statusCode < 600)
                 {
                     var _httpResponse = await this.SDKConfiguration.Hooks.AfterErrorAsync(new AfterErrorContext(hookCtx), httpResponse, null);
                     if (_httpResponse != null)
@@ -234,5 +241,6 @@ namespace DailyPay.SDK.DotNet8
 
             throw new Models.Errors.APIException("Unknown status code received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
         }
+
     }
 }

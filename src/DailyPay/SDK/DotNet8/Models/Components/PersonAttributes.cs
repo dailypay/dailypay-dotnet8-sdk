@@ -12,43 +12,30 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
     /// </summary>
     public class PersonAttributes
     {
-
         /// <summary>
         /// The statuses and required actions are:<br/>
-        /// 
-        /// <remarks>
         /// - `null` The person has not been disallowed, and is free to use DailyPay.<br/>
         /// - `INACTIVE` The person has not completed registration or account verification.<br/>
         /// - `DELINQUENT` The person has an outstanding, unrecoverable balance with DailyPay, and should contact support.<br/>
-        /// - `BANNED` Access has been revoked.<br/>
-        /// 
-        /// </remarks>
+        /// - `BANNED` Access has been revoked.
         /// </summary>
         [JsonProperty("disallow_reason", NullValueHandling = NullValueHandling.Include)]
         public DisallowReason? DisallowReason { get; set; }
 
         /// <summary>
-        /// The two-letter abbreviation for the state in which the person resides, if located in the United States.  This is used for regulatory compliance purposes.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The two-letter abbreviation for the state in which the person resides, if located in the United States.  This is used for regulatory compliance purposes.
         /// </summary>
         [JsonProperty("state_of_residence")]
         public string? StateOfResidence { get; set; }
 
         /// <summary>
-        /// Products that the person is enrolled in or eligible for. This data is refreshed nightly.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// Products that the person is enrolled in or eligible for. This data is refreshed nightly.
         /// </summary>
         [JsonProperty("products")]
         public Products Products { get; set; } = default!;

@@ -11,31 +11,28 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
 {
     using DailyPay.SDK.DotNet8.Utils;
     using System;
-    
+
     public class ListTransfersRequest
     {
-
         /// <summary>
-        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.<br/>
-        /// 
-        /// <remarks>
-        /// 
-        /// </remarks>
+        /// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
         /// </summary>
         [SpeakeasyMetadata("header:style=simple,explode=false,name=DailyPay-API-Version")]
         public long? Version { get; set; } = 3;
 
         /// <summary>
         /// Add related resources to the response. <br/>
-        /// 
-        /// <remarks>
         /// <br/>
-        /// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.<br/>
-        /// 
-        /// </remarks>
+        /// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
         /// </summary>
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=include")]
         public string? Include { get; set; }
+
+        /// <summary>
+        /// Limit the results to documents submitted after this date.
+        /// </summary>
+        [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter[submitted_at__gt]")]
+        public DateTime? FilterSubmittedAtGt { get; set; }
 
         [Obsolete("This field will be removed in a future release, please migrate away from it as soon as possible")]
         [SpeakeasyMetadata("queryParam:style=form,explode=true,name=filter")]

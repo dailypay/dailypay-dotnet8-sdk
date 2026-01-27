@@ -11,39 +11,30 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class AccountAttributesEarningsBalanceAccountBalances
     {
-
         /// <summary>
         /// The amount of funds available to be withdrawn from the account. <br/>
-        /// 
-        /// <remarks>
         /// <br/>
         /// For earnings_balance-type accounts, the available balance typically<br/>
         /// equals the current balance less any pending outflows, plus any pending inflows,<br/>
         /// <br/>
         /// <br/>
         /// This value is in units of the lowest denomination in the associated<br/>
-        /// currency. For example, `{ amount: 7250, currency: &apos;USD&apos; }` resolves to<br/>
-        /// $72.50.<br/>
-        /// 
-        /// </remarks>
+        /// currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to<br/>
+        /// $72.50.
         /// </summary>
         [JsonProperty("available", NullValueHandling = NullValueHandling.Include)]
         public long? Available { get; set; }
 
         /// <summary>
         /// The total amount of funds settled in the account. <br/>
-        /// 
-        /// <remarks>
-        /// This value is in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: &apos;USD&apos; }` resolves to $72.50.<br/>
+        /// This value is in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.<br/>
         /// **Special note for Earnings Balance accounts:**<br/>
         /// If a user transfers money from an Earnings Balance account to a personal account, the `current` balance may be negative as those transfers settle. When a paycheck is processed, DailyPay will automatically attempt to zero out the balance,  transferring any remaining funds to the `direct_deposit_default_depository` account set for the associated Job.<br/>
-        /// If DailyPay is unable to zero out the balance during paycheck processing, the `current` balance will remain negative,  which may impact a user&apos;s ability to transfer additional funds from their earnings balance. <br/>
-        /// In those cases, the available balance will be 0.<br/>
-        /// 
-        /// </remarks>
+        /// If DailyPay is unable to zero out the balance during paycheck processing, the `current` balance will remain negative,  which may impact a user's ability to transfer additional funds from their earnings balance. <br/>
+        /// In those cases, the available balance will be 0.
         /// </summary>
         [JsonProperty("current", NullValueHandling = NullValueHandling.Include)]
         public long? Current { get; set; }

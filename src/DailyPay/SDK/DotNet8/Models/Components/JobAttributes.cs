@@ -13,10 +13,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    
+
     public class JobAttributes
     {
-
         /// <summary>
         /// Holds unique identifiers for the employee or job defined by external organizations.
         /// </summary>
@@ -37,12 +36,8 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
         /// <summary>
         /// Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.<br/>
-        /// 
-        /// <remarks>
         /// <br/>
-        /// To deactivate a job, update activation_status to `DEACTIVATED`.<br/>
-        /// 
-        /// </remarks>
+        /// To deactivate a job, update activation_status to `DEACTIVATED`.
         /// </summary>
         [JsonProperty("activation_status")]
         public JobAttributesActivationStatus ActivationStatus { get; set; } = default!;
@@ -60,13 +55,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string? Location { get; set; }
 
         /// <summary>
-        /// - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource&apos;s relationships to set up direct deposit.<br/>
-        /// 
-        /// <remarks>
+        /// - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource's relationships to set up direct deposit.<br/>
         /// - `SETUP_PENDING` A system action is still pending.<br/>
-        /// - `SETUP_COMPLETE` Direct deposit is set up for this Job.<br/>
-        /// 
-        /// </remarks>
+        /// - `SETUP_COMPLETE` Direct deposit is set up for this Job.
         /// </summary>
         [JsonProperty("direct_deposit_status")]
         public DirectDepositStatus DirectDepositStatus { get; set; } = default!;

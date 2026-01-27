@@ -11,13 +11,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// A list of links to resources that may be helpful in resolving the error.
     /// </summary>
     public class ErrorForbiddenErrorLinks
     {
-
         [JsonProperty("about")]
         public string? About { get; set; }
     }

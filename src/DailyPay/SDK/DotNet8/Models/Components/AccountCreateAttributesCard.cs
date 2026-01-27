@@ -12,13 +12,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
     /// </summary>
     public class AccountCreateAttributesCard
     {
-
         /// <summary>
         /// Display name for this account.
         /// </summary>
@@ -32,7 +31,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string AccountType { get; } = "CARD";
 
         /// <summary>
-        /// The subtype of the account. Additional subtypes may be added over time
+        /// The subtype of the account. Additional subtypes may be added over time.
         /// </summary>
         [JsonProperty("subtype")]
         public AccountCreateAttributesCardSubtype Subtype { get; set; } = default!;

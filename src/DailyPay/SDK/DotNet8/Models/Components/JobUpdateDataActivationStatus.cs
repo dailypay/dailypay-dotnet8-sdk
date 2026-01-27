@@ -12,15 +12,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     /// <summary>
     /// Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.<br/>
-    /// 
-    /// <remarks>
     /// <br/>
-    /// To deactivate a job, update activation_status to `DEACTIVATED`.<br/>
-    /// 
-    /// </remarks>
+    /// To deactivate a job, update activation_status to `DEACTIVATED`.
     /// </summary>
     public enum JobUpdateDataActivationStatus
     {
@@ -68,5 +64,4 @@ namespace DailyPay.SDK.DotNet8.Models.Components
             throw new Exception($"Unknown value {value} for enum JobUpdateDataActivationStatus");
         }
     }
-
 }

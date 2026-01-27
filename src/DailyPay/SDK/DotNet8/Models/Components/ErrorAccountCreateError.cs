@@ -12,10 +12,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class ErrorAccountCreateError
     {
-
         /// <summary>
         /// A code that indicates what went wrong. Please consider this an open enum, where new codes may be added over time.
         /// </summary>
@@ -29,7 +28,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public string Status { get; set; } = default!;
 
         /// <summary>
-        /// A message that explains the meaning of the error code. Developers are advised not to make programmatic use of this value, as it may change
+        /// A message that explains the meaning of the error code. Developers are advised not to make programmatic use of this value, as it may change.
         /// </summary>
         [JsonProperty("detail")]
         public string Detail { get; set; } = default!;

@@ -13,10 +13,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
     using System;
-    
+
     public class PaycheckAttributes
     {
-
         /// <summary>
         /// A paycheck expected for an open pay period will have the status ESTIMATED. At the end of the pay period, the paycheck will begin PROCESSING. When it is sent, it will become IN_TRANSIT. Finally, once deposited in an account it will have the status DEPOSITED.
         /// </summary>
@@ -24,13 +23,13 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public PaycheckAttributesStatus Status { get; set; } = default!;
 
         /// <summary>
-        /// An ISO 8601 timestamp denoting the ending day of a paycheck&apos;s pay period. For example, a pay period that ends during the day of March 15 will have a value of 2023-03-15T04:00:00Z.
+        /// An ISO 8601 timestamp denoting the ending day of a paycheck's pay period. For example, a pay period that ends during the day of March 15 will have a value of 2023-03-15T04:00:00Z.
         /// </summary>
         [JsonProperty("pay_period_ends_at")]
         public DateTime PayPeriodEndsAt { get; set; } = default!;
 
         /// <summary>
-        /// An ISO 8601 timestamp denoting the first day of a paycheck&apos;s pay period. For example, a pay period that starts during the day of March 15 will have a value of 2023-03-15T04:00:00Z.
+        /// An ISO 8601 timestamp denoting the first day of a paycheck's pay period. For example, a pay period that starts during the day of March 15 will have a value of 2023-03-15T04:00:00Z.
         /// </summary>
         [JsonProperty("pay_period_starts_at")]
         public DateTime PayPeriodStartsAt { get; set; } = default!;
@@ -48,7 +47,7 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public long? TotalDebited { get; set; }
 
         /// <summary>
-        /// The total earnings for this paycheck before any deductions are applied. This amount is given as a monetary quantity expressed in units of the lowest denomination in the associated currency. For example, { gross_earnings: 55370 } with currency USD resolves to $553.70
+        /// The total earnings for this paycheck before any deductions are applied. This amount is given as a monetary quantity expressed in units of the lowest denomination in the associated currency. For example, { gross_earnings: 55370 } with currency USD resolves to $553.70.
         /// </summary>
         [JsonProperty("gross_earnings")]
         public long GrossEarnings { get; set; } = default!;

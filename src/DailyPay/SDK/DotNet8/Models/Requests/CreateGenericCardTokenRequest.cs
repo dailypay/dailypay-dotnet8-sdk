@@ -11,10 +11,9 @@ namespace DailyPay.SDK.DotNet8.Models.Requests
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class CreateGenericCardTokenRequest
     {
-
         /// <summary>
         /// The first name or given name of the cardholder.
         /// </summary>

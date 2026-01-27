@@ -11,10 +11,9 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     public class FundingSourceIdentifier
     {
-
         [JsonProperty("type")]
         public string Type { get; } = "funding_sources";
 

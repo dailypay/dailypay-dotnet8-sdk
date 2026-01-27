@@ -11,13 +11,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// The banking details of the account and account holder.
     /// </summary>
     public class AccountAttributesDepositoryDepositoryAccountDetails
     {
-
         /// <summary>
         /// The first name of the account holder.
         /// </summary>

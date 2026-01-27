@@ -11,13 +11,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 {
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// The banking details of the account and account holder.
     /// </summary>
     public class CreateCardAccountDetails
     {
-
         /// <summary>
         /// A tokenized string replacement for the card data.
         /// </summary>
@@ -83,5 +82,11 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         /// </summary>
         [JsonProperty("address_country")]
         public string AddressCountry { get; set; } = default!;
+
+        /// <summary>
+        /// The issuer of the card.
+        /// </summary>
+        [JsonProperty("issuer")]
+        public string Issuer { get; set; } = default!;
     }
 }

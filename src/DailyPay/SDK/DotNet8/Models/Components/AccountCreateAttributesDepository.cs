@@ -12,13 +12,12 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     using DailyPay.SDK.DotNet8.Models.Components;
     using DailyPay.SDK.DotNet8.Utils;
     using Newtonsoft.Json;
-    
+
     /// <summary>
     /// An account with type `DEPOSITORY` and subtype `SAVINGS` or `CHECKING`.
     /// </summary>
     public class AccountCreateAttributesDepository
     {
-
         /// <summary>
         /// Display name for this account.
         /// </summary>
