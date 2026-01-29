@@ -1,17 +1,17 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: eb888d4ca70504493fe2bb8bf788876e
-  docVersion: 3.0.0-beta103
-  speakeasyVersion: 1.698.0
-  generationVersion: 2.801.0
-  releaseVersion: 0.11.5
-  configChecksum: f5a799e0db74bcad40e084014ad4f33f
+  docChecksum: 90116ac8fecdf431f2ac3c93b30ccade
+  docVersion: 3.0.0-beta104
+  speakeasyVersion: 1.700.2
+  generationVersion: 2.801.2
+  releaseVersion: 0.11.6
+  configChecksum: 54ab0b7a4eb2a08e125ac62882d724dd
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
 persistentEdits:
-  generation_id: 94625ff1-0b30-4fbe-b6c6-026962cb1868
-  pristine_commit_hash: 26a535b9dc842d93a95b1f8646dcadbc142008a4
-  pristine_tree_hash: 46b8299fa307745ad8006515ebef24edb15129fe
+  generation_id: 34f25d5b-c217-4819-b9fb-54ce98016e3c
+  pristine_commit_hash: 518ac9fc5be18d68e13ba31d81cdaa84f7029e63
+  pristine_tree_hash: ea02fd1e1e236f8c6b346ee2337c41244db0d5e3
 features:
   csharp:
     additionalDependencies: 0.1.0
@@ -856,8 +856,8 @@ trackedFiles:
     pristine_git_object: c2c6f1b743e62ad56b09d6795cb734c86bdbc039
   src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj:
     id: d71088a7b435
-    last_write_checksum: sha1:554d93892ece1e1e89869d06228073ec2c60b7ca
-    pristine_git_object: dadbfcf3c577e3d21495e0ebe732fce7c7bb437f
+    last_write_checksum: sha1:5f16ce96ca16f38bb03b09c7c595695bb16bde3e
+    pristine_git_object: 4bbf5dc676f4f16a5c3a39e7d8904fea5d453295
   src/DailyPay/SDK/DotNet8/Health.cs:
     id: fb0259ce69d2
     last_write_checksum: sha1:1f5627b5e70991cd0fd6ef11649f63d73bfa40ed
@@ -1676,8 +1676,8 @@ trackedFiles:
     pristine_git_object: 8854125cc53975f1904a0c739f145f2ea39ff55c
   src/DailyPay/SDK/DotNet8/SDKConfig.cs:
     id: c09546b14174
-    last_write_checksum: sha1:5371b97fec9a9da4974585d9210762ee91b6db89
-    pristine_git_object: 8ada61199c06be8f7aae9b69ac21fea28597a0ac
+    last_write_checksum: sha1:817f50ea8e47f2caecad38eb7862d211d753fa24
+    pristine_git_object: d9573a7051f0e99837696e2ad2f04547fd31fc3e
   src/DailyPay/SDK/DotNet8/Transfers.cs:
     id: 8903f361761b
     last_write_checksum: sha1:6c5d639ec6473572cef58b7f821c8fc28c49ebbd
@@ -1692,8 +1692,8 @@ trackedFiles:
     pristine_git_object: e8d8e211925c323a04368d2c5adc0e348136a938
   src/DailyPay/SDK/DotNet8/Utils/Constants.cs:
     id: 70004969cc40
-    last_write_checksum: sha1:e240ae62373fc9b08a831daa4a90f25122cc5130
-    pristine_git_object: 10ecb06b880eae282937766212c55ea91179ffc2
+    last_write_checksum: sha1:08a789695b551b736b6140b081715517ee8ee375
+    pristine_git_object: 86358ce843bc66ff684e32e10af2cecdfb751770
   src/DailyPay/SDK/DotNet8/Utils/DecimalStrConverter.cs:
     id: 831d5186da94
     last_write_checksum: sha1:5a77efa222c98c0d9cec7e9b356bfbcc503ee580
@@ -2261,7 +2261,6 @@ examples:
           application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Csharp SDK Changes:\n* `Sdk.Accounts.Create()`: \n  *  `request.AccountCreateData.Data.Attributes.union(AccountCreateAttributes_Card).CreateCardAccountDetails.Issuer` **Added** **Breaking** ⚠️\n* `Sdk.Transfers.List()`: \n  *  `request.Filter[submittedAtGt]` **Added**\n"
 generatedFiles:
   - .gitattributes
   - DailyPay.SDK.DotNet8.sln

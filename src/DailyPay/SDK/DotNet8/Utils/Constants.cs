@@ -22,17 +22,17 @@ namespace DailyPay.SDK.DotNet8.Utils
         /// <summary>
         /// The version of the SDK.
         /// </summary>
-        public const string SdkVersion = "0.11.5";
+        public const string SdkVersion = "0.11.6";
 
         /// <summary>
         /// The version of the SDK generator used to create this SDK.
         /// </summary>
-        public const string SdkGenVersion = "2.801.0";
+        public const string SdkGenVersion = "2.801.2";
 
         /// <summary>
         /// The version of the OpenAPI document used to generate this SDK.
         /// </summary>
-        public const string OpenApiDocVersion = "3.0.0-beta103";
+        public const string OpenApiDocVersion = "3.0.0-beta104";
     }
 }
 
