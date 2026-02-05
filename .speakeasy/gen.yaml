@@ -22,13 +22,14 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.11.6
+  version: 0.11.7
   additionalDependencies: []
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
@@ -58,6 +59,7 @@ csharp:
   outputModelSuffix: output
   packageName: DailyPay.SDK.DotNet8
   packageTags: ""
+  respectTitlesForPrimitiveUnionMembers: false
   responseFormat: envelope-http
   sourceDirectory: src
   useNodatime: true
