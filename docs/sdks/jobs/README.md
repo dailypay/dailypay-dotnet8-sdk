@@ -74,9 +74,44 @@ Update this job to set where pay should be deposited for paychecks related to th
 Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
 
 
-### Example Usage
+### Example Usage: Deactivate
 
-<!-- UsageSnippet language="csharp" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" -->
+<!-- UsageSnippet language="csharp" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" example="Deactivate" -->
+```csharp
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
+
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
+            ClientID = "<YOUR_CLIENT_ID_HERE>",
+            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
+            TokenURL = "<YOUR_TOKEN_URL_HERE>",
+        },
+    }
+);
+
+UpdateJobRequest req = new UpdateJobRequest() {
+    JobId = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    JobUpdateData = new JobUpdateData() {
+        JobUpdateResource = new JobUpdateResource() {
+            Id = "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+            JobUpdateAttributes = new JobUpdateAttributes() {
+                ActivationStatus = JobUpdateDataActivationStatus.Deactivated,
+            },
+        },
+    },
+};
+
+var res = await sdk.Jobs.UpdateAsync(req);
+
+// handle response
+```
+### Example Usage: DirectDeposit
+
+<!-- UsageSnippet language="csharp" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" example="DirectDeposit" -->
 ```csharp
 using DailyPay.SDK.DotNet8;
 using DailyPay.SDK.DotNet8.Models.Components;
