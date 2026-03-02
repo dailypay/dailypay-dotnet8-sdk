@@ -99,7 +99,7 @@ var sdk = new SDK(
 
 ListTransfersRequest req = new ListTransfersRequest() {
     Include = "estimated_funding_sources,final_funding_sources",
-    FilterSubmittedAtGt = System.DateTime.Parse("2023-03-15T04:00:00Z"),
+    FilterSubmittedAtGt = System.DateTime.Parse("2023-03-15T04:00:00Z").ToUniversalTime(),
 };
 
 var res = await sdk.Transfers.ListAsync(req);
