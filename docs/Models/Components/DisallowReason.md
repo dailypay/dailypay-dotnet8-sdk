@@ -7,6 +7,14 @@ The statuses and required actions are:
 - `BANNED` Access has been revoked.
 
 
+## Example Usage
+
+```csharp
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var value = DisallowReason.Inactive;
+```
+
 
 ## Values
 

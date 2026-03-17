@@ -1,5 +1,13 @@
 # Frequency
 
+## Example Usage
+
+```csharp
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var value = Frequency.Hourly;
+```
+
 
 ## Values
 

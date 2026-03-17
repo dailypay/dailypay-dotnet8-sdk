@@ -4,6 +4,14 @@ Set the schedule for the transfer. If not set, the transfer will be processed im
 A preview transfer will never send.
 
 
+## Example Usage
+
+```csharp
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var value = TransferCreateAttributesSchedule.WithinThirtyMinutes;
+```
+
 
 ## Values
 

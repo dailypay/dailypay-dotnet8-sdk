@@ -1,5 +1,13 @@
 # FilterAccountType
 
+## Example Usage
+
+```csharp
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var value = FilterAccountType.EarningsBalance;
+```
+
 
 ## Values
 
