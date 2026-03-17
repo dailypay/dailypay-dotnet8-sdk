@@ -33,11 +33,7 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
-            ClientID = "<YOUR_CLIENT_ID_HERE>",
-            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
-            TokenURL = "<YOUR_TOKEN_URL_HERE>",
-        },
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 
@@ -89,11 +85,7 @@ using System;
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
-            ClientID = "<YOUR_CLIENT_ID_HERE>",
-            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
-            TokenURL = "<YOUR_TOKEN_URL_HERE>",
-        },
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 
@@ -144,11 +136,7 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
-            ClientID = "<YOUR_CLIENT_ID_HERE>",
-            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
-            TokenURL = "<YOUR_TOKEN_URL_HERE>",
-        },
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 
@@ -199,11 +187,7 @@ using DailyPay.SDK.DotNet8.Models.Requests;
 var sdk = new SDK(
     version: 3,
     security: new Security() {
-        OauthClientCredentialsToken = new SchemeOauthClientCredentialsToken() {
-            ClientID = "<YOUR_CLIENT_ID_HERE>",
-            ClientSecret = "<YOUR_CLIENT_SECRET_HERE>",
-            TokenURL = "<YOUR_TOKEN_URL_HERE>",
-        },
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
     }
 );
 

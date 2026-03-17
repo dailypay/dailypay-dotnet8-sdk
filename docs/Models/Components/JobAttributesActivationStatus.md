@@ -5,6 +5,14 @@ Activation is the process of verifying that data is available for a Job,  and th
 To deactivate a job, update activation_status to `DEACTIVATED`.
 
 
+## Example Usage
+
+```csharp
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var value = JobAttributesActivationStatus.Deactivated;
+```
+
 
 ## Values
 

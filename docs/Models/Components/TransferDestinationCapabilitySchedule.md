@@ -2,6 +2,14 @@
 
 The expected time for the transfer to be completed.
 
+## Example Usage
+
+```csharp
+using DailyPay.SDK.DotNet8.Models.Components;
+
+var value = TransferDestinationCapabilitySchedule.WithinThirtyMinutes;
+```
+
 
 ## Values
 
