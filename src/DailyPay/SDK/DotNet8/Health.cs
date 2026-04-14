@@ -33,7 +33,9 @@ namespace DailyPay.SDK.DotNet8
         /// Verify the status of the API.
         /// </summary>
         /// <remarks>
-        /// Returns a 200 status code if the API is up and running.
+        /// Returns a 200 status code if the API is up and running.<br/>
+        /// <br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
         /// <returns>An awaitable task that returns a <see cref="GetHealthResponse"/> response envelope when completed.</returns>
@@ -68,7 +70,9 @@ namespace DailyPay.SDK.DotNet8
         /// Verify the status of the API.
         /// </summary>
         /// <remarks>
-        /// Returns a 200 status code if the API is up and running.
+        /// Returns a 200 status code if the API is up and running.<br/>
+        /// <br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
         /// <returns>An awaitable task that returns a <see cref="GetHealthResponse"/> response envelope when completed.</returns>
@@ -92,7 +96,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthClientCredentialsToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "getHealth", new List<string> { "health:read" }, SDKConfiguration.SecuritySource);

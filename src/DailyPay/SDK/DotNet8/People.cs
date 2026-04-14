@@ -35,7 +35,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get a person object.
         /// </summary>
         /// <remarks>
-        /// Returns details about a person.
+        /// Returns details about a person.<br/>
+        /// <para>If set, this operation will use either <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> or <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadPersonRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -55,7 +56,8 @@ namespace DailyPay.SDK.DotNet8
         /// Update a person.
         /// </summary>
         /// <remarks>
-        /// Update a person object.
+        /// Update a person object.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="UpdatePersonRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -96,7 +98,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get a person object.
         /// </summary>
         /// <remarks>
-        /// Returns details about a person.
+        /// Returns details about a person.<br/>
+        /// <para>If set, this operation will use either <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> or <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadPersonRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -129,7 +132,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthClientCredentialsToken", "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readPerson", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
@@ -349,7 +352,8 @@ namespace DailyPay.SDK.DotNet8
         /// Update a person.
         /// </summary>
         /// <remarks>
-        /// Update a person object.
+        /// Update a person object.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="UpdatePersonRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -391,7 +395,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "updatePerson", null, SDKConfiguration.SecuritySource);

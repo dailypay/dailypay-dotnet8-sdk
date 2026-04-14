@@ -36,7 +36,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get an organization.
         /// </summary>
         /// <remarks>
-        /// Lookup organization by ID for a detailed view of single organization.
+        /// Lookup organization by ID for a detailed view of single organization.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadOrganizationRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -59,7 +60,8 @@ namespace DailyPay.SDK.DotNet8
         /// List organizations.
         /// </summary>
         /// <remarks>
-        /// Get organizations with an optional filter.
+        /// Get organizations with an optional filter<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ListOrganizationsRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -102,7 +104,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get an organization.
         /// </summary>
         /// <remarks>
-        /// Lookup organization by ID for a detailed view of single organization.
+        /// Lookup organization by ID for a detailed view of single organization.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadOrganizationRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -138,7 +141,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthClientCredentialsToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readOrganization", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);
@@ -358,7 +361,8 @@ namespace DailyPay.SDK.DotNet8
         /// List organizations.
         /// </summary>
         /// <remarks>
-        /// Get organizations with an optional filter.
+        /// Get organizations with an optional filter<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ListOrganizationsRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -395,7 +399,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthClientCredentialsToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listOrganizations", new List<string> { "client:admin" }, SDKConfiguration.SecuritySource);

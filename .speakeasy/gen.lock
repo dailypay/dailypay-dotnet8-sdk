@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: 50670a67f27e6e6ba82eddf2d2e7a040
-  docVersion: 3.0.0-beta108
-  speakeasyVersion: 1.757.0
-  generationVersion: 2.866.0
-  releaseVersion: 0.11.10
-  configChecksum: d1b4743838ff3c86cd50a57874c90212
+  docChecksum: ee0a87b419626746255e9c29920dee52
+  docVersion: 3.0.0-beta.109
+  speakeasyVersion: 1.761.5
+  generationVersion: 2.879.13
+  releaseVersion: 0.11.11
+  configChecksum: f3b1e6aa628d7d989194ef4c7e1f71d9
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
   installationURL: https://github.com/dailypay/dailypay-dotnet8-sdk
 persistentEdits:
-  generation_id: efff4b32-63af-4976-9c56-77316f4497c6
-  pristine_commit_hash: 158ed501cd95033aa389e53907ecee6eee56c8e8
-  pristine_tree_hash: ee28f73fa614ac5f544e7946ff0e1eb7bbb06fdc
+  generation_id: eef0ab08-9de0-450f-85d1-129edd8ba27d
+  pristine_commit_hash: bd2b3f8ac6dcad3af7829483dfc8924a6ed0af3c
+  pristine_tree_hash: bc46ad7b0d47ce7fffcafd50796449b5459b6961
 features:
   csharp:
     additionalDependencies: 0.1.0
@@ -20,7 +20,7 @@ features:
     core: 3.15.20
     deprecations: 2.81.2
     examples: 2.81.7
-    globalSecurity: 2.83.10
+    globalSecurity: 2.83.11
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.83.1
     globals: 2.82.2
@@ -849,20 +849,20 @@ trackedFiles:
     pristine_git_object: ef3195af86a7d6ef1e34296c380fd52d85b696fd
   src/DailyPay/SDK/DotNet8/Accounts.cs:
     id: abed85894ac9
-    last_write_checksum: sha1:7b3ae131e3738308e2eff4ec029fc77e985cf16e
-    pristine_git_object: f1453c178939bea40a1993994d70adf772ce99cb
+    last_write_checksum: sha1:55ebe65991d0f981ab4af6f7a66c1e211386e7d3
+    pristine_git_object: f5122c893d5426b20978c9639e0d568a0e0b7ac5
   src/DailyPay/SDK/DotNet8/CardTokenization.cs:
     id: 33bdbde0f10c
     last_write_checksum: sha1:93e3a2259b02b989bc2d545465e77aff91a2d0fb
     pristine_git_object: 5b74d6345db5b57e7cbf04b136c7660a0f75fe65
   src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj:
     id: d71088a7b435
-    last_write_checksum: sha1:a0c281666cf6e19fbcb0be7ec4d3368dd2c0049d
-    pristine_git_object: f888e9fcebd6ecbddd9ac02661302a88727cd694
+    last_write_checksum: sha1:6e5130b1691b11168685a7b316bd003def7db3b0
+    pristine_git_object: 550027f19d6273206e0f4514f94ef8875082cee5
   src/DailyPay/SDK/DotNet8/Health.cs:
     id: fb0259ce69d2
-    last_write_checksum: sha1:9ba9d86b185d407bbdb52271b1202c8cfe3e81e5
-    pristine_git_object: 01bf34c1c93caf88eff6629df6a41d712be1f44a
+    last_write_checksum: sha1:d360dab46031f597800dff9280da99f0cf0d0339
+    pristine_git_object: f4c8a9accfb842f1befa2a1df2f6d41ae10ef538
   src/DailyPay/SDK/DotNet8/Hooks/ClientCredentials/ClientCredentials.cs:
     id: a7f9fd790020
     last_write_checksum: sha1:9d8a2e9df6b6b98a3f6705bf94b6cf3f97247cc4
@@ -881,8 +881,8 @@ trackedFiles:
     pristine_git_object: 5173f31b1eec9a900f018bd74ade926008e2975c
   src/DailyPay/SDK/DotNet8/Jobs.cs:
     id: a842331f40bd
-    last_write_checksum: sha1:a5a8d4f174230d3d43108ba7c07e0cf29b14093a
-    pristine_git_object: 1844898da2a666e1c73ada15a4606490d417c380
+    last_write_checksum: sha1:cd87d6e21c3c3fa37f4f1c3c11ad7f706ad378f0
+    pristine_git_object: 26578e450cf115282c2a33495a172a7534576158
   src/DailyPay/SDK/DotNet8/Models/Components/AccountAttributes.cs:
     id: 12dfccaa19d4
     last_write_checksum: sha1:1dcfe02c1e416de930baec394b894c55d663a69d
@@ -1661,28 +1661,28 @@ trackedFiles:
     pristine_git_object: 378bf4c0ceb58cdd6615f548540210b4b12a4ff6
   src/DailyPay/SDK/DotNet8/Organizations.cs:
     id: 2e36c7c75feb
-    last_write_checksum: sha1:5ef50dbbead5436b8e3c29099d5ecb9eeee81ceb
-    pristine_git_object: ae0bd77ff0aca4ed39bfc7e943a419e69a81067e
+    last_write_checksum: sha1:f4297fb41f8ba09bc8287855c32cba67c9add940
+    pristine_git_object: db429c0ba5d9e99a062f646d33d55e55b8f937af
   src/DailyPay/SDK/DotNet8/Paychecks.cs:
     id: 820826db3d1f
-    last_write_checksum: sha1:3578add086537155f674586ec2fb3775442de5a9
-    pristine_git_object: c576a5f2744da7b7435ff41eec97f062739fbfe5
+    last_write_checksum: sha1:db7f621c345a95e82194e3b690addfcdc04169f0
+    pristine_git_object: 05c38645b238fffb4ffa99fc3531d54c94800b75
   src/DailyPay/SDK/DotNet8/People.cs:
     id: 95cd93056f17
-    last_write_checksum: sha1:386de3172dcd28515132cc647c75de7b961bbc9e
-    pristine_git_object: a2339f53215e86665fa281352630c5944d5209da
+    last_write_checksum: sha1:0652595d270625df4ac3d1c220841c298b056dde
+    pristine_git_object: df72b9650d8aab69da7403de16d3bf8b916a0d32
   src/DailyPay/SDK/DotNet8/SDK.cs:
     id: 998dec3c6052
     last_write_checksum: sha1:869b8682d8b1f2cb15a5ef5a041c91da7f67b110
     pristine_git_object: 8854125cc53975f1904a0c739f145f2ea39ff55c
   src/DailyPay/SDK/DotNet8/SDKConfig.cs:
     id: c09546b14174
-    last_write_checksum: sha1:b1954c7950204e9e770dbb4e96e12c82a262d087
-    pristine_git_object: b888d08fc0bd3673be550535a457fa7adf06b3ce
+    last_write_checksum: sha1:b018fc46f2ebc1df0dc2f4cda3b3e72a3552a551
+    pristine_git_object: 5f33fd336aba4c9a93caf61b28d46ad6393c54be
   src/DailyPay/SDK/DotNet8/Transfers.cs:
     id: 8903f361761b
-    last_write_checksum: sha1:6c52e4e3e2ebe579bd3237e3137b90a553fb2140
-    pristine_git_object: 405a6e26d42151c5a3f0c23f60af096322d6b008
+    last_write_checksum: sha1:f25b84bbb7e57da869ed8971b665e28a3813933f
+    pristine_git_object: 8f463da75be96471f33f9c253e1c139d377decaf
   src/DailyPay/SDK/DotNet8/Utils/AnyDeserializer.cs:
     id: 0ba551511384
     last_write_checksum: sha1:a59d6d63cf4732ba74c3b478d05053af2c0ca04d
@@ -1693,8 +1693,8 @@ trackedFiles:
     pristine_git_object: e8d8e211925c323a04368d2c5adc0e348136a938
   src/DailyPay/SDK/DotNet8/Utils/Constants.cs:
     id: 70004969cc40
-    last_write_checksum: sha1:3a0e12f56ac065eb9a0935abf5d32ad149ba184d
-    pristine_git_object: a3253b5ea788338e7fc780f34c832ef7f6968a93
+    last_write_checksum: sha1:9dcb2ebb8a212b278579937cbdf9f4b9e935cb67
+    pristine_git_object: 466a689308d42350162614705f86c406b325fc02
   src/DailyPay/SDK/DotNet8/Utils/DecimalStrConverter.cs:
     id: 831d5186da94
     last_write_checksum: sha1:5a77efa222c98c0d9cec7e9b356bfbcc503ee580
@@ -1741,24 +1741,24 @@ trackedFiles:
     pristine_git_object: e86c7da6be6c090473e2d80b01180e04ac99f3d2
   src/DailyPay/SDK/DotNet8/Utils/SecurityMetadata.cs:
     id: a3e580bd7470
-    last_write_checksum: sha1:3fd04f734026dc0715691e4ea5313c2bb0cb76c3
-    pristine_git_object: 3a3a845b7e91aaf45aca125c7f2807af7ef4748a
+    last_write_checksum: sha1:1d01c1cfff2b4b62bf39944624d2ba4dd35101db
+    pristine_git_object: 23351eed2071d7325035dfcac19901a61dc2aae7
   src/DailyPay/SDK/DotNet8/Utils/SpeakeasyHttpClient.cs:
     id: 51965e10f48f
     last_write_checksum: sha1:be24a9127b7aca56aceb066f2f6e2baf1f7d24af
     pristine_git_object: 61c03a12b5419f337a71729df808bdc8e4d0f645
   src/DailyPay/SDK/DotNet8/Utils/SpeakeasyMetadata.cs:
     id: 31a0f0d7da8e
-    last_write_checksum: sha1:7832330c35b96a7d505415ef0ad7bbd67138c1df
-    pristine_git_object: 6973b95c3550b8ce55b15db05a3f97138c7cfb3e
+    last_write_checksum: sha1:c28ec175f443dd434be576956492b912cb20ba78
+    pristine_git_object: f885635b7622acb67a81cccdd17a29cbfa63bd70
   src/DailyPay/SDK/DotNet8/Utils/URLBuilder.cs:
     id: 45c8fea565f6
     last_write_checksum: sha1:8a43af7b859aed2601c67f3e60337fc40b787bda
     pristine_git_object: 8d8e758e09dda9616331836340e0d16690143acd
   src/DailyPay/SDK/DotNet8/Utils/Utilities.cs:
     id: bd5d69dd4d6d
-    last_write_checksum: sha1:8d2dfded1f6c23b4f5726424b37480148ffbf1c4
-    pristine_git_object: 8c7fbc4a1de631bd30df4b9e09a0c95e5f14680c
+    last_write_checksum: sha1:a379a58cea9300f9aa94b6cb0b4d89e74229745b
+    pristine_git_object: d288a6b15bee9c304d5c59f2a06d30bc65df2cdf
 examples:
   requestToken:
     speakeasy-default-request-token:

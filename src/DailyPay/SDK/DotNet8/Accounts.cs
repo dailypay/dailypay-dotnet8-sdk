@@ -41,7 +41,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get an Account object.
         /// </summary>
         /// <remarks>
-        /// Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.<br/>
+        /// <para>If set, this operation will use either <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> or <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadAccountRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -61,7 +62,9 @@ namespace DailyPay.SDK.DotNet8
         /// Get a list of Account objects.
         /// </summary>
         /// <remarks>
-        /// Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.<br/>
+        /// <br/>
+        /// <para>If set, this operation will use either <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> or <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ListAccountsRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -82,7 +85,8 @@ namespace DailyPay.SDK.DotNet8
         /// Create an Account object.
         /// </summary>
         /// <remarks>
-        /// Create an account object to store a person's bank or card information as a destination for funds.
+        /// Create an account object to store a person's bank or card information as a destination for funds.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="CreateAccountRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -128,7 +132,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get an Account object.
         /// </summary>
         /// <remarks>
-        /// Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.<br/>
+        /// <para>If set, this operation will use either <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> or <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadAccountRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -161,7 +166,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthClientCredentialsToken", "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readAccount", new List<string> { "client:lookup", "client:admin" }, SDKConfiguration.SecuritySource);
@@ -381,7 +386,9 @@ namespace DailyPay.SDK.DotNet8
         /// Get a list of Account objects.
         /// </summary>
         /// <remarks>
-        /// Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+        /// Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.<br/>
+        /// <br/>
+        /// <para>If set, this operation will use either <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthClientCredentialsToken"/> or <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ListAccountsRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -418,7 +425,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthClientCredentialsToken", "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listAccounts", new List<string> { "client:lookup", "client:admin" }, SDKConfiguration.SecuritySource);
@@ -618,7 +625,8 @@ namespace DailyPay.SDK.DotNet8
         /// Create an Account object.
         /// </summary>
         /// <remarks>
-        /// Create an account object to store a person's bank or card information as a destination for funds.
+        /// Create an account object to store a person's bank or card information as a destination for funds.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="CreateAccountRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -659,7 +667,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "createAccount", null, SDKConfiguration.SecuritySource);
