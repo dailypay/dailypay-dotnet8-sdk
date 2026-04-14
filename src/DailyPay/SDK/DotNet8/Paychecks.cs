@@ -39,7 +39,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get a Paycheck object.
         /// </summary>
         /// <remarks>
-        /// Returns details about a paycheck object.
+        /// Returns details about a paycheck object.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadPaycheckRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -59,7 +60,9 @@ namespace DailyPay.SDK.DotNet8
         /// Get a list of paycheck objects.
         /// </summary>
         /// <remarks>
-        /// Returns a collection of paycheck objects. This object details a person's pay and pay period.
+        /// Returns a collection of paycheck objects. This object details a person's pay and pay period.<br/>
+        /// <br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ListPaychecksRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -105,7 +108,8 @@ namespace DailyPay.SDK.DotNet8
         /// Get a Paycheck object.
         /// </summary>
         /// <remarks>
-        /// Returns details about a paycheck object.
+        /// Returns details about a paycheck object.<br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ReadPaycheckRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -138,7 +142,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "readPaycheck", null, SDKConfiguration.SecuritySource);
@@ -358,7 +362,9 @@ namespace DailyPay.SDK.DotNet8
         /// Get a list of paycheck objects.
         /// </summary>
         /// <remarks>
-        /// Returns a collection of paycheck objects. This object details a person's pay and pay period.
+        /// Returns a collection of paycheck objects. This object details a person's pay and pay period.<br/>
+        /// <br/>
+        /// <para>If set, this operation will use <see cref="DailyPay.SDK.DotNet8.Models.Components.Security.OauthUserToken"/> from the global security.</para>
         /// </remarks>
         /// <param name="request">A <see cref="ListPaychecksRequest"/> parameter.</param>
         /// <param name="retryConfig">The retry configuration to use for this operation.</param>
@@ -395,7 +401,7 @@ namespace DailyPay.SDK.DotNet8
 
             if (SDKConfiguration.SecuritySource != null)
             {
-                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource).Apply(httpRequest);
+                httpRequest = new SecurityMetadata(SDKConfiguration.SecuritySource, new string[] { "OauthUserToken" }).Apply(httpRequest);
             }
 
             var hookCtx = new HookContext(SDKConfiguration, baseUrl, "listPaychecks", null, SDKConfiguration.SecuritySource);
