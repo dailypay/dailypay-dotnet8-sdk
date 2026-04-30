@@ -15,7 +15,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     public class FundingSourceAttributes
     {
         /// <summary>
-        /// A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
+        /// The amount of money from the related paycheck allocated towards funding the related transfer.<br/>
+        /// <br/>
+        /// A monetary quantity expressed in units of the lowest denomination in the<br/>
+        /// associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
         /// </summary>
         [JsonProperty("amount")]
         public long Amount { get; set; } = default!;
