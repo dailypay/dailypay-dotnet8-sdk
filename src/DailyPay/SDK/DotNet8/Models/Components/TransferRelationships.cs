@@ -26,15 +26,31 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         [JsonProperty("origin", NullValueHandling = NullValueHandling.Include)]
         public Origin Origin { get; set; } = default!;
 
+        /// <summary>
+        /// The account to which funds are transferred. <br/>
+        /// <br/>
+        /// User-created transfers should have a destination Account with `account_type` `DEPOSITORY` or `CARD`.
+        /// </summary>
         [JsonProperty("destination")]
         public AccountRelationship Destination { get; set; } = default!;
 
         [JsonProperty("person")]
         public PersonRelationship Person { get; set; } = default!;
 
+        /// <summary>
+        /// On user-created transfers, details the paychecks that are likely to be used to reimburse this transfer. <br/>
+        /// <br/>
+        /// The paychecks impacted, and final amount allocated from each paycheck is subject to change. <br/>
+        /// See `final_funding_sources` for the final allocations.
+        /// </summary>
         [JsonProperty("estimated_funding_sources")]
         public FundingSourcesRelationship EstimatedFundingSources { get; set; } = default!;
 
+        /// <summary>
+        /// On user-created transfers, details the paychecks that were used to reimburse this transfer and the amount allocated from each paycheck.<br/>
+        /// <br/>
+        /// If this relationship has members, its members and their values are immutable.
+        /// </summary>
         [JsonProperty("final_funding_sources")]
         public FundingSourcesRelationship FinalFundingSources { get; set; } = default!;
     }

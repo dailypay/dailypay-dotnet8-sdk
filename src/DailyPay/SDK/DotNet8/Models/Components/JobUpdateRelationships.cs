@@ -18,9 +18,15 @@ namespace DailyPay.SDK.DotNet8.Models.Components
     /// </summary>
     public class JobUpdateRelationships
     {
+        /// <summary>
+        /// The `DEPOSITORY` account to which paychecks from this job will attempt to be deposited.
+        /// </summary>
         [JsonProperty("direct_deposit_default_depository")]
         public AccountRelationship? DirectDepositDefaultDepository { get; set; }
 
+        /// <summary>
+        /// The `CARD` account to which paychecks from this job will attempt to be deposited, if the `DEPOSITORY` account fails.
+        /// </summary>
         [JsonProperty("direct_deposit_default_card")]
         public AccountRelationship? DirectDepositDefaultCard { get; set; }
     }

@@ -28,6 +28,8 @@ namespace DailyPay.SDK.DotNet8.Models.Components
         public bool? Preview { get; set; } = false;
 
         /// <summary>
+        /// The amount of funds requested to move from the origin account to the destination account. Any fees will be subtracted from this amount prior to landing in the destination account.<br/>
+        /// <br/>
         /// A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
         /// </summary>
         [JsonProperty("amount")]

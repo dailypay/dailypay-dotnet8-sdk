@@ -15,9 +15,17 @@ namespace DailyPay.SDK.DotNet8.Models.Components
 
     public class TransferCreateRelationships
     {
+        /// <summary>
+        /// User-created transfers must originate from an Account with `account_type` `EARNINGS_BALANCE`.
+        /// </summary>
         [JsonProperty("origin")]
         public AccountRelationship Origin { get; set; } = default!;
 
+        /// <summary>
+        /// The account to which funds are transferred. <br/>
+        /// <br/>
+        /// User-created transfers should have a destination Account with `account_type` `DEPOSITORY` or `CARD`.
+        /// </summary>
         [JsonProperty("destination")]
         public AccountRelationship? Destination { get; set; }
 
