@@ -105,6 +105,29 @@ actions:
             var res = await sdk.Accounts.CreateAsync(req);
 
             // handle response
+  - target: $["paths"]["/rest/accounts/{account_id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: C#
+          source: |-
+            using DailyPay.SDK.DotNet8;
+            using DailyPay.SDK.DotNet8.Models.Components;
+            using DailyPay.SDK.DotNet8.Models.Requests;
+
+            var sdk = new SDK(
+                version: 3,
+                security: new Security() {
+                    OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+                }
+            );
+
+            DeleteAccountRequest req = new DeleteAccountRequest() {
+                AccountId = "2bc7d781-3247-46f6-b60f-4090d214936a",
+            };
+
+            var res = await sdk.Accounts.DeleteAccountAsync(req);
+
+            // handle response
   - target: $["paths"]["/rest/accounts/{account_id}"]["get"]
     update:
       x-codeSamples:

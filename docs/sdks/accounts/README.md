@@ -18,6 +18,7 @@ details associated with each account.
 ### Available Operations
 
 * [Read](#read) - Get an Account object
+* [DeleteAccount](#deleteaccount) - Delete an Account
 * [List](#list) - Get a list of Account objects
 * [Create](#create) - Create an Account object
 
@@ -62,6 +63,55 @@ var res = await sdk.Accounts.ReadAsync(req);
 ### Response
 
 **[ReadAccountResponse](../../Models/Requests/ReadAccountResponse.md)**
+
+### Errors
+
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorBadRequest   | 400                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnauthorized | 401                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorForbidden    | 403                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorNotFound     | 404                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.ErrorUnexpected   | 500                                                  | application/vnd.api+json                             |
+| DailyPay.SDK.DotNet8.Models.Errors.APIException      | 4XX, 5XX                                             | \*/\*                                                |
+
+## DeleteAccount
+
+Removes a previously added DEPOSITORY or CARD account. EARNINGS_BALANCE accounts cannot be deleted.
+
+### Example Usage
+
+<!-- UsageSnippet language="csharp" operationID="deleteAccount" method="delete" path="/rest/accounts/{account_id}" -->
+```csharp
+using DailyPay.SDK.DotNet8;
+using DailyPay.SDK.DotNet8.Models.Components;
+using DailyPay.SDK.DotNet8.Models.Requests;
+
+var sdk = new SDK(
+    version: 3,
+    security: new Security() {
+        OauthUserToken = "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    }
+);
+
+DeleteAccountRequest req = new DeleteAccountRequest() {
+    AccountId = "2bc7d781-3247-46f6-b60f-4090d214936a",
+};
+
+var res = await sdk.Accounts.DeleteAccountAsync(req);
+
+// handle response
+```
+
+### Parameters
+
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `request`                                                             | [DeleteAccountRequest](../../Models/Requests/DeleteAccountRequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
+
+### Response
+
+**[DeleteAccountResponse](../../Models/Requests/DeleteAccountResponse.md)**
 
 ### Errors
 
