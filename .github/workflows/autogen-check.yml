@@ -1,0 +1,26 @@
+name: Autogen Check
+
+on:
+  workflow_call:
+    outputs:
+      autogen:
+        description: "Whether the push was made by github-actions[bot]"
+        value: ${{ jobs.autogen-check.outputs.autogen }}
+
+jobs:
+  autogen-check:
+    runs-on: ubuntu-latest
+    outputs:
+      autogen: ${{ steps.check_autogen.outputs.autogen }}
+    steps:
+      - name: Check if push is from bot
+        id: check_autogen
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          if [ "$ACTOR" = "github-actions[bot]" ]; then
+            echo "autogen=true" >> $GITHUB_OUTPUT
+          else
+            echo "autogen=false" >> $GITHUB_OUTPUT
+            echo "This push was not made by Speakeasy's Generate SDK GitHub Action. Skipping publish steps."
+          fi
