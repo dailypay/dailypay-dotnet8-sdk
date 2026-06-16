@@ -186,6 +186,10 @@ namespace DailyPay.SDK.DotNet8.Models.Components
                     writer.WriteRawValue(Utilities.SerializeJSON(res.AccountCreateAttributesDepository));
                     return;
                 }
+
+                throw new InvalidOperationException(
+                    "Could not serialize union to JSON: no variant value was set. " +
+                    "Construct this union using one of the Create* factory methods.");
             }
 
         }
