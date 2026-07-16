@@ -469,3 +469,13 @@ Based on:
 - [csharp v0.11.22] .
 ### Releases
 - [NuGet v0.11.22] https://www.nuget.org/packages/DailyPay.SDK.DotNet8/0.11.22 - .
+
+## 2026-07-16 13:25:41
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.790.2 (2.918.3) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [csharp v0.11.23] .
+### Releases
+- [NuGet v0.11.23] https://www.nuget.org/packages/DailyPay.SDK.DotNet8/0.11.23 - .
