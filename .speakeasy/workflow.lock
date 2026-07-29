@@ -1,12 +1,12 @@
-speakeasyVersion: 1.790.2
+speakeasyVersion: 1.791.0
 sources:
     cloud:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:92768bba1ec9b0d4ef4ec5612e17b7242febf2bc6b56c057c02e7515ed79e757
-        sourceBlobDigest: sha256:0ca34c7ccfdb163f2b53eca604748fbff07b978da843ffaf8d6ad3404c206af0
+        sourceRevisionDigest: sha256:dcea91fb25524232bbb2a885fc401e9f4fa57a5526ad9175dbea3a2706b313bc
+        sourceBlobDigest: sha256:e8bd6e38274be4195ad062d3c47ed49412d9859c6879c114f074f7be4f79abce
         tags:
             - latest
-            - 3.0.0-beta.118
+            - 3.0.0-beta.119
     local:
         sourceNamespace: xapi
         sourceRevisionDigest: sha256:22ac5fa45f8a149986459f020e3272b727a32b0c6a7078e5c0b371bf7939e7d6
@@ -19,10 +19,10 @@ targets:
     csharp:
         source: cloud
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:92768bba1ec9b0d4ef4ec5612e17b7242febf2bc6b56c057c02e7515ed79e757
-        sourceBlobDigest: sha256:0ca34c7ccfdb163f2b53eca604748fbff07b978da843ffaf8d6ad3404c206af0
+        sourceRevisionDigest: sha256:dcea91fb25524232bbb2a885fc401e9f4fa57a5526ad9175dbea3a2706b313bc
+        sourceBlobDigest: sha256:e8bd6e38274be4195ad062d3c47ed49412d9859c6879c114f074f7be4f79abce
         codeSamplesNamespace: xapi-dotnet8-code-samples
-        codeSamplesRevisionDigest: sha256:8b61dd5b32291f94829bfa01672897e7c51474903341be91c7fb683579f7cf8d
+        codeSamplesRevisionDigest: sha256:3bb5de50b7e22722f9a423b9903bafebf79570f549466eb2596321c9bf6b78f5
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
