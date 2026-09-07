@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: 29aa53b5b234dbf62cb051e8551b319b
-  docVersion: 3.0.0-beta.121
-  speakeasyVersion: 1.795.0
-  generationVersion: 2.931.0
-  releaseVersion: 0.12.1
-  configChecksum: 795004ecfe2a83630dcf8a3e939c141e
+  docChecksum: 2898e03861accdacbb348ad88344b1f8
+  docVersion: 3.0.0-beta.122
+  speakeasyVersion: 1.796.4
+  generationVersion: 2.935.1
+  releaseVersion: 0.12.2
+  configChecksum: 6f418a9cc907337609486a918ea85e08
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
   installationURL: https://github.com/dailypay/dailypay-dotnet8-sdk
 persistentEdits:
-  generation_id: c8d8d546-1c1a-4f2d-81b9-ad364c2cba04
-  pristine_commit_hash: 59d8bfde736ed61ac78d74807ceeccdd2001f4b3
-  pristine_tree_hash: 8b3981a7d899f5755ad8e4f9f072ca7ecaaccd54
+  generation_id: d93ba473-c0a3-40f0-aea8-c0a34f5a16c9
+  pristine_commit_hash: 428a5b5234f82ff816429bf16626fa3afdd67f63
+  pristine_tree_hash: be2f6c35209ac55e169d92dd49e7d348ccbc84fd
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.3
-    core: 3.15.27
+    core: 3.15.28
     deprecations: 2.81.2
     examples: 2.81.8
     globalSecurity: 2.83.11
@@ -31,7 +31,7 @@ features:
     nullables: 0.1.1
     oauth2ClientCredentials: 1.1.5
     responseFormat: 0.0.4
-    retries: 0.0.3
+    retries: 0.0.4
     sdkHooks: 0.3.0
     unions: 1.2.1
 trackedFiles:
@@ -865,8 +865,8 @@ trackedFiles:
     pristine_git_object: 5b74d6345db5b57e7cbf04b136c7660a0f75fe65
   src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj:
     id: d71088a7b435
-    last_write_checksum: sha1:beee2363bab5ba292eacaac0a01214cafca93399
-    pristine_git_object: 9b28356f43eff0322cc5a925c1d312a0b4e2fced
+    last_write_checksum: sha1:4422e7d5617d300665eec994f72aff2c3f52dcc4
+    pristine_git_object: c93e99c2b9d20733d0dd807be056b7800729602b
   src/DailyPay/SDK/DotNet8/Health.cs:
     id: fb0259ce69d2
     last_write_checksum: sha1:d360dab46031f597800dff9280da99f0cf0d0339
@@ -1693,8 +1693,8 @@ trackedFiles:
     pristine_git_object: 8854125cc53975f1904a0c739f145f2ea39ff55c
   src/DailyPay/SDK/DotNet8/SDKConfig.cs:
     id: c09546b14174
-    last_write_checksum: sha1:20a6d24102aa5814dc5b7fc81d09933b5222263a
-    pristine_git_object: 61f520fada95088a45836cbe2ba2940b091691b6
+    last_write_checksum: sha1:1f93698c601974126dec9d00befc0197e605f6dd
+    pristine_git_object: aff2408ad035fc91d8dfab7b2b31a632d1bcbf57
   src/DailyPay/SDK/DotNet8/Transfers.cs:
     id: 8903f361761b
     last_write_checksum: sha1:f25b84bbb7e57da869ed8971b665e28a3813933f
@@ -1709,8 +1709,8 @@ trackedFiles:
     pristine_git_object: e8d8e211925c323a04368d2c5adc0e348136a938
   src/DailyPay/SDK/DotNet8/Utils/Constants.cs:
     id: 70004969cc40
-    last_write_checksum: sha1:fcaf8d4d4e188d22d608677c1666a9f269d58a64
-    pristine_git_object: 300d0a998c54d74f0834bb511eb437256201a5e5
+    last_write_checksum: sha1:445bd91f5fe2c5fac3eee3abf2d6fa5934dbb3ef
+    pristine_git_object: ff99d810c8e9b7d2cc2751702d96888d3fc0528d
   src/DailyPay/SDK/DotNet8/Utils/DecimalStrConverter.cs:
     id: 831d5186da94
     last_write_checksum: sha1:5a77efa222c98c0d9cec7e9b356bfbcc503ee580
@@ -1769,12 +1769,12 @@ trackedFiles:
     pristine_git_object: 61c03a12b5419f337a71729df808bdc8e4d0f645
   src/DailyPay/SDK/DotNet8/Utils/SpeakeasyMetadata.cs:
     id: 31a0f0d7da8e
-    last_write_checksum: sha1:c28ec175f443dd434be576956492b912cb20ba78
-    pristine_git_object: f885635b7622acb67a81cccdd17a29cbfa63bd70
+    last_write_checksum: sha1:4df060d5a239640c589dbb97d55abc32c51af773
+    pristine_git_object: d6f46fbfab31d9d0b2e9ac30d98973035bb6e99b
   src/DailyPay/SDK/DotNet8/Utils/URLBuilder.cs:
     id: 45c8fea565f6
-    last_write_checksum: sha1:8a43af7b859aed2601c67f3e60337fc40b787bda
-    pristine_git_object: 8d8e758e09dda9616331836340e0d16690143acd
+    last_write_checksum: sha1:a288ea97fa92890568b2730679c912073abb686f
+    pristine_git_object: 4f64e70f8549ac423ec7a2ab15a1772b05c0c275
   src/DailyPay/SDK/DotNet8/Utils/Utilities.cs:
     id: bd5d69dd4d6d
     last_write_checksum: sha1:a18ffa047ba1e2df13e27cce3e6476c3a0a5a3bf
