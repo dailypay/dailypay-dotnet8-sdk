@@ -31,10 +31,11 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 csharp:
-  version: 0.12.6
+  version: 0.12.7
   additionalDependencies: []
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
+  bodyVariantOverloads: false
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIException
   disableNamespacePascalCasingApr2024: true
@@ -64,11 +65,13 @@ csharp:
   outputModelSuffix: output
   packageName: DailyPay.SDK.DotNet8
   packageTags: ""
+  partialTypes: false
   presenceAwareJsonSerialization: false
   respectTitlesForPrimitiveUnionMembers: false
   responseFormat: envelope-http
   schemaValidation: strict
   sourceDirectory: src
   targetFramework: dotnetVersion
+  unionImplicitConversions: false
   unionStrategy: left-to-right
   useNodatime: true

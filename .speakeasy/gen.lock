@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 09a1425f-9f6e-43a5-871b-3251824a988a
 management:
-  docChecksum: bfb2fa718627bbc3c4bb9642acf28acb
-  docVersion: 3.0.0-beta.128
-  speakeasyVersion: 1.805.0
-  generationVersion: 2.954.8
-  releaseVersion: 0.12.6
-  configChecksum: 17a088d99c784b3e0f2f463597c3e0e4
+  docChecksum: dc41e0ae47487c736403d4767af07aa1
+  docVersion: 3.0.0-beta.132
+  speakeasyVersion: 1.809.0
+  generationVersion: 2.961.1
+  releaseVersion: 0.12.7
+  configChecksum: a39615240c29873a899c5946a3224698
   repoURL: https://github.com/dailypay/dailypay-dotnet8-sdk.git
   installationURL: https://github.com/dailypay/dailypay-dotnet8-sdk
 persistentEdits:
-  generation_id: 1a8c779a-d0c6-4cf0-9c14-b9fe17f196d3
-  pristine_commit_hash: 8a6a06f05a137d0ad9f0dcddef39ba09c802a1b4
-  pristine_tree_hash: 81be19df4c9e8fc8bebe402ebbb202d93decb549
+  generation_id: 9406c9e6-318a-4973-9c0a-8bba50572d57
+  pristine_commit_hash: 9224187cf673835eda33bee64fe46252e798c036
+  pristine_tree_hash: 41ccd6eeb4c207ac134218f1deaeeebfba0d43b5
 features:
   csharp:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.0.3
-    core: 3.15.29
+    core: 3.15.30
     deprecations: 2.81.2
     examples: 2.81.8
     globalSecurity: 2.83.11
@@ -33,7 +33,7 @@ features:
     responseFormat: 0.0.4
     retries: 0.0.4
     sdkHooks: 0.3.0
-    unions: 1.2.3
+    unions: 1.2.5
 trackedFiles:
   .gitattributes:
     id: 24139dae6567
@@ -821,8 +821,8 @@ trackedFiles:
     pristine_git_object: 606b396f348e96c657d1c0eca1c28264dbb1ed65
   docs/sdks/accounts/README.md:
     id: d6c754b1ca96
-    last_write_checksum: sha1:04292af5bd533df5e7c943e10fcd38ab934ac1d2
-    pristine_git_object: 496d8ad85d7025df67fcd6ebc0ae1da554be12ea
+    last_write_checksum: sha1:4ae2014261dc7696a4ac00eee441ab7840e2d792
+    pristine_git_object: ce94d7823d8fa6ca3011c79132154f54efe1e8a4
   docs/sdks/cardtokenization/README.md:
     id: 43823e4558a8
     last_write_checksum: sha1:52100e9b1893fd564c95f0cba9ed2dc361e9dadc
@@ -857,16 +857,16 @@ trackedFiles:
     pristine_git_object: ef3195af86a7d6ef1e34296c380fd52d85b696fd
   src/DailyPay/SDK/DotNet8/Accounts.cs:
     id: abed85894ac9
-    last_write_checksum: sha1:d3df4cda9a6c990e388b65a515efe234c8d880b8
-    pristine_git_object: fdd645f7d0c1cc0ecff33cfcc01110513917c8bf
+    last_write_checksum: sha1:9766ed38050ba3a44c67a9d1733c96bc660385e0
+    pristine_git_object: d4aba02a873feef3b9eaee18dda8e14c2adf057b
   src/DailyPay/SDK/DotNet8/CardTokenization.cs:
     id: 33bdbde0f10c
     last_write_checksum: sha1:93e3a2259b02b989bc2d545465e77aff91a2d0fb
     pristine_git_object: 5b74d6345db5b57e7cbf04b136c7660a0f75fe65
   src/DailyPay/SDK/DotNet8/DailyPay.SDK.DotNet8.csproj:
     id: d71088a7b435
-    last_write_checksum: sha1:2ee888c175223136d0e636edec5bb3a1b24e7b76
-    pristine_git_object: 7aee9595de4ae406140d01139b0a5449f8613c2e
+    last_write_checksum: sha1:816c3b57ea81bb2607772482a1606a4f50ef37a9
+    pristine_git_object: 16d0c5fdc25a3b12d1ae84124ff432413fa8f489
   src/DailyPay/SDK/DotNet8/Health.cs:
     id: fb0259ce69d2
     last_write_checksum: sha1:d360dab46031f597800dff9280da99f0cf0d0339
@@ -1693,8 +1693,8 @@ trackedFiles:
     pristine_git_object: 8854125cc53975f1904a0c739f145f2ea39ff55c
   src/DailyPay/SDK/DotNet8/SDKConfig.cs:
     id: c09546b14174
-    last_write_checksum: sha1:af0a4f5c2ab6b2071a85d15e17f623fdff306ccf
-    pristine_git_object: 61c5e818111ea24d8451b9434f4134b339393603
+    last_write_checksum: sha1:910bd7e46bc31f78bff49bb06458623f11e89873
+    pristine_git_object: 30ef4f16623336045148f3142c55437719c9d0bc
   src/DailyPay/SDK/DotNet8/Transfers.cs:
     id: 8903f361761b
     last_write_checksum: sha1:f25b84bbb7e57da869ed8971b665e28a3813933f
@@ -1709,8 +1709,8 @@ trackedFiles:
     pristine_git_object: e8d8e211925c323a04368d2c5adc0e348136a938
   src/DailyPay/SDK/DotNet8/Utils/Constants.cs:
     id: 70004969cc40
-    last_write_checksum: sha1:e5069af6056b4f3954d5e2b4f1686515254fdead
-    pristine_git_object: 6cda16eb3943c2cb3106894ef44e2c8bc4491ab6
+    last_write_checksum: sha1:378bf0e93783a55d4d3a50d5c536373c6ae09d88
+    pristine_git_object: ad3bf3a73c13ca3f229f070139096c5dc587df92
   src/DailyPay/SDK/DotNet8/Utils/DecimalStrConverter.cs:
     id: 831d5186da94
     last_write_checksum: sha1:5a77efa222c98c0d9cec7e9b356bfbcc503ee580
@@ -1977,6 +1977,8 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+        "409":
+          application/vnd.api+json: {"errors": [{"code": "IDEMPOTENCY_KEY_LOCKED", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
     Card:
       parameters:
         header:
@@ -1994,6 +1996,8 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+        "409":
+          application/vnd.api+json: {"errors": [{"code": "IDEMPOTENCY_KEY_LOCKED", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
     speakeasy-default-create-account:
       parameters:
         header:
@@ -2011,6 +2015,8 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+        "409":
+          application/vnd.api+json: {"errors": [{"code": "IDEMPOTENCY_KEY_LOCKED", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
   readTransfer:
     speakeasy-default-read-transfer:
       parameters:
@@ -2300,6 +2306,9 @@ examples:
           application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: |
+  ## Csharp SDK Changes:
+  * `Sdk.Accounts.Create()`:  `error` **Changed**
 generatedFiles:
   - .gitattributes
   - DailyPay.SDK.DotNet8.sln
