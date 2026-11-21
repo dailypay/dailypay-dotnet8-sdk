@@ -121,7 +121,8 @@ namespace DailyPay.SDK.DotNet8
         /// <exception cref="AccountCreateError">The request contained an error. Thrown when the API returns a 400 response.</exception>
         /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
         /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
-        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="ErrorConflict">A conflict occurred with the current state of the resource. Thrown when the API returns a 409 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 or 503 response.</exception>
         /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
         public  Task<CreateAccountResponse> CreateAsync(CreateAccountRequest request, RetryConfig? retryConfig = null);
     }
@@ -900,7 +901,8 @@ namespace DailyPay.SDK.DotNet8
         /// <exception cref="AccountCreateError">The request contained an error. Thrown when the API returns a 400 response.</exception>
         /// <exception cref="ErrorUnauthorized">Invalid authentication credentials. Thrown when the API returns a 401 response.</exception>
         /// <exception cref="ErrorForbidden">Not authorized to perform this operation. Thrown when the API returns a 403 response.</exception>
-        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 response.</exception>
+        /// <exception cref="ErrorConflict">A conflict occurred with the current state of the resource. Thrown when the API returns a 409 response.</exception>
+        /// <exception cref="ErrorUnexpected">Unexpected error occured. Thrown when the API returns a 500 or 503 response.</exception>
         /// <exception cref="APIException">Default API Exception. Thrown when the API returns a 4XX or 5XX response.</exception>
         public async  Task<CreateAccountResponse> CreateAsync(
             CreateAccountRequest request,
@@ -1093,7 +1095,27 @@ namespace DailyPay.SDK.DotNet8
 
                 throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
             }
-            else if(responseStatusCode == 500)
+            else if(responseStatusCode == 409)
+            {
+                if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
+                {
+                    var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                    ErrorConflictPayload payload;
+                    try
+                    {
+                        payload = ResponseBodyDeserializer.DeserializeNotNull<ErrorConflictPayload>(httpResponseBody, NullValueHandling.Ignore);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ResponseValidationException("Failed to deserialize response body into ErrorConflictPayload.", httpRequest, httpResponse, httpResponseBody, ex);
+                    }
+
+                    throw new ErrorConflict(payload, httpRequest, httpResponse, httpResponseBody);
+                }
+
+                throw new Models.Errors.APIException("Unknown content type received", httpRequest, httpResponse, await httpResponse.Content.ReadAsStringAsync());
+            }
+            else if(new List<int>{500, 503}.Contains(responseStatusCode))
             {
                 if(Utilities.IsContentTypeMatch("application/vnd.api+json", contentType))
                 {
