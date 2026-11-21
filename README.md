@@ -396,7 +396,7 @@ catch (System.Net.Http.HttpRequestException ex)
 **Primary exceptions:**
 * [`DailyPayError`](./src/DailyPay/SDK/DotNet8/Models/Errors/DailyPayError.cs): The base class for HTTP error responses.
   * [`ErrorUnauthorized`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnauthorized.cs): Invalid authentication credentials. Status code `401`. *
-  * [`ErrorUnexpected`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnexpected.cs): Unexpected error occured. Status code `500`. *
+  * [`ErrorUnexpected`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorUnexpected.cs): Unexpected error occured. *
   * [`ErrorForbidden`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorForbidden.cs): Not authorized to perform this operation. Status code `403`. *
 
 <details><summary>Less common exceptions (8)</summary>
@@ -406,10 +406,10 @@ catch (System.Net.Http.HttpRequestException ex)
 * Inheriting from [`DailyPayError`](./src/DailyPay/SDK/DotNet8/Models/Errors/DailyPayError.cs):
   * [`ErrorBadRequest`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorBadRequest.cs): Bad Request. Status code `400`. Applicable to 13 of 18 methods.*
   * [`ErrorNotFound`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorNotFound.cs): Resource was not found. Status code `404`. Applicable to 9 of 18 methods.*
+  * [`ErrorConflict`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorConflict.cs): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 2 of 18 methods.*
   * [`JobUpdateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/JobUpdateError.cs): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
   * [`AccountCreateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/AccountCreateError.cs): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
   * [`TransferCreateError`](./src/DailyPay/SDK/DotNet8/Models/Errors/TransferCreateError.cs): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
-  * [`ErrorConflict`](./src/DailyPay/SDK/DotNet8/Models/Errors/ErrorConflict.cs): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 18 methods.*
   * [`ResponseValidationError`](./src/DailyPay/SDK/DotNet8/Models/Errors/ResponseValidationError.cs): Thrown when the response data could not be deserialized into the expected type.
 </details>
 
